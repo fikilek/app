@@ -1,0 +1,330 @@
+/* Importing fonts from Google */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+/* common */
+
+.signin-container,
+.signup-container,
+.fpw-container {
+	margin: 80px auto;
+	background-color: #ecf0f3;
+	border-radius: 2rem;
+	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+	font-size: 1.5rem;
+	padding: 10px 15px 10px 10px;
+}
+
+.signin-header,
+.signup-header,
+.fpw-header {
+	position: relative;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 2rem;
+	width: 100%;
+}
+
+.signin-header-title-img,
+.signup-header-title-img,
+.fpw-header-title-img {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+}
+
+.signin-header-close-btn,
+.signup-header-close-btn,
+.fpw-header-close-btn {
+	position: absolute;
+	top: -1rem;
+	right: -1.5rem;
+}
+
+.signin-header-close-btn button,
+.signup-header-close-btn button,
+.fpw-header-close-btn button {
+	font-size: 3rem;
+	color: #fff;
+	background-color: coral;
+	padding: 0 0.9rem;
+	border-radius: 0 20px 0 20px;
+	border: none;
+}
+
+.signin-header-close-btn button:hover,
+.signup-header-close-btn button:hover,
+.fpw-header-close-btn button:hover {
+	cursor: pointer;
+}
+
+.signin-img,
+.signup-img,
+.fpw-img {
+	width: 8rem;
+	border-radius: 50%;
+	box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+		0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+		0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+		0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.signin-form,
+.signup-form
+ {
+	display: grid;
+	grid-template-rows: auto;
+	gap: 2rem;
+}
+
+/* TODO: I dont understand why fpw grid cannot take gap of 2rem */
+.fpw-form
+ {
+	display: grid;
+	grid-template-rows: auto;
+	gap: 1rem;
+}
+
+
+.form-field {
+	display: grid;
+	grid-template-columns: 10% 90%;
+	grid-template-rows: 1fr;
+	height: 4rem;
+	border-radius: 1.2rem;
+	box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+}
+
+.form-field-icon {
+	justify-content: center;
+	align-self: center;
+	margin: auto;
+}
+
+.form-field-email {
+	grid-area: form-field-email;
+	margin: 0;
+}
+
+.form-field-password {
+	grid-area: form-field-password;
+	margin: 0;
+}
+
+.form-field-surname {
+	grid-area: form-field-surname;
+}
+
+.form-field-name {
+	grid-area: form-field-name;
+}
+
+.form-field-role {
+	grid-area: form-field-role;
+	margin: 0;
+}
+
+.form-field-confirm-password {
+	grid-area: form-field-confirmPassword;
+}
+
+.form-btns {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	grid-area: form-btns;
+}
+
+.form-btn {
+	background-color: #bbdeef;
+	color: rgb(71, 71, 71);
+	border-radius: 1.5rem;
+	box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
+	letter-spacing: 1.3px;
+
+	width: 130px;
+	height: 4rem;
+}
+
+.form-field input {
+	border-radius: 0 1.2rem 1.2rem 0;
+	border: none;
+	padding-left: 2rem;
+}
+
+/* signin */
+
+.signin-container {
+	width: 500px;
+}
+
+.signin-form,
+.fpw-form {
+	grid-template-columns: 1fr;
+	grid-template-areas:
+		"form-field-email"
+		"form-field-password "
+		"form-btns";
+}
+
+.signin-container .form-btn:hover {
+	background-color: #9cd9f8;
+}
+
+.signin-footer, .fpw-footer {
+	display: flex;
+	justify-content: space-between;
+	margin: 2rem 0 1rem 0;
+}
+
+.signin-footer a {
+	background-color: #bbdeef;
+	padding: 0.4rem 2rem;
+	border-radius: 2rem;
+}
+
+@media (max-width: 380px) {
+	.signin-container {
+		margin: 30px 20px;
+		padding: 40px 15px 15px 15px;
+	}
+}
+
+.form-signin {
+	display: block;
+}
+
+.form-fpw {
+	display: none;
+}
+
+.signin-show {
+	display: block;
+}
+
+.signin-hide {
+	display: none;
+}
+
+/* signup */
+
+.signup-container {
+	width: 800px;
+}
+
+.signup-form {
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"form-field-name form-field-surname"
+		"form-field-email form-field-role"
+		"form-field-password form-field-confirmPassword"
+		"form-btns form-btns";
+}
+
+.signup-container .form-btn:hover {
+	background-color: #9cd9f8;
+}
+
+.signup-footer, .fpw-footer {
+	display: flex;
+	margin: 2rem 0 1rem 0;
+}
+
+.signup-footer-signin-link,
+.signin-footer-forgotten-link,
+.signin-footer-signup-link,
+.fpw-footer-remembered-pwd-link,
+.fpw-footer-signup-link {
+	background-color: #bbdeef;
+	padding: 0.4rem 2rem;
+	border-radius: 2rem;
+}
+
+@media (max-width: 380px) {
+	.signup-container {
+		margin: 30px 20px;
+		padding: 40px 15px 15px 15px;
+	}
+}
+
+.form-signup {
+	display: block;
+}
+
+.form-fpw {
+	display: none;
+}
+
+.signup-show {
+	display: block;
+}
+
+.signup-hide {
+	display: none;
+}
+
+input:not(:placeholder-shown) {
+	border-color: green;
+}
+
+input:placeholder-shown {
+	border-color: red;
+}
+
+input::placeholder {
+	color: rgb(191, 191, 203);
+}
+
+@media screen and (max-width: 850px) {
+	.signup-container {
+		width: 500px;
+	}
+	.signup-form {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		gap: 2rem;
+		grid-template-areas:
+			"surname"
+			"name"
+			"email"
+			"role"
+			"password"
+			"confirmPassword"
+			"formBtns";
+	}
+}
+
+/* sigout */
+
+.signout {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 5rem;
+}
+
+.close-btn {
+	font-size: 5rem;
+	padding: 2rem;
+	margin: 5rem;
+}
+
+.signout-confirm-btns {
+	display: flex;
+}
+
+.signout-confirm-btns button {
+	border-radius: 2rem;
+	z-index: 1000;
+}
+
+.signout-confirm-btns button:hover {
+	border-radius: 3rem;
+	cursor: pointer;
+	transform: scale(1.1);
+	background-color: beige;
+	border: none;
+}

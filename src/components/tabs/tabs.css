@@ -1,0 +1,58 @@
+.tabs {
+  font-size: 2rem;
+  margin: 1rem;
+}
+
+.tabs-show {
+  display: block;
+}
+
+.tabs-hide {
+  display: none;
+}
+
+.tab-active {
+  background-color: rgb(229, 254, 254);
+  border-bottom: 0.3rem solid #e81752;
+}
+
+.tabs-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 5fr;
+  row-gap: 2rem;
+  height: 5rem;
+}
+
+.tabs-body {
+  height: calc(100vh - 13rem);
+  background-color: rgb(229, 254, 254);
+}
+
+.tabs-tab {
+  outline: 1px solid; 
+  padding: 1rem;
+  border-radius: 1rem 1rem 0 0;
+  text-align: center;
+}
+
+.tabs-header-table {
+  /* margin: 0 1rem 0 0 ; */
+}
+
+.tabs-tab:hover {
+  cursor: pointer;
+  border-bottom: 0.3rem solid #e81752;
+}
+
+.tabs-body-content {
+  height: 100%;
+  border: 1px solid ;
+}
+
+.tab-name {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem;
+  font-weight: 700;
+}

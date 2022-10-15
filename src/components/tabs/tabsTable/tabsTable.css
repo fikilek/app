@@ -1,0 +1,16 @@
+.tabs-table-ml2 {
+  position: relative
+}
+
+
+.tabs-table-ml2:hover::before {
+  content: attr(data-tooltip);
+  font-size: 3rem;
+  color: #000;
+  position: absolute;
+  top: -100%;
+  left: 10%;
+  background-color: darkgoldenrod;
+  border-radius: 1rem;
+  padding-top: 1rem;
+}
