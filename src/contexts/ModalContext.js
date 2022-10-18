@@ -4,15 +4,22 @@ import React, { createContext, useState } from "react";
 // UserContext: to query the context state
 export const ModalContext = createContext();
 
+const intiValue = {
+	name: "",
+	payload: {},
+};
+
 // A "provider" is used to encapsulate only the
 // components that needs the state in this context
-const ModalContextProvider = (props) => {
+const ModalContextProvider = props => {
 	// console.log(`props`, props);
-	const [windowToOpen, setWindowToOpen] = useState("intit value");
-	const [open, setOpen] = useState(false);
-	// console.log(`windowToOpen`, windowToOpen);
+	const [componentToOpen, setComponentToOpen] = useState(intiValue);
+	const [modalOpened, setModalOpened] = useState(false);
+	// console.log(`componentToOpen`, componentToOpen);
 	return (
-		<ModalContext.Provider value={{ windowToOpen, setWindowToOpen, open, setOpen }}>
+		<ModalContext.Provider
+			value={{ componentToOpen, setComponentToOpen, modalOpened, setModalOpened }}
+		>
 			{props.children}
 		</ModalContext.Provider>
 	);

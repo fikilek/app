@@ -1,16 +1,55 @@
 .tabs-table-ml2 {
-  position: relative
+	position: relative;
 }
 
-
 .tabs-table-ml2:hover::before {
-  content: attr(data-tooltip);
-  font-size: 3rem;
-  color: #000;
-  position: absolute;
-  top: -100%;
-  left: 10%;
-  background-color: darkgoldenrod;
-  border-radius: 1rem;
-  padding-top: 1rem;
+	content: attr(data-tooltip);
+	font-size: 3rem;
+	color: #000;
+	position: absolute;
+	top: -100%;
+	left: 10%;
+	background-color: darkgoldenrod;
+	border-radius: 1rem;
+	padding-top: 1rem;
+}
+
+.btn-table-row {
+	color: rgb(134, 154, 160);
+	padding: 4px;
+	border-radius: 5px;
+	border: 1px solid lightslategray;
+	background-color: azure;
+	font-weight: 600;
+}
+
+.btn-serial-no {
+	width: 120px;
+}
+
+.btn-linked-ast-serial-no,
+.btn-serial-no {
+	min-width: 120px;
+}
+
+.btn-trn-count,
+.btn-trn-history {
+	width: 50px;
+}
+
+.btn-ast-state {
+	width: 100px;
+}
+
+.btn-created-at-location {
+	width: 40px;
+}
+
+.btn-trn-select {
+	width: 120px;
+}
+
+.btn-system-id {
+	width: 40px;
+	height: 30px;
 }

@@ -1,5 +1,4 @@
 import totals3 from "../images/totals3.png";
-import { dbdData } from "../data/dbdData/DbdData";
 
 // finction to generate rendom number betwen min and max
 export const randomNumber = (min, max) => {
@@ -24,5 +23,12 @@ export const getDbdTotals = data => {
 	totals.data.asts = tot;
 	// console.log(`totals.data.asts`, totals.data.asts);
 
-    return { totals, 'asts': objEnt };
+	return { totals, asts: objEnt };
+};
+
+// capilalize first letter of a string and the rest small letters
+export const capitalize = string => {
+	const firstLetter = string.charAt(0).toUpperCase();
+	const restOfString = string.slice(1).toLowerCase();
+	return string && `${firstLetter}${restOfString}`;
 };

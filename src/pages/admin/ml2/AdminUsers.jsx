@@ -14,10 +14,10 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import {
-	unpTableData,
+	unpData,
 	unpRoles,
 	unpStates,
-} from "../../../data/adminData/unpData";
+} from "../../../data/adminData/adminData";
 import { UserContext } from "../../../contexts/UserContext";
 
 const SelectUserRole = (options, p) => {
@@ -103,7 +103,7 @@ const App = () => {
 	}));
 
 	useEffect(() => {
-		setRowData(unpTableData);
+		setRowData(unpData);
 	}, []);
 
 	const onFirstDataRendered = useCallback(() => {

@@ -6,10 +6,10 @@ import TabsTree from "./tabsTree/TabsTree";
 
 const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
 	const [active, setActive] = useState("tabs-table");
-	console.log(`tableData`, tableData)
+	// console.log(`tableData`, tableData)
 
 	const handleTabClick = e => {
-		console.log(`e.target.id`, e.target.id)
+		// console.log(`e.target.id`, e.target.id)
 		setActive(e.target.id)
 	}
 
@@ -52,7 +52,7 @@ const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
 					}  `}
 					id="tabs-table"
 				>
-					<TabsTable tableData={tableData} ml1={ml1} ml2={ml2} ml3={ml3} />
+					<TabsTable tabName={tabName} ml1={ml1} ml2={ml2} ml3={ml3} />
 				</div>
 				<div
 					className={`tabs-body-content tabs-map ${

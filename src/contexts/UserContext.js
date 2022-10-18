@@ -9,11 +9,11 @@ export const UserContext = createContext();
 export const UserContextProvider = props => {
 	// console.log(`props`, props);
 	const [user, setUser] = useState(userObj);
-	// console.log(`windowToOpen`, windowToOpen);
+	// console.log(`componentToOpen`, componentToOpen);
+	// console.log(`user`, user)
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
 			{props.children}
 		</UserContext.Provider>
 	);
 };
-

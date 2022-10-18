@@ -6,7 +6,6 @@
 .signin-container,
 .signup-container,
 .fpw-container {
-	margin: 80px auto;
 	background-color: #ecf0f3;
 	border-radius: 2rem;
 	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
@@ -71,21 +70,18 @@
 }
 
 .signin-form,
-.signup-form
- {
+.signup-form {
 	display: grid;
 	grid-template-rows: auto;
 	gap: 2rem;
 }
 
 /* TODO: I dont understand why fpw grid cannot take gap of 2rem */
-.fpw-form
- {
+.fpw-form {
 	display: grid;
 	grid-template-rows: auto;
 	gap: 1rem;
 }
-
 
 .form-field {
 	display: grid;
@@ -137,14 +133,17 @@
 }
 
 .form-btn {
-	background-color: #bbdeef;
-	color: rgb(71, 71, 71);
+	background-color: #dae4fa99;
+	color: rgba(150, 149, 149, 0.539);
+	border: 1px solid lightgray;
 	border-radius: 1.5rem;
 	box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
-	letter-spacing: 1.3px;
+	/* letter-spacing: 1.3px; */
 
 	width: 130px;
 	height: 4rem;
+	line-height: 4rem;
+	text-align: center;
 }
 
 .form-field input {
@@ -168,11 +167,14 @@
 		"form-btns";
 }
 
-.signin-container .form-btn:hover {
-	background-color: #9cd9f8;
+.signin-container .form-btn:hover,
+.signup-container .form-btn:hover,
+.fpw-container .form-btn:hover {
+	background-color: #c8edff;
 }
 
-.signin-footer, .fpw-footer {
+.signin-footer,
+.fpw-footer {
 	display: flex;
 	justify-content: space-between;
 	margin: 2rem 0 1rem 0;
@@ -216,17 +218,18 @@
 .signup-form {
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
-		"form-field-name form-field-surname"
+		"form-field-surname form-field-name"
 		"form-field-email form-field-role"
 		"form-field-password form-field-confirmPassword"
 		"form-btns form-btns";
 }
 
-.signup-container .form-btn:hover {
+/* .signup-container .form-btn:hover {
 	background-color: #9cd9f8;
-}
+} */
 
-.signup-footer, .fpw-footer {
+.signup-footer,
+.fpw-footer {
 	display: flex;
 	margin: 2rem 0 1rem 0;
 }

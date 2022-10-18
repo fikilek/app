@@ -34,8 +34,10 @@ export const userObj = {
 };
 
 const Signup = () => {
+
 	const [userCredentials, setUserCredentials] = useState(userObj);
-	const { setWindowToOpen, setOpen } = useContext(ModalContext);
+	const { componentToOpen, setComponentToOpen, setModalOpened } =
+		useContext(ModalContext);
 	const { user, setUser } = useContext(UserContext);
 
 	const navigate = useNavigate();
@@ -45,22 +47,27 @@ const Signup = () => {
 	}, []);
 
 	const handleModalCloseBtn = e => {
-		setOpen(false);
-		setWindowToOpen("");
+		setModalOpened(false);
+		setComponentToOpen({
+			...componentToOpen,
+			name: "",
+		});
 	};
 
 	const handleSignupSubmit = e => {
 		e.preventDefault();
 		console.log(`Signup userCredentials data: `, userCredentials);
 		setUser({ ...userCredentials, signedon: true });
-		setOpen(false);
+		setModalOpened(false);
 		navigate("/unp", { replace: true });
 	};
 
 	const handleSignin = e => {
-		// Open a modal window
-		setWindowToOpen("signin");
-		setOpen(true);
+		setComponentToOpen({
+			...componentToOpen,
+			name: "signin",
+		});
+		setModalOpened(true);
 	};
 
 	const handleReset = e => {

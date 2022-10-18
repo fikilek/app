@@ -14,7 +14,9 @@ import { ModalContext } from "../../contexts/ModalContext";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { MenuContext } from "../../contexts/MenuContext";
-import { unpTableData as unpData } from "../../data/adminData/unpData";
+import { unpData } from "../../data/adminData/adminData";
+
+// console.log(`unpData`, unpData)
 
 const initSigninData = {
 	email: "",
@@ -25,55 +27,54 @@ const Signin = () => {
 	// user credentials comprise of user email and password
 	const [userCredentials, setUserCredentials] = useState(initSigninData);
 
-	// Fpw is the Forgotten Password section
-	const [emailFpw, setEmailFpw] = useState("");
-
-	// show controlls which of the signin or forgotten password form is displayed
-	const [show, setShow] = useState(true);
-
 	// this section sontrols the display of the modal
-	const { setWindowToOpen, setOpen } = useContext(ModalContext);
+		const { componentToOpen, setComponentToOpen, setModalOpened } =
+			useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
 	const { user, setUser } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
 	const handleModalCloseBtn = e => {
-		setOpen(false);
-		setWindowToOpen("");
+		setComponentToOpen({
+			...componentToOpen,
+			name: "",
+		});
+		setModalOpened(false);
 	};
 
 	const handleSignup = e => {
-		setWindowToOpen("signup");
-		setOpen(true);
+		setComponentToOpen({
+			...componentToOpen,
+			name: "signup",
+		});
+		setModalOpened(true);
 	};
 
 	const handleFpw = e => {
-		setWindowToOpen("fpw");
-		setOpen(true);
+		setComponentToOpen({
+			...componentToOpen,
+			name: "fpw",
+		});
+		setModalOpened(true);
 	};
 
 	const handleSigninSubmit = e => {
 		e.preventDefault();
-		if (show) {
-			console.log(`user credentials: `, userCredentials);
-		} else {
-			console.log(`user credentials: `, emailFpw);
-		}
 
 		// check if email and pwd on the signin form match those on unpData
 
 		const checkedEmail =
 			unpData && unpData.find(({ email }) => email === userCredentials.email);
-		console.log(`checkedEmail`, checkedEmail);
+		// console.log(`checkedEmail`, checkedEmail);
 		const checkedPassword = checkedEmail.password === userCredentials.password;
-		console.log(`checkedPassword`, checkedPassword);
+		// console.log(`checkedPassword`, checkedPassword);
 
-		setEmailFpw("");
-		setOpen(false);
+	
+		setModalOpened(false);
 		setMenuStatus(false);
 		if (checkedEmail && checkedPassword) {
-			console.log(`email ${userCredentials.email} IS authenticated`);
+			// console.log(`email ${userCredentials.email} IS authenticated`);
 			setUser({
 				...user,
 				surname: checkedEmail.surname,

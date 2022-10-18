@@ -9,20 +9,20 @@ import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 
 const Signout = () => {
-	const { setWindowToOpen, setOpen } = useContext(ModalContext);
+	const { setModalOpened } = useContext(ModalContext);
 	const { user, setUser } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
 	const handleSignoutKeepBtn = e => {
 		// dont close the window but remove or close modal
-		setOpen(false); //Close modal
+		setModalOpened(false); //Close modal
 	};
 
 	const handleSignoutCloseBtn = e => {
 		// sign user out, close modal and navigate to Home
 		setUser({ ...user, signedon: false }); //logout user
-		setOpen(false); //Close modal
+		setModalOpened(false); //Close modal
 		navigate("/", { replace: true });
 	};
 
@@ -46,20 +46,20 @@ const Signout = () => {
 						</button>
 					</Tooltip>
 
-					
-										<Tooltip
+					<Tooltip
 						// options
 						title="Signout and exit the application"
 						position="bottom"
 						// trigger="click"
 					>
-					<button
-						className="close-btn"
-						id="signout-close"
-						onClick={handleSignoutCloseBtn}
-					>
-						<MdCheck />
-					</button></Tooltip>
+						<button
+							className="close-btn"
+							id="signout-close"
+							onClick={handleSignoutCloseBtn}
+						>
+							<MdCheck />
+						</button>
+					</Tooltip>
 				</div>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import "./SignedInMenu.css";
 import MenuBlock from "../MenuBlock";
 import { dataBok } from "../../../data/menuData/dataMenuBox";
 import { dataErfs } from "../../../data/menuData/dataMenuErfs";
@@ -10,14 +11,25 @@ import { dataDbd } from "../../../data/menuData/dataMenuDbd";
 import { NavLink } from "react-router-dom";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { MenuContext } from "../../../contexts/MenuContext";
+import { UserContext } from "../../../contexts/UserContext";
+
+import "react-tippy/dist/tippy.css";
+import { Tooltip } from "react-tippy";
 
 const SignedInMenu = () => {
-	const { setWindowToOpen, setOpen } = useContext(ModalContext);
+	const { componentToOpen, setComponentToOpen, setModalOpened } =
+		useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
+	const { user } = useContext(UserContext);
+
+	// console.log(`menuStatus`, menuStatus)
 
 	const handleClick = e => {
-		setWindowToOpen(e.target.id);
-		setOpen(true);
+		setComponentToOpen({
+			...componentToOpen,
+			name: e.target.id,
+		});
+		setModalOpened(true);
 	};
 	return (
 		<ul
@@ -38,7 +50,12 @@ const SignedInMenu = () => {
 			<MenuBlock menuData={dataAdmin} />
 			{/* Unp */}
 			<li className="btn  move-right">
-				<NavLink to="/unp">FK</NavLink>
+				<Tooltip title={`${user.name} ${user.surname}`} position="left">
+					<NavLink
+						to="/unp"
+						className="user-initials"
+					>{`${user.name[0]}${user.surname[0]}`}</NavLink>
+				</Tooltip>
 				<ul className="sub-menu">
 					<li>
 						<NavLink to="/unp/profile">Profile</NavLink>

@@ -5,7 +5,7 @@ export const MenuContext = createContext();
 export const MenuContextProvider = props => {
 	// console.log(`props`, props);
 	const [menuStatus, setMenuStatus] = useState(false);
-	// console.log(`windowToOpen`, windowToOpen);
+	// console.log(`componentToOpen`, componentToOpen);
 	return (
 		<MenuContext.Provider value={{ menuStatus, setMenuStatus }}>
 			{props.children}

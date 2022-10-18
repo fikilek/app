@@ -6,23 +6,27 @@ import { ModalContext } from "../../../contexts/ModalContext";
 import { MenuContext } from "../../../contexts/MenuContext";
 
 const SignedOutMenu = () => {
-	const { setWindowToOpen, setOpen } = useContext(ModalContext);
+	const { componentToOpen, setComponentToOpen, setModalOpened } =
+		useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
 
 	const handleClick = e => {
-		// Open a modal window
-		setWindowToOpen(e.target.id);
-		setOpen(true)
+		// modalOpened a modal window
+		setComponentToOpen({
+			...componentToOpen,
+			name: e.target.id,
+		});
+		setModalOpened(true);
 	};
 
 	const handleClickOnNavList = e => {
 		// console.log(`nav-list clicked : menuStatus : ${menuStatus}` )
 		if (menuStatus) {
 			// console.log(`about to change menyStatus`)
-			setMenuStatus(false)
+			setMenuStatus(false);
 			// console.log(`menuStatus changed to : ${menuStatus}`)
-		} 
-	} 
+		}
+	};
 
 	return (
 		<ul
