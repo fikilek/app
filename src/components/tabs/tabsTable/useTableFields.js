@@ -67,8 +67,9 @@ const useTableFields = () => {
 	const trnTableFields = [
 		{
 			// CLick on a btn on this opens a trnasaction form
-			field: "systemId",
-			width: 120,
+			field: "trnSystemId",
+			headerName: "System Id",
+			width: 240,
 			cellRenderer: p => {
 				// console.log(`p.data`, p.data);
 				return (
@@ -78,18 +79,19 @@ const useTableFields = () => {
 						className="btn-table-row btn-system-id"
 						onClick={openModal}
 					>
-						{p.value}
+						{p.data.trnSystemId}
 					</button>
 				);
 			},
 		},
-		{ field: "trnType", width: 120 },
+		{ field: "metaData.trnType", headerName: "Trn Type", width: 140 },
 		{
 			// CLick on a btn on this opens an asset
-			field: "astSerialNo",
+			field: "assetData.serialNo",
+			headerName: "Serial No",
 			width: 180,
 			cellRenderer: p => {
-				// console.log(`p`, p)
+				// console.log(`p`, p);
 				return (
 					<button
 						id="astForm"
@@ -97,40 +99,58 @@ const useTableFields = () => {
 						className="btn-table-row btn-linked-ast-serial-no"
 						onClick={openModal}
 					>
-						{p.data.asset.serialNo}
+						{p.data.assetData.serialNo}
 					</button>
 				);
 			},
 		},
 		{
-			field: "astCartegory",
+			field: "assetData.astCartegory",
+			headerName: "Ast Cartegory",
 			width: 150,
-			cellRenderer: p => p.data.asset.astCartegory,
+			cellRenderer: p => p.data.assetData.astCartegory,
 		},
 		{
 			// CLick on a btn on this opens a table with all updates on this trtansaction. THis comes from trnHistory table
-			field: "trnHistory",
+			field: "metaData.trnHistory",
+			headerName: "Trn History",
 			width: 130,
 			cellRenderer: p => (
-				<button className="btn-table-row btn-trn-history">{p.value}</button>
+				<button className="btn-table-row btn-trn-history">
+					{p.data.metaData.trnHistory}
+				</button>
 			),
 		},
-		{ field: "updatedAtDatetime" },
+		{
+			field: "metaData.updatedAtDatetime",
+			headerName: "Updated At Datetime",
+			width: 180,
+		},
 		{
 			// CLick on a btn on this opens a map tab showing where the asset is located on the map
-			field: "updatedAtLocation",
+			field: "metaData.updatedAtLocation",
+			headerName: "Updated At Location",
 			width: 160,
 			cellRenderer: CreatedAtLocation,
 		},
-		{ field: "updatedByUser", width: 190 },
-		{ field: "createdAtDatetime" },
+		{
+			field: "metaData.updatedByUser",
+			headerName: "Updated By User",
+			width: 190,
+		},
+		{
+			field: "metaData.createdAtDatetime",
+			headerName: "Date Created",
+			width: 180,
+		},
 		{
 			// CLick on a btn on this opens a map tab showing where the asset is located on the map
-			field: "createdAtLocation",
+			field: "metaData.createdAtLocation",
+			headerName: "Created At Location",
 			width: 160,
 			cellRenderer: CreatedAtLocation,
 		},
-		{ field: "createdByUser", minWidth: 150 },
+		{ field: "metaData.createdByUser", headerName: "Created By", width: 180 },
 		// { field: "asset" },
 	];
 

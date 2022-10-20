@@ -13,7 +13,7 @@ const astStateNames = [
 	{
 		id: 0,
 		name: "stores",
-		possibleTrns: ["installation", "missing", "return to supplier", "inspection"],
+		possibleTrns: ["installation", "missing", "return to supplier"],
 		abrv: "str",
 		definition: "stores",
 	},
