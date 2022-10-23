@@ -12,27 +12,56 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 		modalToOpen(e.target.id, e.target.getAttribute("data-trn-id"));
 
 	const astTableFields = [
-		// 1
-		{ field: "astSystemId", headerName: "System Id", initialWidth: 120 },
-		// 2
-		{ field: "metaData.updatedByUser", headerName: "Updated By" },
-		// 3
-		{ field: "metaData.updatedAtDatetime", headerName: "Updated At Datetime" },
-		// 4
-		{ field: "metaData.createdByUser", headerName: "Created By", width: 180 },
-		// 5
+		{ field: "astSystemId", headerName: "Ast System Id", initialWidth: 120 },
 		{
-			field: "metaData.createdAtDatetime",
-			headerName: "Date Created",
-			width: 180,
+			headerName: "Updated",
+			children: [
+				{
+					field: "metaData.updatedByUser",
+					columnGroupShow: "closed",
+					headerName: "Updated By",
+				},
+				{
+					field: "metaData.updatedByUser",
+					columnGroupShow: "open",
+					headerName: "Updated By",
+				},
+				// 3
+				{
+					field: "metaData.updatedAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Updated At Datetime",
+				},
+			],
 		},
-		// 6
+		{
+			headerName: "Created",
+			children: [
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "closed",
+					headerName: "Created By",
+					width: 180,
+				},
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "open",
+					headerName: "Created By",
+					width: 180,
+				},
+				{
+					field: "metaData.createdAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Date Created",
+					width: 180,
+				},
+			],
+		},
 		{
 			field: "metaData.createdThrough",
 			headerName: "Trn That Created Ast",
-			width: 160,
+			width: 180,
 		},
-		// 7
 		{
 			field: "metaData.trnCount",
 			headerName: "Trn Count",
@@ -41,38 +70,70 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 				<button className="btn-table-row btn-trn-count">{p.value}</button>
 			),
 		},
-		// 8
 		{
 			field: "newTrn",
 			headerName: "New Trn",
 			width: 140,
 			cellRenderer: p => <TableBtnTrnSelect params={p} />,
 		},
-		// 9
 		{
-			field: "astData.astSerialNo",
-			headerName: "Ast Serial No",
-			width: 140,
-		},
-		// 10
-		{
-			field: "astData.astNo",
-			headerName: `Asset No`,
-			width: 160,
-			cellRenderer: p =>
-				p.value ? (
-					<button className="btn-table-row btn-serial-no">{p.value}</button>
-				) : (
-					""
-				),
-		},
-		// 11
-		{ field: "astData.astCartegory", headerName: "Ast Cartegory", width: 140 },
-		// 12
-		{
-			field: "astData.astState",
-			headerName: "Ast State",
-			width: 140,
+			headerName: "Asset Data",
+			children: [
+				{
+					field: "astData.astNo",
+					columnGroupShow: "closed",
+					headerName: `Asset No`,
+					width: 160,
+					cellRenderer: p =>
+						p.value ? (
+							<button className="btn-table-row btn-serial-no">{p.value}</button>
+						) : (
+							""
+						),
+				},
+				{
+					field: "astData.astNo",
+					columnGroupShow: "open",
+					headerName: `Asset No`,
+					width: 160,
+					cellRenderer: p =>
+						p.value ? (
+							<button className="btn-table-row btn-serial-no">{p.value}</button>
+						) : (
+							""
+						),
+				},
+				{
+					field: "astData.astSerialNo",
+					columnGroupShow: "open",
+					headerName: "Ast Serial No",
+					width: 140,
+				},
+				{
+					field: "astData.astCartegory",
+					columnGroupShow: "closed",
+					headerName: "Ast Cartegory",
+					width: 140,
+				},
+				{
+					field: "astData.astCartegory",
+					columnGroupShow: "open",
+					headerName: "Ast Cartegory",
+					width: 140,
+				},
+				{
+					field: "astData.astState",
+					columnGroupShow: "open",
+					headerName: "Ast State",
+					width: 140,
+				},
+				{
+					field: "astData.astState",
+					columnGroupShow: "closed",
+					headerName: "Ast State",
+					width: 140,
+				},
+			],
 		},
 	];
 
