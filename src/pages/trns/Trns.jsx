@@ -2,19 +2,17 @@ import React from "react";
 import './trns.css'
 import { useParams } from "react-router-dom";
 import Tabs from "../../components/tabs/Tabs";
-import { trnsData } from "../../data/trnsData/trnsData";
 
 const Trns = () => {
-	const { ml2 } = useParams();
+	const { ml2, ml3 } = useParams();
 	// console.log(`ml2: ${ml2}`);
+	// console.log(`ml3: ${ml3}`);
 	return (
 		<div className="asts">
 			<Tabs
-				tableData={trnsData}
-				tabName="Transactions"
 				ml1={"trns"}
 				ml2={ml2}
-				ml3={""}
+				ml3={ml3}
 			/>
 		</div>
 	);

@@ -4,9 +4,14 @@ import TabsTable from "./tabsTable/TabsTable";
 import TabsMap from "./tabsMap/TabsMap";
 import TabsTree from "./tabsTree/TabsTree";
 
-const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
+const Tabs = ({ ml1, ml2, ml3}) => {
 	const [active, setActive] = useState("tabs-table");
 	// console.log(`tableData`, tableData)
+
+	
+	// console.log(`Tabs ml1`, ml1);
+	// console.log(`Tabs ml2`, ml2);
+	// console.log(`Tabs ml3`, ml3);
 
 	const handleTabClick = e => {
 		// console.log(`e.target.id`, e.target.id)
@@ -43,7 +48,7 @@ const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
 				>
 					Tree
 				</div>
-				<div className="tab-name">{tabName}</div>
+				<div className="tab-name">{ml1}</div>
 			</div>
 			<div className="tabs-body">
 				<div
@@ -52,7 +57,7 @@ const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
 					}  `}
 					id="tabs-table"
 				>
-					<TabsTable tabName={tabName} ml1={ml1} ml2={ml2} ml3={ml3} />
+					<TabsTable ml1={ml1} ml2={ml2} ml3={ml3} />
 				</div>
 				<div
 					className={`tabs-body-content tabs-map ${
@@ -60,7 +65,7 @@ const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
 					} `}
 					id="tabs-map"
 				>
-					<TabsMap tableData={tableData} ml1={ml1} ml2={ml2} ml3={ml3} />
+					<TabsMap ml1={ml1} ml2={ml2} ml3={ml3} />
 				</div>
 				<div
 					className={`tabs-body-content tabs-tree ${
@@ -68,7 +73,7 @@ const Tabs = ({ tableData, tabName, ml1, ml2, ml3}) => {
 					} `}
 					id="tabs-tree"
 				>
-					<TabsTree tableData={tableData} ml1={ml1} ml2={ml2} ml3={ml3} />
+					<TabsTree ml1={ml1} ml2={ml2} ml3={ml3} />
 				</div>
 			</div>
 		</div>

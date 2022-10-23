@@ -66,7 +66,9 @@ function App() {
 										{/* path to assets main page [ml1 = trns] */}
 										<Route path="/trns" element={<Trns />}>
 											{/* ml2 = 'grv' or 'inst'[installation] or 'com'[comissioning] or 'dcn'[disconnection] or 'rcn'[reconnection] or 'aud'[audits] or 'vnd'[vending] or mis[missing] or fnd[found] or ret[returned] or dcm[decomissioned] */}
-											<Route path=":ml2" element={<Trns />} />
+											<Route path=":ml2" element={<Trns />}>
+												<Route path=":ml3" element={<Trns />} />
+											</Route>
 										</Route>
 
 										{/* erfs section -----------------------------------------------------*/}

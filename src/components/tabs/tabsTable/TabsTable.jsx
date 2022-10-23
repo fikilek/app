@@ -1,72 +1,41 @@
 import React, {
-	useState,
 	useRef,
-	useEffect,
 	useMemo,
-	useCallback,
-	useContext,
 } from "react";
-import format, { toDate } from "date-fns";
 import "./tabsTable.css";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
-import { useSelector, useDispatch } from "react-redux";
-
-import {
-	unpTableData,
-	unpRoles,
-	unpStates,
-} from "../../../data/adminData/adminData";
-import { UserContext } from "../../../contexts/UserContext";
-
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 
 // import table fields
 // import { astTableFields, trnTableFields } from "./tableFields";
-import useTableFields from "./useTableFields";
+import useTableConfig from "./useTableConfig";
 
-// const TabsTable = ({ tableData, ml1, ml2, ml3 }) => {
-const TabsTable = ({ tabName, ml1, ml2, ml3 }) => {
+const TabsTable = ({ ml1, ml2, ml3 }) => {
+	console.log(`ml1`, ml1);
+	console.log(`ml2`, ml2);
+	console.log(`ml3`, ml3);
+
 	const gridRef = useRef(); // Optional - for accessing Grid's API
-	const [rowData, setRowData] = useState([]); // Set rowData to Array of Objects, one Object per Row
+	// import table frields from useTableConfig
+	const { rowData, columnDefs } = useTableConfig({
+		ml1,
+		ml2,
+		ml3,
+	});
 
-	const { asts, trns } = useSelector(state => state);
-	// console.log(`tabName`, tabName);
-	// console.log(`asts`, asts);
-	// console.log(`trns`, trns);
-
-	// import table frields from useTableFields
-	const {astTableFields, trnTableFields} = useTableFields()
-
-	// Each Column Definition results in one Column.
-	const [columnDefs, setColumnDefs] = useState([]);
-
-	const defaultColDef = useMemo(() => ({
-		sortable: true,
-		filter: true,
-		resizable: true,
-		// flex: 1,
-	}), []);
-
-	useEffect(() => {
-		switch (tabName) {
-			case "Assets":
-				setColumnDefs(astTableFields);
-				setRowData(asts);
-				return;
-			case "Transactions":
-				setColumnDefs(trnTableFields);
-				setRowData(trns);
-				return;
-			default:
-				return;
-			// TODO: sort out the default return
-		}
-	}, [tabName, asts, trns]);
+	const defaultColDef = useMemo(
+		() => ({
+			sortable: true,
+			filter: true,
+			resizable: true,
+		}),
+		[]
+	);
 
 	return (
 		<>
@@ -78,7 +47,6 @@ const TabsTable = ({ tabName, ml1, ml2, ml3 }) => {
 					defaultColDef={defaultColDef} // Default Column Properties
 					animateRows={true} // Optional - set to 'true' to have rows animate when sorted
 					rowSelection="multiple" // Options - allows click selection of rows
-					// onFirstDataRendered={() => autoSizeAll(true)}
 				/>
 			</div>
 		</>
@@ -86,6 +54,5 @@ const TabsTable = ({ tabName, ml1, ml2, ml3 }) => {
 };
 
 export default TabsTable;
-
 
 // TODO: mouse over tips on the table skipHeader

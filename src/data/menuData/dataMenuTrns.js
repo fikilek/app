@@ -11,7 +11,7 @@ export const dataTrns = [
 			// The children is always a "Ul" element followed by 'li'
 			{
 				to: "/trns/goods-receiving",
-				menu: "Goods Receiving",
+				menu: "grv",
 				"menu-level": "2",
 				icon: null,
 				children: null,
@@ -88,4 +88,4 @@ export const dataTrns = [
 			},
 		],
 	},
-];  
+];

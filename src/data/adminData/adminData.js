@@ -1,4 +1,3 @@
-
 import { format } from "date-fns";
 import { nanoid } from "nanoid";
 
@@ -62,7 +61,7 @@ const astStateNames = [
 ];
 
 const trnNames = [
-	{ id: 1, name: "goods receiving", abrv: "grv", definition: "good receiving" },
+	{ id: 1, name: "grv", abrv: "grv", definition: "good receiving" },
 	{
 		id: 2,
 		name: "instalation",
@@ -261,10 +260,8 @@ const newTrnData = {
 		supplierName: "",
 		supplierContactNo: "",
 		supportingDocs: "",
-  },
-  actionTaken: {
-
-  },
+	},
+	actionTaken: {},
 	vending: {
 		meter: {
 			datetime: "",

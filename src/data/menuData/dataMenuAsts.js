@@ -38,7 +38,7 @@ export const dataAsts = [
 				children: null,
 			},
 			{
-				to: "/asts/cuicuit-beekaers",
+				to: "/asts/cbs",
 				menu: "CBs",
 				"menu-level": "2",
 				icon: null,

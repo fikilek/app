@@ -27,7 +27,7 @@ const TableBtnTrnSelect = ({ params }) => {
 	// find the all possible transactions from existing asset state
 	const possibleTrns =
 		astStateNames &&
-		astStateNames.find(item => item.name === params.data.assetData.astState);
+		astStateNames.find(item => item.name === params.data.astData.astState);
 	// console.log(`possibleTrns`, possibleTrns)
 
 	// get the array of possbie
