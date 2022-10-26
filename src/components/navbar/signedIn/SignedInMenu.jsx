@@ -15,6 +15,7 @@ import { UserContext } from "../../../contexts/UserContext";
 
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
+import { dataSch } from "../../../data/menuData/dataMenuSch";
 
 const SignedInMenu = () => {
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
@@ -42,6 +43,8 @@ const SignedInMenu = () => {
 			<MenuBlock menuData={dataAsts} />
 			{/* Transactions */}
 			<MenuBlock menuData={dataTrns} />
+			{/* Supply Chain */}
+			<MenuBlock menuData={dataSch} />
 			{/* Erfs */}
 			<MenuBlock menuData={dataErfs} />
 			{/* Body of Knowledge (Bok) */}

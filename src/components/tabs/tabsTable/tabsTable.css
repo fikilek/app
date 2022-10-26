@@ -34,7 +34,7 @@
 
 .btn-trn-count,
 .btn-trn-history {
-	width: 50px;
+	width: 70px;
 }
 
 .btn-ast-state {
@@ -46,10 +46,14 @@
 }
 
 .btn-trn-select {
-	width: 120px;
+	width: 130px;
 }
 
 .btn-system-id {
 	width: 80px;
 	height: 30px;
+}
+
+.btn-media {
+	width: 80px;
 }

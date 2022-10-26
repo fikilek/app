@@ -6,7 +6,7 @@ import TrnFormMeterCustomer from "./TrnFormMeterCustomer";
 import "./trnFormMeter.css";
 import useTrnFormMeter from "./useTrnFormMeter";
 import TrnFormMeterMeterData from "./TrnFormMeterMeterData";
-import TrnFormMeterGrv from "./TrnFormMeterGrv";
+import TrnFormMeterAsr from "./TrnFormMeterAsr";
 import TrnFormMeterActionTaken from "./TrnFormMeterActionTaken";
 import TrnFormMeterVending from "./TrnFormMeterVending";
 import TrnFormMeterComissioning from "./TrnFormMeterComissioning";
@@ -69,8 +69,8 @@ const TrnFormMeter = ({ trnType }) => {
 					)}
 				</>
 				<>
-					{formSections.grv ? (
-						<TrnFormMeterGrv formSate={formState} setFormState={setFormState} />
+					{formSections.asr ? (
+						<TrnFormMeterAsr formSate={formState} setFormState={setFormState} />
 					) : (
 						<></>
 					)}

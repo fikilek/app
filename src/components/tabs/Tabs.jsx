@@ -4,19 +4,18 @@ import TabsTable from "./tabsTable/TabsTable";
 import TabsMap from "./tabsMap/TabsMap";
 import TabsTree from "./tabsTree/TabsTree";
 
-const Tabs = ({ ml1, ml2, ml3}) => {
+const Tabs = ({ ml1, ml2, ml3 }) => {
 	const [active, setActive] = useState("tabs-table");
 	// console.log(`tableData`, tableData)
 
-	
 	// console.log(`Tabs ml1`, ml1);
 	// console.log(`Tabs ml2`, ml2);
 	// console.log(`Tabs ml3`, ml3);
 
 	const handleTabClick = e => {
 		// console.log(`e.target.id`, e.target.id)
-		setActive(e.target.id)
-	}
+		setActive(e.target.id);
+	};
 
 	return (
 		<div className="tabs">

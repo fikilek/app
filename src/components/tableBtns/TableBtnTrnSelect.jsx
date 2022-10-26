@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import useOpenModal from "../modals/useOpenModal";
 import { UserContext } from "../../contexts/UserContext";
 import moment from "moment";
+import { MdFilter2 } from "react-icons/md";
 
 const TableBtnTrnSelect = ({ params }) => {
 	const { modalToOpen } = useOpenModal();
-	// console.log(`params`, params);
+	console.log(`params`, params);
 	// console.log(`ast state`, params.data.astState);
 	const { astStateNames, newTrnData } = useSelector(state => state.admin);
 	// console.log(`newTrnData`, newTrnData);
@@ -28,7 +29,7 @@ const TableBtnTrnSelect = ({ params }) => {
 	const possibleTrns =
 		astStateNames &&
 		astStateNames.find(item => item.name === params.data.astData.astState);
-	// console.log(`possibleTrns`, possibleTrns)
+	// console.log(`possibleTrns`, possibleTrns);
 
 	// get the array of possbie
 
@@ -58,7 +59,8 @@ const TableBtnTrnSelect = ({ params }) => {
 		}
 	};
 
-	// console.log(`status`, status);
+	console.log(`possibleTrns.possibleTrns`, possibleTrns.possibleTrns);
+	// console.log(`ml2`, ml2);
 
 	return (
 		<>
@@ -74,8 +76,9 @@ const TableBtnTrnSelect = ({ params }) => {
 				className="btn-table-row btn-trn-select"
 			>
 				{/* <option value="choose">choose trn</option> */}
-				{possibleTrns.possibleTrns &&
-					possibleTrns.possibleTrns.map(trn => {
+				{possibleTrns.possibleTrns[params.data.astData.astCartegory] &&
+					possibleTrns.possibleTrns[params.data.astData.astCartegory].map(trn => {
+						console.log(`trn`, trn);
 						return (
 							<option key={trn} value={trn}>
 								{trn}

@@ -1,7 +1,4 @@
-import React, {
-	useRef,
-	useMemo,
-} from "react";
+import React, { useRef, useMemo } from "react";
 import "./tabsTable.css";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 
@@ -17,8 +14,8 @@ import useTableConfig from "./useTableConfig";
 
 const TabsTable = ({ ml1, ml2, ml3 }) => {
 	console.log(`ml1`, ml1);
-	console.log(`ml2`, ml2);
-	console.log(`ml3`, ml3);
+	// console.log(`ml2`, ml2);
+	// console.log(`ml3`, ml3);
 
 	const gridRef = useRef(); // Optional - for accessing Grid's API
 	// import table frields from useTableConfig
@@ -36,6 +33,8 @@ const TabsTable = ({ ml1, ml2, ml3 }) => {
 		}),
 		[]
 	);
+
+	console.log(`rowData`, rowData)
 
 	return (
 		<>

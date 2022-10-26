@@ -9,13 +9,13 @@ import {
 } from "react-icons/md";
 import { GiChoice } from "react-icons/gi";
 
-const TrnFormMeterGrv = ({ formState, setFormState }) => {
+const TrnFormMeterAsr = ({ formState, setFormState }) => {
 	return (
 		<>
-			{/* grv */}
+			{/* asr */}
 			<div>
 				<div className="form-section-title">
-					<p>Goode Receiving (grv)</p>
+					<p>Goode Receiving (asr)</p>
 				</div>
 				<div className="form-field trn-form-purchase-order-no">
 					<span className="form-field-icon">
@@ -25,7 +25,7 @@ const TrnFormMeterGrv = ({ formState, setFormState }) => {
 						type="text"
 						name="purchase-order-no"
 						id="purchase-order-no"
-						// value={trnFormData.grv.putchaseOrderNo}
+						// value={trnFormData.asr.putchaseOrderNo}
 						onChange={setFormState}
 						placeholder="Purchase Order No"
 					/>
@@ -38,7 +38,7 @@ const TrnFormMeterGrv = ({ formState, setFormState }) => {
 						type="text"
 						name="supplierName"
 						id="supplierName"
-						// value={trnFormData.grv.supplierName}
+						// value={trnFormData.asr.supplierName}
 						onChange={setFormState}
 						placeholder="Supplier Name"
 					/>
@@ -51,7 +51,7 @@ const TrnFormMeterGrv = ({ formState, setFormState }) => {
 						type="text"
 						name="supplierContactNo"
 						id="supplierContactNo"
-						// value={trnFormData.grv.supplierContactNo}
+						// value={trnFormData.asr.supplierContactNo}
 						onChange={setFormState}
 						placeholder="Supplier Contact No"
 					/>
@@ -64,7 +64,7 @@ const TrnFormMeterGrv = ({ formState, setFormState }) => {
 						type="text"
 						name="supportingDocs"
 						id="supportingDocs"
-						// value={trnFormData.grv.supportingDocs}
+						// value={trnFormData.asr.supportingDocs}
 						onChange={setFormState}
 						placeholder="Supporting Docs"
 					/>
@@ -74,4 +74,4 @@ const TrnFormMeterGrv = ({ formState, setFormState }) => {
 	);
 };
 
-export default TrnFormMeterGrv;
+export default TrnFormMeterAsr;

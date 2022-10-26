@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./auth.css";
+import "../forms.css";
 import {
 	FaFacebookF,
 	FaGoogle,
@@ -18,9 +18,9 @@ import {
 	MdPersonAddAlt1,
 	MdWork,
 } from "react-icons/md";
-import irepsImage2 from "../../images/irepsImage1.jpg";
-import { ModalContext } from "../../contexts/ModalContext";
-import { UserContext } from "../../contexts/UserContext";
+import irepsImage2 from "../../../images/irepsImage1.jpg";
+import { ModalContext } from "../../../contexts/ModalContext";
+import { UserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export const userObj = {
@@ -34,7 +34,6 @@ export const userObj = {
 };
 
 const Signup = () => {
-
 	const [userCredentials, setUserCredentials] = useState(userObj);
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
@@ -84,7 +83,6 @@ const Signup = () => {
 
 	return (
 		<div className="signup-container">
-
 			{/* signup header */}
 			<div className="signup-header">
 				<div className="signup-header-title-img">
@@ -203,7 +201,6 @@ const Signup = () => {
 					Already Registered? Sign in
 				</a>
 			</div>
-
 		</div>
 	);
 };

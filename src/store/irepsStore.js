@@ -3,6 +3,7 @@ import astsReducer from './astsSlice'
 import trnsReducer from './trnsSlice'
 import authReducer from './authSlice'
 import adminReducer from "./adminSlice";
+import schReducer from './schSlice'
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     trns: trnsReducer,
     auth: authReducer,
     admin: adminReducer,
+    sch: schReducer,
   }
 })
 

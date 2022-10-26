@@ -1,4 +1,5 @@
-import React from "react";import {
+import React from "react";
+import {
 	MdFormatListNumbered,
 	MdHistory,
 	MdLockClock,
@@ -24,7 +25,7 @@ const TrnFormMeterVending = (formState, setFormState) => {
 						type="datetime-local"
 						name="vending-datetime"
 						id="vending-datetime"
-						// value={trnFormData.grv.datetime}
+						// value={trnFormData.asr.datetime}
 						onChange={setFormState}
 						placeholder="Vending date / time"
 					/>
@@ -37,7 +38,7 @@ const TrnFormMeterVending = (formState, setFormState) => {
 						type="datetime-local"
 						name="vending-amount"
 						id="vending-amount"
-						// value={trnFormData.grv.amount}
+						// value={trnFormData.asr.amount}
 						onChange={setFormState}
 						placeholder="Vending amount"
 					/>

@@ -10,42 +10,42 @@ export const dataAsts = [
 		children: [
 			// The children is always a "Ul" element followed by 'li'
 			{
-				to: "/asts/feeders",
+				to: "/asts/feeder",
 				menu: "Feeders",
 				"menu-level": "2",
 				icon: null,
 				children: null,
 			},
 			{
-				to: "/asts/poles",
+				to: "/asts/pole",
 				menu: "Poles",
 				"menu-level": "2",
 				icon: null,
 				children: null,
 			},
 			{
-				to: "/asts/boxes",
+				to: "/asts/box",
 				menu: "Boxes",
 				"menu-level": "2",
 				icon: null,
 				children: null,
 			},
 			{
-				to: "/asts/meters",
+				to: "/asts/meter",
 				menu: "Meters",
 				"menu-level": "2",
 				icon: null,
 				children: null,
 			},
 			{
-				to: "/asts/cbs",
+				to: "/asts/cb",
 				menu: "CBs",
 				"menu-level": "2",
 				icon: null,
 				children: null,
 			},
 			{
-				to: "/asts/seals",
+				to: "/asts/seal",
 				menu: "Seals",
 				"menu-level": "2",
 				icon: null,

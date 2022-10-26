@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import "./auth.css";
+import "../forms.css";
 import {
 	FaFacebookF,
 	FaGoogle,
@@ -9,12 +9,12 @@ import {
 	FaVoicemail,
 } from "react-icons/fa";
 import { MdEmail, MdPassword } from "react-icons/md";
-import irepsImage2 from "../../images/irepsImage1.jpg";
-import { ModalContext } from "../../contexts/ModalContext";
-import { UserContext } from "../../contexts/UserContext";
+import irepsImage2 from "../../../images/irepsImage1.jpg";
+import { ModalContext } from "../../../contexts/ModalContext";
+import { UserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
-import { MenuContext } from "../../contexts/MenuContext";
-import { unpData } from "../../data/adminData/adminData";
+import { MenuContext } from "../../../contexts/MenuContext";
+import { unpData } from "../../../data/adminData/adminData";
 
 // console.log(`unpData`, unpData)
 
@@ -28,8 +28,8 @@ const Signin = () => {
 	const [userCredentials, setUserCredentials] = useState(initSigninData);
 
 	// this section sontrols the display of the modal
-		const { componentToOpen, setComponentToOpen, setModalOpened } =
-			useContext(ModalContext);
+	const { componentToOpen, setComponentToOpen, setModalOpened } =
+		useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
 	const { user, setUser } = useContext(UserContext);
 
@@ -70,7 +70,6 @@ const Signin = () => {
 		const checkedPassword = checkedEmail.password === userCredentials.password;
 		// console.log(`checkedPassword`, checkedPassword);
 
-	
 		setModalOpened(false);
 		setMenuStatus(false);
 		if (checkedEmail && checkedPassword) {

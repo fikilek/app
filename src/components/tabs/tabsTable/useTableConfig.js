@@ -1,18 +1,30 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import useFilterData from "../../../hooks/useFilterData";
 import useOpenModal from "../../modals/useOpenModal";
 import CreatedAtLocation from "../../tableBtns/CreatedAtLocation";
+import TableBtnOpenTrns from "../../tableBtns/TableBtnOpenTrns";
 import TableBtnTrnSelect from "../../tableBtns/TableBtnTrnSelect";
+import TableCellArrayData from "../../tableBtns/TableCellArrayData";
+import TableCellPoleData from "../../tableBtns/TableCellPoleData";
 
 const useTableConfig = ({ ml1, ml2, ml3 }) => {
 	const { modalToOpen } = useOpenModal();
-	const { asts, trns, admin } = useSelector(state => state);
+	const { asts, trns, sch } = useFilterData({ ml1, ml2, ml3 });
+
+	console.log(`sch`, sch);
+	console.log(`ml1`, ml1);
+	// console.log(`asts`, asts);
+	// console.log(`trns`, trns);
 
 	const openModal = e =>
 		modalToOpen(e.target.id, e.target.getAttribute("data-trn-id"));
 
-	const astTableFields = [
-		{ field: "astSystemId", headerName: "Ast System Id", initialWidth: 120 },
+	// sch (supply chain fields)
+
+	const schTableFields = [
+		{ field: "schSystemId", headerName: "Sch Id", width: 90 },
 		{
 			headerName: "Updated",
 			children: [
@@ -20,17 +32,20 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					field: "metaData.updatedByUser",
 					columnGroupShow: "closed",
 					headerName: "Updated By",
+					width: 130,
 				},
 				{
 					field: "metaData.updatedByUser",
 					columnGroupShow: "open",
 					headerName: "Updated By",
+					width: 130,
 				},
 				// 3
 				{
 					field: "metaData.updatedAtDatetime",
 					columnGroupShow: "open",
 					headerName: "Updated At Datetime",
+					width: 190,
 				},
 			],
 		},
@@ -41,13 +56,100 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					field: "metaData.createdByUser",
 					columnGroupShow: "closed",
 					headerName: "Created By",
-					width: 180,
+					width: 130,
 				},
 				{
 					field: "metaData.createdByUser",
 					columnGroupShow: "open",
 					headerName: "Created By",
+					width: 130,
+				},
+				{
+					field: "metaData.createdAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Date Created",
 					width: 180,
+				},
+			],
+		},
+		{
+			headerName: "Supply Chain Data",
+			children: [
+				{
+					field: "schData.schPoNo",
+					headerName: "Po No",
+					width: 160,
+				},
+				{
+					field: "schData.schInv",
+					headerName: "Invoice Data",
+					width: 160,
+				},
+				{
+					field: "schData.schPop",
+					headerName: "Proof Of Payment",
+					width: 160,
+				},
+				{
+					field: "schData.schGrv",
+					headerName: "GRV",
+					width: 160,
+				},
+				{
+					field: "schData.schTotalItems",
+					headerName: "Total Items",
+					width: 160,
+				},
+				{
+					field: "schData.Items",
+					headerName: "Items",
+					width: 160,
+				},
+			],
+		},
+	];
+	// assets fields
+
+	const astTableFields = [
+		{ field: "astSystemId", headerName: "Ast Id", width: 90 },
+		{
+			headerName: "Updated",
+			children: [
+				{
+					field: "metaData.updatedByUser",
+					columnGroupShow: "closed",
+					headerName: "Updated By",
+					width: 130,
+				},
+				{
+					field: "metaData.updatedByUser",
+					columnGroupShow: "open",
+					headerName: "Updated By",
+					width: 130,
+				},
+				// 3
+				{
+					field: "metaData.updatedAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Updated At Datetime",
+					width: 190,
+				},
+			],
+		},
+		{
+			headerName: "Created",
+			children: [
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "closed",
+					headerName: "Created By",
+					width: 130,
+				},
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "open",
+					headerName: "Created By",
+					width: 130,
 				},
 				{
 					field: "metaData.createdAtDatetime",
@@ -59,38 +161,24 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 		},
 		{
 			field: "metaData.createdThrough",
-			headerName: "Trn That Created Ast",
-			width: 180,
+			headerName: "Created Through",
+			width: 160,
 		},
 		{
 			field: "metaData.trnCount",
-			headerName: "Trn Count",
-			width: 120,
-			cellRenderer: p => (
-				<button className="btn-table-row btn-trn-count">{p.value}</button>
-			),
+			headerName: "Ast Trn(s)",
+			width: 140,
+			cellRenderer: p => <TableBtnOpenTrns params={p} />,
 		},
 		{
 			field: "newTrn",
 			headerName: "New Trn",
-			width: 140,
-			cellRenderer: p => <TableBtnTrnSelect params={p} />,
+			width: 170,
+			cellRenderer: p => <TableBtnTrnSelect params={p} ml2={ml2} />,
 		},
 		{
 			headerName: "Asset Data",
 			children: [
-				{
-					field: "astData.astNo",
-					columnGroupShow: "closed",
-					headerName: `Asset No`,
-					width: 160,
-					cellRenderer: p =>
-						p.value ? (
-							<button className="btn-table-row btn-serial-no">{p.value}</button>
-						) : (
-							""
-						),
-				},
 				{
 					field: "astData.astNo",
 					columnGroupShow: "open",
@@ -111,12 +199,6 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 				},
 				{
 					field: "astData.astCartegory",
-					columnGroupShow: "closed",
-					headerName: "Ast Cartegory",
-					width: 140,
-				},
-				{
-					field: "astData.astCartegory",
 					columnGroupShow: "open",
 					headerName: "Ast Cartegory",
 					width: 140,
@@ -124,12 +206,6 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 				{
 					field: "astData.astState",
 					columnGroupShow: "open",
-					headerName: "Ast State",
-					width: 140,
-				},
-				{
-					field: "astData.astState",
-					columnGroupShow: "closed",
 					headerName: "Ast State",
 					width: 140,
 				},
@@ -148,15 +224,43 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 	];
 
 	const astPole = [
-		// 1
-		{ field: "type", headerName: "Type", initialWidth: 120 }, // [metal, wood]
-		{ field: "height", headerName: "Height", initialWidth: 120 }, //
+		{
+			headerName: "Pole",
+			children: [
+				{ field: "astData.pole.type", headerName: "Type", initialWidth: 120 }, // [metal, wood]
+				{
+					field: "astData.pole.dimensions",
+					headerName: "Height",
+					initialWidth: 120,
+					cellRenderer: p => <TableCellPoleData params={p} />,
+				}, //
+				{
+					field: "astData.pole.hasStreetLamp",
+					headerName: "Has Street Lamp",
+					initialWidth: 120,
+				}, //
+			],
+		},
 	];
 
 	const astBox = [
-		// 1
-		{ field: "type", headerName: "Type", initialWidth: 120 }, // [metal, fibreglass]
-		{ field: "dimensions", headerName: "Domensions", initialWidth: 120 }, //
+		{
+			headerName: "Boxes",
+			children: [
+				{ field: "astData.box.type", headerName: "Type", initialWidth: 120 }, // [metal, fibreglass]
+				{
+					field: "astData.box.dimensions",
+					headerName: "Domensions",
+					width: 160,
+					cellRenderer: p => <TableCellArrayData params={p} />,
+				},
+				{
+					field: "astData.box.location",
+					headerName: "Location",
+					initialWidth: 120,
+				}, // ['top of pole', 'bottpm of pole','stand alone', 'on the wall']
+			],
+		},
 	];
 
 	const astCB = [
@@ -178,6 +282,44 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 		// 1
 		{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
 	];
+
+	const media = [
+		{
+			headerName: "Media",
+			children: [
+				{
+					field: "photos",
+					headerName: "Photos",
+					width: 130,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-media btn-media-photos">
+							Photos
+						</button>
+					),
+				},
+				{
+					field: "videos",
+					headerName: "Videos",
+					width: 130,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-media btn-media-videos">
+							Videos
+						</button>
+					),
+				},
+				{
+					field: "voice",
+					headerName: "Voice",
+					width: 130,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-media btn-media-voice">Voice</button>
+					),
+				},
+			],
+		},
+	];
+
+	// transactions
 
 	const trnTableFields = [
 		{
@@ -270,7 +412,6 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					columnGroupShow: "open",
 					headerName: "Ast Number",
 					width: 160,
-
 					cellRenderer: p => {
 						// console.log(`p`, p);
 						return (
@@ -300,26 +441,6 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					cellRenderer: p => p.data.astData.astCartegory,
 				},
 				{
-					field: "astData.astNo",
-					columnGroupShow: "closed",
-					headerName: "Ast Number",
-					width: 160,
-
-					cellRenderer: p => {
-						// console.log(`p`, p);
-						return (
-							<button
-								id="astForm"
-								data-trn-id={JSON.stringify(p.data)}
-								className="btn-table-row btn-linked-ast-serial-no"
-								onClick={openModal}
-							>
-								{p.data.astData.astNo}
-							</button>
-						);
-					},
-				},
-				{
 					field: "astData.astSystemId",
 					columnGroupShow: "open",
 					headerName: "Ast System Id",
@@ -332,36 +453,36 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 		// { field: "asset" },
 	];
 
-	const trnGrv = [
+	const trnAsr = [
 		{
 			headerName: "Goods Receiving",
 			children: [
 				{
-					field: "grv.purchaseOrderNo",
+					field: "asr.purchaseOrderNo",
 					columnGroupShow: "closed",
 					headerName: "Purchase Order No",
 					initialWidth: 170,
 				},
 				{
-					field: "grv.invoiceNo",
+					field: "asr.invoiceNo",
 					columnGroupShow: "open",
 					headerName: "Invoice No",
 					initialWidth: 150,
 				},
 				{
-					field: "grv.supplierName",
+					field: "asr.supplierName",
 					columnGroupShow: "open",
 					headerName: "Supplier Name",
 					initialWidth: 170,
 				},
 				{
-					field: "grv.supplierContactNo",
+					field: "asr.supplierContactNo",
 					columnGroupShow: "open",
 					headerName: "Supplier Contacts",
 					initialWidth: 170,
 				},
 				{
-					field: "grv.supportingDocs",
+					field: "asr.supportingDocs",
 					columnGroupShow: "open",
 					headerName: "Supporting Docs",
 					initialWidth: 170,
@@ -370,37 +491,90 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 		},
 	];
 
+	// Supply Chain TableBtnOpenTrns
+	if (ml1 === "sch") {
+		return {
+			rowData: sch,
+			columnDefs: [...schTableFields],
+		};
+	}
+
+	// Assets
+
 	if (ml1 === "asts" && ml2 === undefined)
-		return { rowData: asts, columnDefs: astTableFields };
-	if (ml1 === "asts" && ml2 === "meters")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astMeter] };
-	if (ml1 === "asts" && ml2 === "poles")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astPole] };
-	if (ml1 === "asts" && ml2 === "boxes")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astBox] };
-	if (ml1 === "asts" && ml2 === "cbs")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astCB] };
-	if (ml1 === "asts" && ml2 === "feeders")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astFeeder] };
-	if (ml1 === "asts" && ml2 === "seals")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astSeal] };
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...media],
+		};
+	if (ml1 === "asts" && ml2 === "meter")
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astMeter, ...media],
+		};
+	if (ml1 === "asts" && ml2 === "pole")
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astPole, ...media],
+		};
+	if (ml1 === "asts" && ml2 === "box")
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astBox, ...media],
+		};
+	if (ml1 === "asts" && ml2 === "cb")
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astCB, ...media],
+		};
+	if (ml1 === "asts" && ml2 === "feeder")
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astFeeder, ...media],
+		};
+	if (ml1 === "asts" && ml2 === "seal")
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astSeal, ...media],
+		};
 	if (ml1 === "asts" && ml2 === "vtct")
-		return { rowData: asts, columnDefs: [...astTableFields, ...astVtct] };
+		return {
+			rowData: asts,
+			columnDefs: [...astTableFields, ...astVtct, ...media],
+		};
+
+	// Transactions
 
 	if (ml1 === "trns" && ml2 === undefined && ml3 === undefined)
-		return { rowData: trns, columnDefs: trnTableFields };
-	if (ml1 === "trns" && ml2 === "meters" && ml3 === undefined)
 		return {
 			rowData: trns,
-			columnDefs: [...trnTableFields, ...astMeter],
-		};
-	if (ml1 === "trns" && ml2 === "meters" && ml3 === "grv")
-		return {
-			rowData: trns,
-			columnDefs: [...trnTableFields, ...astMeter, ...trnGrv],
+			columnDefs: trnTableFields,
 		};
 
-	// return { rowData: asts, columnDefs: astTableFields };
+	// Transactions meter
+	if (ml1 === "trns" && ml2 === "meter" && ml3 === undefined)
+		return {
+			rowData: trns,
+			columnDefs: [...trnTableFields, ...astMeter, ...media],
+		};
+	if (ml1 === "trns" && ml2 === "meter" && ml3 === "asr")
+		return {
+			rowData: trns,
+			columnDefs: [...trnTableFields, ...astMeter, ...trnAsr, ...media],
+		};
+
+	// Transactions box
+	if (ml1 === "trns" && ml2 === "box")
+		return {
+			rowData: trns,
+			columnDefs: [...trnTableFields, ...astBox, ...media],
+		};
+
+	// TODO: Add more ifs for all transaction
+
+	return {
+		rowData: [],
+		columnDefs: [],
+	};
 };
 
 export default useTableConfig;

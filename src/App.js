@@ -13,9 +13,7 @@ import Erfs from "./pages/erfs/Erfs";
 import Bok from "./pages/bok/Bok";
 import Admin from "./pages/admin/Admin";
 import Unp from "./pages/unps/Unp";
-// import Signup from "./pages/auth/Signup";
-// import Signin from "./pages/auth/Signin";
-import Signout from "./pages/auth/Signout";
+import Signout from "./components/forms/authForms/Signout";
 import NoPageFound from "./pages/errors/NoPageFound";
 import Modal from "./components/modals/Modal";
 
@@ -27,6 +25,7 @@ import { MenuContextProvider } from "./contexts/MenuContext";
 // import redux store
 import store from "./store/irepsStore";
 import { Provider } from "react-redux";
+import Sch from "./pages/sch/Sch";
 
 // console.log(`UserContext`, UserContext)
 // console.log(`UserContextProvider`, UserContextProvider)
@@ -65,11 +64,15 @@ function App() {
 										{/* transactions section -----------------------------------------------------*/}
 										{/* path to assets main page [ml1 = trns] */}
 										<Route path="/trns" element={<Trns />}>
-											{/* ml2 = 'grv' or 'inst'[installation] or 'com'[comissioning] or 'dcn'[disconnection] or 'rcn'[reconnection] or 'aud'[audits] or 'vnd'[vending] or mis[missing] or fnd[found] or ret[returned] or dcm[decomissioned] */}
+											{/* ml2 = 'asr' or 'inst'[installation] or 'com'[comissioning] or 'dcn'[disconnection] or 'rcn'[reconnection] or 'aud'[audits] or 'vnd'[vending] or mis[missing] or fnd[found] or ret[returned] or dcm[decomissioned] */}
 											<Route path=":ml2" element={<Trns />}>
 												<Route path=":ml3" element={<Trns />} />
 											</Route>
 										</Route>
+
+										{/* supply chain section -----------------------------------------------------*/}
+										{/* path to assets main page [ml1 = erfs] */}
+										<Route path="/sch" element={<Sch />}></Route>
 
 										{/* erfs section -----------------------------------------------------*/}
 										{/* path to assets main page [ml1 = erfs] */}

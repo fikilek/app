@@ -1,18 +1,18 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import "./auth.css";
-import { MdEmail} from "react-icons/md";
-import irepsImage2 from "../../images/irepsImage1.jpg";
-import { ModalContext } from "../../contexts/ModalContext";
+import "../forms.css";
+import { MdEmail } from "react-icons/md";
+import irepsImage2 from "../../../images/irepsImage1.jpg";
+import { ModalContext } from "../../../contexts/ModalContext";
 
 const ForgottenPassword = () => {
-
-	const inputRef = useRef()
+	const inputRef = useRef();
 
 	// Fpw is the Forgotten Password section
 	const [emailFpw, setEmailFpw] = useState("");
 
 	// this section sontrols the display of the modal
-	const { componentToOpen, setComponentToOpen, setModalOpened } = useContext(ModalContext);
+	const { componentToOpen, setComponentToOpen, setModalOpened } =
+		useContext(ModalContext);
 
 	const handleModalCloseBtn = e => {
 		setModalOpened(false);
@@ -29,17 +29,19 @@ const ForgottenPassword = () => {
 
 	const handleClear = e => {
 		e.preventDefault();
-		setEmailFpw("")
-		inputRef.current.focus()
-	}
+		setEmailFpw("");
+		inputRef.current.focus();
+	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
 		console.log(`user email adr: `, emailFpw);
-		handleModalCloseBtn(e.target)
+		handleModalCloseBtn(e.target);
 	};
 
-	useEffect( ()=> {inputRef.current.focus()}, [inputRef])
+	useEffect(() => {
+		inputRef.current.focus();
+	}, [inputRef]);
 
 	return (
 		<div className="fpw-container">
@@ -74,12 +76,7 @@ const ForgottenPassword = () => {
 					/>
 				</div>
 				<div className="form-btns">
-					<a
-						href="#"
-						onClick={handleClear}
-						className="form-btn"
-						id="signup"
-					>
+					<a href="#" onClick={handleClear} className="form-btn" id="signup">
 						Clear
 					</a>
 					<button className="form-btn submit">Submit</button>

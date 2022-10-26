@@ -4,11 +4,11 @@ import { ModalContext } from "../../contexts/ModalContext";
 import { UserContext } from "../../contexts/UserContext";
 // import AstForm from "../../pages/asts/astForm/AstForm";
 // import AstMapView from "../../pages/asts/astMapView/AstsMapView";
-import Signin from "../../pages/auth/Signin";
-import Signout from "../../pages/auth/Signout";
-import Signup from "../../pages/auth/Signup";
-import ForgottenPassword from "../../pages/auth/ForgottenPassword";
-import TrnForm from '../../pages/trns/trnForm/TrnForm'
+import Signin from "../../components/forms/authForms/Signin";
+import Signout from "../../components/forms/authForms/Signout";
+import Signup from "../../components/forms/authForms/Signup";
+import ForgottenPassword from "../../components/forms/authForms/ForgottenPassword";
+import TrnForm from '../../components/forms/trnForms/TrnForm'
 // import ViewOnMap from "../tabs/tabsTable/viewOnMap/ViewOnMap";
 import "./modal.css";
 

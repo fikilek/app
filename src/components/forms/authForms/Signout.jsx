@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import "./auth.css";
+import "../forms.css";
 import { MdCheck, MdClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
-import { ModalContext } from "../../contexts/ModalContext";
+import { UserContext } from "../../../contexts/UserContext";
+import { ModalContext } from "../../../contexts/ModalContext";
 
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
