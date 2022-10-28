@@ -30,6 +30,7 @@
 .btn-linked-ast-serial-no,
 .btn-serial-no {
 	min-width: 120px;
+	text-align: left;
 }
 
 .btn-trn-count,

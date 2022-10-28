@@ -13,8 +13,8 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 	const { modalToOpen } = useOpenModal();
 	const { asts, trns, sch } = useFilterData({ ml1, ml2, ml3 });
 
-	console.log(`sch`, sch);
-	console.log(`ml1`, ml1);
+	// console.log(`sch`, sch);
+	// console.log(`ml1`, ml1);
 	// console.log(`asts`, asts);
 	// console.log(`trns`, trns);
 
@@ -76,21 +76,28 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 			headerName: "Supply Chain Data",
 			children: [
 				{
+					// A click displays a modal that shows the Purchase Order
 					field: "schData.schPoNo",
 					headerName: "Po No",
 					width: 160,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-trn-count">{p.value}</button>
+					),
 				},
 				{
+					// A click displays a modal of image(s) of the invoice(s) of the PO 
 					field: "schData.schInv",
 					headerName: "Invoice Data",
 					width: 160,
 				},
 				{
+					// A click displays a modal that shows Proof of Payment for the invoices
 					field: "schData.schPop",
 					headerName: "Proof Of Payment",
 					width: 160,
 				},
 				{
+					// A click displays a modal with grv of the Goods on the PO 
 					field: "schData.schGrv",
 					headerName: "GRV",
 					width: 160,

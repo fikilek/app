@@ -8,9 +8,10 @@ import Signin from "../../components/forms/authForms/Signin";
 import Signout from "../../components/forms/authForms/Signout";
 import Signup from "../../components/forms/authForms/Signup";
 import ForgottenPassword from "../../components/forms/authForms/ForgottenPassword";
-import TrnForm from '../../components/forms/trnForms/TrnForm'
-// import ViewOnMap from "../tabs/tabsTable/viewOnMap/ViewOnMap";
+import TrnForm from "../../components/forms/trnForms/TrnForm";
+// import ViewOnMap from "../tabs/table/viewOnMap/ViewOnMap";
 import "./modal.css";
+import PoForm from "../forms/poForms/PoForm";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -53,6 +54,7 @@ const Modal = () => {
 						<>{name === "signup" ? <Signup /> : ""}</>
 						<>{name === "fpw" ? <ForgottenPassword /> : ""}</>
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
+						<>{name === "poForm" ? <PoForm /> : ""}</>
 						{/* <>{name === "astForm" ? <AstForm /> : ""}</> */}
 					</div>
 

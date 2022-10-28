@@ -347,4 +347,44 @@ const newTrnData = {
 	},
 };
 
-export { astStateNames, trnNames, unpData, unpRoles, unpStates, newTrnData };
+
+const newPoFormData = {
+	poSystemId: nanoid(),
+	metaData: {
+		updatedAtDatetime: null,
+		updatedByUser: "fikile@gmail.com",
+		createdAtDatetime: null,
+		createdByUser: "siya@gmail.com",
+	},
+	poInvoice: "",
+	poPop: "", // Proof of Payment
+	poGrv: "",
+	poSupplierData: {
+		supplierName: "",
+		contactSurname: "",
+		contactName: "",
+		poContactNo: "",
+		poEmailAdr: "",
+	},
+	poProcuredItems: [
+		{
+			"#": 1,
+			ItemName: "Single phase meters",
+			ItemCode: "BEC44",
+			Quantity: "10",
+		},
+		{ "#": 2, ItemName: "Three phase meters", ItemCode: "BEC65", Quantity: "5" },
+		{ "#": 3, ItemName: "Wireless Interface Unit", ItemCode: "WIU", Quantity: "15" },
+	],
+	poTotal: "15",
+};
+
+export {
+	astStateNames,
+	trnNames,
+	unpData,
+	unpRoles,
+	unpStates,
+	newTrnData,
+	newPoFormData,
+};

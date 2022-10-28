@@ -5,7 +5,8 @@
 
 .signin-container,
 .signup-container,
-.fpw-container {
+.fpw-container,
+.po-container {
 	background-color: #ecf0f3;
 	border-radius: 2rem;
 	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
@@ -15,7 +16,8 @@
 
 .signin-header,
 .signup-header,
-.fpw-header {
+.fpw-header,
+.po-header {
 	position: relative;
 	display: flex;
 	justify-content: space-evenly;
@@ -26,7 +28,8 @@
 
 .signin-header-title-img,
 .signup-header-title-img,
-.fpw-header-title-img {
+.fpw-header-title-img,
+.po-header-title-img {
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -35,7 +38,8 @@
 
 .signin-header-close-btn,
 .signup-header-close-btn,
-.fpw-header-close-btn {
+.fpw-header-close-btn ,
+.po-header-close-btn {
 	position: absolute;
 	top: -1rem;
 	right: -1.5rem;
@@ -43,7 +47,8 @@
 
 .signin-header-close-btn button,
 .signup-header-close-btn button,
-.fpw-header-close-btn button {
+.fpw-header-close-btn button,
+.po-header-close-btn button {
 	font-size: 3rem;
 	color: #fff;
 	background-color: coral;
@@ -54,13 +59,15 @@
 
 .signin-header-close-btn button:hover,
 .signup-header-close-btn button:hover,
-.fpw-header-close-btn button:hover {
+.fpw-header-close-btn button:hover,
+.po-header-close-btn button:hover {
 	cursor: pointer;
 }
 
 .signin-img,
 .signup-img,
-.fpw-img {
+.fpw-img,
+.po-img {
 	width: 8rem;
 	border-radius: 50%;
 	box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -70,7 +77,8 @@
 }
 
 .signin-form,
-.signup-form {
+.signup-form,
+.po-form {
 	display: grid;
 	grid-template-rows: auto;
 	gap: 2rem;
@@ -152,6 +160,62 @@
 	padding-left: 2rem;
 }
 
+/* po form */
+
+.po-form {
+	width: 600px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"form-section-update form-section-created"
+		"form-section-inv-pop-grv form-section-supplier"
+		"form-section-po-items form-section-po-items"
+		"form-btns form-btns"
+		;
+}
+
+.form-section-po-items {
+	grid-area: form-section-po-items;
+	height: 100%;
+}
+
+
+.from-section-inv-pop-grv {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 0.5fr 1fr 1fr 2fr;
+	grid-template-areas: 
+	"inv-pop-grv-title"
+	"po-form-inv"
+	"po-form-pop"
+	"po-form-grv"
+	"po-form-grv"
+	;
+}
+
+.po-form-inv, .po-form-pop, .po-form-grv {
+	width: 100%;
+	margin: 2px 0px;
+}
+
+.btn-po-form-inv, .btn-po-form-pop, .btn-po-form-grv {
+	width: 100%;
+	height: 100%;
+}
+
+
+.from-section-supplier {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
+	grid-template-areas: 
+	"supplier-title"
+	"po-form-supplier-name"
+	"po-form-supplier-contact-surname-name"
+	"po-form-supplier-contact-no"
+	"po-form-supplier-contact-email-adr"
+	;
+}
+
 /* signin */
 
 .signin-container {
@@ -174,7 +238,8 @@
 }
 
 .signin-footer,
-.fpw-footer {
+.fpw-footer,
+.po-footer {
 	display: flex;
 	justify-content: space-between;
 	margin: 2rem 0 1rem 0;
@@ -223,10 +288,6 @@
 		"form-field-password form-field-confirmPassword"
 		"form-btns form-btns";
 }
-
-/* .signup-container .form-btn:hover {
-	background-color: #9cd9f8;
-} */
 
 .signup-footer,
 .fpw-footer {
@@ -331,3 +392,5 @@ input::placeholder {
 	background-color: beige;
 	border: none;
 }
+
+

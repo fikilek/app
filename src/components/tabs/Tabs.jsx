@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./tabs.css";
-import TabsTable from "./tabsTable/TabsTable";
+import Table from "./table/Table";
 import TabsMap from "./tabsMap/TabsMap";
 import TabsTree from "./tabsTree/TabsTree";
 
@@ -56,7 +56,7 @@ const Tabs = ({ ml1, ml2, ml3 }) => {
 					}  `}
 					id="tabs-table"
 				>
-					<TabsTable ml1={ml1} ml2={ml2} ml3={ml3} />
+					<Table ml1={ml1} ml2={ml2} ml3={ml3} />
 				</div>
 				<div
 					className={`tabs-body-content tabs-map ${

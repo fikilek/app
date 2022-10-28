@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from "react";
-import "./tabsTable.css";
+import "./table.css";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
@@ -12,8 +12,8 @@ import { Tooltip } from "react-tippy";
 // import { astTableFields, trnTableFields } from "./tableFields";
 import useTableConfig from "./useTableConfig";
 
-const TabsTable = ({ ml1, ml2, ml3 }) => {
-	console.log(`ml1`, ml1);
+const Table = ({ ml1, ml2, ml3 }) => {
+	// console.log(`ml1`, ml1);
 	// console.log(`ml2`, ml2);
 	// console.log(`ml3`, ml3);
 
@@ -34,7 +34,7 @@ const TabsTable = ({ ml1, ml2, ml3 }) => {
 		[]
 	);
 
-	console.log(`rowData`, rowData)
+	// console.log(`rowData`, rowData);
 
 	return (
 		<>
@@ -52,6 +52,6 @@ const TabsTable = ({ ml1, ml2, ml3 }) => {
 	);
 };
 
-export default TabsTable;
+export default Table;
 
 // TODO: mouse over tips on the table skipHeader

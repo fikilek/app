@@ -215,6 +215,10 @@ li.move-right {
 	height: 100%;
 }
 
+.sch {
+	position: relative;
+}
+
 .user-updated,
 .user,
 .no-page-found,
