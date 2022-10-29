@@ -22,7 +22,7 @@
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
-	padding: 2rem;
+	padding: 1rem;
 	width: 100%;
 }
 
@@ -38,7 +38,7 @@
 
 .signin-header-close-btn,
 .signup-header-close-btn,
-.fpw-header-close-btn ,
+.fpw-header-close-btn,
 .po-header-close-btn {
 	position: absolute;
 	top: -1rem;
@@ -82,6 +82,7 @@
 	display: grid;
 	grid-template-rows: auto;
 	gap: 2rem;
+	position: relative;
 }
 
 /* TODO: I dont understand why fpw grid cannot take gap of 2rem */
@@ -95,9 +96,10 @@
 	display: grid;
 	grid-template-columns: 10% 90%;
 	grid-template-rows: 1fr;
-	height: 4rem;
+	height: 3rem;
 	border-radius: 1.2rem;
 	box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+	margin: 2px 0px;
 }
 
 .form-field-icon {
@@ -169,8 +171,29 @@
 		"form-section-update form-section-created"
 		"form-section-inv-pop-grv form-section-supplier"
 		"form-section-po-items form-section-po-items"
-		"form-btns form-btns"
-		;
+		"form-btns form-btns";
+}
+
+.from-section-updated,
+.from-section-created,
+.from-section-inv-pop-grv,
+.from-section-supplier {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.5rem;
+}
+
+.from-section-updated,
+.from-section-created {
+	/* display: none; */
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
 }
 
 .form-section-po-items {
@@ -178,42 +201,67 @@
 	height: 100%;
 }
 
-
 .from-section-inv-pop-grv {
-	display: grid;
-	grid-template-columns: 1fr;
 	grid-template-rows: 0.5fr 1fr 1fr 2fr;
-	grid-template-areas: 
-	"inv-pop-grv-title"
-	"po-form-inv"
-	"po-form-pop"
-	"po-form-grv"
-	"po-form-grv"
-	;
+	grid-template-areas:
+		"inv-pop-grv-title"
+		"po-form-inv"
+		"po-form-pop"
+		"po-form-grv";
 }
 
-.po-form-inv, .po-form-pop, .po-form-grv {
-	width: 100%;
-	margin: 2px 0px;
+.po-form-inv {
+	grid-area: po-form-inv;
 }
 
-.btn-po-form-inv, .btn-po-form-pop, .btn-po-form-grv {
-	width: 100%;
+.po-form-pop {
+	grid-area: po-form-pop;
+}
+
+.po-form-grv {
+	grid-area: po-form-grv;
 	height: 100%;
 }
 
+.po-form-inv,
+.po-form-pop,
+.po-form-grv {
+	width: 100%;
+}
+
+.btn-po-form-inv,
+.btn-po-form-pop,
+.btn-po-form-grv {
+	width: 100%;
+	height: 100%;
+	border: none;
+	border-radius: 0 1.2rem 1.2rem 0;
+	background-color: rgb(255, 255, 255);
+}
 
 .from-section-supplier {
-	display: grid;
-	grid-template-columns: 1fr;
 	grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
-	grid-template-areas: 
-	"supplier-title"
-	"po-form-supplier-name"
-	"po-form-supplier-contact-surname-name"
-	"po-form-supplier-contact-no"
-	"po-form-supplier-contact-email-adr"
-	;
+	grid-template-areas:
+		"supplier-title"
+		"po-form-supplier-name"
+		"po-form-supplier-contact-surname-name"
+		"po-form-supplier-contact-no"
+		"po-form-supplier-contact-email-adr";
+}
+
+.form-section-title-created {
+	display: flex;
+	justify-content: space-between;
+}
+
+.form-section-show-hide-btn {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: lightcyan;
 }
 
 /* signin */
@@ -392,5 +440,3 @@ input::placeholder {
 	background-color: beige;
 	border: none;
 }
-
-

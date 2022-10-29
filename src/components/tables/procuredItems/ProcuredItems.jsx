@@ -43,19 +43,19 @@ const TableProcuredItems = () => {
 		setNoOfRows(() => initRowData.length * 60);
 
 		const total = initRowData.reduce((accum, current) => {
-			console.log(`accum before sumation`, accum)
-			console.log(`current before sumation`, current.quantity)
+			// console.log(`accum before sumation`, accum)
+			// console.log(`current before sumation`, current.quantity)
 			return accum + current.quantity
 		}, 0);
 
-		console.log(`total`, total);
+		// console.log(`total`, total);
 
 		settotal(total);
 
 	}, [initRowData]);
 
 	return (
-		<div style={{ height: parseInt(noOfRows) }}>
+		<div style={{ height: parseInt(noOfRows)  }}>
 			<table className="poTable">
 				<thead>
 					<tr>

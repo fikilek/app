@@ -1,7 +1,19 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import "../forms.css";
-import { MdBusiness, MdEmail, MdLockClock, MdOutlineEmail, MdPerson } from "react-icons/md";
+import {
+	MdBusiness,
+	MdEmail,
+	MdLockClock,
+	MdOutlineEmail,
+	MdPerson,
+} from "react-icons/md";
 import { FcBusinessman, FcCellPhone, FcPhone } from "react-icons/fc";
+import {
+	FaFileInvoiceDollar,
+	FaShoppingBasket,
+	IconName,
+} from "react-icons/fa";
+import { RiMoneyCnyBoxLine } from "react-icons/ri";
 import irepsImage2 from "../../../images/irepsImage1.jpg";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { useSelector } from "react-redux";
@@ -16,6 +28,8 @@ const PoForm = () => {
 	// Fpw is the Forgotten Password section
 	const [poData, setPoData] = useState(newPoFormData);
 	// console.log(`poData`, poData);
+	// const [ showHide, setShowHide ] = useState("hide");
+	// console.log(`showHide`, showHide);
 
 	// this section sontrols the display of the modal
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
@@ -40,7 +54,7 @@ const PoForm = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(`user email adr: `, poData);
+		// console.log(`user email adr: `, poData);
 		handleModalCloseBtn(e.target);
 	};
 
@@ -53,6 +67,19 @@ const PoForm = () => {
 			};
 		});
 	};
+
+	// const handleClick = e => {
+	// 	e.preventDefault();
+  //   // console.log(`btn clicked`);
+  //   setShowHide(prev => {
+  //     if(prev === 'hide') return "show"
+  //     if(prev === 'show') return "hide"
+  //   })
+	// };
+
+  const handleClickInvPopGrv = e => {
+    e.preventDefault()
+  }
 
 	return (
 		<div className="po-container">
@@ -71,7 +98,11 @@ const PoForm = () => {
 
 			{/* po form */}
 			<form className="po-form" onSubmit={handleSubmit}>
-				<div className="form-section from-section-updated">
+				{/* <button
+					className="form-section-show-hide-btn"
+					onClick={handleClick}
+				></button> */}
+				<div className={`form-section from-section-updated`}>
 					<p className="form-section-title">Last Updated</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
@@ -100,7 +131,7 @@ const PoForm = () => {
 						/>
 					</div>
 				</div>
-				<div className="form-section from-section-created">
+				<div className={`form-section from-section-created`}>
 					<p className="form-section-title">Created</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
@@ -132,14 +163,23 @@ const PoForm = () => {
 
 				<div className="form-section from-section-inv-pop-grv">
 					<p className="form-section-title inv-pop-grv-title ">Inv Pop Grv</p>
-					<div className="po-form-inv">
-						<button className="btn-po-form-inv">Invoice(s)</button>
+					<div className="form-field po-form-inv">
+						<span className="form-field-icon">
+							<FaFileInvoiceDollar />
+						</span>
+						<button onClick={handleClickInvPopGrv} className="btn-po-form-inv">Invoice(s)</button>
 					</div>
-					<div className="po-form-pop">
-						<button className="btn-po-form-pop">Proof of Payment</button>
+					<div className="form-field po-form-pop">
+						<span className="form-field-icon">
+							<RiMoneyCnyBoxLine />
+						</span>
+						<button onClick={handleClickInvPopGrv} className="btn-po-form-pop">Proof of Payment</button>
 					</div>
-					<div className="po-form-grv">
-						<button className="btn-po-form-grv">Grv</button>
+					<div className="form-field po-form-grv">
+						<span className="form-field-icon">
+							<FaShoppingBasket />
+						</span>
+						<button onClick={handleClickInvPopGrv} className="btn-po-form-grv">Grv</button>
 					</div>
 				</div>
 
