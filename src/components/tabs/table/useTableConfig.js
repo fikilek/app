@@ -18,13 +18,15 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 	// console.log(`asts`, asts);
 	// console.log(`trns`, trns);
 
+	const { poData } = sch;
+
 	const openModal = e =>
 		modalToOpen(e.target.id, e.target.getAttribute("data-trn-id"));
 
 	// sch (supply chain fields)
 
 	const schTableFields = [
-		{ field: "schSystemId", headerName: "Sch Id", width: 90 },
+		{ field: "poSystemId", headerName: "Sch Id", width: 90 },
 		{
 			headerName: "Updated",
 			children: [
@@ -77,7 +79,7 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 			children: [
 				{
 					// A click displays a modal that shows the Purchase Order
-					field: "schData.schPoNo",
+					field: "poData.poNo",
 					headerName: "Po No",
 					width: 160,
 					cellRenderer: p => (
@@ -85,30 +87,30 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					),
 				},
 				{
-					// A click displays a modal of image(s) of the invoice(s) of the PO 
-					field: "schData.schInv",
+					// A click displays a modal of image(s) of the invoice(s) of the PO
+					field: "poData.poInv",
 					headerName: "Invoice Data",
 					width: 160,
 				},
 				{
 					// A click displays a modal that shows Proof of Payment for the invoices
-					field: "schData.schPop",
+					field: "poData.poPop",
 					headerName: "Proof Of Payment",
 					width: 160,
 				},
 				{
-					// A click displays a modal with grv of the Goods on the PO 
-					field: "schData.schGrv",
+					// A click displays a modal with grv of the Goods on the PO
+					field: "poData.poGrv",
 					headerName: "GRV",
 					width: 160,
 				},
 				{
-					field: "schData.schTotalItems",
+					field: "poData.poTotalItems",
 					headerName: "Total Items",
 					width: 160,
 				},
 				{
-					field: "schData.Items",
+					field: "poData.Items",
 					headerName: "Items",
 					width: 160,
 				},
@@ -501,7 +503,7 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 	// Supply Chain TableBtnOpenTrns
 	if (ml1 === "sch") {
 		return {
-			rowData: sch,
+			rowData: poData,
 			columnDefs: [...schTableFields],
 		};
 	}

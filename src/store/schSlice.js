@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { schData } from "../data/schData/schData";
+import { poData, splData, piData } from "../data/schData/schData";
 
 const schSclice = createSlice({
 	name: "sch",
-	initialState: schData,
+	initialState: { poData, splData, piData },
 	reducers: {
 		poCreated: (state, action) => {},
 		poUpdated: (state, action) => {},
@@ -14,7 +14,13 @@ const schSclice = createSlice({
 	},
 });
 
-export const { poCreated, poUpdated, poDeleted, grvCreated, grvUpdated, grvDeleted } =
-	schSclice.actions;
+export const {
+	poCreated,
+	poUpdated,
+	poDeleted,
+	grvCreated,
+	grvUpdated,
+	grvDeleted,
+} = schSclice.actions;
 
 export default schSclice.reducer;

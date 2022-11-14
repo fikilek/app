@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import moment from "moment";
 import { nanoid } from "nanoid";
 
 const astStateNames = [
@@ -347,37 +348,37 @@ const newTrnData = {
 	},
 };
 
-
 const newPoFormData = {
-	poSystemId: nanoid(),
+	poSystemId: null,
 	metaData: {
-		updatedAtDatetime: null,
-		updatedByUser: "fikile@gmail.com",
-		createdAtDatetime: null,
-		createdByUser: "siya@gmail.com",
+		updatedAtDatetime: moment(new Date(2022, 0, 10, 15, 21, 30)).format(
+			"YYYY-MM-DDTHH:mm"
+		),
+		updatedByUser: "",
+		createdAtDatetime: moment(new Date(2022, 0, 10, 15, 21, 30)).format(
+			"YYYY-MM-DDTHH:mm"
+		),
+		createdByUser: "",
 	},
-	poInvoice: "",
+	poInv: "",
 	poPop: "", // Proof of Payment
 	poGrv: "",
-	poSupplierData: {
+	poSplData: {
+		// Supplier data
 		supplierName: "",
 		contactSurname: "",
 		contactName: "",
 		poContactNo: "",
 		poEmailAdr: "",
 	},
-	poProcuredItems: [
-		{
-			"#": 1,
-			ItemName: "Single phase meters",
-			ItemCode: "BEC44",
-			Quantity: "10",
-		},
-		{ "#": 2, ItemName: "Three phase meters", ItemCode: "BEC65", Quantity: "5" },
-		{ "#": 3, ItemName: "Wireless Interface Unit", ItemCode: "WIU", Quantity: "15" },
-	],
-	poTotal: "15",
+	poPi: [],
 };
+
+const newPoiFormData = [
+	{poiName: 'itemName', poiValue: '', poiPlaceHolder: 'item name'},
+	{poiName: 'itemCode', poiValue: '', poiPlaceHolder: 'item code'},
+	{poiName: 'quantity', poiValue: '', poiPlaceHolder: 'quantity'},
+];
 
 export {
 	astStateNames,
@@ -387,4 +388,5 @@ export {
 	unpStates,
 	newTrnData,
 	newPoFormData,
+	newPoiFormData,
 };

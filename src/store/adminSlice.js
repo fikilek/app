@@ -7,6 +7,7 @@ import {
 	unpStates,
 	newTrnData,
 	newPoFormData,
+	newPoiFormData,
 } from "../data/adminData/adminData";
 
 const adminSlice = createSlice({
@@ -19,6 +20,7 @@ const adminSlice = createSlice({
 		unpStates,
 		newTrnData,
 		newPoFormData,
+		newPoiFormData,
 	},
 	reducers: {
 		// create, update and delete assets state config details

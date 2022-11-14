@@ -8,32 +8,25 @@ import {
 	MdPerson,
 } from "react-icons/md";
 import { FcBusinessman, FcCellPhone, FcPhone } from "react-icons/fc";
-import {
-	FaFileInvoiceDollar,
-	FaShoppingBasket,
-	IconName,
-} from "react-icons/fa";
+import { FaFileInvoiceDollar, FaShoppingBasket } from "react-icons/fa";
 import { RiMoneyCnyBoxLine } from "react-icons/ri";
-import irepsImage2 from "../../../images/irepsImage1.jpg";
 import { ModalContext } from "../../../contexts/ModalContext";
-import { useSelector } from "react-redux";
-import TableProcuredItems from "../../tables/procuredItems/TableProcuredItems";
-import ProcuredItems from "../../tables/procuredItems/ProcuredItems";
+import { PoContext } from "../../../contexts/PoContext";
+import PoiTable from "../../tables/poi/PoiTable";
 
 const PoForm = () => {
-	const inputRef = useRef();
-	const { newPoFormData } = useSelector(state => state.admin);
-	// console.log(`newPoFormData`, newPoFormData);
 
-	// Fpw is the Forgotten Password section
-	const [poData, setPoData] = useState(newPoFormData);
-	// console.log(`poData`, poData);
-	// const [ showHide, setShowHide ] = useState("hide");
-	// console.log(`showHide`, showHide);
-
-	// this section sontrols the display of the modal
+	const { poData, setPoData, poItemsInContext, poTotals } =
+		useContext(PoContext);
+	// console.log(`poForm poData`, poData);
+	// console.log(`poForm initPi`, initPi);
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
+	const [invPopGrv, setInvPopGrv] = useState({
+		invoices: 0,
+		proofOfPayments: 0,
+		grv: 0,
+	});
 
 	const handleModalCloseBtn = e => {
 		setModalOpened(false);
@@ -54,8 +47,16 @@ const PoForm = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		// console.log(`user email adr: `, poData);
-		handleModalCloseBtn(e.target);
+		setPoData(prev => {
+			// console.log(`prev.poPi`, prev.poPi);
+			// console.log(`items`, items);
+			return {
+				...prev,
+				poPi: [...prev.poPi, poItemsInContext],
+			};
+		});
+		// setPoItems(newPoiFormData);
+		// handleModalCloseBtn(e.target);
 	};
 
 	const handleChange = e => {
@@ -70,16 +71,19 @@ const PoForm = () => {
 
 	// const handleClick = e => {
 	// 	e.preventDefault();
-  //   // console.log(`btn clicked`);
-  //   setShowHide(prev => {
-  //     if(prev === 'hide') return "show"
-  //     if(prev === 'show') return "hide"
-  //   })
+	//   // console.log(`btn clicked`);
+	//   setShowHide(prev => {
+	//     if(prev === 'hide') return "show"
+	//     if(prev === 'show') return "hide"
+	//   })
 	// };
 
-  const handleClickInvPopGrv = e => {
-    e.preventDefault()
-  }
+	const handleClickInvPopGrv = e => {
+		e.preventDefault();
+		console.log(`inv pop grv clicked`);
+	};
+
+	// console.log(`poData`, poData);
 
 	return (
 		<div className="po-container">
@@ -167,19 +171,33 @@ const PoForm = () => {
 						<span className="form-field-icon">
 							<FaFileInvoiceDollar />
 						</span>
-						<button onClick={handleClickInvPopGrv} className="btn-po-form-inv">Invoice(s)</button>
+						<button onClick={handleClickInvPopGrv} className="btn-po-form-inv">
+							{invPopGrv.invoices ? (
+								<p>{invPopGrv.invoices}</p>
+							) : (
+								<p>No Invoice(s) as yet</p>
+							)}
+						</button>
 					</div>
 					<div className="form-field po-form-pop">
 						<span className="form-field-icon">
 							<RiMoneyCnyBoxLine />
 						</span>
-						<button onClick={handleClickInvPopGrv} className="btn-po-form-pop">Proof of Payment</button>
+						<button onClick={handleClickInvPopGrv} className="btn-po-form-pop">
+							{invPopGrv.proofOfPayments ? (
+								<p>{invPopGrv.proofOfPayments}</p>
+							) : (
+								<p>No Pops as yet</p>
+							)}
+						</button>
 					</div>
 					<div className="form-field po-form-grv">
 						<span className="form-field-icon">
 							<FaShoppingBasket />
 						</span>
-						<button onClick={handleClickInvPopGrv} className="btn-po-form-grv">Grv</button>
+						<button onClick={handleClickInvPopGrv} className="btn-po-form-grv">
+							{invPopGrv.grv ? <p>{invPopGrv.grv}</p> : <p>No Grv as yet</p>}
+						</button>
 					</div>
 				</div>
 
@@ -193,6 +211,7 @@ const PoForm = () => {
 							type="text"
 							name="supplierName"
 							value={poData.supplierName}
+							onChange={() => ""}
 							placeholder="Supplier Name"
 						/>
 					</div>
@@ -218,6 +237,7 @@ const PoForm = () => {
 							name="contactNo"
 							id="updatedAtDatetime"
 							value={poData.contactNo}
+							onChange={() => ""}
 							placeholder="Contact No"
 						/>
 					</div>
@@ -229,14 +249,18 @@ const PoForm = () => {
 							type="email"
 							name="emailAdr"
 							value={poData.email}
+							onChange={() => ""}
 							placeholder="Email Adr"
 						/>
 					</div>
 				</div>
 
 				<div className="form-section form-section-po-items">
-					<p className="form-section-title">Procured Items</p>
-					<ProcuredItems />
+					<div className="form-section-po-items-title">
+						<p className="form-section-title">Procured Items</p>
+						<p className="form-section-title-totals">Total Quantites {poTotals}</p>
+					</div>
+					<PoiTable />
 				</div>
 
 				<div className="form-btns">
