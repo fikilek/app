@@ -61,7 +61,9 @@ const PoiTable = props => {
 		setRowData(poItemsInContext);
 	}, [poItemsInContext]);
 
-
+  const onCellValueChanged = params => {
+			console.log(`cell value has changed`, params.value)
+		};
 
 	const defaultColDef = useMemo(
 		() => ({
@@ -90,6 +92,7 @@ const PoiTable = props => {
 				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
 				rowSelection="single" // Options - allows click selection of rows
 				// onCellClicked={addItems}
+				onCellValueChanged={onCellValueChanged}
 				domLayout={"autoHeight"}
 				onGridReady={onGridReady}
 			/>

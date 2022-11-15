@@ -1,4 +1,4 @@
-/* Importing fonts from Google */
+/* Importing fonts form Google */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 /* common */
@@ -174,17 +174,17 @@
 		"form-btns form-btns";
 }
 
-.from-section-updated,
-.from-section-created,
-.from-section-inv-pop-grv,
-.from-section-supplier {
+.form-section-updated,
+.form-section-created,
+.form-section-inv-pop-grv,
+.form-section-supplier {
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 0.5rem;
 }
 
-.from-section-updated,
-.from-section-created {
+.form-section-updated,
+.form-section-created {
 	/* display: none; */
 }
 
@@ -210,7 +210,7 @@
 	margin-right: 2px;
 }
 
-.from-section-inv-pop-grv {
+.form-section-inv-pop-grv {
 	grid-template-rows: 0.5fr 1fr 1fr 2fr;
 	grid-template-areas:
 		"inv-pop-grv-title"
@@ -248,7 +248,7 @@
 	background-color: rgb(255, 255, 255);
 }
 
-.from-section-supplier {
+.form-section-supplier {
 	grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
 	grid-template-areas:
 		"supplier-title"

@@ -15,13 +15,13 @@ import { PoContext } from "../../../contexts/PoContext";
 import PoiTable from "../../tables/poi/PoiTable";
 
 const PoForm = () => {
-
-	const { poData, setPoData, poItemsInContext, poTotals } =
+	const { poData, setPoData, poItemsInContext, setPoItemsInContext, poTotals } =
 		useContext(PoContext);
-	// console.log(`poForm poData`, poData);
+	console.log(`poForm poData`, poData);
 	// console.log(`poForm initPi`, initPi);
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
+	
 	const [invPopGrv, setInvPopGrv] = useState({
 		invoices: 0,
 		proofOfPayments: 0,
@@ -55,8 +55,11 @@ const PoForm = () => {
 				poPi: [...prev.poPi, poItemsInContext],
 			};
 		});
-		// setPoItems(newPoiFormData);
-		// handleModalCloseBtn(e.target);
+		setPoItemsInContext([]);
+		handleModalCloseBtn();
+
+		console.log(`poData`, poData);
+		console.log(`poItemsInContext`, poItemsInContext);
 	};
 
 	const handleChange = e => {
@@ -106,7 +109,7 @@ const PoForm = () => {
 					className="form-section-show-hide-btn"
 					onClick={handleClick}
 				></button> */}
-				<div className={`form-section from-section-updated`}>
+				<div className={`form-section form-section-updated`}>
 					<p className="form-section-title">Last Updated</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
@@ -135,7 +138,7 @@ const PoForm = () => {
 						/>
 					</div>
 				</div>
-				<div className={`form-section from-section-created`}>
+				<div className={`form-section form-section-created`}>
 					<p className="form-section-title">Created</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
@@ -165,7 +168,7 @@ const PoForm = () => {
 					</div>
 				</div>
 
-				<div className="form-section from-section-inv-pop-grv">
+				<div className="form-section form-section-inv-pop-grv">
 					<p className="form-section-title inv-pop-grv-title ">Inv Pop Grv</p>
 					<div className="form-field po-form-inv">
 						<span className="form-field-icon">
@@ -201,7 +204,7 @@ const PoForm = () => {
 					</div>
 				</div>
 
-				<div className="form-section from-section-supplier">
+				<div className="form-section form-section-supplier">
 					<p className="form-section-title supplier-title">Supplier</p>
 					<div className="form-field po-form-supplier-name">
 						<span className="form-field-icon">
@@ -210,22 +213,35 @@ const PoForm = () => {
 						<input
 							type="text"
 							name="supplierName"
-							value={poData.supplierName}
+							value={poData.poSplData.supplierName}
 							onChange={() => ""}
 							placeholder="Supplier Name"
 						/>
 					</div>
-					<div className="form-field po-form-supplier-contact-surname-name">
+					<div className="form-field po-form-supplier-contact-surname">
 						<span className="form-field-icon">
 							<FcBusinessman />
 						</span>
 						<input
 							type="text"
-							name="updatedAtDatetime"
-							id="updatedAtDatetime"
-							value={poData.metaData.updatedAtDatetime}
+							name="contactSurname"
+							id="contactSurname"
+							value={poData.poSplData.contactSurname}
 							onChange={handleChange}
-							placeholder="Contact - Surname & Name"
+							placeholder="Contact Surname"
+						/>
+					</div>
+					<div className="form-field po-form-supplier-contact-name">
+						<span className="form-field-icon">
+							<FcBusinessman />
+						</span>
+						<input
+							type="text"
+							name="contactName"
+							id="contactName"
+							value={poData.poSplData.contactName}
+							onChange={handleChange}
+							placeholder="Contact Name"
 						/>
 					</div>
 					<div className="form-field po-form-supplier-contact-no">
@@ -236,7 +252,7 @@ const PoForm = () => {
 							type="text"
 							name="contactNo"
 							id="updatedAtDatetime"
-							value={poData.contactNo}
+							value={poData.poSplData.poContactNo}
 							onChange={() => ""}
 							placeholder="Contact No"
 						/>
@@ -248,9 +264,9 @@ const PoForm = () => {
 						<input
 							type="email"
 							name="emailAdr"
-							value={poData.email}
+							value={poData.poSplData.poEmailAdr}
 							onChange={() => ""}
-							placeholder="Email Adr"
+							placeholder="Contact Email Adr"
 						/>
 					</div>
 				</div>

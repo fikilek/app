@@ -8,25 +8,20 @@ import TableBtnOpenTrns from "../../tableBtns/TableBtnOpenTrns";
 import TableBtnTrnSelect from "../../tableBtns/TableBtnTrnSelect";
 import TableCellArrayData from "../../tableBtns/TableCellArrayData";
 import TableCellPoleData from "../../tableBtns/TableCellPoleData";
+import PoiBtnViewPoi from "../../tables/poi/PoiBtnViewPoi";
 
-const useTableConfig = ({ ml1, ml2, ml3 }) => {
+const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
+	// TODO: come back and do all combinations of ml1, ml2 and ml3
+
 	const { modalToOpen } = useOpenModal();
 	const { asts, trns, sch } = useFilterData({ ml1, ml2, ml3 });
-
-	// console.log(`sch`, sch);
-	// console.log(`ml1`, ml1);
-	// console.log(`asts`, asts);
-	// console.log(`trns`, trns);
-
-	const { poData } = sch;
 
 	const openModal = e =>
 		modalToOpen(e.target.id, e.target.getAttribute("data-trn-id"));
 
-	// sch (supply chain fields)
-
+	// supply chain table fields
 	const schTableFields = [
-		{ field: "poSystemId", headerName: "Sch Id", width: 90 },
+		{ field: "poSystemId", headerName: "PO Id", width: 90 },
 		{
 			headerName: "Updated",
 			children: [
@@ -81,7 +76,7 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					// A click displays a modal that shows the Purchase Order
 					field: "poData.poNo",
 					headerName: "Po No",
-					width: 160,
+					width: 120,
 					cellRenderer: p => (
 						<button className="btn-table-row btn-trn-count">{p.value}</button>
 					),
@@ -90,35 +85,75 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 					// A click displays a modal of image(s) of the invoice(s) of the PO
 					field: "poData.poInv",
 					headerName: "Invoice Data",
-					width: 160,
+					width: 130,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-trn-count">{p.value}</button>
+					),
 				},
 				{
 					// A click displays a modal that shows Proof of Payment for the invoices
 					field: "poData.poPop",
 					headerName: "Proof Of Payment",
 					width: 160,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-trn-count">{p.value}</button>
+					),
 				},
 				{
 					// A click displays a modal with grv of the Goods on the PO
 					field: "poData.poGrv",
 					headerName: "GRV",
-					width: 160,
+					width: 90,
+					cellRenderer: p => (
+						<button className="btn-table-row btn-trn-count">{p.value}</button>
+					),
 				},
 				{
 					field: "poData.poTotalItems",
 					headerName: "Total Items",
-					width: 160,
+					width: 120,
+					cellRenderer: PoiBtnViewPoi,
+				},
+			],
+		},
+		{
+			headerName: "Supplier Details",
+			children: [
+				{
+					field: "poSplData.supplierName",
+					columnGroupShow: "closed",
+					headerName: "Supplier",
+					width: 120,
 				},
 				{
-					field: "poData.Items",
-					headerName: "Items",
-					width: 160,
+					field: "poSplData.contactSurname",
+					columnGroupShow: "closed",
+					headerName: "Surname",
+					width: 110,
+				},
+				{
+					field: "poSplData.contactName",
+					columnGroupShow: "closed",
+					headerName: "Name",
+					width: 110,
+				},
+				{
+					field: "poSplData.poContactNo",
+					columnGroupShow: "open",
+					headerName: "Name",
+					width: 140,
+				},
+				{
+					field: "poSplData.poEmailAdr",
+					columnGroupShow: "open",
+					headerName: "Name",
+					width: 210,
 				},
 			],
 		},
 	];
-	// assets fields
 
+	// assets fields
 	const astTableFields = [
 		{ field: "astSystemId", headerName: "Ast Id", width: 90 },
 		{
@@ -500,11 +535,43 @@ const useTableConfig = ({ ml1, ml2, ml3 }) => {
 		},
 	];
 
+	const poiTableFields = [
+		{
+			field: "itemName",
+			headerName: "Name",
+			flex: 3,
+		},
+		{
+			field: "itemCode",
+			headerName: "Code",
+			flex: 3,
+		},
+		{
+			field: "itemQuantity",
+			headerName: "Quantity",
+			flex: 2,
+		},
+	];
+
 	// Supply Chain TableBtnOpenTrns
 	if (ml1 === "sch") {
 		return {
-			rowData: poData,
+			rowData: sch.poData,
 			columnDefs: [...schTableFields],
+		};
+	}
+
+	if (ml1 === "poi") {
+		// get po system id
+		console.log(`otherData`, otherData)
+		const { poSystemId } = otherData;
+		// get po items
+		const poPi = sch.poData.find(element => {
+			return element.poSystemId === poSystemId;
+		});
+		return {
+			rowData: poPi.poPi,
+			columnDefs: [...poiTableFields],
 		};
 	}
 

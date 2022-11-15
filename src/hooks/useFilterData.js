@@ -43,6 +43,9 @@ const useFilterData = ({ ml1, ml2, ml3 }) => {
 	if (ml1 === 'sch') {
 		return { asts, trns, sch }; 
 	}
+	if (ml1 === "poi") {
+		return { asts, trns, sch };
+	}
 	// TODO: take care of the situation where its neither asts or trns
 };
 

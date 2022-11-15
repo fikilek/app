@@ -363,15 +363,16 @@ const newPoFormData = {
 	poInv: "",
 	poPop: "", // Proof of Payment
 	poGrv: "",
+	poPi: [],
 	poSplData: {
 		// Supplier data
-		supplierName: "",
-		contactSurname: "",
-		contactName: "",
-		poContactNo: "",
-		poEmailAdr: "",
+		splId: 2,
+		splName: "",
+		splContactSurname: "",
+		splContactName: "",
+		splContactNo: "",
+		splContactEmailAdr: "",
 	},
-	poPi: [],
 };
 
 const newPoiFormData = [

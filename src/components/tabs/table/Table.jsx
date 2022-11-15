@@ -12,7 +12,7 @@ import { Tooltip } from "react-tippy";
 // import { astTableFields, trnTableFields } from "./tableFields";
 import useTableConfig from "./useTableConfig";
 
-const Table = ({ ml1, ml2, ml3 }) => {
+const Table = ({ ml1, ml2, ml3, otherData }) => {
 	// console.log(`ml1`, ml1);
 	// console.log(`ml2`, ml2);
 	// console.log(`ml3`, ml3);
@@ -23,6 +23,7 @@ const Table = ({ ml1, ml2, ml3 }) => {
 		ml1,
 		ml2,
 		ml3,
+		otherData,
 	});
 
 	const defaultColDef = useMemo(
@@ -37,18 +38,16 @@ const Table = ({ ml1, ml2, ml3 }) => {
 	// console.log(`rowData`, rowData);
 
 	return (
-		<>
-			<div className="ag-theme-alpine ireps-table">
-				<AgGridReact
-					ref={gridRef} // Ref for accessing Grid's API
-					rowData={rowData} // Row Data for Rows
-					columnDefs={columnDefs} // Column Defs for Columns
-					defaultColDef={defaultColDef} // Default Column Properties
-					animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-					rowSelection="multiple" // Options - allows click selection of rows
-				/>
-			</div>
-		</>
+		<div className={`ag-theme-alpine ${ml1 === 'poi' ? 'poi' : 'ireps'}-table`}>
+			<AgGridReact
+				ref={gridRef} // Ref for accessing Grid's API
+				rowData={rowData} // Row Data for Rows
+				columnDefs={columnDefs} // Column Defs for Columns
+				defaultColDef={defaultColDef} // Default Column Properties
+				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
+				rowSelection="single" // Options - allows click selection of rows
+			/>
+		</div>
 	);
 };
 

@@ -11,7 +11,8 @@ import ForgottenPassword from "../../components/forms/authForms/ForgottenPasswor
 import TrnForm from "../../components/forms/trnForms/TrnForm";
 // import ViewOnMap from "../tabs/table/viewOnMap/ViewOnMap";
 import "./modal.css";
-import PoForm from "../forms/poForms/PoForm";
+import PoForm from "../forms/poForms/PoForm"
+import Table from '../tabs/table/Table'
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -55,6 +56,13 @@ const Modal = () => {
 						<>{name === "fpw" ? <ForgottenPassword /> : ""}</>
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
 						<>{name === "poForm" ? <PoForm /> : ""}</>
+						<>
+							{name === "poItemsTable" ? (
+								<Table ml1={"poi"} otherData={{ poSystemId: payload }} />
+							) : (
+								""
+							)}
+						</>
 						{/* <>{name === "astForm" ? <AstForm /> : ""}</> */}
 					</div>
 
