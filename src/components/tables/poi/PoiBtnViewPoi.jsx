@@ -12,7 +12,7 @@ const PoiBtnViewPoi = params => {
 	const totalQuantites = getTotalQauntites(poPi, "itemQuantity");
 
 	const handleClick = e => {
-		console.log(`btn click`, e);
+		// console.log(`btn click`, e);
 		// modalOpened a modal window
 		setComponentToOpen({
 			...componentToOpen,

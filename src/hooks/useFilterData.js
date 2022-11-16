@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 const useFilterData = ({ ml1, ml2, ml3 }) => {
+
 	const { asts, trns, sch } = useSelector(state => state);
+
+	useEffect(() => {
+		// console.log(`sch has changed`, sch.poData)
+	}, [sch])
 
 	// console.log(`asts`, asts);
 	// console.log(`ml2`, ml2);

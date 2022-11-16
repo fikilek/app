@@ -3,6 +3,10 @@
 
 /* common */
 
+.btn-po-form-supplimentary-data {
+	z-index: 1000;
+}
+
 .signin-container,
 .signup-container,
 .fpw-container,

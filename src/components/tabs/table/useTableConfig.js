@@ -21,7 +21,7 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 
 	// supply chain table fields
 	const schTableFields = [
-		{ field: "poSystemId", headerName: "PO Id", width: 90 },
+		{ field: "poSystemId", headerName: "Po Id", width: 90 },
 		{
 			headerName: "Updated",
 			children: [
@@ -120,31 +120,31 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 			headerName: "Supplier Details",
 			children: [
 				{
-					field: "poSplData.supplierName",
+					field: "poSplData.splName",
 					columnGroupShow: "closed",
 					headerName: "Supplier",
 					width: 120,
 				},
 				{
-					field: "poSplData.contactSurname",
+					field: "poSplData.splContactSurname",
 					columnGroupShow: "closed",
 					headerName: "Surname",
 					width: 110,
 				},
 				{
-					field: "poSplData.contactName",
+					field: "poSplData.splContactName",
 					columnGroupShow: "closed",
 					headerName: "Name",
 					width: 110,
 				},
 				{
-					field: "poSplData.poContactNo",
+					field: "poSplData.splContactNo",
 					columnGroupShow: "open",
 					headerName: "Name",
 					width: 140,
 				},
 				{
-					field: "poSplData.poEmailAdr",
+					field: "poSplData.splContactEmailAdr",
 					columnGroupShow: "open",
 					headerName: "Name",
 					width: 210,
@@ -563,7 +563,7 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 
 	if (ml1 === "poi") {
 		// get po system id
-		console.log(`otherData`, otherData)
+		// console.log(`otherData`, otherData)
 		const { poSystemId } = otherData;
 		// get po items
 		const poPi = sch.poData.find(element => {

@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import moment from "moment";
-import { nanoid } from "nanoid";
+import { nanoid } from "@reduxjs/toolkit";
 
 const astStateNames = [
 	{
@@ -349,20 +349,19 @@ const newTrnData = {
 };
 
 const newPoFormData = {
-	poSystemId: null,
+	poSystemId: '',
 	metaData: {
-		updatedAtDatetime: moment(new Date(2022, 0, 10, 15, 21, 30)).format(
-			"YYYY-MM-DDTHH:mm"
-		),
+		updatedAtDatetime: "",
 		updatedByUser: "",
-		createdAtDatetime: moment(new Date(2022, 0, 10, 15, 21, 30)).format(
-			"YYYY-MM-DDTHH:mm"
-		),
+		createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
 		createdByUser: "",
 	},
-	poInv: "",
-	poPop: "", // Proof of Payment
-	poGrv: "",
+	poData: {
+		poNo: "Po-2",
+		poInv: 0,
+		poPop: 0, // Proof of Payment
+		poGrv: 0,
+	},
 	poPi: [],
 	poSplData: {
 		// Supplier data
@@ -376,9 +375,9 @@ const newPoFormData = {
 };
 
 const newPoiFormData = [
-	{poiName: 'itemName', poiValue: '', poiPlaceHolder: 'item name'},
-	{poiName: 'itemCode', poiValue: '', poiPlaceHolder: 'item code'},
-	{poiName: 'quantity', poiValue: '', poiPlaceHolder: 'quantity'},
+	{ poiName: "itemName", poiValue: "", poiPlaceHolder: "item name" },
+	{ poiName: "itemCode", poiValue: "", poiPlaceHolder: "item code" },
+	{ poiName: "quantity", poiValue: "", poiPlaceHolder: "quantity" },
 ];
 
 export {

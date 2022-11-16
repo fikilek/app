@@ -1,9 +1,10 @@
 import moment from "moment";
+import { nanoid } from '@reduxjs/toolkit'
 
 export const poData = [
 	// purchase order (po) data
 	{
-		poSystemId: 1,
+		poSystemId: nanoid(),
 		metaData: {
 			updatedAtDatetime: moment(new Date(2022, 0, 10, 15, 21)).format(
 				"YYYY-MM-DD HH:mm:ss"
@@ -26,42 +27,11 @@ export const poData = [
 			{ itemName: "three phase meter", itemCode: "BEC66", itemQuantity: 5 },
 		],
 		poSplData: {
-			supplierName: "Conlog",
-			contactSurname: "Gina",
-			contactName: "Mondli",
-			poContactNo: "081 726 2352",
-			poEmailAdr: "mondli@conlog.co.za",
-		},
-	},
-	{
-		poSystemId: 2,
-		metaData: {
-			updatedAtDatetime: moment(new Date(2022, 0, 10, 15, 21)).format(
-				"YYYY-MM-DD HH:mm:ss"
-			),
-			updatedByUser: "fikile kentane",
-			createdAtDatetime: moment(new Date(2022, 0, 10, 15, 21)).format(
-				"YYYY-MM-DD HH:mm:ss"
-			),
-			createdByUser: "fikile kentane",
-			poHistory: 1,
-		},
-		poData: {
-			poNo: "Po-2", // Purchase Order No. THis is the begining of the procurment process
-			poInv: "0", // Invoice sent by the supplier
-			poPop: "0", // Proof of Payment for the invoice paid
-			poGrv: "0", // Goods received. THis should correspond to the items in the PO.
-		},
-		poPi: [
-			{ itemName: "User Interface Unit", itemCode: "WU22", itemQuantity: 25 },
-			{ itemName: "mov", itemCode: "mov", itemQuantity: 25 },
-		],
-		poSplData: {
-			supplierName: "Conlog",
-			contactSurname: "Gina",
-			contactName: "Mondli",
-			poContactNo: "081 726 2352",
-			poEmailAdr: "mondli@conlog.co.za",
+			splName: "Conlog",
+			splContactSurname: "Gina",
+			splContactName: "Mondli",
+			splContactNo: "081 726 2352",
+			splContactEmailAdr: "mondli@conlog.co.za",
 		},
 	},
 ];
@@ -85,4 +55,3 @@ export const splData = [
 		splContactEmailAdr: "ali@landis.co.za",
 	},
 ];
-

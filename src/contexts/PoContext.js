@@ -8,7 +8,7 @@ export const PoContextProvider = props => {
 	const [poData, setPoData] = useState(newPoFormData);
 	const [poItemsInContext, setPoItemsInContext] = useState([]);
 	// console.log(`poItemsInContext`, poItemsInContext);
-	// console.log(`PoContext poData`, poData);
+	// console.log(`poData`, poData);
 
 	const getPoiTotalQuantities = () => {
 		const totals =

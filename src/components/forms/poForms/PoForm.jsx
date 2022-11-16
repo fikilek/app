@@ -1,92 +1,114 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../forms.css";
 import {
 	MdBusiness,
-	MdEmail,
 	MdLockClock,
 	MdOutlineEmail,
 	MdPerson,
 } from "react-icons/md";
-import { FcBusinessman, FcCellPhone, FcPhone } from "react-icons/fc";
+import { FcBusinessman, FcCellPhone } from "react-icons/fc";
 import { FaFileInvoiceDollar, FaShoppingBasket } from "react-icons/fa";
 import { RiMoneyCnyBoxLine } from "react-icons/ri";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { PoContext } from "../../../contexts/PoContext";
 import PoiTable from "../../tables/poi/PoiTable";
+import { useDispatch } from "react-redux";
+import { poCreated } from "../../../store/schSlice";
+import { UserContext } from "../../../contexts/UserContext";
+import moment from "moment";
+import { nanoid } from "@reduxjs/toolkit";
+
+let sequence = 2
 
 const PoForm = () => {
+	const dispatch = useDispatch();
+	// get po context
 	const { poData, setPoData, poItemsInContext, setPoItemsInContext, poTotals } =
 		useContext(PoContext);
-	console.log(`poForm poData`, poData);
-	// console.log(`poForm initPi`, initPi);
+	// console.log(`poItemsInContext`, poItemsInContext);
+	// get modal context
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
-	
-	const [invPopGrv, setInvPopGrv] = useState({
-		invoices: 0,
-		proofOfPayments: 0,
-		grv: 0,
-	});
+	// Update user details on poData
+	const { user } = useContext(UserContext);
+	const [po, setPo] = useState(poData);
+	// console.log(`po`, po);
+
+	useEffect(() => {
+		setPo(prev => {
+			return {
+				...prev,
+				poPi: poItemsInContext,
+			};
+			}
+		);
+	}, [poItemsInContext]);
+
+	useEffect(() => {
+		setPo(prev => {
+			return {
+				...prev,
+				poSystemId: nanoid(),
+				poData: {
+					...prev.poData,
+					poNo: `Po-${sequence++}`
+				} ,
+				metaData: {
+					updatedByUser: user.signedon
+						? `${user.surname} ${user.name}`
+						: "Not Available",
+					updatedAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
+					createdByUser: user.signedon
+						? `${user.surname} ${user.name}`
+						: "Not Available",
+					createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
+				},
+			};}
+		);
+	},[])
+
+
 
 	const handleModalCloseBtn = e => {
 		setModalOpened(false);
 		setComponentToOpen("");
 	};
 
-	const handleSignupSignin = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: e.target.id,
-		});
-		setModalOpened(true);
-	};
-
-	const handleClear = e => {
-		e.preventDefault();
-	};
-
 	const handleSubmit = e => {
 		e.preventDefault();
-		setPoData(prev => {
-			// console.log(`prev.poPi`, prev.poPi);
-			// console.log(`items`, items);
-			return {
-				...prev,
-				poPi: [...prev.poPi, poItemsInContext],
-			};
-		});
+		dispatch(poCreated(po));
+		setPo(poData)
 		setPoItemsInContext([]);
 		handleModalCloseBtn();
-
-		console.log(`poData`, poData);
-		console.log(`poItemsInContext`, poItemsInContext);
 	};
 
 	const handleChange = e => {
 		e.preventDefault();
-		setPoData(prev => {
+	};
+
+	const handleClickInvPopGrv = e => {
+		e.preventDefault();
+		const btnClicked = e.target.id;
+		console.log(`${btnClicked} clicked`);
+	};
+
+	const handleSplDataChange = e => {
+		e.preventDefault();
+		// console.log(`e.target.id`, e.target.id)
+		// console.log(`e.target.value`, e.target.value)
+		setPo(prev => {
+			// console.log(`prev`, prev);
 			return {
-				...prev.poData,
-				[e.target.id]: e.target.value,
+				...prev,
+				poSplData: {
+					...prev.poSplData,
+					[e.target.id]: e.target.value,
+				},
 			};
 		});
 	};
 
-	// const handleClick = e => {
-	// 	e.preventDefault();
-	//   // console.log(`btn clicked`);
-	//   setShowHide(prev => {
-	//     if(prev === 'hide') return "show"
-	//     if(prev === 'show') return "hide"
-	//   })
-	// };
-
-	const handleClickInvPopGrv = e => {
-		e.preventDefault();
-		console.log(`inv pop grv clicked`);
-	};
-
-	// console.log(`poData`, poData);
+	// console.log(`po`, po);
 
 	return (
 		<div className="po-container">
@@ -94,6 +116,7 @@ const PoForm = () => {
 			<div className="po-header">
 				<div className="po-header-title-img">
 					<h1 className="po-header-title">Purchase Order Form</h1>
+					<h1 className="po-header-po-no">{po.poData.poNo}</h1>
 					{/* <img src={irepsImage2} alt="ireps po images" className="po-img" /> */}
 				</div>
 				<div className="po-header-close-btn" onClick={handleModalCloseBtn}>
@@ -110,7 +133,7 @@ const PoForm = () => {
 					onClick={handleClick}
 				></button> */}
 				<div className={`form-section form-section-updated`}>
-					<p className="form-section-title">Last Updated</p>
+					<p className="form-section-title">Updated</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
 							<MdPerson />
@@ -119,7 +142,7 @@ const PoForm = () => {
 							type="text"
 							name="updatedByUser"
 							id="updatedByUser"
-							value={poData.metaData.updatedByUser}
+							value={po.metaData.updatedByUser}
 							onChange={handleChange}
 							placeholder="Updated By User"
 						/>
@@ -132,74 +155,81 @@ const PoForm = () => {
 							type="datetime-local"
 							name="updatedAtDatetime"
 							id="updatedAtDatetime"
-							value={poData.metaData.updatedAtDatetime}
-							onChange={handleChange}
-							placeholder="Updated At Datetime"
-						/>
-					</div>
-				</div>
-				<div className={`form-section form-section-created`}>
-					<p className="form-section-title">Created</p>
-					<div className="form-field po-form-updated-by-user">
-						<span className="form-field-icon">
-							<MdPerson />
-						</span>
-						<input
-							type="text"
-							name="updatedByUser"
-							id="updatedByUser"
-							value={poData.metaData.updatedByUser}
-							onChange={handleChange}
-							placeholder="Updated By User"
-						/>
-					</div>
-					<div className="form-field po-form-updated-at-datetime">
-						<span className="form-field-icon">
-							<MdLockClock />
-						</span>
-						<input
-							type="datetime-local"
-							name="updatedAtDatetime"
-							id="updatedAtDatetime"
-							value={poData.metaData.updatedAtDatetime}
+							value={po.metaData.updatedAtDatetime}
 							onChange={handleChange}
 							placeholder="Updated At Datetime"
 						/>
 					</div>
 				</div>
 
+				<div className={`form-section form-section-created`}>
+					<p className="form-section-title">Created</p>
+					<div className="form-field po-form-created-by-user">
+						<span className="form-field-icon">
+							<MdPerson />
+						</span>
+						<input
+							type="text"
+							name="createdByUser"
+							id="createdByUser"
+							value={po.metaData.createdByUser}
+							onChange={handleChange}
+							placeholder="Created By User"
+						/>
+					</div>
+					<div className="form-field po-form-created-at-datetime">
+						<span className="form-field-icon">
+							<MdLockClock />
+						</span>
+						<input
+							type="datetime-local"
+							name="createdAtDatetime"
+							id="createdAtDatetime"
+							value={po.metaData.createdAtDatetime}
+							onChange={handleChange}
+							placeholder="Created At Datetime"
+						/>
+					</div>
+				</div>
+
 				<div className="form-section form-section-inv-pop-grv">
-					<p className="form-section-title inv-pop-grv-title ">Inv Pop Grv</p>
+					<p className="form-section-title inv-pop-grv-title ">
+						PO Supplimentary Data
+					</p>
 					<div className="form-field po-form-inv">
 						<span className="form-field-icon">
 							<FaFileInvoiceDollar />
 						</span>
-						<button onClick={handleClickInvPopGrv} className="btn-po-form-inv">
-							{invPopGrv.invoices ? (
-								<p>{invPopGrv.invoices}</p>
-							) : (
-								<p>No Invoice(s) as yet</p>
-							)}
+						<button
+							onClick={handleClickInvPopGrv}
+							id="po-inv"
+							className="btn-po-form-supplimentary-data btn-po-form-inv"
+						>
+							{po.poDatapoInv ? po.poData.poInv : "No Invoice(s) as yet"}
 						</button>
 					</div>
 					<div className="form-field po-form-pop">
 						<span className="form-field-icon">
 							<RiMoneyCnyBoxLine />
 						</span>
-						<button onClick={handleClickInvPopGrv} className="btn-po-form-pop">
-							{invPopGrv.proofOfPayments ? (
-								<p>{invPopGrv.proofOfPayments}</p>
-							) : (
-								<p>No Pops as yet</p>
-							)}
+						<button
+							onClick={handleClickInvPopGrv}
+							id="po-pop"
+							className="btn-po-form-pop"
+						>
+							{po.poData.poPop ? po.poData.poPop : "No Pops as yet"}
 						</button>
 					</div>
 					<div className="form-field po-form-grv">
 						<span className="form-field-icon">
 							<FaShoppingBasket />
 						</span>
-						<button onClick={handleClickInvPopGrv} className="btn-po-form-grv">
-							{invPopGrv.grv ? <p>{invPopGrv.grv}</p> : <p>No Grv as yet</p>}
+						<button
+							onClick={handleClickInvPopGrv}
+							id="po-grv"
+							className="btn-po-form-grv"
+						>
+							{po.poData.poGrv ? po.poData.poGrv : "No Grv as yet"}
 						</button>
 					</div>
 				</div>
@@ -212,9 +242,10 @@ const PoForm = () => {
 						</span>
 						<input
 							type="text"
-							name="supplierName"
-							value={poData.poSplData.supplierName}
-							onChange={() => ""}
+							name="splName"
+							id="splName"
+							value={po.poSplData.splName}
+							onChange={handleSplDataChange}
 							placeholder="Supplier Name"
 						/>
 					</div>
@@ -224,10 +255,10 @@ const PoForm = () => {
 						</span>
 						<input
 							type="text"
-							name="contactSurname"
-							id="contactSurname"
-							value={poData.poSplData.contactSurname}
-							onChange={handleChange}
+							name="splContactSurname"
+							id="splContactSurname"
+							value={po.poSplData.splContactSurname}
+							onChange={handleSplDataChange}
 							placeholder="Contact Surname"
 						/>
 					</div>
@@ -237,10 +268,10 @@ const PoForm = () => {
 						</span>
 						<input
 							type="text"
-							name="contactName"
-							id="contactName"
-							value={poData.poSplData.contactName}
-							onChange={handleChange}
+							name="splContactName"
+							id="splContactName"
+							value={po.poSplData.splContactName}
+							onChange={handleSplDataChange}
 							placeholder="Contact Name"
 						/>
 					</div>
@@ -250,10 +281,10 @@ const PoForm = () => {
 						</span>
 						<input
 							type="text"
-							name="contactNo"
-							id="updatedAtDatetime"
-							value={poData.poSplData.poContactNo}
-							onChange={() => ""}
+							name="splContactNo"
+							id="splContactNo"
+							value={po.poSplData.splContactNo}
+							onChange={handleSplDataChange}
 							placeholder="Contact No"
 						/>
 					</div>
@@ -263,9 +294,10 @@ const PoForm = () => {
 						</span>
 						<input
 							type="email"
-							name="emailAdr"
-							value={poData.poSplData.poEmailAdr}
-							onChange={() => ""}
+							name="splContactEmailAdr"
+							id="splContactEmailAdr"
+							value={po.poSplData.splContactEmailAdr}
+							onChange={handleSplDataChange}
 							placeholder="Contact Email Adr"
 						/>
 					</div>
