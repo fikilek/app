@@ -349,7 +349,8 @@ const newTrnData = {
 };
 
 const newPoFormData = {
-	poSystemId: '',
+	poSystemId: nanoid(),
+	poStatus: 'Created',
 	metaData: {
 		updatedAtDatetime: "",
 		updatedByUser: "",
@@ -357,7 +358,7 @@ const newPoFormData = {
 		createdByUser: "",
 	},
 	poData: {
-		poNo: "Po-2",
+		poNo: "Po-4",
 		poInv: 0,
 		poPop: 0, // Proof of Payment
 		poGrv: 0,
@@ -380,6 +381,13 @@ const newPoiFormData = [
 	{ poiName: "quantity", poiValue: "", poiPlaceHolder: "quantity" },
 ];
 
+const newPoItem = {
+	itemId: nanoid(),
+	itemName: "",
+	itemCode: "",
+	itemQuantity: 0,
+};
+
 export {
 	astStateNames,
 	trnNames,
@@ -389,4 +397,5 @@ export {
 	newTrnData,
 	newPoFormData,
 	newPoiFormData,
+	newPoItem,
 };

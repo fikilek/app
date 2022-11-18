@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import useFilterData from "../../../hooks/useFilterData";
+import PoViewExistingPoBtn from "../../../pages/sch/PoViewExistingPoBtn";
 import useOpenModal from "../../modals/useOpenModal";
 import CreatedAtLocation from "../../tableBtns/CreatedAtLocation";
 import TableBtnOpenTrns from "../../tableBtns/TableBtnOpenTrns";
@@ -22,6 +23,7 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 	// supply chain table fields
 	const schTableFields = [
 		{ field: "poSystemId", headerName: "Po Id", width: 90 },
+		{field: 'poStatus', headerName: "Status", width: 90},
 		{
 			headerName: "Updated",
 			children: [
@@ -77,9 +79,7 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 					field: "poData.poNo",
 					headerName: "Po No",
 					width: 120,
-					cellRenderer: p => (
-						<button className="btn-table-row btn-trn-count">{p.value}</button>
-					),
+					cellRenderer:PoViewExistingPoBtn,
 				},
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO

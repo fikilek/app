@@ -1,17 +1,33 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
+import { useSelector } from "react-redux";
 import { PoContext } from "../../../contexts/PoContext";
 import "./poi.css";
+import { nanoid } from "@reduxjs/toolkit";
+import { getNewPoi } from "./poiUtils";
 
-const PoiBtnAddItem = props => {
-	// console.log(`props`, props);
-	const { poItemsInContext } = useContext(PoContext);
-	console.log(`poItemsInContext`, poItemsInContext);
+const PoiBtnAddItem = params => {
+	console.log(`params`, params);
+	// const { newPoItem } = useSelector(state => state.admin);
+	// console.log(`newPoItem.itemId`, newPoItem.itemId)
+
+	const getRowData = useCallback(() => {
+		const rowData = [];
+		params.api.forEachNode(function (node) {
+			rowData.push(node.data);
+		});
+		params.setPo({
+			...params.po,
+			poPi: rowData,
+		});
+	}, []);
 
 	const handleAddItem = e => {
 		e.preventDefault();
-		const res = props.api.applyTransaction({
-			add: [poItemsInContext],
+		const res = params.api.applyTransaction({
+			add: getNewPoi(),
+			addIndex: 0,
 		});
+		getRowData();
 	};
 
 	return (
@@ -19,6 +35,6 @@ const PoiBtnAddItem = props => {
 			+
 		</button>
 	);
-};;
+};
 
 export default PoiBtnAddItem;

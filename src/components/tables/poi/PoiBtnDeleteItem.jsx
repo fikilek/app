@@ -1,19 +1,25 @@
-import { useContext } from "react";
-import { PoContext } from "../../../contexts/PoContext";
+
+import { useCallback } from "react";
 import "./poi.css";
 
-const PoiBtnDeleteItem = props => {
-	const { poItemsInContext, setPoItemsInContext } = useContext(PoContext);
+const PoiBtnDeleteItem = params => {
+	
+	const getRowData = useCallback(() => {
+		const rowData = [];
+		params.api.forEachNode(function (node) {
+			rowData.push(node.data);
+		});
+		params.setPo({
+			...params.po,
+			poPi: rowData,
+		});
+	}, []);
 
 	const handleDeleteItem = e => {
 		e.preventDefault();
-		const selectedNode = props.api.getSelectedNodes();
-		const selectedData = props.api.getSelectedRows();
-		const res = props.api.applyTransaction({ remove: selectedData });
-		const newPoItemsInContext =
-			poItemsInContext &&
-			poItemsInContext.filter((item, index) => Number(index) !== Number(selectedNode[0].id))
-		setPoItemsInContext(newPoItemsInContext);
+		const selectedRows = params.api.getSelectedRows();
+		params.api.applyTransaction({ remove: selectedRows });
+		getRowData()
 	};
 
 	return (

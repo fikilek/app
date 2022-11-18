@@ -34,7 +34,7 @@ const SignedInMenu = () => {
 	};
 	return (
 		<ul
-			className={`nav-list ${menuStatus ? "show" : "hide"}`}
+			className={`nav-list ${menuStatus ? "hide" : "show"}`}
 			onClick={() => setMenuStatus(false)}
 		>
 			{/* Dashboard */}

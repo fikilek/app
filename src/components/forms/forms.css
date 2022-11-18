@@ -193,11 +193,13 @@
 }
 
 .hide {
-	display: none;
+	/* display: none; */
+	visibility: hidden;
 }
 
 .show {
-	display: block;
+	/* display: block; */
+	visibility: visible;
 }
 
 .form-section-po-items {

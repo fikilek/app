@@ -7,13 +7,32 @@ const schSlice = createSlice({
 	reducers: {
 		// Purchase Order reducers
 		poCreated: (state, action) => {
-			// console.log(`poCreated running`);
-			// console.log(`state.poData`, state.poData);
-			// console.log(`action`, action);
 			state.poData.push(action.payload)
 		},
-		poUpdated: (state, action) => {},
-		poDeleted: (state, action) => {},
+
+		poUpdated: (state, action) => {
+			const index = state.poData.findIndex(
+				element => element.poSystemId === action.payload.poSystemId
+			);
+			state.poData[index] = action.payload;
+		},
+
+		poDeleted: (state, action) => {
+			console.log(`poDeleted running`);
+			console.log(`state.poData`, state.poData);
+			console.log(`action`, action);
+			// No recorded is physically deleted. It just get flagged ax having been deleted.
+			// step 1: reveive poSystemId from payload
+			const id = action.payload.poSystemId;
+			// step 2:locate or find the index of the record with sytem id
+			const index = state.poData.findIndex(item => item.poSystemId === id);
+			// step 3: get the object to delete
+			const deletedPo =  {
+				...state.poData[index],
+				poStatus: "Delete",
+			};
+			state.poData[index] = deletedPo
+		},
 
 		// Proof of payment reducers
 		popCreated: (state, action) => {},

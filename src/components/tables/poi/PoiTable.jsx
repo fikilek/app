@@ -1,28 +1,28 @@
-import React, {
-	useRef,
-	useMemo,
-	useState,
-	useEffect,
-	useCallback,
-	useContext,
-} from "react";
+import React, { useRef, useMemo, useState, useCallback } from "react";
 import "./poi.css";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
-import { useSelector } from "react-redux";
 
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 import PoiBtnDeleteItem from "./PoiBtnDeleteItem";
-import PoiComponentInput from "./PoiComponentInput";
 import PoiBtnAddItem from "./PoiBtnAddItem";
-import { MdPerson } from "react-icons/md";
-import { PoContext } from "../../../contexts/PoContext";
-import PoiBtnEditItem from "./PoiBtnEditItem";
-import PoiForm from './PoiForm'
 
+const PoiTable = ({ po, setPo }) => {
+	// console.log(`PoiTable po`, po);
 	const columns = [
+		{
+			field: "itemId",
+			headerName: "Id",
+			flex: 1.5,
+		},
+		{
+			field: "itemAddBtn",
+			flex: 2,
+			headerComponent: PoiBtnAddItem,
+			headerComponentParams: { po, setPo },
+		},
 		{
 			field: "itemName",
 			headerName: "Name",
@@ -37,33 +37,28 @@ import PoiForm from './PoiForm'
 			field: "itemQuantity",
 			headerName: "Quantity",
 			flex: 2,
+			valueParser: params => {
+				console.log(`valueParser params`, params);
+				return Number(params.newValue);
+			},
 		},
 		{
 			field: "Del",
-			flex: 2,
-			cellRenderer: params => PoiBtnDeleteItem(params),
+			flex: 1.5,
+			cellRenderer: p => PoiBtnDeleteItem(p),
+			cellRendererParams: { po, setPo },
 		},
-		{
-			field: "Edit",
-			flex: 2,
-			cellRenderer: params => PoiBtnEditItem(params),
-		},
+		// {
+		// 	field: "Edit",
+		// 	flex: 1.5,
+		// 	cellRenderer: params => PoiBtnEditItem(params),
+		// },
 	];
-
-const PoiTable = props => {
+	const { poPi } = po;
+	// console.log(`poPi`, poPi)
 	const gridRef = useRef();
-	const { poItemsInContext } = useContext(PoContext);
-	const [rowData, setRowData] = useState(poItemsInContext);
+	const [rowData, setRowData] = useState(poPi);
 	const [columnDefs] = useState(columns);
-
-	useEffect(() => {
-		// console.log(`poItemsInContext has changed`, poItemsInContext);
-		setRowData(poItemsInContext);
-	}, [poItemsInContext]);
-
-  const onCellValueChanged = params => {
-			console.log(`cell value has changed`, params.value)
-		};
 
 	const defaultColDef = useMemo(
 		() => ({
@@ -75,15 +70,46 @@ const PoiTable = props => {
 		[]
 	);
 
-	const onGridReady = e => {
-		// console.log(`e.api`, e.api)
-	};
+	const onCellValueChanged = useCallback(event => {
+		console.log("Data after change is", event.data);
+	}, []);
 
-	// console.log(`rowData`, rowData);
-	//
+	const getRowId = useMemo(() => {
+		return params => params.data.itemId;
+	}, []);
+
+	const onCellEditRequest = useCallback(
+		event => {
+			console.log(`event`, event);
+			const data = event.data;
+			const field = event.colDef.field;
+			const newValue = event.newValue;
+			const newItem = { ...data };
+			newItem[field] = event.newValue;
+			console.log("onCellEditRequest, updating " + field + " to " + newValue);
+
+			const newPoPi = po.poPi.map(oldItem => {
+				console.log(`-----------------------`)
+				console.log(`oldItem`, oldItem)
+				console.log(`newItem`, newItem);
+
+				return (oldItem.itemId === newItem.itemId) ? newItem : oldItem
+			}
+				
+			);
+			console.log(`newPoPi`, newPoPi);
+			setRowData(newPoPi);
+			setPo({
+				...po,
+				poPi: newPoPi,
+			});
+		},
+		[po]
+	);
+
 	return (
 		<div className="ag-theme-alpine" style={{ minHeight: 80 }}>
-			<PoiForm />
+			{/* <button>+</button> */}
 			<AgGridReact
 				ref={gridRef} // Ref for accessing Grid's API
 				rowData={rowData} // Row Data for Rows
@@ -92,9 +118,11 @@ const PoiTable = props => {
 				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
 				rowSelection="single" // Options - allows click selection of rows
 				// onCellClicked={addItems}
-				onCellValueChanged={onCellValueChanged}
 				domLayout={"autoHeight"}
-				onGridReady={onGridReady}
+				getRowId={getRowId}
+				onCellValueChanged={onCellValueChanged}
+				readOnlyEdit={true}
+				onCellEditRequest={onCellEditRequest}
 			/>
 		</div>
 	);

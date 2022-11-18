@@ -12,7 +12,7 @@ import TrnForm from "../../components/forms/trnForms/TrnForm";
 // import ViewOnMap from "../tabs/table/viewOnMap/ViewOnMap";
 import "./modal.css";
 import PoForm from "../forms/poForms/PoForm"
-import Table from '../tabs/table/Table'
+import Table from '../tabs/table/Table';
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -56,6 +56,7 @@ const Modal = () => {
 						<>{name === "fpw" ? <ForgottenPassword /> : ""}</>
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
 						<>{name === "poForm" ? <PoForm /> : ""}</>
+						<>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</>
 						<>
 							{name === "poItemsTable" ? (
 								<Table ml1={"poi"} otherData={{ poSystemId: payload }} />
@@ -63,7 +64,6 @@ const Modal = () => {
 								""
 							)}
 						</>
-						{/* <>{name === "astForm" ? <AstForm /> : ""}</> */}
 					</div>
 
 					<div className="modal-footer"></div>

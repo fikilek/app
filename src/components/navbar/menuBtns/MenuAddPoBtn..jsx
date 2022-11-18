@@ -9,7 +9,8 @@ const MenuAddPoBtn = () => {
 	const handleClick = e => {
 		setComponentToOpen({
 			...componentToOpen,
-			name: e.target.id,
+			name: "existingPoForm",
+			payload: null,
 		});
 		setModalOpened(true);
 	};

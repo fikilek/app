@@ -1,3 +1,5 @@
+import { nanoid } from "@reduxjs/toolkit";
+
 export const getTotalQauntites = (ar, quantity) => {
 	return (
 		ar &&
@@ -7,3 +9,15 @@ export const getTotalQauntites = (ar, quantity) => {
 		)
 	);
 };
+
+export const getNewPoi = () => {
+const newId = nanoid()
+	return [
+		{
+			itemId: newId,
+			itemName: "",
+			itemCode: "",
+			itemQuantity: 0,
+		},
+	];
+} 

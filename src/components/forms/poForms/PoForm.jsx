@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import "../forms.css";
 import {
 	MdBusiness,
@@ -12,48 +12,51 @@ import { RiMoneyCnyBoxLine } from "react-icons/ri";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { PoContext } from "../../../contexts/PoContext";
 import PoiTable from "../../tables/poi/PoiTable";
-import { useDispatch } from "react-redux";
-import { poCreated } from "../../../store/schSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { poCreated, poUpdated } from "../../../store/schSlice";
 import { UserContext } from "../../../contexts/UserContext";
 import moment from "moment";
 import { nanoid } from "@reduxjs/toolkit";
 
-let sequence = 2
-
-const PoForm = () => {
+const PoForm = ({ formData }) => {
+	// console.log(`formData`, formData)
+	const { newPoFormData } = useSelector(state => state.admin);
 	const dispatch = useDispatch();
-	// get po context
-	const { poData, setPoData, poItemsInContext, setPoItemsInContext, poTotals } =
-		useContext(PoContext);
-	// console.log(`poItemsInContext`, poItemsInContext);
-	// get modal context
-	const { componentToOpen, setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
-	// Update user details on poData
+	const { setComponentToOpen, setModalOpened } = useContext(ModalContext);
 	const { user } = useContext(UserContext);
-	const [po, setPo] = useState(poData);
-	// console.log(`po`, po);
+	// console.log(`user`, user);
+	const [po, setPo] = useState(formData ? formData : newPoFormData);
+	console.log(`po`, po);
+	const [poItemsTotals, setPoItemsTotals] = useState(0);
+	// console.log(`poItemsTotals`, poItemsTotals);
 
 	useEffect(() => {
-		setPo(prev => {
-			return {
-				...prev,
-				poPi: poItemsInContext,
-			};
-			}
+		// console.log(`po.poPi`, po.poPi);
+		setPoItemsTotals(
+			po.poPi &&
+				po.poPi.reduce(
+					(accum, current) => (accum = accum + current.itemQuantity),
+					0
+				)
 		);
-	}, [poItemsInContext]);
+	}, [po.poPi]);
 
 	useEffect(() => {
-		setPo(prev => {
-			return {
-				...prev,
-				poSystemId: nanoid(),
-				poData: {
-					...prev.poData,
-					poNo: `Po-${sequence++}`
-				} ,
-				metaData: {
+		const getMetaDataUpdate = prev => {
+			// console.log(`getMetaDataUpdate running`);
+			if (formData) {
+				// this will update an exisintg PO form
+				return {
+					...prev.metaData,
+					updatedByUser: user.signedon
+						? `${user.surname} ${user.name}`
+						: "Not Available",
+					updatedAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
+				};
+			} else {
+				// this will create a new PO form
+				return {
+					...prev.metaData,
 					updatedByUser: user.signedon
 						? `${user.surname} ${user.name}`
 						: "Not Available",
@@ -62,24 +65,29 @@ const PoForm = () => {
 						? `${user.surname} ${user.name}`
 						: "Not Available",
 					createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
-				},
-			};}
-		);
-	},[])
+				};
+			}
+		};
 
-
-
-	const handleModalCloseBtn = e => {
-		setModalOpened(false);
-		setComponentToOpen("");
-	};
+		setPo(prev => {
+			const metaDataUpdate = getMetaDataUpdate(prev);
+			return {
+				...prev,
+				metaData: metaDataUpdate,
+			};
+		});
+	}, []);
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		dispatch(poCreated(po));
-		setPo(poData)
-		setPoItemsInContext([]);
-		handleModalCloseBtn();
+		if (formData) {
+			dispatch(poUpdated(po));
+		} else {
+			dispatch(poCreated(po));
+		}
+		setPo([]);
+		setModalOpened(false);
+		setComponentToOpen("");
 	};
 
 	const handleChange = e => {
@@ -89,7 +97,7 @@ const PoForm = () => {
 	const handleClickInvPopGrv = e => {
 		e.preventDefault();
 		const btnClicked = e.target.id;
-		console.log(`${btnClicked} clicked`);
+		// console.log(`${btnClicked} clicked`);
 	};
 
 	const handleSplDataChange = e => {
@@ -119,7 +127,14 @@ const PoForm = () => {
 					<h1 className="po-header-po-no">{po.poData.poNo}</h1>
 					{/* <img src={irepsImage2} alt="ireps po images" className="po-img" /> */}
 				</div>
-				<div className="po-header-close-btn" onClick={handleModalCloseBtn}>
+				<div
+					className="po-header-close-btn"
+					onClick={() => {
+						setPo([]);
+						setModalOpened(false);
+						setComponentToOpen("");
+					}}
+				>
 					<div className="btn-div" id="btn-div">
 						<button>X</button>
 					</div>
@@ -305,10 +320,13 @@ const PoForm = () => {
 
 				<div className="form-section form-section-po-items">
 					<div className="form-section-po-items-title">
-						<p className="form-section-title">Procured Items</p>
-						<p className="form-section-title-totals">Total Quantites {poTotals}</p>
+						<p className="form-section-title">Po Items</p>
+
+						<p className="form-section-title-totals">
+							Total Po Quantites {poItemsTotals}
+						</p>
 					</div>
-					<PoiTable />
+					<PoiTable po={po} setPo={setPo} />
 				</div>
 
 				<div className="form-btns">
