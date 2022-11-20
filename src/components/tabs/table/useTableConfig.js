@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import useFilterData from "../../../hooks/useFilterData";
 import PoViewExistingPoBtn from "../../../pages/sch/PoViewExistingPoBtn";
+import PoViewGrv from "../../../pages/sch/PoViewGrv";
 import useOpenModal from "../../modals/useOpenModal";
 import CreatedAtLocation from "../../tableBtns/CreatedAtLocation";
 import TableBtnOpenTrns from "../../tableBtns/TableBtnOpenTrns";
@@ -22,8 +23,20 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 
 	// supply chain table fields
 	const schTableFields = [
-		{ field: "poSystemId", headerName: "Po Id", width: 90 },
-		{field: 'poStatus', headerName: "Status", width: 90},
+		{ field: "poSystemId", headerName: "Po Id", width: 90, hide: true },
+		{
+			field: "poStatus",
+			headerName: "Status",
+			width: 110,
+			cellRenderer: p => {
+				const poStatus =
+					p.data.poStatus === "Created"
+						? "btn-po-status-created"
+						: "btn-po-status-aproved";
+				return <button className={`btn-table-row ${poStatus}`}>{p.value}</button>;
+			},
+			// TODO: implement the PO aproval system
+		},
 		{
 			headerName: "Updated",
 			children: [
@@ -79,34 +92,42 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 					field: "poData.poNo",
 					headerName: "Po No",
 					width: 120,
-					cellRenderer:PoViewExistingPoBtn,
+					cellRenderer: PoViewExistingPoBtn,
 				},
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO
-					field: "poData.poInv",
+					field: "poData.poInv[0]",
 					headerName: "Invoice Data",
 					width: 130,
-					cellRenderer: p => (
-						<button className="btn-table-row btn-trn-count">{p.value}</button>
-					),
+					cellRenderer: p => {
+						// console.log(`p`, p);
+						return (
+							<button className="btn-table-row btn-trn-count">
+								{p.data.poData.poInv.length}
+							</button>
+						);
+					},
 				},
 				{
 					// A click displays a modal that shows Proof of Payment for the invoices
-					field: "poData.poPop",
+					field: "poData.poPop[0]",
 					headerName: "Proof Of Payment",
 					width: 160,
-					cellRenderer: p => (
-						<button className="btn-table-row btn-trn-count">{p.value}</button>
-					),
+					cellRenderer: p => {
+						// console.log(`p`, p);
+						return (
+							<button className="btn-table-row btn-trn-count">
+								{p.data.poData.poPop.length}
+							</button>
+						);
+					},
 				},
 				{
 					// A click displays a modal with grv of the Goods on the PO
-					field: "poData.poGrv",
+					field: "poData.poGrv.grvStatus",
 					headerName: "GRV",
-					width: 90,
-					cellRenderer: p => (
-						<button className="btn-table-row btn-trn-count">{p.value}</button>
-					),
+					width: 120,
+					cellRenderer: PoViewGrv,
 				},
 				{
 					field: "poData.poTotalItems",

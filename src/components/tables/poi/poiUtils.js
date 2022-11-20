@@ -11,7 +11,7 @@ export const getTotalQauntites = (ar, quantity) => {
 };
 
 export const getNewPoi = () => {
-const newId = nanoid()
+const newId = nanoid();
 	return [
 		{
 			itemId: newId,
@@ -21,3 +21,8 @@ const newId = nanoid()
 		},
 	];
 } 
+
+export const getPoSystmeId = () => {
+	const newId = nanoid()
+	return newId
+};

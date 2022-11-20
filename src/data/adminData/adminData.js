@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import moment from "moment";
 import { nanoid } from "@reduxjs/toolkit";
+import { getPoSystmeId } from "../../components/tables/poi/poiUtils";
 
 const astStateNames = [
 	{
@@ -349,7 +350,7 @@ const newTrnData = {
 };
 
 const newPoFormData = {
-	poSystemId: nanoid(),
+	poSystemId: getPoSystmeId(),
 	poStatus: 'Created',
 	metaData: {
 		updatedAtDatetime: "",

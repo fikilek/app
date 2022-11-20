@@ -11,8 +11,10 @@ import ForgottenPassword from "../../components/forms/authForms/ForgottenPasswor
 import TrnForm from "../../components/forms/trnForms/TrnForm";
 // import ViewOnMap from "../tabs/table/viewOnMap/ViewOnMap";
 import "./modal.css";
-import PoForm from "../forms/poForms/PoForm"
-import Table from '../tabs/table/Table';
+import PoForm from "../forms/poForms/PoForm";
+import Table from "../tabs/table/Table";
+import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
+import GrvForm from "../forms/grvForm/GrvForm";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -56,10 +58,18 @@ const Modal = () => {
 						<>{name === "fpw" ? <ForgottenPassword /> : ""}</>
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
 						<>{name === "poForm" ? <PoForm /> : ""}</>
+						<>{name === "grvForm" ? <GrvForm formData={payload} /> : ""}</>
 						<>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</>
 						<>
 							{name === "poItemsTable" ? (
 								<Table ml1={"poi"} otherData={{ poSystemId: payload }} />
+							) : (
+								""
+							)}
+						</>
+						<>
+							{name === "btnPoStatusModifier" ? (
+								<WarningPoStatusModifier payload={payload} />
 							) : (
 								""
 							)}

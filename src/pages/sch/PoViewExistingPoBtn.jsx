@@ -8,7 +8,7 @@ const PoViewExistingPoBtn = params => {
 	// console.log(`params`, params)
 
 	const handleClick = e => {
-		// console.log(`btn click`, e);
+		e.preventDefault()
 		// modalOpened a modal window
 		setComponentToOpen({
 			...componentToOpen,

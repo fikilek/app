@@ -16,22 +16,31 @@ const PoiTable = ({ po, setPo }) => {
 			field: "itemId",
 			headerName: "Id",
 			flex: 1.5,
+			hide: true,
 		},
 		{
 			field: "itemAddBtn",
-			flex: 2,
+			flex: 1,
 			headerComponent: PoiBtnAddItem,
 			headerComponentParams: { po, setPo },
+			// colSpan: params => 2,
+			headerTooltip: "Click to add a new item row.",
+			sortable: false,
+			filter: false,
+			resizable: false,
+			editable: false,
 		},
 		{
 			field: "itemName",
 			headerName: "Name",
 			flex: 3,
+			headerTooltip: "Name of the item to be procured",
 		},
 		{
 			field: "itemCode",
 			headerName: "Code",
 			flex: 3,
+			headerTooltip: "Code of the item to be procured",
 		},
 		{
 			field: "itemQuantity",
@@ -41,12 +50,18 @@ const PoiTable = ({ po, setPo }) => {
 				console.log(`valueParser params`, params);
 				return Number(params.newValue);
 			},
+			headerTooltip: "Number of items to be procured",
 		},
 		{
 			field: "Del",
 			flex: 1.5,
 			cellRenderer: p => PoiBtnDeleteItem(p),
 			cellRendererParams: { po, setPo },
+			sortable: false,
+			filter: false,
+			resizable: false,
+			editable: false,
+			tooltipValueGetter: p => "Click to delete the row",
 		},
 		// {
 		// 	field: "Edit",
@@ -80,24 +95,24 @@ const PoiTable = ({ po, setPo }) => {
 
 	const onCellEditRequest = useCallback(
 		event => {
-			console.log(`event`, event);
+			// console.log(`event`, event);
 			const data = event.data;
 			const field = event.colDef.field;
 			const newValue = event.newValue;
 			const newItem = { ...data };
 			newItem[field] = event.newValue;
-			console.log("onCellEditRequest, updating " + field + " to " + newValue);
+			// console.log("onCellEditRequest, updating " + field + " to " + newValue);
 
 			const newPoPi = po.poPi.map(oldItem => {
-				console.log(`-----------------------`)
-				console.log(`oldItem`, oldItem)
-				console.log(`newItem`, newItem);
+				// console.log(`-----------------------`)
+				// console.log(`oldItem`, oldItem)
+				// console.log(`newItem`, newItem);
 
 				return (oldItem.itemId === newItem.itemId) ? newItem : oldItem
 			}
 				
 			);
-			console.log(`newPoPi`, newPoPi);
+			// console.log(`newPoPi`, newPoPi);
 			setRowData(newPoPi);
 			setPo({
 				...po,
@@ -123,6 +138,7 @@ const PoiTable = ({ po, setPo }) => {
 				onCellValueChanged={onCellValueChanged}
 				readOnlyEdit={true}
 				onCellEditRequest={onCellEditRequest}
+				enableCellChangeFlash={true}
 			/>
 		</div>
 	);

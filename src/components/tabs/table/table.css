@@ -64,3 +64,23 @@
 .btn-media {
 	width: 80px;
 }
+
+.btn-po-status {
+	width: 90px;
+}
+
+.btn-po-status-created {
+	background-color: lightgreen;
+	color: #ff9090;
+	width: 90px;
+}
+
+.btn-po-status-aproved {
+	background-color: #ff9090;
+	color: whitesmoke;
+	width: 90px;
+}
+
+.btn-view-grv {
+	width: 100px;
+}

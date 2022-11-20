@@ -6,7 +6,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { getNewPoi } from "./poiUtils";
 
 const PoiBtnAddItem = params => {
-	console.log(`params`, params);
+	// console.log(`params`, params);
 	// const { newPoItem } = useSelector(state => state.admin);
 	// console.log(`newPoItem.itemId`, newPoItem.itemId)
 

@@ -7,20 +7,27 @@ const schSlice = createSlice({
 	reducers: {
 		// Purchase Order reducers
 		poCreated: (state, action) => {
+			// console.log(`poCreated running`);
+			// console.log(`state.poData`, state.poData);
+			// console.log(`action`, action);
 			state.poData.push(action.payload)
 		},
 
 		poUpdated: (state, action) => {
+			// console.log(`poUpdated running`);
+			// console.log(`state.poData`, state.poData);
+			// console.log(`action`, action);
 			const index = state.poData.findIndex(
 				element => element.poSystemId === action.payload.poSystemId
 			);
+			// console.log(`index`, index)
 			state.poData[index] = action.payload;
 		},
 
 		poDeleted: (state, action) => {
-			console.log(`poDeleted running`);
-			console.log(`state.poData`, state.poData);
-			console.log(`action`, action);
+			// console.log(`poDeleted running`);
+			// console.log(`state.poData`, state.poData);
+			// console.log(`action`, action);
 			// No recorded is physically deleted. It just get flagged ax having been deleted.
 			// step 1: reveive poSystemId from payload
 			const id = action.payload.poSystemId;

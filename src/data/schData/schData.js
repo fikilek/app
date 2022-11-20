@@ -19,9 +19,44 @@ export const poData = [
 		},
 		poData: {
 			poNo: "Po-1", // Purchase Order No. THis is the begining of the procurment process
-			poInv: "0", // Invoice sent by the supplier
-			poPop: "0", // Proof of Payment for the invoice paid
-			poGrv: "0", // Goods received. THis should correspond to the items in the PO.
+			poInv: [
+				{
+					inv: "inv-1",
+				},
+			], // Invoice sent by the supplier
+			poPop: [
+				{
+					pop: "pop-1",
+				},
+				{
+					pop: "pop-2",
+				},
+			], // Proof of Payment for the invoice paid
+			poGrv: {
+				grvSystemId: "",
+				grvFormId: "",
+				grvStatus: "No Grv", // ['Created', 'Confirmed', 'Witnessed']
+				grvConfirmReceipt: {
+					grvcrStatus: true, // This must be changed through a password
+					grvcrSurname: "",
+					grvcrName: "",
+					grvcrContactNo: "",
+					grvcrContactEmailAdr: "",
+				},
+				grvWitnessReceipt: {
+					grvwrStatus: true, // This must be changed through a password
+					grvwrSurname: "",
+					grvwrName: "",
+					grvwrContactNo: "",
+					grvwrContactEmailAdr: "",
+				},
+				grvComments: [], // [{date: date, msg: msg, user: user}]
+				rgvMedia: {
+					grvPhotos: [],
+					grvVideos: [],
+					grvVoice: [],
+				},
+			}, // Goods received. THis should correspond to the items in the PO.
 		},
 		poPi: [
 			{
@@ -61,9 +96,34 @@ export const poData = [
 		},
 		poData: {
 			poNo: "Po-2", // Purchase Order No. THis is the begining of the procurment process
-			poInv: "0", // Invoice sent by the supplier
-			poPop: "0", // Proof of Payment for the invoice paid
-			poGrv: "0", // Goods received. THis should correspond to the items in the PO.
+			poInv: [], // Invoice sent by the supplier
+			poPop: [], // Proof of Payment for the invoice paid
+			// poGrv: 'x',
+			poGrv: {
+				grvSystemId: "",
+				grvFormId: "",
+				grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
+				grvConfirmReceipt: {
+					grvcrStatus: false, // This must be changed through a password
+					grvcrSurname: "",
+					grvcrName: "",
+					grvcrContactNo: "",
+					grvcrContactEmailAdr: "",
+				},
+				grvWitnessReceipt: {
+					grvwrStatus: false, // This must be changed through a password
+					grvwrSurname: "",
+					grvwrName: "",
+					grvwrContactNo: "",
+					grvwrContactEmailAdr: "",
+				},
+				grvComments: [], // [{date: date, msg: msg, user: user}]
+				rgvMedia: {
+					grvPhotos: [],
+					grvVideos: [],
+					grvVoice: [],
+				},
+			}, // Goods received. THis should correspond to the items in the PO.
 		},
 		poPi: [
 			{
@@ -104,9 +164,47 @@ export const poData = [
 		},
 		poData: {
 			poNo: "Po-3", // Purchase Order No. THis is the begining of the procurment process
-			poInv: "0", // Invoice sent by the supplier
-			poPop: "0", // Proof of Payment for the invoice paid
-			poGrv: "0", // Goods received. THis should correspond to the items in the PO.
+			poInv: [
+				{
+					inv: "inv-1",
+				},
+			], // Invoice sent by the supplier
+			poPop: [
+				{
+					pop: "pop-1",
+				},
+				{
+					pop: "pop-2",
+				},
+				{
+					pop: "pop-3",
+				},
+			], // Proof of Payment for the invoice paid
+			poGrv: {
+				grvSystemId: "",
+				grvFormId: "",
+				grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
+				grvConfirmReceipt: {
+					grvcrStatus: true, // This must be changed through a password
+					grvcrSurname: "",
+					grvcrName: "",
+					grvcrContactNo: "",
+					grvcrContactEmailAdr: "",
+				},
+				grvWitnessReceipt: {
+					grvwrStatus: false, // This must be changed through a password
+					grvwrSurname: "",
+					grvwrName: "",
+					grvwrContactNo: "",
+					grvwrContactEmailAdr: "",
+				},
+				grvComments: [], // [{date: date, msg: msg, user: user}]
+				rgvMedia: {
+					grvPhotos: [],
+					grvVideos: [],
+					grvVoice: [],
+				},
+			}, // Goods received. THis should correspond to the items in the PO.
 		},
 		poPi: [
 			{

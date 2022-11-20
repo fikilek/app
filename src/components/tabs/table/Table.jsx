@@ -25,7 +25,6 @@ const Table = ({ ml1, ml2, ml3, otherData }) => {
 		ml3,
 		otherData,
 	});
-
 	const defaultColDef = useMemo(
 		() => ({
 			sortable: true,
@@ -38,7 +37,7 @@ const Table = ({ ml1, ml2, ml3, otherData }) => {
 	// console.log(`rowData`, rowData);
 
 	return (
-		<div className={`ag-theme-alpine ${ml1 === 'poi' ? 'poi' : 'ireps'}-table`}>
+		<div className={`ag-theme-alpine ${ml1 === "poi" ? "poi" : "ireps"}-table`}>
 			<AgGridReact
 				ref={gridRef} // Ref for accessing Grid's API
 				rowData={rowData} // Row Data for Rows
@@ -46,6 +45,7 @@ const Table = ({ ml1, ml2, ml3, otherData }) => {
 				defaultColDef={defaultColDef} // Default Column Properties
 				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
 				rowSelection="single" // Options - allows click selection of rows
+				domLayout={"autoHeight"}
 			/>
 		</div>
 	);

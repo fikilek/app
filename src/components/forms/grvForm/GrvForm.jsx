@@ -18,72 +18,22 @@ import { UserContext } from "../../../contexts/UserContext";
 import moment from "moment";
 import { nanoid } from "@reduxjs/toolkit";
 import { getPoSystmeId } from "../../tables/poi/poiUtils";
-import { getGrvStatus } from "../../../utils/utils";
+import { getGrvStatus, getSystemId } from "../../../utils/utils";
 
-const PoForm = ({ formData }) => {
-	// console.log(`formData`, formData)
-	const newPoFormData = {
-		poSystemId: getPoSystmeId(),
-		poStatus: "Created",
-		metaData: {
-			updatedAtDatetime: "",
-			updatedByUser: "",
-			createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
-			createdByUser: "",
-		},
-		poData: {
-			poNo: "Po-4",
-			poInv: [],
-			poPop: [], // Proof of Payment
-			poGrv: {
-				grvSystemId: "",
-				grvFormId: "",
-				grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
-				grvConfirmReceipt: {
-					grvcrStatus: false, // This must be changed through a password
-					grvcrSurname: "",
-					grvcrName: "",
-					grvcrContactNo: "",
-					grvcrContactEmailAdr: "",
-				},
-				grvWitnessReceipt: {
-					grvwrStatus: false, // This must be changed through a password
-					grvwrSurname: "",
-					grvwrName: "",
-					grvwrContactNo: "",
-					grvwrContactEmailAdr: "",
-				},
-				grvComments: [], // [{date: date, msg: msg, user: user}]
-				rgvMedia: {
-					grvPhotos: [],
-					grvVideos: [],
-					grvVoice: [],
-				},
-			}, // Goods receive,
-		},
-		poPi: [],
-		poSplData: {
-			// Supplier data
-			splId: 2,
-			splName: "",
-			splContactSurname: "",
-			splContactName: "",
-			splContactNo: "",
-			splContactEmailAdr: "",
-		},
-	};
+const GrvForm = ({ formData }) => {
+	console.log(`formData`, formData);
 	// console.log(`newPoFormData`, newPoFormData);
 	const dispatch = useDispatch();
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	const { user } = useContext(UserContext);
 	// console.log(`user`, user);
-	const [po, setPo] = useState(formData ? formData : newPoFormData);
+
+	// Create a local grv state and atach to the po on submission
+	const [po, setPo] = useState(formData);
 	console.log(`po`, po);
 	const [poItemsTotals, setPoItemsTotals] = useState(0);
 	// console.log(`poItemsTotals`, poItemsTotals);
-	const poStatus =
-		po.poStatus === "Created" ? "btn-po-status-created" : "btn-po-status-aproved";
 
 	useEffect(() => {
 		setPo(prev => {
@@ -92,12 +42,15 @@ const PoForm = ({ formData }) => {
 			const grvcrStatus = prev.poData.poGrv.grvConfirmReceipt.grvcrStatus;
 			const grvwrStatus = prev.poData.poGrv.grvWitnessReceipt.grvwrStatus;
 
-			const grvStatus = getGrvStatus(
+			const status = getGrvStatus(
 				poInvStatus,
 				poPopStatus,
 				grvcrStatus,
 				grvwrStatus
-			);
+      );
+      
+      console.log(`status`, status)
+      console.log(`prev`, prev)
 
 			return {
 				...prev,
@@ -105,7 +58,7 @@ const PoForm = ({ formData }) => {
 					...prev.poData,
 					poGrv: {
 						...prev.poData.poGrv,
-						grvStatus: grvStatus,
+						grvStatus: status,
 					},
 				},
 			};
@@ -120,61 +73,33 @@ const PoForm = ({ formData }) => {
 	useEffect(() => {
 		// console.log(`po.poPi`, po.poPi);
 		setPoItemsTotals(
-			po.poPi &&
-				po.poPi.reduce(
+			formData.poPi &&
+				formData.poPi.reduce(
 					(accum, current) => (accum = accum + current.itemQuantity),
 					0
 				)
 		);
-	}, [po.poPi]);
+	}, [formData.poPi]);
 
 	useEffect(() => {
-		const getMetaDataUpdate = prev => {
-			if (formData) {
-				// this will update an exisintg PO form
-				return {
-					...prev.metaData,
-					updatedByUser: user.signedon
-						? `${user.surname} ${user.name}`
-						: "Not Available",
-					updatedAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
-				};
-			} else {
-				// this will create a new PO form
-				return {
-					...prev.metaData,
-					updatedByUser: user.signedon
-						? `${user.surname} ${user.name}`
-						: "Not Available",
-					updatedAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
-					createdByUser: user.signedon
-						? `${user.surname} ${user.name}`
-						: "Not Available",
-					createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
-				};
-			}
-		};
-
 		setPo(prev => {
-			// console.log(`prev`, prev);
-			const metaDataUpdate = getMetaDataUpdate(prev);
+			// console.log(`prev`, prev); prev is po
 			return {
 				...prev,
-				metaData: metaDataUpdate,
+				metaData: {
+					...prev.metaData,
+					updatedByUser: user.signedon
+						? `${user.surname} ${user.name}`
+						: "Not Available",
+					updatedAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
+				},
 			};
 		});
-		return () => setPo([]);
 	}, []);
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		if (formData) {
-			// console.log(`dispatching poUpdate`, po)
-			dispatch(poUpdated(po));
-		} else {
-			// console.log(`dispatching poCreate`, po);
-			dispatch(poCreated(po));
-		}
+		dispatch(poUpdated(po));
 		setPo([]);
 		setModalOpened(false);
 		setComponentToOpen("");
@@ -190,22 +115,6 @@ const PoForm = ({ formData }) => {
 		// console.log(`${btnClicked} clicked`);
 	};
 
-	const handleSplDataChange = e => {
-		e.preventDefault();
-		// console.log(`e.target.id`, e.target.id)
-		// console.log(`e.target.value`, e.target.value)
-		setPo(prev => {
-			// console.log(`prev`, prev);
-			return {
-				...prev,
-				poSplData: {
-					...prev.poSplData,
-					[e.target.id]: e.target.value,
-				},
-			};
-		});
-	};
-
 	const handleClick = e => {
 		// Click handler opens a modal with a 'warning coponent' for decision making
 		e.preventDefault();
@@ -216,7 +125,9 @@ const PoForm = ({ formData }) => {
 			payload: { po, msg: "You are about to approve a PO" },
 		});
 		setModalOpened(true); // setting 'setModalOpened' to 'true' will open a modal
-	};
+  };
+  
+  console.log(`po.poData.poGrv.grvStatus`, po.poData.poGrv.grvStatus);
 
 	return (
 		<div className="po-container">
@@ -226,12 +137,12 @@ const PoForm = ({ formData }) => {
 					<button
 						onClick={handleClick}
 						id="btnPoStatusModifier"
-						className={`btn-table-row ${poStatus}`}
+						className={`btn-table-row`}
 					>
-						{po.poStatus}
+						{po.poData.poGrv.grvStatus}
 					</button>
-					<h1 className="po-header-title">Purchase Order Form</h1>
-					<h1 className="po-header-po-no">{po.poData.poNo}</h1>
+					<h1 className="po-header-title">Grv Form</h1>
+					<h1 className="po-header-po-no">Grv-{po.poData.poNo}</h1>
 					{/* <img src={irepsImage2} alt="ireps po images" className="po-img" /> */}
 				</div>
 				<div
@@ -250,10 +161,7 @@ const PoForm = ({ formData }) => {
 
 			{/* po form */}
 			<form className="po-form" onSubmit={handleSubmit}>
-				{/* <button
-					className="form-section-show-hide-btn"
-					onClick={handleClick}
-				></button> */}
+				{/* Updated section */}
 				<div className={`form-section form-section-updated`}>
 					<p className="form-section-title">Updated</p>
 					<div className="form-field po-form-updated-by-user">
@@ -284,6 +192,7 @@ const PoForm = ({ formData }) => {
 					</div>
 				</div>
 
+				{/* Created section */}
 				<div className={`form-section form-section-created`}>
 					<p className="form-section-title">Created</p>
 					<div className="form-field po-form-created-by-user">
@@ -314,48 +223,137 @@ const PoForm = ({ formData }) => {
 					</div>
 				</div>
 
-				<div className="form-section form-section-inv-pop-grv">
-					<p className="form-section-title inv-pop-grv-title ">
-						PO Supplimentary Data
-					</p>
-					<div className="form-field po-form-inv">
+				{/* Confirm receipt */}
+				{/* <div className="form-section form-section-confirm-receipt">
+					<p className="form-section-title confirm-receipt-title">Confirm Receipt</p>
+					<div className="form-field po-form-confirm-receipt-name">
 						<span className="form-field-icon">
-							<FaFileInvoiceDollar />
+							<MdBusiness />
 						</span>
-						<button
-							onClick={handleClickInvPopGrv}
-							id="po-inv"
-							className="btn-po-form-supplimentary-data btn-po-form-inv"
-						>
-							{po.poData.poInv.length}
-						</button>
+						<input
+							type="text"
+							name="grvcrStatus"
+							id="grvcrStatus"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrStatus}
+							placeholder="Confirm Receipt Name"
+						/>
 					</div>
-					<div className="form-field po-form-pop">
+					<div className="form-field po-form-confirm-receipt-surname">
 						<span className="form-field-icon">
-							<RiMoneyCnyBoxLine />
+							<MdBusiness />
 						</span>
-						<button
-							onClick={handleClickInvPopGrv}
-							id="po-pop"
-							className="btn-po-form-pop"
-						>
-							{po.poData.poPop.length}
-						</button>
+						<input
+							type="text"
+							name="grvcrSurname"
+							id="grvcrSurname"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrSurname}
+							placeholder="Confirm Receipt Surname"
+						/>
 					</div>
-					<div className="form-field po-form-grv">
+					<div className="form-field po-form-confirm-receipt-contact-name">
 						<span className="form-field-icon">
-							<FaShoppingBasket />
+							<FcBusinessman />
 						</span>
-						<button
-							onClick={handleClickInvPopGrv}
-							id="po-grv"
-							className="btn-po-form-grv"
-						>
-							{po.poData.poGrv.grvStatus}
-						</button>
+						<input
+							type="text"
+							name="grvcrName"
+							id="grvcrName"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrName}
+							placeholder="Confirm Receipt Name"
+						/>
 					</div>
-				</div>
+					<div className="form-field po-form-confirm-receipt-contact-no">
+						<span className="form-field-icon">
+							<FcCellPhone />
+						</span>
+						<input
+							type="text"
+							name="grvcrContactNo"
+							id="grvcrContactNo"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrContactNo}
+							placeholder="Contact No"
+						/>
+					</div>
+					<div className="form-field po-form-confirm-receipt-contact-email-adr">
+						<span className="form-field-icon">
+							<MdOutlineEmail />
+						</span>
+						<input
+							type="email"
+							name="grvcrContactEmailAdr"
+							id="grvcrContactEmailAdr"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrContactEmailAdr}
+							placeholder="Contact Email Adr"
+						/>
+					</div>
+				</div> */}
 
+				{/* Witness Receipt */}
+				{/* <div className="form-section form-section-witness-receipt">
+					<p className="form-section-title witness-receipt-title">Witness Receipt</p>
+					<div className="form-field po-form-witness-receipt-name">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<input
+							type="text"
+							name="grvwrStatus"
+							id="grvwrStatus"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrStatus}
+							placeholder="Witness Receipt Name"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-surname">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<input
+							type="text"
+							name="grvwrSurname"
+							id="grvwrSurname"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrSurname}
+							placeholder="Witness Receipt Surname"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-contact-name">
+						<span className="form-field-icon">
+							<FcBusinessman />
+						</span>
+						<input
+							type="text"
+							name="grvwrName"
+							id="grvwrName"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrName}
+							placeholder="Witness Receipt Name"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-contact-no">
+						<span className="form-field-icon">
+							<FcCellPhone />
+						</span>
+						<input
+							type="text"
+							name="grvwrContactNo"
+							id="grvwrContactNo"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrContactNo}
+							placeholder="Contact No"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-contact-email-adr">
+						<span className="form-field-icon">
+							<MdOutlineEmail />
+						</span>
+						<input
+							type="email"
+							name="grvwrContactEmailAdr"
+							id="grvwrContactEmailAdr"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrContactEmailAdr}
+							placeholder="Contact Email Adr"
+						/>
+					</div>
+				</div> */}
+
+				{/* Supplier section */}
 				<div className="form-section form-section-supplier">
 					<p className="form-section-title supplier-title">Supplier</p>
 					<div className="form-field po-form-supplier-name">
@@ -367,7 +365,6 @@ const PoForm = ({ formData }) => {
 							name="splName"
 							id="splName"
 							value={po.poSplData.splName}
-							onChange={handleSplDataChange}
 							placeholder="Supplier Name"
 						/>
 					</div>
@@ -380,7 +377,6 @@ const PoForm = ({ formData }) => {
 							name="splContactSurname"
 							id="splContactSurname"
 							value={po.poSplData.splContactSurname}
-							onChange={handleSplDataChange}
 							placeholder="Contact Surname"
 						/>
 					</div>
@@ -393,7 +389,6 @@ const PoForm = ({ formData }) => {
 							name="splContactName"
 							id="splContactName"
 							value={po.poSplData.splContactName}
-							onChange={handleSplDataChange}
 							placeholder="Contact Name"
 						/>
 					</div>
@@ -406,7 +401,6 @@ const PoForm = ({ formData }) => {
 							name="splContactNo"
 							id="splContactNo"
 							value={po.poSplData.splContactNo}
-							onChange={handleSplDataChange}
 							placeholder="Contact No"
 						/>
 					</div>
@@ -419,12 +413,12 @@ const PoForm = ({ formData }) => {
 							name="splContactEmailAdr"
 							id="splContactEmailAdr"
 							value={po.poSplData.splContactEmailAdr}
-							onChange={handleSplDataChange}
 							placeholder="Contact Email Adr"
 						/>
 					</div>
 				</div>
 
+				{/* PO items */}
 				<div className="form-section form-section-po-items">
 					<div className="form-section-po-items-title">
 						<p className="form-section-title">Po Items</p>
@@ -435,6 +429,10 @@ const PoForm = ({ formData }) => {
 					</div>
 					<PoiTable po={po} setPo={setPo} />
 				</div>
+
+				{/* Comments section */}
+
+				{/* media section */}
 
 				<div className="form-btns">
 					<button
@@ -455,4 +453,4 @@ const PoForm = ({ formData }) => {
 		</div>
 	);
 };
-export default PoForm;
+export default GrvForm;
