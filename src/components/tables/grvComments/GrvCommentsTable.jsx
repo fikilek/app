@@ -1,78 +1,57 @@
 import React, { useRef, useMemo, useState, useCallback } from "react";
-import "./poi.css";
+// import "./poi.css";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
-import PoiBtnDeleteItem from "./PoiBtnDeleteItem";
-import PoiBtnAddItem from "./PoiBtnAddItem";
+// import PoiBtnDeleteItem from "./PoiBtnDeleteItem";
+import GrvCommentsBtnAddItem from "./GrvCommentsBtnAddItem";
 
-const PoiTable = ({ po, setPo }) => {
-	// console.log(`PoiTable po`, po);
+const GrvCommentsTable = ({ po, setPo }) => {
 	const columns = [
 		{
-			field: "itemId",
+			field: "grvCommentId",
 			headerName: "Id",
 			flex: 1.5,
 			hide: true,
 		},
 		{
-			field: "itemName",
-			headerName: "Name",
-			flex: 3,
-			headerTooltip: "Name of the item to be procured",
+			field: "grvCommentUserName",
+			headerName: "User Name",
+			flex: 2,
+			headerTooltip: "Name of user commenting",
 			colSpan: params => 2,
 		},
 		{
-			field: "itemAddBtn",
+			field: "grvCommentAddBtn",
 			flex: 1,
-			headerComponent: PoiBtnAddItem,
+			headerComponent: GrvCommentsBtnAddItem,
 			headerComponentParams: { po, setPo },
-			headerTooltip: "Click to add a new item row.",
+			headerTooltip: "Click to add a new grv comment row.",
 			sortable: false,
 			filter: false,
 			resizable: false,
 			editable: false,
 		},
 		{
-			field: "itemCode",
-			headerName: "Code",
-			flex: 3,
-			headerTooltip: "Code of the item to be procured",
+			field: "grvCommentMsg",
+			headerName: "Comment Msg",
+			flex: 4,
+			headerTooltip: "Comment Msg",
 		},
 		{
-			field: "itemQuantity",
-			headerName: "Quantity",
+			field: "grvCommentDate",
+			headerName: "Date",
 			flex: 2,
-			valueParser: params => {
-				console.log(`valueParser params`, params);
-				return Number(params.newValue);
-			},
-			headerTooltip: "Number of items to be procured",
+			headerTooltip: "Comment date",
 		},
-		{
-			field: "Del",
-			flex: 1.5,
-			cellRenderer: p => PoiBtnDeleteItem(p),
-			cellRendererParams: { po, setPo },
-			sortable: false,
-			filter: false,
-			resizable: false,
-			editable: false,
-			tooltipValueGetter: p => "Click to delete the row",
-		},
-		// {
-		// 	field: "Edit",
-		// 	flex: 1.5,
-		// 	cellRenderer: params => PoiBtnEditItem(params),
-		// },
 	];
-	const { poPi } = po;
-	// console.log(`poPi`, poPi)
+	const { grvComments } = po.poData.poGrv;
+	// console.log(`grvComments`, grvComments);
 	const gridRef = useRef();
-	const [rowData, setRowData] = useState(poPi);
+	const [rowData, setRowData] = useState(grvComments);
 	const [columnDefs] = useState(columns);
 
 	const defaultColDef = useMemo(
@@ -85,45 +64,50 @@ const PoiTable = ({ po, setPo }) => {
 		[]
 	);
 
-	const onCellValueChanged = useCallback(event => {
-		console.log("Data after change is", event.data);
-	}, []);
-
 	const getRowId = useMemo(() => {
-		return params => params.data.itemId;
+		return params => params.data.grvCommentId;
 	}, []);
 
 	const onCellEditRequest = useCallback(
 		event => {
 			// console.log(`event`, event);
 			const data = event.data;
+			// console.log(`data`, data)
 			const field = event.colDef.field;
-			const newValue = event.newValue;
+			// const newValue = event.newValue;
 			const newItem = { ...data };
 			newItem[field] = event.newValue;
+			// console.log(`newItem`, newItem);
 			// console.log("onCellEditRequest, updating " + field + " to " + newValue);
 
-			const newPoPi = po.poPi.map(oldItem => {
+			// console.log(`po.poData.poGrv.grvComments`, po.poData.poGrv.grvComments);
+			const newGrvComments = po.poData.poGrv.grvComments.map(oldItem => {
 				// console.log(`-----------------------`)
 				// console.log(`oldItem`, oldItem)
 				// console.log(`newItem`, newItem);
 
-				return (oldItem.itemId === newItem.itemId) ? newItem : oldItem
-			}
-				
-			);
+				return oldItem.grvCommentId === newItem.grvCommentId ? newItem : oldItem;
+			});
 			// console.log(`newPoPi`, newPoPi);
-			setRowData(newPoPi);
+			setRowData(newGrvComments);
 			setPo({
 				...po,
-				poPi: newPoPi,
+				poData: {
+					...po.poData,
+					poGrv: {
+						...po.poData.poGrv,
+						grvComments: newGrvComments,
+					},
+				},
 			});
 		},
 		[po]
 	);
 
+	// console.log(`po`, po);
+
 	return (
-		<div className="ag-theme-alpine" style={{ minHeight: 80 }}>
+		<div className="ag-theme-alpine">
 			{/* <button>+</button> */}
 			<AgGridReact
 				ref={gridRef} // Ref for accessing Grid's API
@@ -135,7 +119,7 @@ const PoiTable = ({ po, setPo }) => {
 				// onCellClicked={addItems}
 				domLayout={"autoHeight"}
 				getRowId={getRowId}
-				onCellValueChanged={onCellValueChanged}
+				// onCellValueChanged={onCellValueChanged}
 				readOnlyEdit={true}
 				onCellEditRequest={onCellEditRequest}
 				enableCellChangeFlash={true}
@@ -144,6 +128,6 @@ const PoiTable = ({ po, setPo }) => {
 	);
 };
 
-export default PoiTable;
+export default GrvCommentsTable;
 
 // TODO: mouse over tips on the table skipHeader

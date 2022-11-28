@@ -1,16 +1,20 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { astsData } from "../data/astsData/astsData";
 
-const useFilterData = ({ ml1, ml2, ml3 }) => {
-
+const useFilterData = ({ ml1, ml2, ml3}) => {
 	const { asts, trns, sch } = useSelector(state => state);
+	// const store = useStore()
+	// const storeState = store.getState();
+	// console.log(`storeState`, storeState);
 
 	useEffect(() => {
-		// console.log(`sch has changed`, sch.poData)
-	}, [sch])
+		console.log(`redux store state has changed`, asts.astsData);
+	}, [astsData]);
 
 	// console.log(`asts`, asts);
+	// console.log(`sch`, sch);
 	// console.log(`ml2`, ml2);
 
 	const filterAsts = () => {
@@ -45,8 +49,8 @@ const useFilterData = ({ ml1, ml2, ml3 }) => {
 	if (ml1 === "trns") {
 		return filterTrns();
 	}
-	if (ml1 === 'sch') {
-		return { asts, trns, sch }; 
+	if (ml1 === "sch") {
+		return { asts, trns, sch };
 	}
 	if (ml1 === "poi") {
 		return { asts, trns, sch };

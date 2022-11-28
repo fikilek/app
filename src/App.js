@@ -28,8 +28,10 @@ import { Provider } from "react-redux";
 import Sch from "./pages/sch/Sch";
 import { PoContextProvider } from "./contexts/PoContext";
 
-// console.log(`UserContext`, UserContext)
+// console.log(`store`, store)
 // console.log(`UserContextProvider`, UserContextProvider)
+
+
 
 function App() {
 	return (

@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { poData, splData } from "../data/schData/schData";
+import { poData, splData, grvData } from "../data/schData/schData";
 
 const schSlice = createSlice({
 	name: "sch",
-	initialState: { poData, splData },
+	initialState: { poData, splData, grvData },
 	reducers: {
 		// Purchase Order reducers
 		poCreated: (state, action) => {
 			// console.log(`poCreated running`);
 			// console.log(`state.poData`, state.poData);
 			// console.log(`action`, action);
-			state.poData.push(action.payload)
+			state.poData.push(action.payload);
 		},
 
 		poUpdated: (state, action) => {
@@ -34,11 +34,11 @@ const schSlice = createSlice({
 			// step 2:locate or find the index of the record with sytem id
 			const index = state.poData.findIndex(item => item.poSystemId === id);
 			// step 3: get the object to delete
-			const deletedPo =  {
+			const deletedPo = {
 				...state.poData[index],
 				poStatus: "Delete",
 			};
-			state.poData[index] = deletedPo
+			state.poData[index] = deletedPo;
 		},
 
 		// Proof of payment reducers
@@ -47,7 +47,9 @@ const schSlice = createSlice({
 		popDeleted: (state, action) => {},
 
 		// Goods receiving reducers
-		grvCreated: (state, action) => {},
+		grvCreated: (state, action) => {
+			state.grvData.push(action.payload);
+		},
 		grvUpdated: (state, action) => {},
 		grvDeleted: (state, action) => {},
 	},

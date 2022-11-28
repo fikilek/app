@@ -4,7 +4,7 @@ import Table from "./table/Table";
 import TabsMap from "./tabsMap/TabsMap";
 import TabsTree from "./tabsTree/TabsTree";
 
-const Tabs = ({ ml1, ml2, ml3 }) => {
+const Tabs = ({ ml1, ml2, ml3}) => {
 	const [active, setActive] = useState("tabs-table");
 	// console.log(`tableData`, tableData)
 

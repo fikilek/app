@@ -5,7 +5,7 @@ import { getGrvStatus } from "../../utils/utils";
 const PoViewGrv = params => {
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
-	console.log(`params`, params);
+	// console.log(`params`, params);
 
 	const poInvStatus = params.data.poData.poInv.length > 0 ? true : false;
 	const poPopStatus = params.data.poData.poInv.length > 0 ? true : false;
@@ -18,6 +18,8 @@ const PoViewGrv = params => {
 		grvcrStatus,
 		grvwrStatus
 	);
+
+	// TODO: Dont open the grv form when the status is "No Grv". Open omly when its "Created", "Received" and "Witnessed".
 
 	const handleViewGrv = e => {
 		e.preventDefault();

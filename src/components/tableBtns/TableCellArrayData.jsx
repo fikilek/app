@@ -1,7 +1,7 @@
 import React from "react";
 
 const TableCellArrayData = ({ params }) => {
-	console.log(`params`, params);
+	// console.log(`params`, params);
 	return (
 		<>
       <span>{`L:${params.value.length} - `}</span>

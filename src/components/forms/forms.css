@@ -10,7 +10,8 @@
 .signin-container,
 .signup-container,
 .fpw-container,
-.po-container {
+.po-container,
+.grv-container {
 	background-color: #ecf0f3;
 	border-radius: 2rem;
 	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
@@ -21,7 +22,8 @@
 .signin-header,
 .signup-header,
 .fpw-header,
-.po-header {
+.po-header,
+.grv-header {
 	position: relative;
 	display: flex;
 	justify-content: space-evenly;
@@ -82,7 +84,8 @@
 
 .signin-form,
 .signup-form,
-.po-form {
+.po-form,
+.grv-form {
 	display: grid;
 	grid-template-rows: auto;
 	gap: 2rem;
@@ -207,7 +210,7 @@
 	height: 100%;
 }
 
-.form-section-po-items-title {
+.form-section-po-items-title, .form-section-grv-comments-title, .grv-comment {
 	display: flex;
 	justify-content: space-between;
 }
@@ -255,6 +258,7 @@
 }
 
 .form-section-supplier {
+	grid-area: form-section-supplier;
 	grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
 	grid-template-areas:
 		"supplier-title"
@@ -454,4 +458,68 @@ input::placeholder {
 	transform: scale(1.1);
 	background-color: beige;
 	border: none;
+}
+
+/* grv form */
+
+.grv-form {
+	width: 600px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"form-section-updated form-section-created"
+		"form-section-store form-section-supplier"
+		"form-section-confirm-receipt form-section-witness-receipt"
+		"form-section-po-items form-section-po-items"
+		"form-section-grv-comments form-section-grv-comments"
+		"form-section-media form-section-media"
+		"form-btns form-btns";
+}
+
+.form-section-store {
+	grid-area: form-section-store;
+}
+
+.form-section-store-title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.form-section-grv-comments {
+	grid-area: form-section-grv-comments ;
+}
+
+.form-section-media {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-area: form-section-media;
+	gap: 1rem;
+	grid-template-areas: 
+	"form-section-media-title form-section-media-title form-section-media-title"
+	"media-pics media-videos media-voice"
+	;
+}
+
+.form-section-media-title {
+	grid-area: form-section-media-title;
+}
+
+.media-pics {
+	grid-area: media-pics;
+}
+.media-videos {
+	grid-area: media-videos;
+}
+.media-voice {
+	grid-area: media-voice;
+}
+
+.grv-media {
+	border: 2px solid lightgreen;
+	padding: 3px;
+}
+
+.media-item {
+	padding: 2px;
+	border: 2px solid lightgreen;
+	margin: 5px 0;
 }

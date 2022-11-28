@@ -15,6 +15,8 @@ import PoForm from "../forms/poForms/PoForm";
 import Table from "../tabs/table/Table";
 import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
 import GrvForm from "../forms/grvForm/GrvForm";
+import GrvAddToStoreWarning from "../forms/grvForm/GrvAddToStoreWarning";
+import GrvTestForm from "../forms/grvForm/grvTest/GrvTestForm";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -60,6 +62,16 @@ const Modal = () => {
 						<>{name === "poForm" ? <PoForm /> : ""}</>
 						<>{name === "grvForm" ? <GrvForm formData={payload} /> : ""}</>
 						<>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</>
+						<>
+							{name === "addGoodsToStore" ? (
+								<GrvAddToStoreWarning data={payload} />
+							) : (
+								""
+							)}
+						</>
+						<>
+							{name === "grvTestForm" ? <GrvTestForm /> : ""}
+						</>
 						<>
 							{name === "poItemsTable" ? (
 								<Table ml1={"poi"} otherData={{ poSystemId: payload }} />

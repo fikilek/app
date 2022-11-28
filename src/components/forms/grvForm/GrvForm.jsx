@@ -19,19 +19,23 @@ import moment from "moment";
 import { nanoid } from "@reduxjs/toolkit";
 import { getPoSystmeId } from "../../tables/poi/poiUtils";
 import { getGrvStatus, getSystemId } from "../../../utils/utils";
+import GrvFormMedia from "./GrvFormMedia";
+import GrvCommentsTable from "../../tables/grvComments/GrvCommentsTable";
 
 const GrvForm = ({ formData }) => {
-	console.log(`formData`, formData);
+	// console.log(`formData`, formData);
 	// console.log(`newPoFormData`, newPoFormData);
 	const dispatch = useDispatch();
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	const { user } = useContext(UserContext);
 	// console.log(`user`, user);
+	const stores = useSelector(state => state.admin.stores);
+	// console.log(`stores`, stores);
 
 	// Create a local grv state and atach to the po on submission
 	const [po, setPo] = useState(formData);
-	console.log(`po`, po);
+	// console.log(`po`, po);
 	const [poItemsTotals, setPoItemsTotals] = useState(0);
 	// console.log(`poItemsTotals`, poItemsTotals);
 
@@ -47,10 +51,10 @@ const GrvForm = ({ formData }) => {
 				poPopStatus,
 				grvcrStatus,
 				grvwrStatus
-      );
-      
-      console.log(`status`, status)
-      console.log(`prev`, prev)
+			);
+
+			// console.log(`status`, status);
+			// console.log(`prev`, prev);
 
 			return {
 				...prev,
@@ -105,8 +109,38 @@ const GrvForm = ({ formData }) => {
 		setComponentToOpen("");
 	};
 
-	const handleChange = e => {
+	const handleChangeStore = e => {
 		e.preventDefault();
+		// console.log(`e.target.id`, e.target.id);
+		// console.log(`e.target.value`, e.target.value);
+		const selectedStore = stores.find(
+			store => store.storeId === Number(e.target.value)
+		);
+		// console.log(`selectedStore`, selectedStore);
+		setPo(prev => {
+			return {
+				...prev,
+				poData: {
+					...prev.poData,
+					poGrv: {
+						...prev.poData.poGrv,
+						grvStoreData: {
+							...prev.poData.poGrv.grvStoreData,
+							storeId: selectedStore.storeId,
+							storeName: selectedStore.storeName,
+							storeAdr: selectedStore.storeAdr,
+							storeContactSurname: selectedStore.storeContactSurname,
+							storeContactName: selectedStore.storeContactName,
+							storeContactNo: selectedStore.storeContactNo,
+							storeContactEmailAdr: selectedStore.storeContactEmailAdr,
+
+							[e.target.id]: e.target.value,
+						},
+					},
+				},
+			};
+		});
+		// Create the assets in asts store
 	};
 
 	const handleClickInvPopGrv = e => {
@@ -122,17 +156,33 @@ const GrvForm = ({ formData }) => {
 		setComponentToOpen({
 			...componentToOpen,
 			name: e.target.id, // name of the 'warning component' to open in the modal
-			payload: { po, msg: "You are about to approve a PO" },
+			payload: { po, setPo: setPo, msg: "You are about to approve a PO" },
 		});
 		setModalOpened(true); // setting 'setModalOpened' to 'true' will open a modal
-  };
-  
-  console.log(`po.poData.poGrv.grvStatus`, po.poData.poGrv.grvStatus);
+	};
+
+	// console.log(`po.poData.poGrv.grvStatus`, po.poData.poGrv.grvStatus);
+
+	const handleAddGoodsToStore = e => {
+		e.preventDefault();
+		const { poPi } = po;
+		// console.log(`add good to store`, poPi);
+		setComponentToOpen({
+			...componentToOpen,
+			name: e.target.id, // name of the 'warning component' to open in the modal
+			payload: {
+				po,
+				setPo,
+				msg: "You are about to add the following assets into the store",
+			},
+		});
+		setModalOpened(true); // setting 'setModalOpened' to 'true' will open a modal
+	};
 
 	return (
-		<div className="po-container">
+		<div className="grv-container">
 			{/* po header */}
-			<div className="po-header">
+			<div className="grv-header">
 				<div className="po-header-title-img">
 					<button
 						onClick={handleClick}
@@ -160,7 +210,7 @@ const GrvForm = ({ formData }) => {
 			</div>
 
 			{/* po form */}
-			<form className="po-form" onSubmit={handleSubmit}>
+			<form className="grv-form" onSubmit={handleSubmit}>
 				{/* Updated section */}
 				<div className={`form-section form-section-updated`}>
 					<p className="form-section-title">Updated</p>
@@ -173,8 +223,9 @@ const GrvForm = ({ formData }) => {
 							name="updatedByUser"
 							id="updatedByUser"
 							value={po.metaData.updatedByUser}
-							onChange={handleChange}
+							onChange={() => ""}
 							placeholder="Updated By User"
+							readOnly="readOnly"
 						/>
 					</div>
 					<div className="form-field po-form-updated-at-datetime">
@@ -186,8 +237,9 @@ const GrvForm = ({ formData }) => {
 							name="updatedAtDatetime"
 							id="updatedAtDatetime"
 							value={po.metaData.updatedAtDatetime}
-							onChange={handleChange}
+							onChange={() => ""}
 							placeholder="Updated At Datetime"
+							readOnly="readOnly"
 						/>
 					</div>
 				</div>
@@ -204,8 +256,9 @@ const GrvForm = ({ formData }) => {
 							name="createdByUser"
 							id="createdByUser"
 							value={po.metaData.createdByUser}
-							onChange={handleChange}
+							onChange={() => ""}
 							placeholder="Created By User"
+							readOnly="readOnly"
 						/>
 					</div>
 					<div className="form-field po-form-created-at-datetime">
@@ -217,141 +270,106 @@ const GrvForm = ({ formData }) => {
 							name="createdAtDatetime"
 							id="createdAtDatetime"
 							value={po.metaData.createdAtDatetime}
-							onChange={handleChange}
+							onChange={() => ""}
 							placeholder="Created At Datetime"
+							readOnly="readOnly"
 						/>
 					</div>
 				</div>
 
-				{/* Confirm receipt */}
-				{/* <div className="form-section form-section-confirm-receipt">
-					<p className="form-section-title confirm-receipt-title">Confirm Receipt</p>
-					<div className="form-field po-form-confirm-receipt-name">
+				{/* Store Details */}
+				<div className="form-section form-section-store">
+					<div className="form-section-store-title">
+						<p className="form-section-title store-title">Store Receiving Goods</p>
+						<button id="addGoodsToStore" onClick={handleAddGoodsToStore}>+</button>
+					</div>
+					<div className="form-field po-form-store-name">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<select
+							name="storeName"
+							id="storeName"
+							value={po.poData.poGrv.grvStoreData.storeName}
+							onChange={handleChangeStore}
+							placeholder="Store Name"
+						>
+							{stores &&
+								stores.map(store => {
+									return (
+										<option key={store.storeId} value={store.storeId}>
+											{store.storeName}
+										</option>
+									);
+								})}
+						</select>
+					</div>
+					<div className="form-field po-form-store-adr">
 						<span className="form-field-icon">
 							<MdBusiness />
 						</span>
 						<input
 							type="text"
-							name="grvcrStatus"
-							id="grvcrStatus"
-							value={po.poData.poGrv.grvConfirmReceipt.grvcrStatus}
-							placeholder="Confirm Receipt Name"
+							name="storeAdr"
+							id="storeAdr"
+							value={po.poData.poGrv.grvStoreData.storeAdr}
+							onChange={handleChangeStore}
+							placeholder="Store Physical Address"
 						/>
 					</div>
-					<div className="form-field po-form-confirm-receipt-surname">
-						<span className="form-field-icon">
-							<MdBusiness />
-						</span>
-						<input
-							type="text"
-							name="grvcrSurname"
-							id="grvcrSurname"
-							value={po.poData.poGrv.grvConfirmReceipt.grvcrSurname}
-							placeholder="Confirm Receipt Surname"
-						/>
-					</div>
-					<div className="form-field po-form-confirm-receipt-contact-name">
+					<div className="form-field po-form-store-contact-surname">
 						<span className="form-field-icon">
 							<FcBusinessman />
 						</span>
 						<input
 							type="text"
-							name="grvcrName"
-							id="grvcrName"
-							value={po.poData.poGrv.grvConfirmReceipt.grvcrName}
-							placeholder="Confirm Receipt Name"
+							name="storeContactSurname"
+							id="storeContactSurname"
+							value={po.poData.poGrv.grvStoreData.storeContactSurname}
+							onChange={handleChangeStore}
+							placeholder="Contact Surname"
 						/>
 					</div>
-					<div className="form-field po-form-confirm-receipt-contact-no">
-						<span className="form-field-icon">
-							<FcCellPhone />
-						</span>
-						<input
-							type="text"
-							name="grvcrContactNo"
-							id="grvcrContactNo"
-							value={po.poData.poGrv.grvConfirmReceipt.grvcrContactNo}
-							placeholder="Contact No"
-						/>
-					</div>
-					<div className="form-field po-form-confirm-receipt-contact-email-adr">
-						<span className="form-field-icon">
-							<MdOutlineEmail />
-						</span>
-						<input
-							type="email"
-							name="grvcrContactEmailAdr"
-							id="grvcrContactEmailAdr"
-							value={po.poData.poGrv.grvConfirmReceipt.grvcrContactEmailAdr}
-							placeholder="Contact Email Adr"
-						/>
-					</div>
-				</div> */}
-
-				{/* Witness Receipt */}
-				{/* <div className="form-section form-section-witness-receipt">
-					<p className="form-section-title witness-receipt-title">Witness Receipt</p>
-					<div className="form-field po-form-witness-receipt-name">
-						<span className="form-field-icon">
-							<MdBusiness />
-						</span>
-						<input
-							type="text"
-							name="grvwrStatus"
-							id="grvwrStatus"
-							value={po.poData.poGrv.grvWitnessReceipt.grvwrStatus}
-							placeholder="Witness Receipt Name"
-						/>
-					</div>
-					<div className="form-field po-form-witness-receipt-surname">
-						<span className="form-field-icon">
-							<MdBusiness />
-						</span>
-						<input
-							type="text"
-							name="grvwrSurname"
-							id="grvwrSurname"
-							value={po.poData.poGrv.grvWitnessReceipt.grvwrSurname}
-							placeholder="Witness Receipt Surname"
-						/>
-					</div>
-					<div className="form-field po-form-witness-receipt-contact-name">
+					<div className="form-field po-form-store-contact-name">
 						<span className="form-field-icon">
 							<FcBusinessman />
 						</span>
 						<input
 							type="text"
-							name="grvwrName"
-							id="grvwrName"
-							value={po.poData.poGrv.grvWitnessReceipt.grvwrName}
-							placeholder="Witness Receipt Name"
+							name="storeContactName"
+							id="storeContactName"
+							value={po.poData.poGrv.grvStoreData.storeContactName}
+							onChange={handleChangeStore}
+							placeholder="Contact Name"
 						/>
 					</div>
-					<div className="form-field po-form-witness-receipt-contact-no">
+					<div className="form-field po-form-store-contact-no">
 						<span className="form-field-icon">
 							<FcCellPhone />
 						</span>
 						<input
 							type="text"
-							name="grvwrContactNo"
-							id="grvwrContactNo"
-							value={po.poData.poGrv.grvWitnessReceipt.grvwrContactNo}
-							placeholder="Contact No"
+							name="storeContactNo"
+							id="storeContactNo"
+							value={po.poData.poGrv.grvStoreData.storeContactNo}
+							onChange={handleChangeStore}
+							placeholder="Contact Number"
 						/>
 					</div>
-					<div className="form-field po-form-witness-receipt-contact-email-adr">
+					<div className="form-field po-form-store-contact-email-adr">
 						<span className="form-field-icon">
 							<MdOutlineEmail />
 						</span>
 						<input
-							type="email"
-							name="grvwrContactEmailAdr"
-							id="grvwrContactEmailAdr"
-							value={po.poData.poGrv.grvWitnessReceipt.grvwrContactEmailAdr}
+							type="text"
+							name="storeContactEmailAdr"
+							id="storeContacEmailAdr"
+							value={po.poData.poGrv.grvStoreData.storeContactEmailAdr}
+							onChange={handleChangeStore}
 							placeholder="Contact Email Adr"
 						/>
 					</div>
-				</div> */}
+				</div>
 
 				{/* Supplier section */}
 				<div className="form-section form-section-supplier">
@@ -366,6 +384,8 @@ const GrvForm = ({ formData }) => {
 							id="splName"
 							value={po.poSplData.splName}
 							placeholder="Supplier Name"
+							onChange={() => ""}
+							readOnly="readOnly"
 						/>
 					</div>
 					<div className="form-field po-form-supplier-contact-surname">
@@ -378,6 +398,8 @@ const GrvForm = ({ formData }) => {
 							id="splContactSurname"
 							value={po.poSplData.splContactSurname}
 							placeholder="Contact Surname"
+							onChange={() => ""}
+							readOnly="readOnly"
 						/>
 					</div>
 					<div className="form-field po-form-supplier-contact-name">
@@ -390,6 +412,8 @@ const GrvForm = ({ formData }) => {
 							id="splContactName"
 							value={po.poSplData.splContactName}
 							placeholder="Contact Name"
+							onChange={() => ""}
+							readOnly="readOnly"
 						/>
 					</div>
 					<div className="form-field po-form-supplier-contact-no">
@@ -402,6 +426,8 @@ const GrvForm = ({ formData }) => {
 							id="splContactNo"
 							value={po.poSplData.splContactNo}
 							placeholder="Contact No"
+							onChange={() => ""}
+							readOnly="readOnly"
 						/>
 					</div>
 					<div className="form-field po-form-supplier-contact-email-adr">
@@ -413,6 +439,148 @@ const GrvForm = ({ formData }) => {
 							name="splContactEmailAdr"
 							id="splContactEmailAdr"
 							value={po.poSplData.splContactEmailAdr}
+							placeholder="Contact Email Adr"
+							onChange={() => ""}
+							readOnly="readOnly"
+						/>
+					</div>
+				</div>
+
+				{/* Receiver of goods - completeted by the user who received the goods */}
+				<div className="form-section form-section-confirm-receipt">
+					<p className="form-section-title confirm-receipt-title">Confirm Receipt</p>
+					<div className="form-field po-form-confirm-receipt-name">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<input
+							type="text"
+							name="grvcrStatus"
+							id="grvcrStatus"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrStatus}
+							onChange={() => ""}
+							placeholder="Confirm Receipt Name"
+						/>
+					</div>
+					<div className="form-field po-form-confirm-receipt-surname">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<input
+							type="text"
+							name="grvcrSurname"
+							id="grvcrSurname"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrSurname}
+							onChange={() => ""}
+							placeholder="Confirm Receipt Surname"
+						/>
+					</div>
+					<div className="form-field po-form-confirm-receipt-contact-name">
+						<span className="form-field-icon">
+							<FcBusinessman />
+						</span>
+						<input
+							type="text"
+							name="grvcrName"
+							id="grvcrName"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrName}
+							onChange={() => ""}
+							placeholder="Confirm Receipt Name"
+						/>
+					</div>
+					<div className="form-field po-form-confirm-receipt-contact-no">
+						<span className="form-field-icon">
+							<FcCellPhone />
+						</span>
+						<input
+							type="text"
+							name="grvcrContactNo"
+							id="grvcrContactNo"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrContactNo}
+							onChange={() => ""}
+							placeholder="Contact No"
+						/>
+					</div>
+					<div className="form-field po-form-confirm-receipt-contact-email-adr">
+						<span className="form-field-icon">
+							<MdOutlineEmail />
+						</span>
+						<input
+							type="email"
+							name="grvcrContactEmailAdr"
+							id="grvcrContactEmailAdr"
+							value={po.poData.poGrv.grvConfirmReceipt.grvcrContactEmailAdr}
+							onChange={() => ""}
+							placeholder="Contact Email Adr"
+						/>
+					</div>
+				</div>
+
+				{/* Witness Receipt */}
+				<div className="form-section form-section-witness-receipt">
+					<p className="form-section-title witness-receipt-title">Witness Receipt</p>
+					<div className="form-field po-form-witness-receipt-name">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<input
+							type="text"
+							name="grvwrStatus"
+							id="grvwrStatus"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrStatus}
+							onChange={() => ""}
+							placeholder="Witness Receipt Name"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-surname">
+						<span className="form-field-icon">
+							<MdBusiness />
+						</span>
+						<input
+							type="text"
+							name="grvwrSurname"
+							id="grvwrSurname"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrSurname}
+							onChange={() => ""}
+							placeholder="Witness Receipt Surname"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-contact-name">
+						<span className="form-field-icon">
+							<FcBusinessman />
+						</span>
+						<input
+							type="text"
+							name="grvwrName"
+							id="grvwrName"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrName}
+							onChange={() => ""}
+							placeholder="Witness Receipt Name"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-contact-no">
+						<span className="form-field-icon">
+							<FcCellPhone />
+						</span>
+						<input
+							type="text"
+							name="grvwrContactNo"
+							id="grvwrContactNo"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrContactNo}
+							onChange={() => ""}
+							placeholder="Contact No"
+						/>
+					</div>
+					<div className="form-field po-form-witness-receipt-contact-email-adr">
+						<span className="form-field-icon">
+							<MdOutlineEmail />
+						</span>
+						<input
+							type="email"
+							name="grvwrContactEmailAdr"
+							id="grvwrContactEmailAdr"
+							value={po.poData.poGrv.grvWitnessReceipt.grvwrContactEmailAdr}
+							onChange={() => ""}
 							placeholder="Contact Email Adr"
 						/>
 					</div>
@@ -431,8 +599,34 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* Comments section */}
+				<div className="form-section form-section-grv-comments">
+					<div className="form-section-grv-comments-title">
+						<p className="form-section-title">Grv Comments</p>
+						<p className="form-section-title-grv-comments">
+							{/* Total Comments {grvTotalComments} */} 3
+						</p>
+					</div>
+					<GrvCommentsTable po={po} setPo={setPo} />
+				</div>
 
 				{/* media section */}
+				<div className="form-section form-section-media">
+					<div className="form-section-media-title">
+						<p className="form-section-title">Media</p>
+					</div>
+					<div className="grv-media media-pics">
+						<div className="grv-meadi-heading">Pictures</div>
+						<GrvFormMedia mediaData={po.poData.poGrv.grvMedia.grvPics} />
+					</div>
+					<div className="grv-media media-videos">
+						<div className="grv-meadi-heading">Videos</div>
+						<GrvFormMedia mediaData={po.poData.poGrv.grvMedia.grvVideos} />
+					</div>
+					<div className="grv-media media-voice">
+						<div className="grv-meadi-heading">Voice</div>
+						<GrvFormMedia mediaData={po.poData.poGrv.grvMedia.grvVoice} />
+					</div>
+				</div>
 
 				<div className="form-btns">
 					<button

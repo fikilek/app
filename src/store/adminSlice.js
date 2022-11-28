@@ -9,6 +9,8 @@ import {
 	newPoFormData,
 	newPoiFormData,
 	newPoItem,
+	stores,
+	astCartegories,
 } from "../data/adminData/adminData";
 
 const adminSlice = createSlice({
@@ -23,6 +25,8 @@ const adminSlice = createSlice({
 		newPoFormData,
 		newPoiFormData,
 		newPoItem,
+		stores,
+		astCartegories
 	},
 	reducers: {
 		// create, update and delete assets state config details

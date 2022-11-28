@@ -389,6 +389,70 @@ const newPoItem = {
 	itemQuantity: 0,
 };
 
+const stores = [
+	{
+		storeId: 1,
+		storeName: "Smars Jozi Store",
+		storeAdr: "15 Petunia Street",
+		storeContactSurname: "Kentane",
+		storeContactName: "Sitha",
+		storeContactNo: "081 726 2352",
+		storeContactEmailAdr: "sitha@smars.co.za",
+	},
+	{
+		storeId: 2,
+		storeName: "Smars Molteno Store",
+		storeAdr: "21 Vessels Street",
+		storeContactSurname: "Mqo",
+		storeContactName: "Khuthala",
+		storeContactNo: "081 726 2352",
+		storeContactEmailAdr: "khuthala@smars.co.za",
+	},
+	{
+		storeId: 3,
+		storeName: "Smars Sterkstroom Store",
+		storeAdr: "EC Street",
+		storeContactSurname: "Yedwa",
+		storeContactName: "Onani",
+		storeContactNo: "081 123 5555",
+		storeContactEmailAdr: "onani@smars.co.za",
+	},
+	{
+		storeId: 4,
+		storeName: "Smars Hofmyr Store",
+		storeAdr: "15 Petunia Street",
+		storeContactSurname: "Kentane",
+		storeContactName: "Sitha",
+		storeContactNo: "081 726 2352",
+		storeContactEmailAdr: "sitha@smars.co.za",
+	},
+	{
+		storeId: 5,
+		storeName: "Smars Tarkastd Store",
+		storeAdr: "15 Petunia Street",
+		storeContactSurname: "Kentane",
+		storeContactName: "Sitha",
+		storeContactNo: "081 726 2352",
+		storeContactEmailAdr: "sitha@smars.co.za",
+	},
+];
+
+const astCartegories = {
+	meter: {
+		phase: "", // ['single', 'three', '', '']
+		type: "", // ['conventional', 'pre-paid']
+		code: '', // ['BEC44', 'BEC66', '']
+	},
+	pole: {
+
+	},
+	box: {
+
+	}
+};
+
+
+
 export {
 	astStateNames,
 	trnNames,
@@ -399,4 +463,6 @@ export {
 	newPoFormData,
 	newPoiFormData,
 	newPoItem,
+	stores,
+	astCartegories,
 };

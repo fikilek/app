@@ -79,7 +79,7 @@ const PoForm = ({ formData }) => {
 	const { user } = useContext(UserContext);
 	// console.log(`user`, user);
 	const [po, setPo] = useState(formData ? formData : newPoFormData);
-	console.log(`po`, po);
+	// console.log(`po`, po);
 	const [poItemsTotals, setPoItemsTotals] = useState(0);
 	// console.log(`poItemsTotals`, poItemsTotals);
 	const poStatus =

@@ -177,70 +177,70 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 	// assets fields
 	const astTableFields = [
 		{ field: "astSystemId", headerName: "Ast Id", width: 90 },
-		{
-			headerName: "Updated",
-			children: [
-				{
-					field: "metaData.updatedByUser",
-					columnGroupShow: "closed",
-					headerName: "Updated By",
-					width: 130,
-				},
-				{
-					field: "metaData.updatedByUser",
-					columnGroupShow: "open",
-					headerName: "Updated By",
-					width: 130,
-				},
-				// 3
-				{
-					field: "metaData.updatedAtDatetime",
-					columnGroupShow: "open",
-					headerName: "Updated At Datetime",
-					width: 190,
-				},
-			],
-		},
-		{
-			headerName: "Created",
-			children: [
-				{
-					field: "metaData.createdByUser",
-					columnGroupShow: "closed",
-					headerName: "Created By",
-					width: 130,
-				},
-				{
-					field: "metaData.createdByUser",
-					columnGroupShow: "open",
-					headerName: "Created By",
-					width: 130,
-				},
-				{
-					field: "metaData.createdAtDatetime",
-					columnGroupShow: "open",
-					headerName: "Date Created",
-					width: 180,
-				},
-			],
-		},
-		{
-			field: "metaData.createdThrough",
-			headerName: "Created Through",
-			width: 160,
-		},
-		{
-			field: "metaData.trnCount",
-			headerName: "Ast Trn(s)",
-			width: 140,
-			cellRenderer: p => <TableBtnOpenTrns params={p} />,
-		},
-		{
-			field: "newTrn",
-			headerName: "New Trn",
-			width: 170,
-			cellRenderer: p => <TableBtnTrnSelect params={p} ml2={ml2} />,
-		},
+		// {
+		// 	headerName: "Updated",
+		// 	children: [
+		// 		{
+		// 			field: "metaData.updatedByUser",
+		// 			columnGroupShow: "closed",
+		// 			headerName: "Updated By",
+		// 			width: 130,
+		// 		},
+		// 		{
+		// 			field: "metaData.updatedByUser",
+		// 			columnGroupShow: "open",
+		// 			headerName: "Updated By",
+		// 			width: 130,
+		// 		},
+		// 		// 3
+		// 		{
+		// 			field: "metaData.updatedAtDatetime",
+		// 			columnGroupShow: "open",
+		// 			headerName: "Updated At Datetime",
+		// 			width: 190,
+		// 		},
+		// 	],
+		// },
+		// {
+		// 	headerName: "Created",
+		// 	children: [
+		// 		{
+		// 			field: "metaData.createdByUser",
+		// 			columnGroupShow: "closed",
+		// 			headerName: "Created By",
+		// 			width: 130,
+		// 		},
+		// 		{
+		// 			field: "metaData.createdByUser",
+		// 			columnGroupShow: "open",
+		// 			headerName: "Created By",
+		// 			width: 130,
+		// 		},
+		// 		{
+		// 			field: "metaData.createdAtDatetime",
+		// 			columnGroupShow: "open",
+		// 			headerName: "Date Created",
+		// 			width: 180,
+		// 		},
+		// 	],
+		// },
+		// {
+		// 	field: "metaData.createdThrough",
+		// 	headerName: "Created Through",
+		// 	width: 160,
+		// },
+		// {
+		// 	field: "metaData.trnCount",
+		// 	headerName: "Ast Trn(s)",
+		// 	width: 140,
+		// 	cellRenderer: p => <TableBtnOpenTrns params={p} />,
+		// },
+		// {
+		// 	field: "newTrn",
+		// 	headerName: "New Trn",
+		// 	width: 170,
+		// 	cellRenderer: p => <TableBtnTrnSelect params={p} ml2={ml2} />,
+		// },
 		{
 			headerName: "Asset Data",
 			children: [
@@ -600,42 +600,43 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 
 	if (ml1 === "asts" && ml2 === undefined)
 		return {
-			rowData: asts,
-			columnDefs: [...astTableFields, ...media],
+			rowData: asts.astsData,
+			// columnDefs: [...astTableFields, ...media],
+			columnDefs: [...astTableFields],
 		};
 	if (ml1 === "asts" && ml2 === "meter")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astMeter, ...media],
 		};
 	if (ml1 === "asts" && ml2 === "pole")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astPole, ...media],
 		};
 	if (ml1 === "asts" && ml2 === "box")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astBox, ...media],
 		};
 	if (ml1 === "asts" && ml2 === "cb")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astCB, ...media],
 		};
 	if (ml1 === "asts" && ml2 === "feeder")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astFeeder, ...media],
 		};
 	if (ml1 === "asts" && ml2 === "seal")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astSeal, ...media],
 		};
 	if (ml1 === "asts" && ml2 === "vtct")
 		return {
-			rowData: asts,
+			rowData: asts.astsData,
 			columnDefs: [...astTableFields, ...astVtct, ...media],
 		};
 

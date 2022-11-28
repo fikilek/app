@@ -7,7 +7,7 @@ import { MdFilter2 } from "react-icons/md";
 
 const TableBtnTrnSelect = ({ params }) => {
 	const { modalToOpen } = useOpenModal();
-	console.log(`params`, params);
+	// console.log(`params`, params);
 	// console.log(`ast state`, params.data.astState);
 	const { astStateNames, newTrnData } = useSelector(state => state.admin);
 	// console.log(`newTrnData`, newTrnData);
@@ -59,7 +59,7 @@ const TableBtnTrnSelect = ({ params }) => {
 		}
 	};
 
-	console.log(`possibleTrns.possibleTrns`, possibleTrns.possibleTrns);
+	// console.log(`possibleTrns.possibleTrns`, possibleTrns.possibleTrns);
 	// console.log(`ml2`, ml2);
 
 	return (
@@ -78,7 +78,7 @@ const TableBtnTrnSelect = ({ params }) => {
 				{/* <option value="choose">choose trn</option> */}
 				{possibleTrns.possibleTrns[params.data.astData.astCartegory] &&
 					possibleTrns.possibleTrns[params.data.astData.astCartegory].map(trn => {
-						console.log(`trn`, trn);
+						// console.log(`trn`, trn);
 						return (
 							<option key={trn} value={trn}>
 								{trn}

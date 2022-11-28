@@ -19,18 +19,10 @@ export const poData = [
 		},
 		poData: {
 			poNo: "Po-1", // Purchase Order No. THis is the begining of the procurment process
-			poInv: [
-				{
-					inv: "inv-1",
-				},
-			], // Invoice sent by the supplier
+			poInv: [{ invId: 1, inv: "inv-1" }], // Invoice sent by the supplier
 			poPop: [
-				{
-					pop: "pop-1",
-				},
-				{
-					pop: "pop-2",
-				},
+				{ popId: 1, pop: "pop-1" },
+				{ popId: 2, pop: "pop-2" },
 			], // Proof of Payment for the invoice paid
 			poGrv: {
 				grvSystemId: "",
@@ -50,29 +42,97 @@ export const poData = [
 					grvwrContactNo: "",
 					grvwrContactEmailAdr: "",
 				},
-				grvComments: [], // [{date: date, msg: msg, user: user}]
 				rgvMedia: {
 					grvPhotos: [],
 					grvVideos: [],
 					grvVoice: [],
 				},
+				grvStoreData: {
+					storeName: "Smars Jozi Store",
+					storeAdr: "15 Petunia Street",
+					storeContactSurname: "Kentane",
+					storeContactName: "Sitha",
+					storeContactNo: "081 726 2352",
+					storeContactEmailAdr: "sitha@smars.co.za",
+				},
+				grvMedia: {
+					grvPics: [
+						{
+							mediaId: "1",
+							user: "fk",
+							mediaUrl: "Pic 1",
+							datetime: "22/11/12",
+							mediaType: "image",
+						},
+						{
+							mediaId: "2",
+							user: "fk",
+							mediaUrl: "Pic 2",
+							datetime: "22/11/12",
+							mediaType: "image",
+						},
+					],
+					grvVideos: [
+						{
+							mediaId: "1",
+							user: "fk",
+							mediaUrl: "Video 1",
+							datetime: "22/11/12",
+							mediaType: "video",
+						},
+						{
+							mediaId: "2",
+							user: "fk",
+							mediaUrl: "Video 2",
+							datetime: "22/11/12",
+							mediaType: "video",
+						},
+					],
+					grvVoice: [
+						{
+							mediaId: "1",
+							user: "fk",
+							mediaUrl: "Voice Clip 1",
+							datetime: "22/11/12",
+							mediaType: "voice",
+						},
+						{
+							mediaId: "2",
+							user: "fk",
+							mediaUrl: "Voice Clip 2",
+							datetime: "22/11/12",
+							mediaType: "voice",
+						},
+					],
+				},
+				grvComments: [
+					{
+						grvCommentId: 1,
+						grvCommentUserName: "Fikile Kentane",
+						grvCommentMsg: "Grv Fikile comments",
+						grvCommentDate: "22/11/20 08:21",
+					},
+				],
 			}, // Goods received. THis should correspond to the items in the PO.
 		},
 		poPi: [
 			{
 				itemId: 1,
+				itemAstCartegory: "meter",
 				itemName: "singe phase meter",
 				itemCode: "BEC44",
 				itemQuantity: 20,
 			},
 			{
 				itemId: 2,
+				itemAstCartegory: "meter",
 				itemName: "three phase meter",
 				itemCode: "BEC66",
 				itemQuantity: 5,
 			},
 		],
 		poSplData: {
+			splId: 1,
 			splName: "Conlog",
 			splContactSurname: "Gina",
 			splContactName: "Mondli",
@@ -252,5 +312,13 @@ export const splData = [
 		splContactName: "Ali",
 		splContactNo: "081 726 2352",
 		splContactEmailAdr: "ali@landis.co.za",
+	},
+];
+
+export const grvData = [
+	{
+		grvId: nanoid(),
+		grvAstCartegory: "meter",
+		grvAstNo: "2222",
 	},
 ];
