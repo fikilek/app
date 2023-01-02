@@ -183,6 +183,7 @@ header nav .nav-list-right li > .sub-menu li .sub-menu {
 	width: 17rem;
 	border-left: none;
 	border-right: 3px solid #eb3007;
+	border-top: none;
 	display: block;
 }
 
