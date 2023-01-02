@@ -34,43 +34,47 @@ const SignedInMenu = () => {
 	};
 	return (
 		<ul
-			className={`nav-list ${menuStatus ? "hide" : "show"}`}
+			className={`nav-list ${menuStatus ? "hide-nav-list" : "show-nav-list"}`}
 			onClick={() => setMenuStatus(false)}
 		>
-			{/* Dashboard */}
-			<MenuBlock menuData={dataDbd} />
-			{/* Assets */}
-			<MenuBlock menuData={dataAsts} />
-			{/* Transactions */}
-			<MenuBlock menuData={dataTrns} />
-			{/* Supply Chain */}
-			<MenuBlock menuData={dataSch} />
-			{/* Erfs */}
-			<MenuBlock menuData={dataErfs} />
-			{/* Body of Knowledge (Bok) */}
-			<MenuBlock menuData={dataBok} />
-			{/* Admin */}
-			<MenuBlock menuData={dataAdmin} />
-			{/* Unp */}
-			<li className="btn  move-right">
-				<Tooltip title={`${user.name} ${user.surname}`} position="left">
-					<NavLink
-						to="/unp"
-						className="user-initials"
-					>{`${user.name[0]}${user.surname[0]}`}</NavLink>
-				</Tooltip>
-				<ul className="sub-menu">
-					<li>
-						<NavLink to="/unp/profile">Profile</NavLink>
-					</li>
+			<div className="nav-list-left" >
+				{/* Dashboard */}
+				<MenuBlock menuData={dataDbd} />
+				{/* Assets */}
+				<MenuBlock menuData={dataAsts} />
+				{/* Transactions */}
+				<MenuBlock menuData={dataTrns} />
+				{/* Supply Chain */}
+				<MenuBlock menuData={dataSch} />
+				{/* Erfs */}
+				<MenuBlock menuData={dataErfs} />
+				{/* Body of Knowledge (Bok) */}
+				<MenuBlock menuData={dataBok} />
+			</div>
 
-					<li>
-						<a href="#" onClick={handleClick} id="signout">
-							Sign out
-						</a>
-					</li>
-				</ul>
-			</li>
+			<div className="nav-list-right" >
+				{/* Admin */}
+				<MenuBlock menuData={dataAdmin} />
+				{/* User */}
+				<li className="nav-list-btn-signedin-user">
+					<Tooltip title={`${user.name} ${user.surname}`} position="left">
+						<NavLink to="/unp" className="user-initials">
+							{user ? `${user.name[0]}${user.surname[0]}` : `XX`}
+						</NavLink>
+					</Tooltip>
+					<ul className="sub-menu">
+						<li>
+							<NavLink to="/unp/profile">Profile</NavLink>
+						</li>
+
+						<li>
+							<a href="#" onClick={handleClick} id="signout">
+								Sign out
+							</a>
+						</li>
+					</ul>
+				</li>
+			</div>
 		</ul>
 	);
 };

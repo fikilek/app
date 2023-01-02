@@ -13,8 +13,12 @@ import Erfs from "./pages/erfs/Erfs";
 import Bok from "./pages/bok/Bok";
 import Admin from "./pages/admin/Admin";
 import Unp from "./pages/unps/Unp";
-import Signout from "./components/forms/authForms/Signout";
 import NoPageFound from "./pages/errors/NoPageFound";
+import Stores from "./pages/stores/Stores";
+import Suppliers from "./pages/suppliers/Suppliers";
+
+// import components
+import Signout from "./components/forms/authForms/Signout";
 import Modal from "./components/modals/Modal";
 
 // import ModalContext and UserContext
@@ -27,11 +31,13 @@ import store from "./store/irepsStore";
 import { Provider } from "react-redux";
 import Sch from "./pages/sch/Sch";
 import { PoContextProvider } from "./contexts/PoContext";
+import PgDbdMl2Meter from "./pages/dbd/dbdMeters/DbdMeters";
+import DbdBoxes from "./pages/dbd/dbdBoxes/DbdBoxes";
+import DbdMeters from "./pages/dbd/dbdMeters/DbdMeters";
+import DbdPoles from "./pages/dbd/dbdPoles/DbdPoles";
 
 // console.log(`store`, store)
 // console.log(`UserContextProvider`, UserContextProvider)
-
-
 
 function App() {
 	return (
@@ -54,7 +60,11 @@ function App() {
 											<Route path="/dbd">
 												<Route index element={<Dbd />} />
 												{/* ml2 = 'asts' or 'trns' or 'unps' */}
-												<Route path=":ml2" element={<Dbd />} />
+												{/* PgDbdMl2Meter - Page Dashboard Menu Lelel 2 Meter */}
+												<Route path="meters" element={<DbdMeters />} />
+												<Route path="boxs" element={<DbdBoxes />} />
+												<Route path="poles" element={<DbdPoles />} />
+												{/* <Route path="/dbd/meter" element={<PgDbdMl2Meter />} /> */}
 												{/* <Route path="meter" element={<DbdSub />} /> */}
 											</Route>
 											{/* assets section -----------------------------------------------------*/}
@@ -76,7 +86,12 @@ function App() {
 
 											{/* supply chain section -----------------------------------------------------*/}
 											{/* path to assets main page [ml1 = erfs] */}
-											<Route path="/sch" element={<Sch />}></Route>
+											<Route path="/sch">
+												<Route index element={<Sch />} />
+												<Route path="pos" element={<Sch />} />
+												<Route path="suppliers" element={<Suppliers />} />
+												<Route path="stores" element={<Stores />} />
+											</Route>
 
 											{/* erfs section -----------------------------------------------------*/}
 											{/* path to assets main page [ml1 = erfs] */}

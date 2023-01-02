@@ -10,7 +10,7 @@ const useFilterData = ({ ml1, ml2, ml3}) => {
 	// console.log(`storeState`, storeState);
 
 	useEffect(() => {
-		console.log(`redux store state has changed`, asts.astsData);
+		// console.log(`redux store state has changed`, asts.astsData);
 	}, [astsData]);
 
 	// console.log(`asts`, asts);
@@ -31,7 +31,7 @@ const useFilterData = ({ ml1, ml2, ml3}) => {
 		if (ml2) {
 			const ml2Trns =
 				trns && trns.filter(trn => trn.astData.astCartegory === ml2.trim());
-			console.log(`ml2Trns`, ml2Trns);
+			// console.log(`ml2Trns`, ml2Trns);
 			return { asts, trns: ml2Trns, sch };
 		}
 		return { asts, trns, sch };

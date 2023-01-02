@@ -25,9 +25,11 @@ const Header = () => {
 						</NavLink>
 					</div>
 					{user.signedon ? <SignedInMenu /> : <SignedOutMenu />}
+					 {/* <SignedOutMenu />  */}
+					{/* <SignedInMenu /> */}
 
 					<div className="menu-icons" onClick={() => setMenuStatus(!menuStatus)}>
-						{menuStatus ? <MdClose /> : <MdMenu />}
+						{menuStatus ? <MdMenu /> : <MdClose /> }
 					</div>
 				</nav>
 			</header>

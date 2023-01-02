@@ -5,28 +5,32 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
-import { useSelector, useStore } from "react-redux";
+// import { shallowEqual, useSelector, useStore } from "react-redux";
+import useCollection from "../../../hooks/useCollection";
 
 const TestAstsTable = () => {
+	// const state = useSelector(state => state, shallowEqual);
+	const { data: astsTestData } = useCollection("astsTestData");
+	console.log(`astsTestData`, astsTestData)
+	// const { grvData } = useSelector(state => state.sch);
+	// const state = useSelector(state => state)
+	// console.log(`state`, state);
+	// const { astsTestData } = state.asts;
 
-  const { astsTestData } = useSelector(state => state.asts)
-	console.log(`astsTestData`, astsTestData);
-  
-  const [rowData, setRowData] = useState(astsTestData)
+	const [rowData, setRowData] = useState([]);
 
-  const [columnDefs] = useState([
-    { field: "astId" },
-    { field: "grvId" },
-    { field: "astCartegory" },
-    { field: "astNo"},
-  ])
+	const [columnDefs] = useState([
+		{ field: "id" },
+		{ field: "grvId" },
+		{ field: "astCartegory" },
+		{ field: "astNo" },
+	]);
 
 	useEffect(() => {
 		setRowData(astsTestData);
 	}, [astsTestData]);
-	
 
-	const gridRef = useRef(); 
+	const gridRef = useRef();
 	const defaultColDef = useMemo(
 		() => ({
 			sortable: true,
@@ -36,7 +40,7 @@ const TestAstsTable = () => {
 		[]
 	);
 
-	// console.log(`rowData`, rowData);
+	console.log(`rowData`, rowData);
 
 	return (
 		<div className={`ag-theme-alpine `}>

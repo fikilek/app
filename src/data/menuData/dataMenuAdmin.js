@@ -7,6 +7,7 @@ export const dataAdmin = [
 		menu: "Admin",
 		"menu-level": "1",
 		icon: <MdArrowDropDown />,
+		"menuSide": "right",
 		children: [
 			// The children is always a "Ul" element followed by 'li'
 			{

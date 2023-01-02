@@ -8,12 +8,14 @@ import AdminSystUserRoles from "./ml3/AdminSystUserRoles";
 import AdminSystAstStates from './ml3/AdminSystAstStates'
 import AdminSystTrnStates from './ml3/AdminSystTrnStates'
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Admin = () => {
 	const { ml2, ml3 } = useParams();
+	const navigate = useNavigate()
 	return (
 		<div className="admin">
+			{navigate("/noPageFou")}
 			{ml2 === "unps" && ml3 === undefined ? <AdminUsers /> : ""}
 			{ml2 === "syst" && ml3 === undefined ? <AdminSystTables /> : ""}
 			{ml2 === "mds" && ml3 === undefined ? <AdminMobileDevices /> : ""}

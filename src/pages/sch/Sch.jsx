@@ -8,10 +8,10 @@ import Table from "../../components/tabs/table/Table";
 const Sch = () => {
 	return (
 		<div className="sch">
-			{/* <Table ml1={"sch"} ml2={''} ml3={''} /> */}
-			{/* <MenuAddPoBtn /> */}
-			<GrvTestTable /> {/* Grv test table */}
-			<GrvTestAddAstBtn /> 
+			<Table ml1={"sch"} ml2={''} ml3={''} />
+			<MenuAddPoBtn />
+			{/* <GrvTestTable /> */}
+			{/* <GrvTestAddAstBtn />  */}
 		</div>
 	);
 };

@@ -34,7 +34,7 @@ ul {
 	padding: 0 1.5rem;
 }
 
-.menu-icons {
+/* .menu-icons {
 	color: #eee;
 	font-size: 4rem;
 	position: absolute;
@@ -44,7 +44,7 @@ ul {
 	cursor: pointer;
 	z-index: 1500;
 	display: none;
-}
+} */
 
 nav {
 	display: flex;

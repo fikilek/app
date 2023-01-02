@@ -6,10 +6,13 @@ import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
 import { useSelector } from "react-redux";
+import useCollection from '../../../../../src/hooks/useCollection'
 
 const GrvTestTable = () => {
-	const { grvData } = useSelector(state => state.sch);
-	console.log(`grvData`, grvData);
+	// const { grvData } = useSelector(state => state.sch);
+	// console.log(`grvData`, grvData);
+	const {data: grvData} = useCollection('grvData')
+
 
 	const [rowData, setRowData] = useState(grvData);
 
@@ -18,7 +21,7 @@ const GrvTestTable = () => {
 	}, [grvData]);
 
 	const [columnDefs] = useState([
-		{ field: "grvId" },
+		{ field: "id" },
 		{ field: "grvAstCartegory" },
 		{ field: "grvAstNo" },
 	]);

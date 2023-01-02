@@ -20,7 +20,7 @@ const SignedOutMenu = () => {
 	};
 
 	const handleClickOnNavList = e => {
-		// console.log(`nav-list clicked : menuStatus : ${menuStatus}` )
+		console.log(`nav-list clicked : menuStatus : ${menuStatus}` )
 		if (menuStatus) {
 			// console.log(`about to change menyStatus`)
 			setMenuStatus(false);
@@ -30,27 +30,31 @@ const SignedOutMenu = () => {
 
 	return (
 		<ul
-			className={`nav-list ${menuStatus ? "show" : ""}`}
+			className={`nav-list ${menuStatus ? "hide-nav-list" : "show-nav-list"}`}
 			onClick={handleClickOnNavList}
 		>
-			{/* Erfs */}
-			<MenuBlock menuData={dataErfs} />
-			{/* Body of Knowledge (Bok) */}
-			<MenuBlock menuData={dataBok} classes={"expand"} />
-			{/* Sign up */}
-			{/* <MenuBlock menuData={dataSignUp} classes={"btn  move-right"} /> */}
-			<li className="btn  move-right">
-				<a href="#" onClick={handleClick} id="signup">
-					Sign up
-				</a>
-			</li>
-			{/* Sign in */}
-			{/* <MenuBlock menuData={dataSignIn} classes={"btn  move-right"} /> */}
-			<li className="btn  move-right">
-				<a href="#" onClick={handleClick} id="signin">
-					Sign in
-				</a>
-			</li>
+			<div className="nav-list-left">
+				{/* Erfs */}
+				<MenuBlock menuData={dataErfs} />
+				{/* Body of Knowledge (Bok) */}
+				<MenuBlock menuData={dataBok} classes={"expand"} />
+			</div>
+
+			<div className="nav-list-right">
+				{/* Sign up */}
+				<li className="nav-list-btn">
+					<a href="#" onClick={handleClick} id="signup">
+						Sign up
+					</a>
+				</li>
+				{/* Sign in */}
+				{/* <MenuBlock menuData={dataSignIn} classes={"btn  move-right"} /> */}
+				<li className="nav-list-btn ">
+					<a href="#" onClick={handleClick} id="signin">
+						Sign in
+					</a>
+				</li>
+			</div>
 		</ul>
 	);
 };

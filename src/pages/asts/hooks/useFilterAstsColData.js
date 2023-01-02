@@ -4,10 +4,10 @@ import TableBtnTrnSelect from "../../../components/tableBtns/TableBtnTrnSelect";
 import TableCellArrayData from "../../../components/tableBtns/TableCellArrayData";
 import TableCellPoleData from "../../../components/tableBtns/TableCellPoleData";
 
-const useFilterAstsColData = ml2 => {
+const useFilterAstsColData = (ml1, ml2, ml3) => {
 	const filterAstsColData = () => {
 		const astTableFields = [
-			{ field: "astSystemId", headerName: "Ast Id", width: 90 },
+			{ field: "id", headerName: "Ast Id", width: 90 },
 			{
 				headerName: "Updated",
 				children: [

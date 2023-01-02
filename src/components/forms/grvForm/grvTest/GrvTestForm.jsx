@@ -6,17 +6,19 @@ import { useDispatch } from "react-redux";
 import { grvCreated } from "../../../../store/schSlice";
 import { astTestDataCreated } from "../../../../store/astsSlice";
 import { ModalContext } from "../../../../contexts/ModalContext";
+import { db } from "../../../../firebaseConfig/fbConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 const newGrvTestFormData = {
-	grvId: nanoid(),
+	// grvId: nanoid(),
 	grvAstCartegory: "",
 	grvAstNo: "",
 };
 
 const GrvTestForm = () => {
 	const [grvFormData, setGrvFormData] = useState(newGrvTestFormData);
-  const dispatch  = useDispatch();
-  
+	// const dispatch  = useDispatch();
+
 	const { setModalOpened, setComponentToOpen } = useContext(ModalContext);
 
 	const handleChange = e => {
@@ -34,21 +36,21 @@ const GrvTestForm = () => {
 		setComponentToOpen("");
 	};
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
-		console.log(`submit grvFormData`, grvFormData);
-		// dispatch data to sch grvData
-		dispatch(grvCreated(grvFormData));
-		// dispatch data to asts astsTestData
+		// console.log(`submit grvFormData`, grvFormData);
 
-		dispatch(
-			astTestDataCreated({
-				astId: nanoid(),
-				grvId: grvFormData.grvId,
-				astCartegory: grvFormData.grvAstCartegory,
-				astNo: grvFormData.grvAstNo,
-			})
-		);
+		const refGrvData = collection(db, "grvData");
+		const refAstsTestDAta = collection(db, "astsTestData");
+
+		const docRefGrv = await addDoc(refGrvData, grvFormData);
+		const docId = docRefGrv.id;
+
+		const docRefAsts = await addDoc(refAstsTestDAta, {
+			grvId: docId,
+			astCartegory: grvFormData.grvAstCartegory,
+			astNo: grvFormData.grvAstNo,
+		});
 
 		setModalOpened(false);
 		setGrvFormData([]);
@@ -65,19 +67,6 @@ const GrvTestForm = () => {
 
 			<div className="grv-test-form-body">
 				<form className="gt">
-					<div className="form-field gtf-grv-id">
-						<span className="form-field-icon">
-							<MdBusiness />
-						</span>
-						<input
-							type="text"
-							name="grvId"
-							id="grvId"
-							value={grvFormData.grvId}
-							onChange={handleChange}
-							placeholder="Grv Id"
-						/>
-					</div>
 					<div className="form-field gtf-grv-ast-cartegory">
 						<span className="form-field-icon">
 							<MdBusiness />

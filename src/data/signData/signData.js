@@ -1,9 +1,9 @@
 // Create a use object
 export const userObj = {
-	surname: "",
-	name: "",
+	surname: "Kentane",
+	name: "Silakhile",
 	email: "",
 	role: "",
-	signedon: false,
+	signedon: true,
 	state: '',
 };
