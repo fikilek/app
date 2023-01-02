@@ -144,13 +144,15 @@ header nav .nav-list-right .sub-menu::before {
 
 /* ONLY sub-menu sub-menu-left */
 
-header nav .sub-menu .sub-menu {
+header nav .nav-list-left .sub-menu .sub-menu {
 	/* red line on sub sub menu on the left */
 	border-top: none;
 	border-left: 3px solid #eb3007;
 	top: 0;
 	left: 160%;
-	width: 18.5rem;
+	width: 40rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 }
 
 header nav .sub-menu .sub-menu::before {
@@ -181,6 +183,7 @@ header nav .nav-list-right li > .sub-menu li .sub-menu {
 	width: 17rem;
 	border-left: none;
 	border-right: 3px solid #eb3007;
+	display: block;
 }
 
 header nav .nav-list-right li > .sub-menu li:hover .sub-menu {
@@ -259,7 +262,6 @@ header nav .nav-list-right li > .sub-menu li .sub-menu::before {
 		position: initial;
 		border: 3px solid transparent;
 		border-left-color: #eb3007;
-		margin-left: 1rem;
 		max-height: 0;
 		width: 18.5rem;
 	}
