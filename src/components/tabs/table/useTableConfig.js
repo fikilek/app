@@ -585,10 +585,10 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 	if (ml1 === "poi") {
 		// get po system id
 		// console.log(`otherData`, otherData)
-		const { poSystemId } = otherData;
+		const { id } = otherData;
 		// get po items
 		const poPi = sch.poData.find(element => {
-			return element.poSystemId === poSystemId;
+			return element.id === id;
 		});
 		return {
 			rowData: poPi.poPi,

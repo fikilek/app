@@ -47,7 +47,7 @@ const PoiTable = ({ po, setPo }) => {
 			headerName: "Quantity",
 			flex: 2,
 			valueParser: params => {
-				console.log(`valueParser params`, params);
+				// console.log(`valueParser params`, params);
 				return Number(params.newValue);
 			},
 			headerTooltip: "Number of items to be procured",
@@ -69,10 +69,16 @@ const PoiTable = ({ po, setPo }) => {
 		// 	cellRenderer: params => PoiBtnEditItem(params),
 		// },
 	];
-	const { poPi } = po;
-	// console.log(`poPi`, poPi)
+	// const { poPi } = po.poPi;
+	const poPiCopy = JSON.parse(JSON.stringify(po.poPi));
+	// console.log(`poPiCopy`, poPiCopy);
+	// console.log(`po`, po)
+
+
+
+
 	const gridRef = useRef();
-	const [rowData, setRowData] = useState(poPi);
+	const [rowData, setRowData] = useState(poPiCopy);
 	const [columnDefs] = useState(columns);
 
 	const defaultColDef = useMemo(
@@ -103,23 +109,29 @@ const PoiTable = ({ po, setPo }) => {
 			newItem[field] = event.newValue;
 			// console.log("onCellEditRequest, updating " + field + " to " + newValue);
 
-			const newPoPi = po.poPi.map(oldItem => {
+			const newPoPi = poPiCopy.map(oldItem => {
 				// console.log(`-----------------------`)
 				// console.log(`oldItem`, oldItem)
 				// console.log(`newItem`, newItem);
 
-				return (oldItem.itemId === newItem.itemId) ? newItem : oldItem
-			}
-				
-			);
+				return oldItem.itemId === newItem.itemId ? newItem : oldItem;
+			});
+
 			// console.log(`newPoPi`, newPoPi);
+			// console.log(`poPiCopy`, poPiCopy);
+			// console.log(`po`, po);
+
 			setRowData(newPoPi);
-			setPo({
-				...po,
-				poPi: newPoPi,
+			setPo(prev => {
+				// console.log(`prev`, prev)
+				// console.log(`newPoPi`, newPoPi);
+				return {
+					...prev,
+					poPi: newPoPi,
+				};
 			});
 		},
-		[po]
+		[po, poPiCopy, setPo]
 	);
 
 	return (

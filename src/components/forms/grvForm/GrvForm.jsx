@@ -212,8 +212,8 @@ const GrvForm = ({ formData }) => {
 			{/* po form */}
 			<form className="grv-form" onSubmit={handleSubmit}>
 				{/* Updated section */}
-				<div className={`form-section form-section-updated`}>
-					<p className="form-section-title">Updated</p>
+				<div className={`fs fs-updated`}>
+					<p className="fs-title">Updated</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
 							<MdPerson />
@@ -245,8 +245,8 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* Created section */}
-				<div className={`form-section form-section-created`}>
-					<p className="form-section-title">Created</p>
+				<div className={`fs fs-created`}>
+					<p className="fs-title">Created</p>
 					<div className="form-field po-form-created-by-user">
 						<span className="form-field-icon">
 							<MdPerson />
@@ -278,10 +278,12 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* Store Details */}
-				<div className="form-section form-section-store">
-					<div className="form-section-store-title">
-						<p className="form-section-title store-title">Store Receiving Goods</p>
-						<button id="addGoodsToStore" onClick={handleAddGoodsToStore}>+</button>
+				<div className="fs fs-store">
+					<div className="fs-store-title">
+						<p className="fs-title store-title">Store Receiving Goods</p>
+						<button id="addGoodsToStore" onClick={handleAddGoodsToStore}>
+							+
+						</button>
 					</div>
 					<div className="form-field po-form-store-name">
 						<span className="form-field-icon">
@@ -372,8 +374,8 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* Supplier section */}
-				<div className="form-section form-section-supplier">
-					<p className="form-section-title supplier-title">Supplier</p>
+				<div className="fs fs-supplier">
+					<p className="fs-title supplier-title">Supplier</p>
 					<div className="form-field po-form-supplier-name">
 						<span className="form-field-icon">
 							<MdBusiness />
@@ -447,8 +449,8 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* Receiver of goods - completeted by the user who received the goods */}
-				<div className="form-section form-section-confirm-receipt">
-					<p className="form-section-title confirm-receipt-title">Confirm Receipt</p>
+				<div className="fs fs-confirm-receipt">
+					<p className="fs-title confirm-receipt-title">Confirm Receipt</p>
 					<div className="form-field po-form-confirm-receipt-name">
 						<span className="form-field-icon">
 							<MdBusiness />
@@ -517,8 +519,8 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* Witness Receipt */}
-				<div className="form-section form-section-witness-receipt">
-					<p className="form-section-title witness-receipt-title">Witness Receipt</p>
+				<div className="fs fs-witness-receipt">
+					<p className="fs-title witness-receipt-title">Witness Receipt</p>
 					<div className="form-field po-form-witness-receipt-name">
 						<span className="form-field-icon">
 							<MdBusiness />
@@ -587,22 +589,20 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* PO items */}
-				<div className="form-section form-section-po-items">
-					<div className="form-section-po-items-title">
-						<p className="form-section-title">Po Items</p>
+				<div className="fs fs-po-items">
+					<div className="fs-po-items-title">
+						<p className="fs-title">Po Items</p>
 
-						<p className="form-section-title-totals">
-							Total Po Quantites {poItemsTotals}
-						</p>
+						<p className="fs-title-totals">Total Po Quantites {poItemsTotals}</p>
 					</div>
 					<PoiTable po={po} setPo={setPo} />
 				</div>
 
 				{/* Comments section */}
-				<div className="form-section form-section-grv-comments">
-					<div className="form-section-grv-comments-title">
-						<p className="form-section-title">Grv Comments</p>
-						<p className="form-section-title-grv-comments">
+				<div className="fs fs-grv-comments">
+					<div className="fs-grv-comments-title">
+						<p className="fs-title">Grv Comments</p>
+						<p className="fs-title-grv-comments">
 							{/* Total Comments {grvTotalComments} */} 3
 						</p>
 					</div>
@@ -610,9 +610,9 @@ const GrvForm = ({ formData }) => {
 				</div>
 
 				{/* media section */}
-				<div className="form-section form-section-media">
-					<div className="form-section-media-title">
-						<p className="form-section-title">Media</p>
+				<div className="fs fs-media">
+					<div className="fs-media-title">
+						<p className="fs-title">Media</p>
 					</div>
 					<div className="grv-media media-pics">
 						<div className="grv-meadi-heading">Pictures</div>

@@ -17,6 +17,8 @@ import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
 import GrvForm from "../forms/grvForm/GrvForm";
 import GrvAddToStoreWarning from "../forms/grvForm/GrvAddToStoreWarning";
 import GrvTestForm from "../forms/grvForm/grvTest/GrvTestForm";
+import PoForm2 from "../forms/poForms/PoForm2";
+import PoiTable2 from "../../pages/sch/PoiTable2";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -59,9 +61,10 @@ const Modal = () => {
 						<>{name === "signup" ? <Signup /> : ""}</>
 						<>{name === "fpw" ? <ForgottenPassword /> : ""}</>
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
-						<>{name === "poForm" ? <PoForm /> : ""}</>
+						{/* <>{name === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
+						<>{name === "poForm" ? <PoForm2 formData={payload} /> : ""}</>
 						<>{name === "grvForm" ? <GrvForm formData={payload} /> : ""}</>
-						<>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</>
+						{/* <>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
 						<>
 							{name === "addGoodsToStore" ? (
 								<GrvAddToStoreWarning data={payload} />
@@ -69,12 +72,11 @@ const Modal = () => {
 								""
 							)}
 						</>
+						<>{name === "grvTestForm" ? <GrvTestForm /> : ""}</>
 						<>
-							{name === "grvTestForm" ? <GrvTestForm /> : ""}
-						</>
-						<>
-							{name === "poItemsTable" ? (
-								<Table ml1={"poi"} otherData={{ poSystemId: payload }} />
+							{name === "poiTable" ? (
+								// <Table ml1={"poi"} otherData={{ id: payload }} />
+								<PoiTable2 rowData={payload.rowData} columnDefs={payload.columnDefs} />
 							) : (
 								""
 							)}

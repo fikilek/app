@@ -9,12 +9,12 @@ import {
 } from "react-icons/md";
 import { GiChoice } from "react-icons/gi";
 
-const TrnFormMeterBilling = ({handleChange}) => {
+const TrnFormMeterBilling = ({ handleChange }) => {
 	return (
 		<>
 			{/* billing */}
-			<div className={`form-section trn-form-billing`}>
-				<div className="form-section-title">
+			<div className={`fs trn-form-billing`}>
+				<div className="fs-title">
 					<p>Billing</p>
 				</div>
 				<div className="form-field trn-form-account-no">

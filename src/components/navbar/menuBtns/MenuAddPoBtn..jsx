@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ModalContext } from "../../../contexts/ModalContext";
 import "../navbar.css";
+import {newPoFormData } from '../../../data/adminData/adminData'
 
 const MenuAddPoBtn = () => {
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
@@ -9,8 +10,8 @@ const MenuAddPoBtn = () => {
 	const handleClick = e => {
 		setComponentToOpen({
 			...componentToOpen,
-			name: "existingPoForm",
-			payload: null,
+			name: "poForm",
+			payload: newPoFormData,
 		});
 		setModalOpened(true);
 	};

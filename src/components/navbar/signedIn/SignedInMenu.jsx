@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SignedInMenu.css";
 import MenuBlock from "../MenuBlock";
 import { dataBok } from "../../../data/menuData/dataMenuBox";
@@ -16,14 +16,21 @@ import { UserContext } from "../../../contexts/UserContext";
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 import { dataSch } from "../../../data/menuData/dataMenuSch";
+import useAuthContext from "../../../hooks/useAuthContext";
 
 const SignedInMenu = () => {
+	// console.log(`SignedInMenu rendering`);
+
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
-	const { user } = useContext(UserContext);
-
-	// console.log(`menuStatus`, menuStatus)
+	const { user } = useAuthContext();
+	let words = user.displayName;
+	// console.log(`words`, words);
+	words = words.split(" ");
+	const name = words[0];
+	const surname = words[1];
+	// }
 
 	const handleClick = e => {
 		setComponentToOpen({
@@ -37,7 +44,7 @@ const SignedInMenu = () => {
 			className={`nav-list ${menuStatus ? "hide-nav-list" : "show-nav-list"}`}
 			onClick={() => setMenuStatus(false)}
 		>
-			<div className="nav-list-left" >
+			<div className="nav-list-left">
 				{/* Dashboard */}
 				<MenuBlock menuData={dataDbd} />
 				{/* Assets */}
@@ -52,14 +59,14 @@ const SignedInMenu = () => {
 				<MenuBlock menuData={dataBok} />
 			</div>
 
-			<div className="nav-list-right" >
+			<div className="nav-list-right">
 				{/* Admin */}
 				<MenuBlock menuData={dataAdmin} />
 				{/* User */}
 				<li className="nav-list-btn-signedin-user">
-					<Tooltip title={`${user.name} ${user.surname}`} position="left">
+					<Tooltip title={`${user.displayName}`} position="left">
 						<NavLink to="/unp" className="user-initials">
-							{user ? `${user.name[0]}${user.surname[0]}` : `XX`}
+							{user ? `${name[0]}${surname[0]}` : `??`}
 						</NavLink>
 					</Tooltip>
 					<ul className="sub-menu">

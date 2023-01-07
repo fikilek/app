@@ -4,6 +4,7 @@ import useOpenModal from "../modals/useOpenModal";
 import { UserContext } from "../../contexts/UserContext";
 import moment from "moment";
 import { MdFilter2 } from "react-icons/md";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const TableBtnTrnSelect = ({ params }) => {
 	const { modalToOpen } = useOpenModal();
@@ -14,7 +15,7 @@ const TableBtnTrnSelect = ({ params }) => {
 	// console.log(`astStateNames`, astStateNames);
 	const [status, setStatus] = useState("");
 	const [newTrn, setNewTrn] = useState({});
-	const { user } = useContext(UserContext);
+	const { user } = useAuthContext();
 	// console.log(`user`, user)
 
 	const memoizedNewTrnData = useMemo(() => newTrnData, [newTrnData]);

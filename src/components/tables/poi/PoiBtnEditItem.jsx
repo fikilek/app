@@ -22,7 +22,11 @@ const PoiBtnEditItem = props => {
 	};
 
 	return (
-		<button className="btnPoi btnPoiBtnEditItem" onClick={handleEditItem}>
+		<button
+			type="button"
+			className="btnPoi btnPoiBtnEditItem"
+			onClick={handleEditItem}
+		>
 			+
 		</button>
 	);

@@ -20,66 +20,69 @@ import { nanoid } from "@reduxjs/toolkit";
 import { getPoSystmeId } from "../../tables/poi/poiUtils";
 import { getGrvStatus } from "../../../utils/utils";
 
+const newPoFormData = {
+	poSystemId: getPoSystmeId(),
+	poStatus: "Created",
+	metaData: {
+		updatedAtDatetime: "",
+		updatedByUser: "",
+		createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
+		createdByUser: "",
+	},
+	poData: {
+		poNo: "Po-4",
+		poInv: [],
+		poPop: [], // Proof of Payment
+		poGrv: {
+			grvSystemId: "",
+			grvFormId: "",
+			grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
+			grvConfirmReceipt: {
+				grvcrStatus: false, // This must be changed through a password
+				grvcrSurname: "",
+				grvcrName: "",
+				grvcrContactNo: "",
+				grvcrContactEmailAdr: "",
+			},
+			grvWitnessReceipt: {
+				grvwrStatus: false, // This must be changed through a password
+				grvwrSurname: "",
+				grvwrName: "",
+				grvwrContactNo: "",
+				grvwrContactEmailAdr: "",
+			},
+			grvComments: [], // [{date: date, msg: msg, user: user}]
+			rgvMedia: {
+				grvPhotos: [],
+				grvVideos: [],
+				grvVoice: [],
+			},
+		}, // Goods receive,
+	},
+	poPi: [],
+	poSplData: {
+		// Supplier data
+		splNo: "",
+		splName: "",
+		splContactSurname: "",
+		splContactName: "",
+		splContactNo: "",
+		splContactEmailAdr: "",
+	},
+};
+// console.log(`newPoFormData`, newPoFormData);
+
 const PoForm = ({ formData }) => {
-	// console.log(`formData`, formData)
-	const newPoFormData = {
-		poSystemId: getPoSystmeId(),
-		poStatus: "Created",
-		metaData: {
-			updatedAtDatetime: "",
-			updatedByUser: "",
-			createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
-			createdByUser: "",
-		},
-		poData: {
-			poNo: "Po-4",
-			poInv: [],
-			poPop: [], // Proof of Payment
-			poGrv: {
-				grvSystemId: "",
-				grvFormId: "",
-				grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
-				grvConfirmReceipt: {
-					grvcrStatus: false, // This must be changed through a password
-					grvcrSurname: "",
-					grvcrName: "",
-					grvcrContactNo: "",
-					grvcrContactEmailAdr: "",
-				},
-				grvWitnessReceipt: {
-					grvwrStatus: false, // This must be changed through a password
-					grvwrSurname: "",
-					grvwrName: "",
-					grvwrContactNo: "",
-					grvwrContactEmailAdr: "",
-				},
-				grvComments: [], // [{date: date, msg: msg, user: user}]
-				rgvMedia: {
-					grvPhotos: [],
-					grvVideos: [],
-					grvVoice: [],
-				},
-			}, // Goods receive,
-		},
-		poPi: [],
-		poSplData: {
-			// Supplier data
-			splId: 2,
-			splName: "",
-			splContactSurname: "",
-			splContactName: "",
-			splContactNo: "",
-			splContactEmailAdr: "",
-		},
-	};
-	// console.log(`newPoFormData`, newPoFormData);
+	console.log(`formData`, formData);
+
 	const dispatch = useDispatch();
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	const { user } = useContext(UserContext);
 	// console.log(`user`, user);
-	const [po, setPo] = useState(formData ? formData : newPoFormData);
-	// console.log(`po`, po);
+	// const [po, setPo] = useState(formData ? formData : newPoFormData);
+	const [po, setPo] = useState(formData);
+	console.log(`po`, po);
 	const [poItemsTotals, setPoItemsTotals] = useState(0);
 	// console.log(`poItemsTotals`, poItemsTotals);
 	const poStatus =
@@ -168,12 +171,12 @@ const PoForm = ({ formData }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		if (formData) {
-			// console.log(`dispatching poUpdate`, po)
-			dispatch(poUpdated(po));
-		} else {
-			// console.log(`dispatching poCreate`, po);
+		if (formData === null) {
+			console.log(`dispatching poCreate`, po);
 			dispatch(poCreated(po));
+		} else {
+			console.log(`dispatching poUpdate`, po);
+			dispatch(poUpdated(po));
 		}
 		setPo([]);
 		setModalOpened(false);
@@ -251,11 +254,11 @@ const PoForm = ({ formData }) => {
 			{/* po form */}
 			<form className="po-form" onSubmit={handleSubmit}>
 				{/* <button
-					className="form-section-show-hide-btn"
+					className="fs-show-hide-btn"
 					onClick={handleClick}
 				></button> */}
-				<div className={`form-section form-section-updated`}>
-					<p className="form-section-title">Updated</p>
+				<div className={`fs fs-updated`}>
+					<p className="fs-title">Updated</p>
 					<div className="form-field po-form-updated-by-user">
 						<span className="form-field-icon">
 							<MdPerson />
@@ -284,8 +287,8 @@ const PoForm = ({ formData }) => {
 					</div>
 				</div>
 
-				<div className={`form-section form-section-created`}>
-					<p className="form-section-title">Created</p>
+				<div className={`fs fs-created`}>
+					<p className="fs-title">Created</p>
 					<div className="form-field po-form-created-by-user">
 						<span className="form-field-icon">
 							<MdPerson />
@@ -314,10 +317,8 @@ const PoForm = ({ formData }) => {
 					</div>
 				</div>
 
-				<div className="form-section form-section-inv-pop-grv">
-					<p className="form-section-title inv-pop-grv-title ">
-						PO Supplimentary Data
-					</p>
+				<div className="fs fs-inv-pop-grv">
+					<p className="fs-title inv-pop-grv-title ">PO Supplimentary Data</p>
 					<div className="form-field po-form-inv">
 						<span className="form-field-icon">
 							<FaFileInvoiceDollar />
@@ -327,7 +328,7 @@ const PoForm = ({ formData }) => {
 							id="po-inv"
 							className="btn-po-form-supplimentary-data btn-po-form-inv"
 						>
-							{po.poData.poInv.length}
+							{po.poData.poInv.length === 0 ? "No Invoice" : po.poData.poInv.length}
 						</button>
 					</div>
 					<div className="form-field po-form-pop">
@@ -339,7 +340,9 @@ const PoForm = ({ formData }) => {
 							id="po-pop"
 							className="btn-po-form-pop"
 						>
-							{po.poData.poPop.length}
+							{po.poData.poPop.length === 0
+								? "No Poof of Payment"
+								: po.poData.poPop.length}
 						</button>
 					</div>
 					<div className="form-field po-form-grv">
@@ -356,8 +359,8 @@ const PoForm = ({ formData }) => {
 					</div>
 				</div>
 
-				<div className="form-section form-section-supplier">
-					<p className="form-section-title supplier-title">Supplier</p>
+				<div className="fs fs-supplier">
+					<p className="fs-title supplier-title">Supplier</p>
 					<div className="form-field po-form-supplier-name">
 						<span className="form-field-icon">
 							<MdBusiness />
@@ -425,13 +428,11 @@ const PoForm = ({ formData }) => {
 					</div>
 				</div>
 
-				<div className="form-section form-section-po-items">
-					<div className="form-section-po-items-title">
-						<p className="form-section-title">Po Items</p>
+				<div className="fs fs-po-items">
+					<div className="fs-po-items-title">
+						<p className="fs-title">Po Items</p>
 
-						<p className="form-section-title-totals">
-							Total Po Quantites {poItemsTotals}
-						</p>
+						<p className="fs-title-totals">Total Po Quantites {poItemsTotals}</p>
 					</div>
 					<PoiTable po={po} setPo={setPo} />
 				</div>

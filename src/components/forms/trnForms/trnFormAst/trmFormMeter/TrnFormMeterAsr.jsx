@@ -14,7 +14,7 @@ const TrnFormMeterAsr = ({ formState, setFormState }) => {
 		<>
 			{/* asr */}
 			<div>
-				<div className="form-section-title">
+				<div className="fs-title">
 					<p>Goode Receiving (asr)</p>
 				</div>
 				<div className="form-field trn-form-purchase-order-no">

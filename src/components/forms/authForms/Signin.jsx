@@ -11,12 +11,9 @@ import {
 import { MdEmail, MdPassword } from "react-icons/md";
 import irepsImage2 from "../../../images/irepsImage1.jpg";
 import { ModalContext } from "../../../contexts/ModalContext";
-import { UserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { MenuContext } from "../../../contexts/MenuContext";
-import { unpData } from "../../../data/adminData/adminData";
-
-// console.log(`unpData`, unpData)
+import { useSignin } from "../../../hooks/useSignin";
 
 const initSigninData = {
 	email: "",
@@ -31,7 +28,8 @@ const Signin = () => {
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
-	const { user, setUser } = useContext(UserContext);
+
+	const { signin, error, isPending } = useSignin();
 
 	const navigate = useNavigate();
 
@@ -61,33 +59,13 @@ const Signin = () => {
 
 	const handleSigninSubmit = e => {
 		e.preventDefault();
-
-		// check if email and pwd on the signin form match those on unpData
-
-		const checkedEmail =
-			unpData && unpData.find(({ email }) => email === userCredentials.email);
-		// console.log(`checkedEmail`, checkedEmail);
-		const checkedPassword = checkedEmail.password === userCredentials.password;
-		// console.log(`checkedPassword`, checkedPassword);
-
-		setModalOpened(false);
-		setMenuStatus(false);
-		if (checkedEmail && checkedPassword) {
-			// console.log(`email ${userCredentials.email} IS authenticated`);
-			setUser({
-				...user,
-				surname: checkedEmail.surname,
-				name: checkedEmail.name,
-				email: checkedEmail.email,
-				role: checkedEmail.role,
-				signedon: true,
-				state: checkedEmail.state,
-			});
+		signin(userCredentials);
+		// console.log(`signin error`, error)
+		if (!error) {
+			setModalOpened(false);
+			setMenuStatus(false);
 			navigate("/unp", { replace: true });
-		} else {
-			console.log(`email ${userCredentials.email} NOT known`);
-			navigate("/", { replace: true });
-		}
+		} 
 	};
 
 	return (
@@ -144,6 +122,9 @@ const Signin = () => {
 						}}
 					/>
 				</div>
+				<div className="auth-error-field">
+					<p className="auth-error">{error && error}</p>
+				</div>
 				<div className="form-btns">
 					<button
 						className="form-btn Clear"
@@ -151,14 +132,8 @@ const Signin = () => {
 					>
 						Clear
 					</button>
-					<button
-						className="form-btn reset"
-						onClick={e => setUserCredentials(initSigninData)}
-					>
-						Reset
-					</button>
 					<button className="form-btn submit">Submit</button>
-				</div>{" "}
+				</div>
 			</form>
 
 			{/* signin footer */}

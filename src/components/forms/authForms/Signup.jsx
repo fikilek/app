@@ -22,6 +22,9 @@ import irepsImage2 from "../../../images/irepsImage1.jpg";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { UserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import FormSectionBtns from "../formComponents/formSectionBtns/FormSectionBtns";
+import { useSignup } from "../../../hooks/useSignup";
+import useAuthContext from "../../../hooks/useAuthContext";
 
 export const userObj = {
 	surname: "",
@@ -37,9 +40,8 @@ const Signup = () => {
 	const [userCredentials, setUserCredentials] = useState(userObj);
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
-	const { user, setUser } = useContext(UserContext);
-
 	const navigate = useNavigate();
+	const { signup, error, isPending } = useSignup();
 
 	useEffect(() => {
 		setUserCredentials(userObj);
@@ -53,12 +55,16 @@ const Signup = () => {
 		});
 	};
 
-	const handleSignupSubmit = e => {
+	const handleSignupSubmit = async e => {
 		e.preventDefault();
 		console.log(`Signup userCredentials data: `, userCredentials);
-		setUser({ ...userCredentials, signedon: true });
-		setModalOpened(false);
-		navigate("/unp", { replace: true });
+		await signup(userCredentials);
+		if (error) {
+			console.log(`error`, error);
+		} else {
+			setModalOpened(false);
+			navigate("/unp", { replace: true });
+		}
 	};
 
 	const handleSignin = e => {
@@ -185,13 +191,17 @@ const Signup = () => {
 					/>
 				</div>
 				<div className="form-btns">
-					<button className="form-btn Clear" onClick={handleReset}>
-						Clear
-					</button>
-					<button className="form-btn reset" onClick={handleReset}>
+					<button type="button" className="form-btn reset" onClick={handleReset}>
 						Reset
 					</button>
-					<button className="form-btn submit">Submit</button>
+					<p className="auth-error" >{ error && error }</p>
+					{isPending ? (
+						<button disabled className="form-btn submit">
+							Submit
+						</button>
+					) : (
+						<button className="form-btn submit">Submit</button>
+					)}
 				</div>{" "}
 			</form>
 

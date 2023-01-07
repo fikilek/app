@@ -7,13 +7,11 @@ export const poData = [
 		poSystemId: nanoid(),
 		poStatus: "Aproved", // ['created', 'approved', 'deleted']
 		metaData: {
-			updatedAtDatetime: moment(new Date(2022, 0, 10, 15, 21)).format(
+			updatedAtDatetime: moment(new Date()).format(
 				"YYYY-MM-DD HH:mm:ss"
 			),
 			updatedByUser: "fikile kentane",
-			createdAtDatetime: moment(new Date(2022, 0, 10, 15, 21)).format(
-				"YYYY-MM-DD HH:mm:ss"
-			),
+			createdAtDatetime: moment().format("YYYY-MM-DD HH:mm:ss"),
 			createdByUser: "fikile kentane",
 			poHistory: 1,
 		},
@@ -132,7 +130,8 @@ export const poData = [
 			},
 		],
 		poSplData: {
-			splId: 1,
+			id: 1,
+			splNo: "Spl1",
 			splName: "Conlog",
 			splContactSurname: "Gina",
 			splContactName: "Mondli",

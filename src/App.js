@@ -35,6 +35,7 @@ import PgDbdMl2Meter from "./pages/dbd/dbdMeters/DbdMeters";
 import DbdBoxes from "./pages/dbd/dbdBoxes/DbdBoxes";
 import DbdMeters from "./pages/dbd/dbdMeters/DbdMeters";
 import DbdPoles from "./pages/dbd/dbdPoles/DbdPoles";
+import AuthContextProvider from "./contexts/AuthContextProvider";
 
 // console.log(`store`, store)
 // console.log(`UserContextProvider`, UserContextProvider)
@@ -43,7 +44,7 @@ function App() {
 	return (
 		<Provider store={store}>
 			<ModalContextProvider>
-				<UserContextProvider>
+				<AuthContextProvider>
 					<MenuContextProvider>
 						<PoContextProvider>
 							<div className="app">
@@ -142,7 +143,7 @@ function App() {
 							</div>
 						</PoContextProvider>
 					</MenuContextProvider>
-				</UserContextProvider>
+				</AuthContextProvider>
 			</ModalContextProvider>
 		</Provider>
 	);

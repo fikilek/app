@@ -1,17 +1,22 @@
 import React from "react";
-import GrvTestAddAstBtn from "../../components/forms/grvForm/grvTest/GrvTestAddAstBtn";
-import GrvTestTable from "../../components/forms/grvForm/grvTest/GrvTestTable";
 import MenuAddPoBtn from "../../components/navbar/menuBtns/MenuAddPoBtn.";
-import Table from "../../components/tabs/table/Table";
+import useCollection from "../../hooks/useCollection";
+import { useColumnDefs } from "../../hooks/useColumnDefs";
+import PoTable from "./PoTable";
 
 // Sch is a page component
 const Sch = () => {
+	const { data: rowData, error, isPending } = useCollection("pos");
+	// console.log(`rowData`, rowData)
+	const { poTableFields: columnDefs } = useColumnDefs({
+		ml1: "pos"
+	});
+	// console.log(`columnDefs`, columnDefs);
+
 	return (
 		<div className="sch">
-			<Table ml1={"sch"} ml2={''} ml3={''} />
+			<PoTable rowData={rowData} columnDefs={columnDefs} />
 			<MenuAddPoBtn />
-			{/* <GrvTestTable /> */}
-			{/* <GrvTestAddAstBtn />  */}
 		</div>
 	);
 };

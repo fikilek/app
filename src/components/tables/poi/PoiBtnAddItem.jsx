@@ -13,13 +13,23 @@ const PoiBtnAddItem = params => {
 	const getRowData = useCallback(() => {
 		const rowData = [];
 		params.api.forEachNode(function (node) {
+			// console.log(`node`, node)
 			rowData.push(node.data);
 		});
-		params.setPo({
-			...params.po,
-			poPi: rowData,
-		});
-	}, []);
+
+
+			params.setPo(prev => {
+				// console.log(`prev`, prev)
+				// console.log(`newPoPi`, newPoPi);
+				return {
+					...prev,
+					poPi: rowData,
+				};
+			});
+	
+
+
+	}, [params]);
 
 	const handleAddItem = e => {
 		e.preventDefault();

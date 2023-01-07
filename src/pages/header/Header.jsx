@@ -8,11 +8,12 @@ import SignedOutMenu from "../../components/navbar/signedOut/SignedOutMenu";
 import Modal from "../../components/modals/Modal";
 import { UserContext } from "../../contexts/UserContext";
 import { MenuContext } from "../../contexts/MenuContext";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const Header = () => {
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
-	const { user } = useContext(UserContext);
-	// console.log(`menuStatus`, menuStatus);
+	const {user} = useAuthContext()
+	// console.log(`user`, user);
 
 	return (
 		<div className="app-container">
@@ -24,10 +25,7 @@ const Header = () => {
 							<FaRubleSign />
 						</NavLink>
 					</div>
-					{user.signedon ? <SignedInMenu /> : <SignedOutMenu />}
-					 {/* <SignedOutMenu />  */}
-					{/* <SignedInMenu /> */}
-
+					{user ? <SignedInMenu /> : <SignedOutMenu />}
 					<div className="menu-icons" onClick={() => setMenuStatus(!menuStatus)}>
 						{menuStatus ? <MdMenu /> : <MdClose /> }
 					</div>

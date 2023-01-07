@@ -1,29 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import "../forms.css";
 import { MdCheck, MdClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../../contexts/UserContext";
 import { ModalContext } from "../../../contexts/ModalContext";
 
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
+import { useSignout } from "../../../hooks/useSignout";
 
 const Signout = () => {
 	const { setModalOpened } = useContext(ModalContext);
-	const { user, setUser } = useContext(UserContext);
-
 	const navigate = useNavigate();
+	const { signout, error, isPending } = useSignout();
 
 	const handleSignoutKeepBtn = e => {
 		// dont close the window but remove or close modal
 		setModalOpened(false); //Close modal
 	};
 
+	// const unsub = useEffect(() => {
+	// 	console.log(`error`, error)
+	// 	console.log(`isPending`, isPending)
+	// 	if (error === null && !isPending) {
+	// 		setModalOpened(false); //Close modal
+	// 		navigate("/", { replace: true });
+	// 	}
+	// 	return () => unsub
+	// }, [])
+
 	const handleSignoutCloseBtn = e => {
 		// sign user out, close modal and navigate to Home
-		setUser({ ...user, signedon: false }); //logout user
-		setModalOpened(false); //Close modal
-		navigate("/", { replace: true });
+		signout();
+		if (error === null && !isPending) {
+			setModalOpened(false); //Close modal
+			navigate("/", { replace: true });
+		}
 	};
 
 	return (
@@ -67,3 +78,5 @@ const Signout = () => {
 };
 
 export default Signout;
+
+// TODO: when the user clicks "ok" or the "tick" to proceed with the sign out, the page flickrs. Fix that at some stage. 

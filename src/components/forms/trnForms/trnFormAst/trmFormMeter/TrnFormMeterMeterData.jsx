@@ -1,4 +1,5 @@
-import React from "react";import {
+import React from "react";
+import {
 	MdFormatListNumbered,
 	MdHistory,
 	MdLockClock,
@@ -12,8 +13,8 @@ const TrnFormMeterMeterData = (formState, setFormState) => {
 	return (
 		<>
 			{/* asset */}
-			<div className={`form-section trn-form-asset`}>
-				<div className="form-section-title">
+			<div className={`fs trn-form-asset`}>
+				<div className="fs-title">
 					<p>Meter</p>
 				</div>
 				<div className="form-field form-field-linked-ast-serial-no">

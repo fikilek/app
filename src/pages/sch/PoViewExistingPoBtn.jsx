@@ -12,7 +12,7 @@ const PoViewExistingPoBtn = params => {
 		// modalOpened a modal window
 		setComponentToOpen({
 			...componentToOpen,
-			name: "existingPoForm",
+			name: "poForm",
 			payload: params.data,
 		});
 		setModalOpened(true);

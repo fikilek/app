@@ -14,7 +14,7 @@ const TrnFormMeterVending = (formState, setFormState) => {
 		<>
 			{/* meter vending */}
 			<div>
-				<div className="form-section-title">
+				<div className="fs-title">
 					<p>Vending</p>
 				</div>
 				<div className="form-field trn-form-datetime">

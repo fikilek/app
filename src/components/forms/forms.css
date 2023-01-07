@@ -3,12 +3,213 @@
 
 /* common */
 
+/* form variables */
+:root {
+	/* TODO: find the formular ot convert from px to rem. root font-size rem is 62.5% */
+	--auth-form-width: 60rem; /* 10px = 1rem */
+}
+
+/* form header */
+
+.ireps-form {
+	transition: 2s;
+}
+
+.ireps-form .po-container {
+	background-color: #ecf0f3;
+	border-radius: 2rem;
+	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+	font-size: 1.5rem;
+	padding: 10px 15px 10px 10px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2rem;
+}
+
+/* form header */
+
+.ireps-form .po-container .form-header {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 0.1rem solid;
+	padding-bottom: 1rem;
+}
+
+.ireps-form .po-container .form-header .form-header-title {
+	display: flex;
+	align-items: center;
+}
+
+.ireps-form .po-container .form-header .form-header-title-status-btn {
+	font-size: 1.6rem;
+	border-radius: 1rem;
+	padding: 0.3rem;
+	margin-right: 2rem;
+}
+
+.ireps-form .po-container .form-header .form-header-close-btn-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.ireps-form .po-container .form-header .form-header-close-btn-wrapper h3 {
+	margin: 0 2rem;
+}
+
+.ireps-form .po-container .form-header .form-header-close-btn-wrapper button {
+	font-size: 1.6rem;
+	border-radius: 1rem;
+	width: 3rem;
+	height: 3rem;
+}
+
+/* form body */
+
+.ireps-form .po-container .form-body .po-form {
+	display: grid;
+	width: 600px;
+	grid-template-columns: 1fr;
+	grid-template-areas:
+		"fs-uc" /* form section updated created*/
+		"fs-ipgs" /* form section inv pop grv*/
+		"fs-poi" /* form section purchase order items*/
+		"form-btns"; /* form section buttons */
+	gap: 2rem;
+}
+
+.ireps-form .po-container .form-body .fs-uc {
+	grid-area: fs-uc;
+	border-left: 0.1rem solid;
+	padding-left: 2rem;
+}
+
+/* po-form */
+.ireps-form .po-container .form-body .form-field {
+	display: grid;
+	grid-template-columns: 10% 90%;
+	grid-template-rows: 1fr;
+	height: 3rem;
+	border-radius: 1.2rem;
+	box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+	margin: 2px 0px;
+}
+
+/* form section Inv Pop Grv Supplier (ipgs) */
+
+.ireps-form .po-container .form-body .fs-ipgs {
+	grid-area: fs-ipgs;
+	border-left: 0.1rem solid;
+	padding-left: 2rem;
+}
+
+.ireps-form .po-container .form-body .fs-ipg .form-field button {
+	background-color: #fff;
+	border-radius: 0 1.2rem 1.2rem 0;
+	border: none;
+	padding-left: 2rem;
+}
+
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-inv,
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-pop,
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-grv {
+	grid-template-columns: 10% 50% 40%;
+}
+
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-inv .ipg-data,
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-pop .ipg-data,
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-grv .ipg-data {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ireps-form .po-container .form-body .fsh {
+	display: flex;
+	align-items: center;
+	outline: 0.1rem solid;
+}
+
+.ireps-form .po-container .form-body .open-colse-icons {
+	margin-right: 1rem;
+}
+
+.ireps-form .po-container .form-body .open-colse-icons .icon {
+	font-size: 1.6rem;
+	padding: 0.1rem;
+	width: 3rem;
+	font-weight: 600;
+}
+
+.ireps-form .po-container .form-body .fsb {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	/* transition: 2s; */
+	margin-top: 2rem;
+	gap: 2rem;
+}
+
+.ireps-form .po-container .form-body .form-btns {
+	grid-area: form-btns;
+}
+
+.ireps-form .po-container .form-body .form-btn {
+	background-color: #dae4fa99;
+	color: rgba(150, 149, 149, 0.539);
+	border: 1px solid lightgray;
+	border-radius: 1.5rem;
+	box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
+	/* letter-spacing: 1.3px; */
+
+	width: 13rem;
+	height: 4rem;
+	line-height: 4rem;
+	text-align: center;
+}
+
+/* form section po items (poi) */
+
+.ireps-form .po-container .form-body .fs-poi {
+	grid-area: fs-poi;
+	border-left: 0.1rem solid;
+	padding-left: 2rem;
+}
+
+.ireps-form .po-container .form-body .fsb-poi {
+	display: grid;
+	grid-template-columns: 1fr;
+
+	/* transition: 2s; */
+	margin-top: 2rem;
+	gap: 2rem;
+}
+
+/* form show hide class */
+
+.ireps-form .po-container .showSection {
+	display: block;
+	visibility: visible;
+	opacity: 1;
+	position: static;
+}
+
+.ireps-form .po-container .hideSection {
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+}
+
+.fs-btns {
+	display: flex;
+	justify-content: space-around;
+	border-top: 0.1rem solid;
+	padding: 1rem;
+}
+
 .btn-po-form-supplimentary-data {
 	z-index: 1000;
 }
 
-.signin-container,
-.signup-container,
 .fpw-container,
 .po-container,
 .grv-container {
@@ -20,7 +221,7 @@
 }
 
 .signin-header,
-.signup-header,
+/* .signup-header, */
 .fpw-header,
 .po-header,
 .grv-header {
@@ -82,7 +283,7 @@
 		0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
-.signin-form,
+/* .signin-form,
 .signup-form,
 .po-form,
 .grv-form {
@@ -90,7 +291,7 @@
 	grid-template-rows: auto;
 	gap: 2rem;
 	position: relative;
-}
+} */
 
 /* TODO: I dont understand why fpw grid cannot take gap of 2rem */
 .fpw-form {
@@ -171,27 +372,27 @@
 
 /* po form */
 
-.po-form {
+/* .po-form {
 	width: 600px;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
-		"form-section-update form-section-created"
-		"form-section-inv-pop-grv form-section-supplier"
-		"form-section-po-items form-section-po-items"
+		"fs-update fs-created"
+		"fs-inv-pop-grv fs-supplier"
+		"fs-po-items fs-po-items"
 		"form-btns form-btns";
-}
+} */
 
-.form-section-updated,
-.form-section-created,
-.form-section-inv-pop-grv,
-.form-section-supplier {
+/* .fs-updated,
+.fs-created,
+.fs-inv-pop-grv,
+.fs-supplier {
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 0.5rem;
-}
+} */
 
-.form-section-updated,
-.form-section-created {
+.fs-updated,
+.fs-created {
 	/* display: none; */
 }
 
@@ -205,49 +406,51 @@
 	visibility: visible;
 }
 
-.form-section-po-items {
-	grid-area: form-section-po-items;
+/* .fs-po-items {
+	grid-area: fs-po-items;
 	height: 100%;
-}
+} */
 
-.form-section-po-items-title, .form-section-grv-comments-title, .grv-comment {
+.fs-po-items-title,
+.fs-grv-comments-title,
+.grv-comment {
 	display: flex;
 	justify-content: space-between;
 }
 
-.form-section-title-totals {
+.fs-title-totals {
 	margin-right: 2px;
 }
 
-.form-section-inv-pop-grv {
+/* .fs-inv-pop-grv {
 	grid-template-rows: 0.5fr 1fr 1fr 2fr;
 	grid-template-areas:
 		"inv-pop-grv-title"
 		"po-form-inv"
 		"po-form-pop"
 		"po-form-grv";
-}
+} */
 
-.po-form-inv {
+/* .po-form-inv {
 	grid-area: po-form-inv;
-}
+} */
 
 .po-form-pop {
 	grid-area: po-form-pop;
 }
 
-.po-form-grv {
+/* .po-form-grv {
 	grid-area: po-form-grv;
 	height: 100%;
-}
+} */
 
-.po-form-inv,
+/* .po-form-inv,
 .po-form-pop,
 .po-form-grv {
 	width: 100%;
-}
+} */
 
-.btn-po-form-inv,
+/* .btn-po-form-inv,
 .btn-po-form-pop,
 .btn-po-form-grv {
 	width: 100%;
@@ -255,10 +458,10 @@
 	border: none;
 	border-radius: 0 1.2rem 1.2rem 0;
 	background-color: rgb(255, 255, 255);
-}
+} */
 
-.form-section-supplier {
-	grid-area: form-section-supplier;
+/* .fs-supplier {
+	grid-area: fs-supplier;
 	grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
 	grid-template-areas:
 		"supplier-title"
@@ -266,14 +469,14 @@
 		"po-form-supplier-contact-surname-name"
 		"po-form-supplier-contact-no"
 		"po-form-supplier-contact-email-adr";
-}
+} */
 
-.form-section-title-created {
+.fs-title-created {
 	display: flex;
 	justify-content: space-between;
 }
 
-.form-section-show-hide-btn {
+.fs-show-hide-btn {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -283,13 +486,38 @@
 	background-color: lightcyan;
 }
 
-/* signin */
+/***************************************************************
+/***************************************************************
+/***************************************************************
+START OF SINGIN FORM 
+****************************************************************/
 
 .signin-container {
-	width: 500px;
+	width: 40rem;
+	background-color: #ecf0f3;
+	border-radius: 2rem;
+	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+	font-size: 1.5rem;
+	padding: 10px 15px 10px 10px;
 }
 
-.signin-form,
+.signin-form {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: 1fr;
+	grid-template-areas:
+		"form-field-email"
+		"form-field-password "
+		"form-btns";
+
+}
+
+/***************************************************************
+END OF SINGIN FORM 
+****************************************************************
+***************************************************************
+***************************************************************/
+
 .fpw-form {
 	grid-template-columns: 1fr;
 	grid-template-areas:
@@ -341,28 +569,103 @@
 	display: none;
 }
 
-/* signup */
+/* START of SIGNUP css */
+
+/* signup container */
 
 .signup-container {
-	width: 800px;
+	width: 60rem; /* 600px */
+	background-color: #ecf0f3;
+	border-radius: 2rem;
+	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+	font-size: 1.5rem;
+	padding: 10px 15px 10px 10px;
 }
 
-.signup-form {
+/* signup header */
+
+.signup-container .signup-header {
+	position: relative;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1rem;
+	width: 100%;
+}
+
+/* signup form */
+
+.signup-container .signup-form {
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
 		"form-field-surname form-field-name"
 		"form-field-email form-field-role"
 		"form-field-password form-field-confirmPassword"
 		"form-btns form-btns";
+
+	display: grid;
+	grid-template-rows: auto;
+	gap: 1rem;
 }
 
-.signup-footer,
+.signup-container .signup-form .form-btns .auth-error {
+	color: red;
+	font-weight: 500;
+	text-align: center;
+}
+
+/* signup footer */
+
+.signup-container .signup-footer {
+	display: flex;
+	margin: 2rem 0 1rem 0;
+}
+
+.signup-container .signup-footer-signin-link {
+	background-color: #bbdeef;
+	padding: 0.4rem 2rem;
+	border-radius: 2rem;
+}
+
+/* signup madia quiries */
+
+@media screen and (max-width: 850px) {
+	.signup-container {
+		width: 50rem;
+	}
+	.signup-container .signup-form {
+		display: grid;
+		grid-template-rows: auto;
+		gap: 1rem;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.signup-container {
+		width: 40rem;
+	}
+	.signup-container .signup-form {
+		grid-template-areas:
+			"form-field-surname"
+			"form-field-name"
+			"form-field-email"
+			"form-field-role"
+			"form-field-password"
+			"form-field-confirmPassword"
+			"form-btns";
+	}
+	.signup-container .signup-form .form-field {
+		width: 37rem;
+	}
+}
+
+/* END of signup css */
+
 .fpw-footer {
 	display: flex;
 	margin: 2rem 0 1rem 0;
 }
 
-.signup-footer-signin-link,
 .signin-footer-forgotten-link,
 .signin-footer-signup-link,
 .fpw-footer-remembered-pwd-link,
@@ -407,26 +710,6 @@ input::placeholder {
 	color: rgb(191, 191, 203);
 }
 
-@media screen and (max-width: 850px) {
-	.signup-container {
-		width: 500px;
-	}
-	.signup-form {
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: auto;
-		gap: 2rem;
-		grid-template-areas:
-			"surname"
-			"name"
-			"email"
-			"role"
-			"password"
-			"confirmPassword"
-			"formBtns";
-	}
-}
-
 /* sigout */
 
 .signout {
@@ -466,41 +749,40 @@ input::placeholder {
 	width: 600px;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
-		"form-section-updated form-section-created"
-		"form-section-store form-section-supplier"
-		"form-section-confirm-receipt form-section-witness-receipt"
-		"form-section-po-items form-section-po-items"
-		"form-section-grv-comments form-section-grv-comments"
-		"form-section-media form-section-media"
-		"form-btns form-btns";
+		"fs-updated fs-created"
+		"fs-store fs-supplier"
+		"fs-confirm-receipt fs-witness-receipt"
+		"fs-po-items fs-po-items"
+		"fs-grv-comments fs-grv-comments"
+		"fs-media fs-media"
+		"fs-btns fs-btns";
 }
 
-.form-section-store {
-	grid-area: form-section-store;
+.fs-store {
+	grid-area: fs-store;
 }
 
-.form-section-store-title {
+.fs-store-title {
 	display: flex;
 	justify-content: space-between;
 }
 
-.form-section-grv-comments {
-	grid-area: form-section-grv-comments ;
+.fs-grv-comments {
+	grid-area: fs-grv-comments;
 }
 
-.form-section-media {
+.fs-media {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-area: form-section-media;
+	grid-area: fs-media;
 	gap: 1rem;
-	grid-template-areas: 
-	"form-section-media-title form-section-media-title form-section-media-title"
-	"media-pics media-videos media-voice"
-	;
+	grid-template-areas:
+		"fs-media-title fs-media-title fs-media-title"
+		"media-pics media-videos media-voice";
 }
 
-.form-section-media-title {
-	grid-area: form-section-media-title;
+.fs-media-title {
+	grid-area: fs-media-title;
 }
 
 .media-pics {

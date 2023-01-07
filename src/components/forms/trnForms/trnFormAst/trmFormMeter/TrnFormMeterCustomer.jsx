@@ -1,4 +1,5 @@
-import React from "react";import {
+import React from "react";
+import {
 	MdFormatListNumbered,
 	MdHistory,
 	MdLockClock,
@@ -8,12 +9,12 @@ import React from "react";import {
 } from "react-icons/md";
 import { GiChoice } from "react-icons/gi";
 
-const TrnFormMeterCustomer = ({formState, setFormState}) => {
+const TrnFormMeterCustomer = ({ formState, setFormState }) => {
 	return (
 		<>
 			{/* customer  */}
-			<div className="form-section trn-form-owner-occupant">
-				<div className="form-section-title">
+			<div className="fs trn-form-owner-occupant">
+				<div className="fs-title">
 					<p>Occupant / Owner</p>
 				</div>
 

@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { ModalContext } from "../../../contexts/ModalContext";
+import { useColumnDefs } from "../../../hooks/useColumnDefs";
 import { getTotalQauntites } from "./poiUtils";
 
 const PoiBtnViewPoi = params => {
+	const { poiTableFields: columnDefs } = useColumnDefs({ml1: "poi"})
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	// console.log(`params`, params);
-	const poSystemId = params.data.poSystemId;
 	const poPi = params.data.poPi;
 	// console.log(`poPi`, poPi);
 	const totalQuantites = getTotalQauntites(poPi, "itemQuantity");
@@ -16,8 +17,8 @@ const PoiBtnViewPoi = params => {
 		// modalOpened a modal window
 		setComponentToOpen({
 			...componentToOpen,
-			name: "poItemsTable",
-			payload: poSystemId,
+			name: "poiTable",
+			payload: { rowData: params.data.poPi, columnDefs },
 		});
 		setModalOpened(true);
 	};

@@ -350,24 +350,47 @@ const newTrnData = {
 };
 
 const newPoFormData = {
-	poSystemId: getPoSystmeId(),
-	poStatus: 'Created',
+	poStatus: "Created",
 	metaData: {
 		updatedAtDatetime: "",
 		updatedByUser: "",
-		createdAtDatetime: moment().format("YYYY-MM-DD HH:mm"),
+		createdAtDatetime: "",
 		createdByUser: "",
 	},
 	poData: {
 		poNo: "Po-4",
-		poInv: 0,
-		poPop: 0, // Proof of Payment
-		poGrv: 0,
+		poInv: [],
+		poPop: [], // Proof of Payment
+		poGrv: {
+			grvSystemId: "",
+			grvFormId: "",
+			grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
+			grvConfirmReceipt: {
+				grvcrStatus: false, // This must be changed through a password
+				grvcrSurname: "",
+				grvcrName: "",
+				grvcrContactNo: "",
+				grvcrContactEmailAdr: "",
+			},
+			grvWitnessReceipt: {
+				grvwrStatus: false, // This must be changed through a password
+				grvwrSurname: "",
+				grvwrName: "",
+				grvwrContactNo: "",
+				grvwrContactEmailAdr: "",
+			},
+			grvComments: [], // [{date: date, msg: msg, user: user}]
+			rgvMedia: {
+				grvPhotos: [],
+				grvVideos: [],
+				grvVoice: [],
+			},
+		}, // Goods receive,
 	},
 	poPi: [],
 	poSplData: {
 		// Supplier data
-		splId: 2,
+		splNo: "",
 		splName: "",
 		splContactSurname: "",
 		splContactName: "",
@@ -441,17 +464,11 @@ const astCartegories = {
 	meter: {
 		phase: "", // ['single', 'three', '', '']
 		type: "", // ['conventional', 'pre-paid']
-		code: '', // ['BEC44', 'BEC66', '']
+		code: "", // ['BEC44', 'BEC66', '']
 	},
-	pole: {
-
-	},
-	box: {
-
-	}
+	pole: {},
+	box: {},
 };
-
-
 
 export {
 	astStateNames,

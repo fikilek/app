@@ -1,4 +1,5 @@
-import React from "react";import {
+import React from "react";
+import {
 	MdFormatListNumbered,
 	MdHistory,
 	MdLockClock,
@@ -13,7 +14,7 @@ const TrnFormMeterComissioning = () => {
 		<>
 			{/* comissioning */}
 			<div>
-				<div className="form-section-title">
+				<div className="fs-title">
 					<p>Comissioning</p>
 				</div>
 			</div>
