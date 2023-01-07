@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { MdLockClock, MdPerson } from "react-icons/md";
 import useAuthContext from "../../../../hooks/useAuthContext";
 import dateFormat, { masks } from "dateformat";
+import { timestamp } from "../../../../firebaseConfig/fbConfig";
 
 const FormSectionUpdated = ({
 	po,
@@ -19,7 +20,7 @@ const FormSectionUpdated = ({
 				...prev,
 				metaData: {
 					...prev.metaData,
-					updatedAtDatetime:moment().format("YYYY-MM-DD HH:mm:ss") ,
+					updatedAtDatetime: timestamp.fromDate(new Date()),
 					updatedByUser: user.displayName,
 				},
 			};
@@ -50,7 +51,10 @@ const FormSectionUpdated = ({
 					type="datetime-local"
 					name="updatedAtDatetime"
 					id="updatedAtDatetime"
-					value={po.metaData.updatedAtDatetime}
+					// value={po.metaData.updatedAtDatetime}
+					value={moment(po.metaData.updatedAtDatetime.toDate()).format(
+						"YYYY-MM-DD HH:mm:ss"
+					)}
 					// onChange={handleChange}
 					placeholder="Updated At Datetime"
 				/>

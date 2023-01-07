@@ -1,13 +1,14 @@
 import moment from "moment";
 import React, { useEffect } from "react";
 import { MdLockClock, MdPerson } from "react-icons/md";
+import { timestamp } from "../../../../firebaseConfig/fbConfig";
 import useAuthContext from "../../../../hooks/useAuthContext";
 
-const tsConverter = fbTs => {
-	const jsTs = fbTs.toDate();
-	console.log(`jsTs`, jsTs);
-	return moment(jsTs).format("YYYY-MM-DD HH:mm:ss");
-};
+// const tsConverter = fbTs => {
+// 	const jsTs = fbTs.toDate();
+// 	console.log(`jsTs`, jsTs);
+// 	return moment(jsTs).format("YYYY-MM-DD HH:mm:ss");
+// };
 
 const FormSectionCreated = ({
 	po,
@@ -18,6 +19,8 @@ const FormSectionCreated = ({
 }) => {
 	const { user } = useAuthContext();
 	console.log(`po`, po);
+
+	
 	useEffect(() => {
 		setPo(prev => {
 			console.log(`prev`, prev);
@@ -27,7 +30,7 @@ const FormSectionCreated = ({
 					...prev,
 					metaData: {
 						...prev.metaData,
-						createdAtDatetime: moment().format("YYYY-MM-DD HH:mm:ss"),
+						createdAtDatetime: timestamp.fromDate(new Date()),
 						createdByUser: user.displayName,
 					},
 				};
@@ -37,6 +40,8 @@ const FormSectionCreated = ({
 			}
 		});
 	}, []);
+
+
 	return (
 		<div className={`fs fs-created`}>
 			<p className="fs-title">Created</p>
@@ -48,7 +53,9 @@ const FormSectionCreated = ({
 					type="text"
 					name="createdByUser"
 					id="createdByUser"
-					value={po.metaData.createdByUser}
+					value={
+						po.id ? (po.metaData.createdByUser) : (user.displayName)
+					}
 					// onChange={handleChange}
 					placeholder="Created By User"
 				/>

@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import moment from "moment";
 import { nanoid } from "@reduxjs/toolkit";
 import { getPoSystmeId } from "../../components/tables/poi/poiUtils";
+import { timestamp } from "../../firebaseConfig/fbConfig";
 
 const astStateNames = [
 	{
@@ -352,9 +353,9 @@ const newTrnData = {
 const newPoFormData = {
 	poStatus: "Created",
 	metaData: {
-		updatedAtDatetime: "",
+		updatedAtDatetime: timestamp.fromDate(new Date()),
 		updatedByUser: "",
-		createdAtDatetime: "",
+		createdAtDatetime: timestamp.fromDate(new Date()),
 		createdByUser: "",
 	},
 	poData: {
