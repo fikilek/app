@@ -19,13 +19,23 @@ const FormBodyPo = ({ formData }) => {
 	// const [po, setForm] = useState(formData);
 	const [po, setPo] = useState(formData);
 	// console.log(`po`, po);
-	const { addDocument, response } = useFirestore("pos");
+	const { addDocument, response, updateDocument } = useFirestore("pos");
 	// console.log(`response`, response);
 
 	const handleSubmit = e => {
 		e.preventDefault();
 		// console.log(`po`, po);
-		addDocument(po);
+		if (po.id) {
+			// there is an id. So the document exists. It therefore must only be updated.
+			console.log(`Updating doc:`, po);
+			const id = po.id
+			delete po.id
+			updateDocument(po, id)
+		} else {
+			// there is no id. So the document is new. There add the document to the collection.
+			console.log(`Creating doc:`, po);
+			addDocument(po);
+		}
 	};
 
 	useEffect(() => {

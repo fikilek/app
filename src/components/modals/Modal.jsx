@@ -19,6 +19,7 @@ import GrvAddToStoreWarning from "../forms/grvForm/GrvAddToStoreWarning";
 import GrvTestForm from "../forms/grvForm/grvTest/GrvTestForm";
 import PoForm2 from "../forms/poForms/PoForm2";
 import PoiTable2 from "../../pages/sch/PoiTable2";
+import PoAlterState from "../../pages/sch/PoAlterState";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -63,6 +64,7 @@ const Modal = () => {
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
 						{/* <>{name === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
 						<>{name === "poForm" ? <PoForm2 formData={payload} /> : ""}</>
+						<>{name === "poAlterState" ? <PoAlterState formData={payload} /> : ""}</>
 						<>{name === "grvForm" ? <GrvForm formData={payload} /> : ""}</>
 						{/* <>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
 						<>

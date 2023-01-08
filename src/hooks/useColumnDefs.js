@@ -4,6 +4,7 @@ import TableBtnTrnSelect from "../components/tableBtns/TableBtnTrnSelect";
 import TableCellArrayData from "../components/tableBtns/TableCellArrayData";
 import TableCellPoleData from "../components/tableBtns/TableCellPoleData";
 import PoiBtnViewPoi from "../components/tables/poi/PoiBtnViewPoi";
+import PoAlterPoState from "../pages/sch/PoAlterStateBtn";
 import PoViewExistingPoBtn from "../pages/sch/PoViewExistingPoBtn";
 import PoViewGrv from "../pages/sch/PoViewGrv";
 
@@ -13,8 +14,8 @@ export const useColumnDefs = options => {
 	// Purchase Order (po) table fields
 
 	const poTableFields = [
-		// { field: "id", headerName: "Po Id", width: 90, hide: true },
-		{ field: "id", headerName: "System Id", width: 90 },
+		{ field: "id", headerName: "System Id", width: 90, hide: true },
+		// { field: "id", headerName: "System Id", width: 90 },
 		{
 			// A click displays a modal that shows the Purchase Order
 			field: "poData.poNo",
@@ -83,13 +84,7 @@ export const useColumnDefs = options => {
 			field: "poStatus",
 			headerName: "Status",
 			width: 110,
-			cellRenderer: p => {
-				const poStatus =
-					p.data.poStatus === "Created"
-						? "btn-po-status-created"
-						: "btn-po-status-aproved";
-				return <button className={`btn-table-row ${poStatus}`}>{p.value}</button>;
-			},
+			cellRenderer: PoAlterPoState,
 			// TODO: implement the PO aproval system
 		},
 		{
@@ -98,8 +93,8 @@ export const useColumnDefs = options => {
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO
 					field: "poData.poInv[0]",
-					headerName: "Invoice Data",
-					width: 130,
+					headerName: "Invoices",
+					width: 110,
 					cellRenderer: p => {
 						// console.log(`p`, p);
 						return (
@@ -112,8 +107,8 @@ export const useColumnDefs = options => {
 				{
 					// A click displays a modal that shows Proof of Payment for the invoices
 					field: "poData.poPop[0]",
-					headerName: "Proof Of Payment",
-					width: 160,
+					headerName: "Pop",
+					width: 90,
 					cellRenderer: p => {
 						// console.log(`p`, p);
 						return (

@@ -18,12 +18,12 @@ const FormSectionCreated = ({
 	setSectionStates,
 }) => {
 	const { user } = useAuthContext();
-	console.log(`po`, po);
+	// console.log(`po`, po);
 
 	
 	useEffect(() => {
 		setPo(prev => {
-			console.log(`prev`, prev);
+			// console.log(`prev`, prev);
 			if (!prev.id) {
 				// console.log(`There is no id, its a new doc, so do borth "updated" and "created" `)
 				return {

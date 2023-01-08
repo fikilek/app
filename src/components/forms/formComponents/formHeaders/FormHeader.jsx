@@ -8,9 +8,17 @@ const FormHeader = ({ formData }) => {
 	return (
 		<div className="form-header">
 			<div className="form-header-title">
-				<button type="button" className="form-header-title-status-btn">
+				<button
+					type="button"
+					className={`form-header-title-status-btn ${
+						formData.poStatus === "Created"
+							? "btn-po-table-created"
+							: "btn-po-table-approved"
+					}`}
+				>
 					{formData.poStatus}
 				</button>
+
 				<h3 className="form-header-title-name">Purchase Order Form</h3>
 				{/* <h1 className="form-header-title-form-no">{formData.metaData.formNo}</h1> */}
 			</div>

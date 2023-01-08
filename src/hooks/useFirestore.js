@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { db, timestamp } from "../firebaseConfig/fbConfig";
 import useAuthContext from "./useAuthContext";
@@ -21,6 +21,7 @@ const firestoreReducer = (state, action) => {
 				success: false,
 			};
     case "ADD_DOCUMENT":
+    case "UPDATED_DOCUMENT":
       // console.log(`ADD_DOCUMENT`, action.payload);
 			return {
 				document: action.payload,
@@ -44,32 +45,6 @@ const firestoreReducer = (state, action) => {
 export const useFirestore = fbCollection => {
 	const [response, dispatch] = useReducer(firestoreReducer, initData);
 	const [isCancelled, setIsCancelled] = useState(false);
-	const { user } = useAuthContext();
-
-	const addMetaData = doc => {
-		const datetime = timestamp.fromDate(new Date());
-		if (doc.id) {
-			// document has id so it already exist in firestore meaning its been created already. Therefore, only updating is required
-			return {
-				...doc,
-				metaData: {
-					updatedAtDatetime: datetime,
-					updatedByUser: user.displayName,
-				},
-			};
-		} else {
-			// document DOES NOT EXIST in firestore meaning its a new documemt. Therefore, both updatedAT and creaedAt must be added to the document.
-			return {
-				...doc,
-				metaData: {
-					updatedAtDatetime: datetime,
-					updatedByUser: user.displayName,
-					createdAtDatetime: datetime,
-					createdByUser: user.displayName,
-				},
-			};
-		}
-	};
 
 	const dispatchIfNotCancelled = action => {
 		if (!isCancelled) {
@@ -83,9 +58,8 @@ export const useFirestore = fbCollection => {
     // console.log(`start adding doc`, doc)
 		dispatch({ type: "IS_PENDING" });
 		try {
-			const po = addMetaData(doc);
 			// console.log(`po`, po);
-			const addedDocument = await addDoc(ref, po);
+			const addedDocument = await addDoc(ref, doc);
 			dispatchIfNotCancelled({ type: "ADD_DOCUMENT", payload: addedDocument });
 			// console.log(`addedDocument`, addedDocument);
 		} catch (err) {
@@ -93,11 +67,25 @@ export const useFirestore = fbCollection => {
 		}
 	};
 
-	const deleteDocument = async id => {};
+	const deleteDocument = async id => { };
+	
+	const updateDocument = async (document, id) => {
+		const docToUpdateRef = doc(db, fbCollection, id )
+		dispatch({ type: "IS_PENDING" });
+		try {
+			// console.log(`po`, po)
+			const updatedDocument = await updateDoc(docToUpdateRef, document);
+			dispatchIfNotCancelled({ type: "UPDATED_DOCUMENT", payload: updatedDocument });
+			// console.log(`addedDocument`, addedDocument);
+		} catch (err) {
+			dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+		}
+	};
 
 	useEffect(() => {
 		return () => setIsCancelled(true);
 	}, []);
 
-	return { response, addDocument, deleteDocument };
+	return { response, addDocument, deleteDocument, updateDocument };
 };
+ 

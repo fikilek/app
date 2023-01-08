@@ -24,9 +24,22 @@
 	color: rgb(134, 154, 160);
 	padding: 4px;
 	border-radius: 5px;
-	border: 1px solid lightslategray;
+	border: 1px solid rgb(119, 136, 153);
 	background-color: azure;
-	font-weight: 600;
+	font-weight: 300;
+	width: 70px;
+}
+
+.btn-po-table-created {
+	/* background-color: rgba(252, 255, 207, 0.559); */
+	color:  rgb(202, 202, 18);
+	/* font-weight:300; */
+}
+
+.btn-po-table-approved {
+	/* background-color: rgba(227, 245, 224, 0.731); */
+	color: rgb(135, 222, 54);
+	/* font-weight:300; */
 }
 
 .btn-serial-no {
