@@ -41,7 +41,7 @@ const Signup = () => {
 	const { componentToOpen, setComponentToOpen, setModalOpened } =
 		useContext(ModalContext);
 	const navigate = useNavigate();
-	const { signup, error, isPending } = useSignup();
+	const { signup, error, isPending, success } = useSignup();
 
 	useEffect(() => {
 		setUserCredentials(userObj);
@@ -59,13 +59,15 @@ const Signup = () => {
 		e.preventDefault();
 		console.log(`Signup userCredentials data: `, userCredentials);
 		await signup(userCredentials);
-		if (error) {
-			console.log(`error`, error);
-		} else {
+		// TODO: handle the "if" statement bellow with useEffect
+	};
+
+	useEffect(() => {
+		if (success) {
 			setModalOpened(false);
 			navigate("/unp", { replace: true });
 		}
-	};
+	}, [success, error, isPending]);
 
 	const handleSignin = e => {
 		setComponentToOpen({
@@ -190,11 +192,14 @@ const Signup = () => {
 						onChange={handleFieldChange}
 					/>
 				</div>
+				<div className="auth-error-field">
+					<p className="auth-error">{error && error}</p>
+				</div>
 				<div className="form-btns">
 					<button type="button" className="form-btn reset" onClick={handleReset}>
 						Reset
 					</button>
-					<p className="auth-error" >{ error && error }</p>
+					<p className="auth-error">{error && error}</p>
 					{isPending ? (
 						<button disabled className="form-btn submit">
 							Submit

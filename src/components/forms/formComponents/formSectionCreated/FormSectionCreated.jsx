@@ -50,13 +50,12 @@ const FormSectionCreated = ({
 					<MdPerson />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="text"
 					name="createdByUser"
 					id="createdByUser"
-					value={
-						po.id ? (po.metaData.createdByUser) : (user.displayName)
-					}
-					// onChange={handleChange}
+					value={po.id ? po.metaData.createdByUser : user.displayName}
+					// onChange={() => null}
 					placeholder="Created By User"
 				/>
 			</div>
@@ -65,12 +64,15 @@ const FormSectionCreated = ({
 					<MdLockClock />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="datetime-local"
 					name="createdAtDatetime"
 					id="createdAtDatetime"
 					// value={tsConverter(po.metaData.createdAtDatetime)}
-					value={moment((po.metaData.createdAtDatetime).toDate()).format("YYYY-MM-DD HH:mm:ss")}
-					// onChange={handleChange}
+					value={moment(po.metaData.createdAtDatetime.toDate()).format(
+						"YYYY-MM-DD HH:mm:ss"
+					)}
+					// onChange={() => null}
 					placeholder="Created At Datetime"
 				/>
 			</div>

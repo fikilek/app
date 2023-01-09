@@ -18,7 +18,7 @@ export const useColumnDefs = options => {
 		// { field: "id", headerName: "System Id", width: 90 },
 		{
 			// A click displays a modal that shows the Purchase Order
-			field: "poData.poNo",
+			field: "poNo",
 			headerName: "Po No",
 			width: 120,
 			cellRenderer: PoViewExistingPoBtn,

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../forms.css";
 import {
 	FaFacebookF,
@@ -29,7 +29,7 @@ const Signin = () => {
 		useContext(ModalContext);
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
 
-	const { signin, error, isPending } = useSignin();
+	const { signin, error, isPending, success } = useSignin();
 
 	const navigate = useNavigate();
 
@@ -60,13 +60,16 @@ const Signin = () => {
 	const handleSigninSubmit = e => {
 		e.preventDefault();
 		signin(userCredentials);
-		// console.log(`signin error`, error)
-		if (!error) {
+		// TODO: change this code and use useEffect to handle it better
+	};
+
+	useEffect(() => {
+		if (success) {
 			setModalOpened(false);
 			setMenuStatus(false);
 			navigate("/unp", { replace: true });
-		} 
-	};
+		}
+	}, [success, error, isPending]);
 
 	return (
 		<div className="signin-container">

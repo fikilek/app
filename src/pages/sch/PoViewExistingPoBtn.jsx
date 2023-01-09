@@ -20,7 +20,7 @@ const PoViewExistingPoBtn = params => {
 
 	return (
 		<button onClick={handleClick} className="btn-table-row btn-view-po">
-			{params.data.poData.poNo}
+			{`Po-${params.data.poNo}`}
 		</button>
 	);
 };

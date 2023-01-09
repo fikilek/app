@@ -35,6 +35,7 @@ const Signout = () => {
 			setModalOpened(false); //Close modal
 			navigate("/", { replace: true });
 		}
+		// TODO: change this code and use useEffect to handle it better
 	};
 
 	return (

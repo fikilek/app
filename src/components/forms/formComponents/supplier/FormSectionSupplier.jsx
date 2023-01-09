@@ -80,6 +80,7 @@ const FormSectionSupplier = ({
 					<FcBusinessman />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="text"
 					name="splContactSurname"
 					id="splContactSurname"
@@ -93,6 +94,7 @@ const FormSectionSupplier = ({
 					<FcBusinessman />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="text"
 					name="splContactName"
 					id="splContactName"
@@ -106,6 +108,7 @@ const FormSectionSupplier = ({
 					<FcCellPhone />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="text"
 					name="splContactNo"
 					id="splContactNo"
@@ -119,6 +122,7 @@ const FormSectionSupplier = ({
 					<MdOutlineEmail />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="email"
 					name="splContactEmailAdr"
 					id="splContactEmailAdr"

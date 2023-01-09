@@ -7,12 +7,14 @@ export const useSignup = () => {
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext();
+	const [success, setSuccess] = useState(false)
 
 	const signup = async userCredentials => {
 		const { email, password, surname, name } = userCredentials;
 		try {
 			setIsPending(true);
 			setError(null);
+			setSuccess(false)
 			const result = await createUserWithEmailAndPassword(auth, email, password);
 			if (!result) {
 				setIsPending(false);
@@ -31,12 +33,14 @@ export const useSignup = () => {
 			dispatch({ type: "SIGNIN", payload: user });
 			setIsPending(false);
 			setError(null);
+			setSuccess(true);
 		} catch (err) {
 			setIsPending(false);
 			setError(err.message);
+			setSuccess(false);
 			// console.log(`signup err`, err.message);
 		}
 	};
 
-	return { signup, error, isPending };
+	return { signup, error, isPending, success };
 };

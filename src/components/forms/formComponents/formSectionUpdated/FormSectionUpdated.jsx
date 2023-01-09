@@ -35,6 +35,7 @@ const FormSectionUpdated = ({
 					<MdPerson />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="text"
 					name="updatedByUser"
 					id="updatedByUser"
@@ -48,6 +49,7 @@ const FormSectionUpdated = ({
 					<MdLockClock />
 				</span>
 				<input
+					readOnly="readOnly"
 					type="datetime-local"
 					name="updatedAtDatetime"
 					id="updatedAtDatetime"

@@ -352,6 +352,7 @@ const newTrnData = {
 
 const newPoFormData = {
 	poStatus: "Created",
+	poNo: 0,
 	metaData: {
 		updatedAtDatetime: timestamp.fromDate(new Date()),
 		updatedByUser: "",
@@ -359,7 +360,6 @@ const newPoFormData = {
 		createdByUser: "",
 	},
 	poData: {
-		poNo: "Po-4",
 		poInv: [],
 		poPop: [], // Proof of Payment
 		poGrv: {
