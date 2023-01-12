@@ -158,3 +158,6 @@ function App() {
 export default App;
 
 // TODO: introduce BrouseRouter and do all pages and components
+// TODO: All forms must have isPending spinners
+// TODO: Each component must have own CSS acoped accordingly
+// TODO: Protect all routes against signin and role access
