@@ -1,19 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../forms.css";
-import {
-	FaFacebookF,
-	FaGoogle,
-	FaLinkedinIn,
-	FaTwitter,
-	FaUser,
-	FaVoicemail,
-} from "react-icons/fa";
 import { MdEmail, MdPassword } from "react-icons/md";
 import irepsImage2 from "../../../images/irepsImage1.jpg";
-import { ModalContext } from "../../../contexts/ModalContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MenuContext } from "../../../contexts/MenuContext";
 import { useSignin } from "../../../hooks/useSignin";
+import useModal from "../../../hooks/useModal";
+import SubmitBtn from "../formComponents/submitBtn/SubmitBtn";
 
 const initSigninData = {
 	email: "",
@@ -25,36 +18,33 @@ const Signin = () => {
 	const [userCredentials, setUserCredentials] = useState(initSigninData);
 
 	// this section sontrols the display of the modal
-	const { componentToOpen, setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
-	const { menuStatus, setMenuStatus } = useContext(MenuContext);
+	const { openModal, closeModal } = useModal();
+	const { setMenuStatus } = useContext(MenuContext);
 
 	const { signin, error, isPending, success } = useSignin();
 
 	const navigate = useNavigate();
+	const location = useLocation();
+	// console.log(`location`, location)
+	const from = location.state?.from?.pathname || "/unp";
 
 	const handleModalCloseBtn = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: "",
-		});
-		setModalOpened(false);
+		if (!location.state?.from?.pathnam) {
+			// console.log(`closing modal pathname`);
+			closeModal();
+			navigate(-1);
+		} else {
+			// console.log(`closing modal else`)
+			closeModal();
+		}
 	};
 
 	const handleSignup = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: "signup",
-		});
-		setModalOpened(true);
+		openModal({ modalName: "signup" });
 	};
 
 	const handleFpw = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: "fpw",
-		});
-		setModalOpened(true);
+		openModal({ modalName: "fpw" });
 	};
 
 	const handleSigninSubmit = e => {
@@ -65,9 +55,10 @@ const Signin = () => {
 
 	useEffect(() => {
 		if (success) {
-			setModalOpened(false);
+			closeModal({ modalName: "signin" });
+			// setModalOpened(false);
 			setMenuStatus(false);
-			navigate("/unp", { replace: true });
+			navigate(from, { replace: true });
 		}
 	}, [success, error, isPending]);
 
@@ -125,17 +116,20 @@ const Signin = () => {
 						}}
 					/>
 				</div>
+
 				<div className="auth-error-field">
 					<p className="auth-error">{error && error}</p>
 				</div>
+
 				<div className="form-btns">
 					<button
+						type="button"
 						className="form-btn Clear"
 						onClick={e => setUserCredentials(initSigninData)}
 					>
 						Clear
 					</button>
-					<button className="form-btn submit">Submit</button>
+					<SubmitBtn isPending={isPending} />
 				</div>
 			</form>
 

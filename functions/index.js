@@ -29,7 +29,7 @@ exports.createPo = functions.firestore
 			.then( async querySnapshot => {
 				const collectionSize = querySnapshot.size;
         functions.logger.log(`collectionSize:`, collectionSize);
-        // TODO: fix the bug so that the Po invoice number counting srarts from 1
+        // TODO: fix the bug so that the Po invoice number counting srarts from 1 and not 2
         const docRef = snap.ref
         // console.log(`docRef`, docRef)
         const updatedPoDoc = await docRef.update({ poNo: collectionSize + 1 });

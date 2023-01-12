@@ -75,7 +75,10 @@ export const useFirestore = fbCollection => {
 		try {
 			// console.log(`po`, po)
 			const updatedDocument = await updateDoc(docToUpdateRef, document);
-			dispatchIfNotCancelled({ type: "UPDATED_DOCUMENT", payload: updatedDocument });
+			// console.log(`updatedDocument`, updatedDocument);
+			dispatchIfNotCancelled({
+				type: "UPDATED_DOCUMENT", payload: updatedDocument
+			});
 			// console.log(`addedDocument`, addedDocument);
 		} catch (err) {
 			dispatchIfNotCancelled({ type: "ERROR", payload: err.message });

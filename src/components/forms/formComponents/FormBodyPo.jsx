@@ -27,13 +27,13 @@ const FormBodyPo = ({ formData }) => {
 		// console.log(`po`, po);
 		if (po.id) {
 			// there is an id. So the document exists. It therefore must only be updated.
-			console.log(`Updating doc:`, po);
+			// console.log(`Updating doc:`, po);
 			const id = po.id
 			delete po.id
 			updateDocument(po, id)
 		} else {
 			// there is no id. So the document is new. There add the document to the collection.
-			console.log(`Creating doc:`, po);
+			// console.log(`Creating doc:`, po);
 			addDocument(po);
 		}
 	};

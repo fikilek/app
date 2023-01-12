@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { ModalContext } from "../../../../contexts/ModalContext";
+import useModal from "../../../../hooks/useModal";
 
 const FormHeader = ({ formData }) => {
 	// console.log(`formData`, formData)
-	const { setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
+	const {clodeModal} = useModal()
 	return (
 		<div className="form-header">
 			<div className="form-header-title">
@@ -24,13 +24,9 @@ const FormHeader = ({ formData }) => {
 			</div>
 			<div
 				className="form-header-close-btn-wrapper"
-				onClick={() => {
-					// formData.resetForm();
-					setModalOpened(false);
-					setComponentToOpen("");
-				}}
+				onClick={() => clodeModal() }
 			>
-				<h3 className="form-header-title-form-no">Po-4</h3>
+				<h3 className="form-header-title-form-no">{`Po-${formData.poNo}`}</h3>
 				<button type="button">X</button>
 			</div>
 		</div>

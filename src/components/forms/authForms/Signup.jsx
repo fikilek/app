@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import FormSectionBtns from "../formComponents/formSectionBtns/FormSectionBtns";
 import { useSignup } from "../../../hooks/useSignup";
 import useAuthContext from "../../../hooks/useAuthContext";
+import SubmitBtn from "../formComponents/submitBtn/SubmitBtn";
 
 export const userObj = {
 	surname: "",
@@ -57,7 +58,7 @@ const Signup = () => {
 
 	const handleSignupSubmit = async e => {
 		e.preventDefault();
-		console.log(`Signup userCredentials data: `, userCredentials);
+		// console.log(`Signup userCredentials data: `, userCredentials);
 		await signup(userCredentials);
 		// TODO: handle the "if" statement bellow with useEffect
 	};
@@ -199,15 +200,14 @@ const Signup = () => {
 					<button type="button" className="form-btn reset" onClick={handleReset}>
 						Reset
 					</button>
-					<p className="auth-error">{error && error}</p>
+
 					{isPending ? (
-						<button disabled className="form-btn submit">
-							Submit
-						</button>
+						<SubmitBtn isPending={isPending} />
 					) : (
 						<button className="form-btn submit">Submit</button>
 					)}
 				</div>{" "}
+
 			</form>
 
 			{/* signup footer */}

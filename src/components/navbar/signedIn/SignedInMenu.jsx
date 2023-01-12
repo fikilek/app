@@ -9,20 +9,17 @@ import { dataAsts } from "../../../data/menuData/dataMenuAsts";
 import { dataAdmin } from "../../../data/menuData/dataMenuAdmin";
 import { dataDbd } from "../../../data/menuData/dataMenuDbd";
 import { NavLink } from "react-router-dom";
-import { ModalContext } from "../../../contexts/ModalContext";
 import { MenuContext } from "../../../contexts/MenuContext";
-import { UserContext } from "../../../contexts/UserContext";
 
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 import { dataSch } from "../../../data/menuData/dataMenuSch";
 import useAuthContext from "../../../hooks/useAuthContext";
+import useOpenModal from "../../../hooks/useModal";
 
 const SignedInMenu = () => {
 	// console.log(`SignedInMenu rendering`);
-
-	const { componentToOpen, setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
+	const { openModal } = useOpenModal();
 	const { menuStatus, setMenuStatus } = useContext(MenuContext);
 	const { user } = useAuthContext();
 	let words = user.displayName;
@@ -33,11 +30,7 @@ const SignedInMenu = () => {
 	// }
 
 	const handleClick = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: e.target.id,
-		});
-		setModalOpened(true);
+		openModal({ modalName: e.target.id });
 	};
 	return (
 		<ul

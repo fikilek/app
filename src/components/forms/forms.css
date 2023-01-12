@@ -509,13 +509,17 @@ START OF SINGIN FORM
 		"form-field-email"
 		"form-field-password "
 		"form-btns";
-
 }
 
 .signin-container .signin-form .auth-error {
 	color: red;
 	font-weight: 500;
 	text-align: center;
+	margin: auto;
+}
+
+.signin-container .signin-form .form-btns button.pending {
+	border: 0.1rem solid rgb(255, 127, 80);
 }
 
 /***************************************************************
@@ -607,18 +611,20 @@ END OF SINGIN FORM
 		"form-field-surname form-field-name"
 		"form-field-email form-field-role"
 		"form-field-password form-field-confirmPassword"
-		"form-btns form-btns";
+		"form-btns form-btns"
+		"auth-error-field auth-error-field";
 
 	display: grid;
 	grid-template-rows: auto;
 	gap: 1rem;
 }
 
-.signup-container .signup-form .form-btns .auth-error {
+/* .signup-container .signup-form .form-btns .auth-error {
 	color: red;
 	font-weight: 500;
 	text-align: center;
-}
+	margin: auto;
+} */
 
 /* signup footer */
 
@@ -631,6 +637,23 @@ END OF SINGIN FORM
 	background-color: #bbdeef;
 	padding: 0.4rem 2rem;
 	border-radius: 2rem;
+}
+
+.signup-container .signup-form .form-btns button.pending {
+	border: 0.1rem solid rgb(255, 127, 80);
+}
+
+.signup-container .signup-form .auth-error-field {
+	grid-area: auth-error-field;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.signup-container .signup-form .auth-error-field .auth-error {
+	color: red;
+	font-weight: 500;
+	text-align: center;
 }
 
 /* signup madia quiries */

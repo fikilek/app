@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebaseConfig/fbConfig";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const useCollection = (ml1, ml2, ml3) => {
 	// console.log(`inside useGetCollecion`);
@@ -9,12 +9,16 @@ const useCollection = (ml1, ml2, ml3) => {
 	const [isPending, setIsPending] = useState(false);
 
 	useEffect(() => {
-		const ref = collection(db, ml1);
+		// const ref = collection(db, ml1);
+		const q = query(
+			collection(db, ml1),
+			orderBy("metaData.updatedAtDatetime", "desc")
+		);
 		// console.log(`ref`, ref);
 		setIsPending(true);
 		setError("");
 		const unsubscribe = onSnapshot(
-			ref,
+			q,
 			snapShot => {
 				// console.log(`snapShot`, snapShot);
 				const results = [];
