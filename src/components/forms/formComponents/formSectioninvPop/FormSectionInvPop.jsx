@@ -42,20 +42,6 @@ const FormSectionInvPopGrv = ({
 						: po.poData.poPop.length}
 				</button>
 			</div>
-			<div className="form-field po-form-grv">
-				<span className="form-field-icon">
-					<FaShoppingBasket />
-				</span>
-				<span className="ipg-data">Goods Received</span>
-				<button
-					type="button"
-					// onClick={handleClickInvPopGrv}
-					id="po-grv"
-					className="btn-po-form-grv"
-				>
-					{po.poData.poGrv.grvStatus}
-				</button>
-			</div>
 		</div>
 	);
 };

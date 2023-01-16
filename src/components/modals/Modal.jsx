@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MdClose } from "react-icons/md";
 import { ModalContext } from "../../contexts/ModalContext";
-import { UserContext } from "../../contexts/PoContext";
 // import AstForm from "../../pages/asts/astForm/AstForm";
 // import AstMapView from "../../pages/asts/astMapView/AstsMapView";
 import Signin from "../../components/forms/authForms/Signin";
@@ -11,12 +9,7 @@ import ForgottenPassword from "../../components/forms/authForms/ForgottenPasswor
 import TrnForm from "../../components/forms/trnForms/TrnForm";
 // import ViewOnMap from "../tabs/table/viewOnMap/ViewOnMap";
 import "./modal.css";
-import PoForm from "../forms/poForms/PoForm";
-import Table from "../tabs/table/Table";
 import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
-import GrvForm from "../forms/grvForm/GrvForm";
-import GrvAddToStoreWarning from "../forms/grvForm/GrvAddToStoreWarning";
-import GrvTestForm from "../forms/grvForm/grvTest/GrvTestForm";
 import PoForm2 from "../forms/poForms/PoForm2";
 import PoiTable2 from "../../pages/sch/PoiTable2";
 import PoAlterState from "../../pages/sch/PoAlterState";
@@ -65,16 +58,9 @@ const Modal = () => {
 						{/* <>{name === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
 						<>{name === "poForm" ? <PoForm2 formData={payload} /> : ""}</>
 						<>{name === "poAlterState" ? <PoAlterState formData={payload} /> : ""}</>
-						<>{name === "grvForm" ? <GrvForm formData={payload} /> : ""}</>
+						{/* <>{name === "grvForm" ? <GrvForm2 formData={payload} /> : ""}</> */}
 						{/* <>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
-						<>
-							{name === "addGoodsToStore" ? (
-								<GrvAddToStoreWarning data={payload} />
-							) : (
-								""
-							)}
-						</>
-						<>{name === "grvTestForm" ? <GrvTestForm /> : ""}</>
+
 						<>
 							{name === "poiTable" ? (
 								// <Table ml1={"poi"} otherData={{ id: payload }} />

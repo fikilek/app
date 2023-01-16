@@ -23,7 +23,11 @@ const PoiBtnDeleteItem = params => {
 	};
 
 	return (
-		<button className="btnPoi btnPoiDeleteItem" onClick={handleDeleteItem}>
+		<button
+			type="button"
+			className="btnPoi btnPoiDeleteItem"
+			onClick={handleDeleteItem}
+		>
 			x
 		</button>
 	);

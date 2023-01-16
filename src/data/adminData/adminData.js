@@ -363,30 +363,32 @@ const newPoFormData = {
 		poInv: [],
 		poPop: [], // Proof of Payment
 		poGrv: {
-			grvSystemId: "",
-			grvFormId: "",
-			grvStatus: "Created", // ['Created', 'Confirmed', 'Witnessed']
-			grvConfirmReceipt: {
-				grvcrStatus: false, // This must be changed through a password
-				grvcrSurname: "",
-				grvcrName: "",
-				grvcrContactNo: "",
-				grvcrContactEmailAdr: "",
+			grvGoodsReceiver: {
+				// This is the person confirms that the goods have been received
+				grvGoodsReceiverUid: "",
+				grvGoodsReceiverDate: null,
 			},
 			grvWitnessReceipt: {
-				grvwrStatus: false, // This must be changed through a password
-				grvwrSurname: "",
-				grvwrName: "",
-				grvwrContactNo: "",
-				grvwrContactEmailAdr: "",
+				// This is the person who has witnessed that the goods have indedd been received
+				grvWitnessUid: "",
+				grvWitnessDate: null,
 			},
-			grvComments: [], // [{date: date, msg: msg, user: user}]
-			rgvMedia: {
-				grvPhotos: [],
-				grvVideos: [],
-				grvVoice: [],
+			poStoreData: {
+				// This is the store where goods reveived are stored
+				storeNo: "",
+				storeName: "",
+				storeContactSurname: "",
+				storeContactName: "",
+				storeContactNo: "",
+				storeContactEmailAdr: "",
 			},
 		}, // Goods receive,
+	},
+	poComments: [], // [{date: date, msg: msg, user: user}]
+	poMedia: {
+		photos: [],
+		videos: [],
+		voice: [],
 	},
 	poPi: [],
 	poSplData: {

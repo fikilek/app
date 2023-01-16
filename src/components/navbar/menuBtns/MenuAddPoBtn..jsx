@@ -17,7 +17,7 @@ const MenuAddPoBtn = () => {
 	};
 
 	return (
-		<button onClick={handleClick} id="poForm" className="menuAddPoBtn btn">
+		<button type="button" onClick={handleClick} id="poForm" className="menuAddPoBtn btn">
 			+
 		</button>
 	);

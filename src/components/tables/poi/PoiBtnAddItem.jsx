@@ -41,7 +41,11 @@ const PoiBtnAddItem = params => {
 	};
 
 	return (
-		<button className="btnPoi btnPoiBtnAddItem" onClick={handleAddItem}>
+		<button
+			type="button"
+			className="btnPoi btnPoiBtnAddItem"
+			onClick={handleAddItem}
+		>
 			+
 		</button>
 	);

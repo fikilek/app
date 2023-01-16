@@ -3,7 +3,7 @@ import { TbGps } from "react-icons/tb";
 
 const CreatedAtLocation = () => {
   return (
-			<button className="btn-table-row btn-created-at-location">
+			<button type="button" className="btn-table-row btn-created-at-location">
 				<TbGps />
 			</button>
 		);

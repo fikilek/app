@@ -73,6 +73,7 @@
 		"fs-uc" /* form section updated created*/
 		"fs-ipgs" /* form section inv pop grv*/
 		"fs-poi" /* form section purchase order items*/
+		"fs-grv" /* form section goods received*/
 		"form-btns"; /* form section buttons */
 	gap: 2rem;
 }
@@ -133,7 +134,7 @@
 	margin-right: 1rem;
 }
 
-.ireps-form .po-container .form-body .open-colse-icons .icon {
+.ireps-form .po-container .form-body .open-colse-icons button {
 	font-size: 1.6rem;
 	padding: 0.1rem;
 	width: 3rem;
@@ -166,7 +167,10 @@
 	text-align: center;
 }
 
-/* form section po items (poi) */
+/********************************************************************
+*********************************************************************
+START OF form section : po items (poi) 
+********************************************************************/
 
 .ireps-form .po-container .form-body .fs-poi {
 	grid-area: fs-poi;
@@ -182,6 +186,11 @@
 	margin-top: 2rem;
 	gap: 2rem;
 }
+
+/********************************************************************
+END OF form section : po items (poi) 
+*********************************************************************
+********************************************************************/
 
 /* form show hide class */
 
@@ -211,8 +220,7 @@
 }
 
 .fpw-container,
-.po-container,
-.grv-container {
+.po-container {
 	background-color: #ecf0f3;
 	border-radius: 2rem;
 	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
@@ -223,8 +231,7 @@
 .signin-header,
 /* .signup-header, */
 .fpw-header,
-.po-header,
-.grv-header {
+.po-header {
 	position: relative;
 	display: flex;
 	justify-content: space-evenly;
@@ -282,16 +289,6 @@
 		0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
 		0 100px 80px rgba(0, 0, 0, 0.12);
 }
-
-/* .signin-form,
-.signup-form,
-.po-form,
-.grv-form {
-	display: grid;
-	grid-template-rows: auto;
-	gap: 2rem;
-	position: relative;
-} */
 
 /* TODO: I dont understand why fpw grid cannot take gap of 2rem */
 .fpw-form {
@@ -371,30 +368,10 @@
 }
 
 /* po form */
-
-/* .po-form {
-	width: 600px;
-	grid-template-columns: 1fr 1fr;
-	grid-template-areas:
-		"fs-update fs-created"
-		"fs-inv-pop-grv fs-supplier"
-		"fs-po-items fs-po-items"
-		"form-btns form-btns";
-} */
-
-/* .fs-updated,
-.fs-created,
-.fs-inv-pop-grv,
-.fs-supplier {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 0.5rem;
-} */
-
-.fs-updated,
-.fs-created {
-	/* display: none; */
-}
+/********************************************************************
+*********************************************************************
+START of Po form
+********************************************************************/
 
 .hide {
 	/* display: none; */
@@ -406,14 +383,7 @@
 	visibility: visible;
 }
 
-/* .fs-po-items {
-	grid-area: fs-po-items;
-	height: 100%;
-} */
-
-.fs-po-items-title,
-.fs-grv-comments-title,
-.grv-comment {
+.fs-po-items-title {
 	display: flex;
 	justify-content: space-between;
 }
@@ -422,54 +392,9 @@
 	margin-right: 2px;
 }
 
-/* .fs-inv-pop-grv {
-	grid-template-rows: 0.5fr 1fr 1fr 2fr;
-	grid-template-areas:
-		"inv-pop-grv-title"
-		"po-form-inv"
-		"po-form-pop"
-		"po-form-grv";
-} */
-
-/* .po-form-inv {
-	grid-area: po-form-inv;
-} */
-
 .po-form-pop {
 	grid-area: po-form-pop;
 }
-
-/* .po-form-grv {
-	grid-area: po-form-grv;
-	height: 100%;
-} */
-
-/* .po-form-inv,
-.po-form-pop,
-.po-form-grv {
-	width: 100%;
-} */
-
-/* .btn-po-form-inv,
-.btn-po-form-pop,
-.btn-po-form-grv {
-	width: 100%;
-	height: 100%;
-	border: none;
-	border-radius: 0 1.2rem 1.2rem 0;
-	background-color: rgb(255, 255, 255);
-} */
-
-/* .fs-supplier {
-	grid-area: fs-supplier;
-	grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
-	grid-template-areas:
-		"supplier-title"
-		"po-form-supplier-name"
-		"po-form-supplier-contact-surname-name"
-		"po-form-supplier-contact-no"
-		"po-form-supplier-contact-email-adr";
-} */
 
 .fs-title-created {
 	display: flex;
@@ -484,6 +409,108 @@
 	height: 20px;
 	border-radius: 50%;
 	background-color: lightcyan;
+}
+
+/* Po - Grv Section */
+
+.ireps-form .po-container .form-body .fs-grv {
+	grid-area: fs-grv;
+	border-left: 0.1rem solid;
+	padding-left: 2rem;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv {
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: "fsb-grv-receiver fsb-grv-witness fsb-grv-store";
+	font-size: 1.2rem;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fs-fsb-grv {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.fsb-grv-receiver {
+	grid-area: fsb-grv-receiver;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.fsb-grv-receiver
+	.fsr-received {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	height: 100%;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.fsb-grv-witness {
+	grid-area: fsb-grv-witness;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsb-grv-store {
+	grid-area: fsb-grv-store;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fs-title {
+	font-size: 1.5rem;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .form-field {
+	font-size: 1.2rem;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.form-field
+	input {
+	font-size: 1.2rem;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.form-field
+	select {
+	font-size: 1.2rem;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv button {
+	height: 2.5rem;
+	font-size: 1rem;
+	line-height: 0.5rem;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fs-btns {
+	border: none;
+	padding: 1rem 1rem 0 1rem;
 }
 
 /***************************************************************

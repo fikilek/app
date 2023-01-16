@@ -24,7 +24,11 @@ const PoiBtnViewPoi = params => {
 	};
 
 	return (
-		<button onClick={handleClick} className="btn-table-row btn-trn-count">
+		<button
+			type="button"
+			onClick={handleClick}
+			className="btn-table-row btn-trn-count"
+		>
 			{totalQuantites}
 		</button>
 	);

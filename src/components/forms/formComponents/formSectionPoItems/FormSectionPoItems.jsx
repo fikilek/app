@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PoiTable from "../../../tables/poi/PoiTable";
+import FormShowHideSection from "../formShowHideSection/FormShowHideSection";
 
-const FormSectionPoItems = ({
-	po,
-	setPo,
-	sectionStates,
-	setSectionStates,
-}) => {
+const FormSectionPoItems = ({ po, setPo, active, setActive }) => {
+	const [poItemsTotals, setPoItemsTotals] = useState(0);
 
-  const [poItemsTotals, setPoItemsTotals] = useState(0);
-  
 	useEffect(() => {
 		// console.log(`po.poPi`, po.poPi);
 		setPoItemsTotals(
@@ -29,38 +24,19 @@ const FormSectionPoItems = ({
 		<div className={`fs fs-poi`}>
 			<div className="fsh">
 				<div className="open-colse-icons">
-					<button
-						type="button"
-						onClick={() =>
-							setSectionStates({
-								...sectionStates,
-								sectionPoItems: sectionStates.sectionPoItems === true ? false : true,
-							})
-						}
-					>
-						<div
-							className={`icon ${
-								sectionStates.sectionPoItems ? "showSection" : "hideSection"
-							}`}
-						>
-							-
-						</div>
-						<div
-							className={`icon ${
-								sectionStates.sectionPoItems ? "hideSection" : "showSection"
-							}`}
-						>
-							+
-						</div>
-					</button>
+					<FormShowHideSection
+						sectionName={"poitable"}
+						active={active}
+						setActive={setActive}
+					/>
 				</div>
 				<div>
-					<p>Form Section: Po Items</p>
+					<p>Form Section: PoiTable</p>
 				</div>
 			</div>
 			<div
 				className={`fsb fsb-poi ${
-					sectionStates.sectionPoItems ? "showSection" : "hideSection"
+					active === "poitable" ? "showSection" : "hideSection"
 				}`}
 			>
 				<div className="fs fs-po-items">

@@ -1,6 +1,6 @@
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
-import { db, timestamp } from "../firebaseConfig/fbConfig";
+import { db } from "../firebaseConfig/fbConfig";
 import useAuthContext from "./useAuthContext";
 
 const initData = {
@@ -13,16 +13,16 @@ const initData = {
 const firestoreReducer = (state, action) => {
 	switch (action.type) {
 		case "IS_PENDING":
-      // console.log(`IS_PENDING`, action.payload);
+			// console.log(`IS_PENDING`, action.payload);
 			return {
 				document: null,
 				error: null,
 				isPending: true,
 				success: false,
 			};
-    case "ADD_DOCUMENT":
-    case "UPDATED_DOCUMENT":
-      // console.log(`ADD_DOCUMENT`, action.payload);
+		case "ADD_DOCUMENT":
+		case "UPDATED_DOCUMENT":
+			// console.log(`ADD_DOCUMENT`, action.payload);
 			return {
 				document: action.payload,
 				error: null,
@@ -30,7 +30,7 @@ const firestoreReducer = (state, action) => {
 				success: true,
 			};
 		case "ERROR":
-      // console.log(`ERROR`, action.payload);
+			// console.log(`ERROR`, action.payload);
 			return {
 				document: null,
 				error: action.payload,
@@ -54,8 +54,8 @@ export const useFirestore = fbCollection => {
 
 	const ref = collection(db, fbCollection);
 
-  const addDocument = async doc => {
-    // console.log(`start adding doc`, doc)
+	const addDocument = async doc => {
+		// console.log(`start adding doc`, doc)
 		dispatch({ type: "IS_PENDING" });
 		try {
 			// console.log(`po`, po);
@@ -67,19 +67,46 @@ export const useFirestore = fbCollection => {
 		}
 	};
 
-	const deleteDocument = async id => { };
-	
-	const updateDocument = async (document, id) => {
-		const docToUpdateRef = doc(db, fbCollection, id )
+	const deleteDocument = async id => {};
+
+	const updateDocument = async (document) => {
+		// console.log(`document`, document)
+		const id = document.id;
 		dispatch({ type: "IS_PENDING" });
+		// delete document.id;
+		// console.log(`id`, id)
+		const docToUpdateRef = doc(db, fbCollection, id);
 		try {
 			// console.log(`po`, po)
 			const updatedDocument = await updateDoc(docToUpdateRef, document);
 			// console.log(`updatedDocument`, updatedDocument);
 			dispatchIfNotCancelled({
-				type: "UPDATED_DOCUMENT", payload: updatedDocument
+				type: "UPDATED_DOCUMENT",
+				payload: updatedDocument,
 			});
 			// console.log(`addedDocument`, addedDocument);
+		} catch (err) {
+			dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+		}
+	};
+
+	const getDocument = async uid => {
+		// console.log(`uid`, uid)
+		const docRef = doc(db, fbCollection, uid);
+		// console.log(`docRef`, docRef);
+		dispatch({ type: "IS_PENDING" });
+		try {
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				// console.log("Document data:", docSnap.data());
+				dispatchIfNotCancelled({
+					type: "UPDATED_DOCUMENT",
+					payload: docSnap.data(),
+				});
+			} else {
+				// doc.data() will be undefined in this case
+				console.log("No such document!");
+			}
 		} catch (err) {
 			dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
 		}
@@ -89,6 +116,5 @@ export const useFirestore = fbCollection => {
 		return () => setIsCancelled(true);
 	}, []);
 
-	return { response, addDocument, deleteDocument, updateDocument };
+	return { response, addDocument, deleteDocument, updateDocument, getDocument };
 };
- 

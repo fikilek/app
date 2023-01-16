@@ -35,6 +35,7 @@ export const userObj = {
 	password: "",
 	confirmPassword: "",
 	signedon: false,
+	phoneNumber:"",
 };
 
 const Signup = () => {
@@ -58,7 +59,7 @@ const Signup = () => {
 
 	const handleSignupSubmit = async e => {
 		e.preventDefault();
-		// console.log(`Signup userCredentials data: `, userCredentials);
+		console.log(`Signup userCredentials data: `, userCredentials);
 		await signup(userCredentials);
 		// TODO: handle the "if" statement bellow with useEffect
 	};
@@ -150,19 +151,18 @@ const Signup = () => {
 						placeholder="enter email used for signup"
 					/>
 				</div>
-				{/* form field role */}
-				<div className="form-field form-field-role">
+				{/* form field phoneNumber */}
+				<div className="form-field form-field-phoneNumber">
 					<span className="form-field-icon">
 						<MdManageAccounts />
 					</span>
 					<input
-						readOnly
 						type="text"
-						name="role"
-						id="role"
-						value={userCredentials.role}
+						name="phoneNumber"
+						id="phoneNumber"
+						value={userCredentials.phoneNumber}
 						onChange={handleFieldChange}
-						placeholder="role"
+						placeholder="phone number"
 					/>
 				</div>
 				{/* form field password */}
@@ -207,7 +207,6 @@ const Signup = () => {
 						<button className="form-btn submit">Submit</button>
 					)}
 				</div>{" "}
-
 			</form>
 
 			{/* signup footer */}

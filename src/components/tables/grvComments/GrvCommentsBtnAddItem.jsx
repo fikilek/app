@@ -50,7 +50,11 @@ const GrvCommentsBtnAddItem = params => {
 	};
 
 	return (
-		<button className="btnPoi btnGrvCommentsBtnAddItem" onClick={handleAddItem}>
+		<button
+			type="button"
+			className="btnPoi btnGrvCommentsBtnAddItem"
+			onClick={handleAddItem}
+		>
 			+
 		</button>
 	);

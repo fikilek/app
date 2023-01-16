@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import useFilterData from "../../../hooks/useFilterData";
 import PoViewExistingPoBtn from "../../../pages/sch/PoViewExistingPoBtn";
-import PoViewGrv from "../../../pages/sch/PoViewGrv";
 import useOpenModal from "../../modals/useOpenModal";
 import CreatedAtLocation from "../../tableBtns/CreatedAtLocation";
 import TableBtnOpenTrns from "../../tableBtns/TableBtnOpenTrns";
@@ -121,13 +120,6 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 							</button>
 						);
 					},
-				},
-				{
-					// A click displays a modal with grv of the Goods on the PO
-					field: "poData.poGrv.grvStatus",
-					headerName: "GRV",
-					width: 120,
-					cellRenderer: PoViewGrv,
 				},
 				{
 					field: "poData.poTotalItems",

@@ -4,7 +4,7 @@ import { nanoid } from "@reduxjs/toolkit";
 export const poData = [
 	// purchase order (po) data
 	{
-		poSystemId: nanoid(),
+		id: nanoid(),
 		poStatus: "Aproved", // ['created', 'approved', 'deleted']
 		metaData: {
 			updatedAtDatetime: moment(new Date()).format(
@@ -39,11 +39,6 @@ export const poData = [
 					grvwrName: "",
 					grvwrContactNo: "",
 					grvwrContactEmailAdr: "",
-				},
-				rgvMedia: {
-					grvPhotos: [],
-					grvVideos: [],
-					grvVoice: [],
 				},
 				grvStoreData: {
 					storeName: "Smars Jozi Store",

@@ -13,7 +13,11 @@ const TableBtnOpenTrns = ({ params }) => {
 		});
 	};
 	return (
-		<button onClick={handleOpenAst} className="btn-table-row btn-trn-count">
+		<button
+			type="button"
+			onClick={handleOpenAst}
+			className="btn-table-row btn-trn-count"
+		>
 			{params.value}
 		</button>
 	);

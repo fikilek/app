@@ -6,7 +6,6 @@ import TableCellPoleData from "../components/tableBtns/TableCellPoleData";
 import PoiBtnViewPoi from "../components/tables/poi/PoiBtnViewPoi";
 import PoAlterPoState from "../pages/sch/PoAlterStateBtn";
 import PoViewExistingPoBtn from "../pages/sch/PoViewExistingPoBtn";
-import PoViewGrv from "../pages/sch/PoViewGrv";
 
 export const useColumnDefs = options => {
 	const { ml1, ml2, ml3 } = options;
@@ -117,13 +116,6 @@ export const useColumnDefs = options => {
 							</button>
 						);
 					},
-				},
-				{
-					// A click displays a modal with grv of the Goods on the PO
-					field: "poData.poGrv.grvStatus",
-					headerName: "GRV",
-					width: 120,
-					cellRenderer: PoViewGrv,
 				},
 				{
 					field: "poData.poTotalItems",

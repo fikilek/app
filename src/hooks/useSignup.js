@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
-import { auth } from "../firebaseConfig/fbConfig";
+import { auth, db } from "../firebaseConfig/fbConfig";
 import useAuthContext from "./useAuthContext";
 
 export const useSignup = () => {
@@ -10,7 +11,7 @@ export const useSignup = () => {
 	const [success, setSuccess] = useState(false)
 
 	const signup = async userCredentials => {
-		const { email, password, surname, name } = userCredentials;
+		const { email, password, surname, name, phoneNumber } = userCredentials;
 		try {
 			setIsPending(true);
 			setError(null);
@@ -20,7 +21,7 @@ export const useSignup = () => {
 				setIsPending(false);
 				throw new Error("User signup failed");
 			}
-			// console.log(`result`, result.user);
+			console.log(`result`, result.user);
 			const { user } = result;
 
 			// update dispalyName details at firebase auth user. Use first letter of surname and name as dispalyName
@@ -29,6 +30,14 @@ export const useSignup = () => {
 			});
 
 			// TODO:create user profile in firestore using UID as the unique identifier
+			const docRef = doc(db, 'users', user.uid)
+			await setDoc(docRef, {
+				displayName: `${name} ${surname}`,
+				email,
+				phoneNumber,
+				online: true,
+				photoUrl: '',
+			});
 
 			dispatch({ type: "SIGNIN", payload: user });
 			setIsPending(false);

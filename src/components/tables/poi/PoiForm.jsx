@@ -92,7 +92,9 @@ const PoiForm = () => {
 			</div>
 
 			<div className="poiFormBtn">
-				<button onClick={handleSubmit}>+</button>
+				<button type="button" onClick={handleSubmit}>
+					+
+				</button>
 			</div>
 		</div>
 	);

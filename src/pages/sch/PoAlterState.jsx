@@ -13,7 +13,7 @@ import useModal from "../../hooks/useModal";
 import { useState } from "react";
 
 const PoAlterState = ({ formData }) => {
-	// console.log(`formData`, formData);
+	console.log(`formData`, formData);
 	const { poData } = formData;
 	// console.log(`poData`, poData)
 	const { updateDocument, response } = useFirestore("pos");
@@ -55,11 +55,11 @@ const PoAlterState = ({ formData }) => {
 		};
 		// console.log(`newPo`, newPo)
 		// remove the po id
-		const id = newPo.id;
-		delete newPo.id;
+		// const id = newPo.id;
+		// delete newPo.id;
 		// update po in firesotore
 		// console.log(`About to update formData:`, newPo);
-		updateDocument(newPo, id);
+		updateDocument(newPo);
 	};
 
 	return (
