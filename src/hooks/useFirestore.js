@@ -1,4 +1,5 @@
 import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore";
+import cloneDeep from "lodash.clonedeep";
 import { useEffect, useReducer, useState } from "react";
 import { db } from "../firebaseConfig/fbConfig";
 import useAuthContext from "./useAuthContext";
@@ -70,15 +71,16 @@ export const useFirestore = fbCollection => {
 	const deleteDocument = async id => {};
 
 	const updateDocument = async (document) => {
-		// console.log(`document`, document)
+		console.log(`document`, document)
 		const id = document.id;
+		const newObj = cloneDeep(document);
+		// delete newObj.id;
 		dispatch({ type: "IS_PENDING" });
-		// delete document.id;
 		// console.log(`id`, id)
 		const docToUpdateRef = doc(db, fbCollection, id);
 		try {
 			// console.log(`po`, po)
-			const updatedDocument = await updateDoc(docToUpdateRef, document);
+			const updatedDocument = await updateDoc(docToUpdateRef, newObj);
 			// console.log(`updatedDocument`, updatedDocument);
 			dispatchIfNotCancelled({
 				type: "UPDATED_DOCUMENT",

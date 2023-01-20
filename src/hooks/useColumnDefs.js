@@ -4,8 +4,8 @@ import TableBtnTrnSelect from "../components/tableBtns/TableBtnTrnSelect";
 import TableCellArrayData from "../components/tableBtns/TableCellArrayData";
 import TableCellPoleData from "../components/tableBtns/TableCellPoleData";
 import PoiBtnViewPoi from "../components/tables/poi/PoiBtnViewPoi";
-import PoAlterPoState from "../pages/sch/PoAlterStateBtn";
 import PoViewExistingPoBtn from "../pages/sch/PoViewExistingPoBtn";
+import UserSignatureBtn from '../components/userSignature/UserSignatureBtn'
 
 export const useColumnDefs = options => {
 	const { ml1, ml2, ml3 } = options;
@@ -80,10 +80,11 @@ export const useColumnDefs = options => {
 			],
 		},
 		{
-			field: "poStatus",
-			headerName: "Status",
-			width: 110,
-			cellRenderer: PoAlterPoState,
+			field: "poApprove",
+			headerName: "Approval",
+			width: 120,
+			cellRenderer: UserSignatureBtn,
+			cellRendererParams: {signatureName: "poApprove"}
 			// TODO: implement the PO aproval system
 		},
 		{
@@ -124,6 +125,23 @@ export const useColumnDefs = options => {
 					cellRenderer: PoiBtnViewPoi,
 				},
 			],
+		},
+
+		{
+			field: "poGrvReceiver",
+			headerName: "Receiver",
+			width: 120,
+			cellRenderer: UserSignatureBtn,
+			cellRendererParams: { signatureName: "receiver" },
+			// TODO: implement the PO aproval system
+		},
+		{
+			field: "poGrvWitness",
+			headerName: "Witness",
+			width: 120,
+			cellRenderer: UserSignatureBtn,
+			cellRendererParams: { signatureName: "witness" },
+			// TODO: implement the PO aproval system
 		},
 		{
 			headerName: "Supplier Details",

@@ -421,7 +421,7 @@ START of Po form
 
 .ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv {
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-areas: "fsb-grv-receiver fsb-grv-witness fsb-grv-store";
+	/* grid-template-areas: "fsb-grv-receiver fsb-grv-witness fsb-grv-store"; */
 	font-size: 1.2rem;
 }
 
@@ -431,8 +431,6 @@ START of Po form
 	justify-content: space-between;
 }
 
-
-
 .ireps-form
 	.po-container
 	.form-body
@@ -440,7 +438,7 @@ START of Po form
 	.fs-grv
 	.fsb-grv
 	.fsb-grv-receiver {
-	grid-area: fsb-grv-receiver;
+	/* grid-area: fsb-grv-receiver; */
 }
 
 .ireps-form
@@ -465,11 +463,11 @@ START of Po form
 	.fs-grv
 	.fsb-grv
 	.fsb-grv-witness {
-	grid-area: fsb-grv-witness;
+	/* grid-area: fsb-grv-witness; */
 }
 
 .ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsb-grv-store {
-	grid-area: fsb-grv-store;
+	/* grid-area: fsb-grv-store; */
 }
 
 .ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fs-title {
@@ -506,6 +504,65 @@ START of Po form
 	height: 2.5rem;
 	font-size: 1rem;
 	line-height: 0.5rem;
+	width: 5rem;
+}
+
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsw-btns {
+	display: flex;
+	justify-content: space-around;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.fsw-btns
+	button {
+	height: 2.5rem;
+	font-size: 1rem;
+	line-height: 0.5rem;
+	width: 5rem;
+	background: none;
+	border-radius: 0;
+	color: black;
+	border: 0.1rem solid;
+	box-shadow: none;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.cancel-witnessing {
+	/* display: flex;
+	justify-content: center;
+	align-items: center; */
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.cancel-witnessing
+	button {
+	width: 10rem;
+}
+
+.ireps-form
+	.po-container
+	.form-body
+	.po-form
+	.fs-grv
+	.fsb-grv
+	.cancel-receiving
+	button {
+	width: 10rem;
 }
 
 .ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fs-btns {

@@ -32,7 +32,7 @@ const FormSectionWitness = ({ po, setPo }) => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		// console.log(`witnessing PO`);
+		console.log(`witnessing PO`);
 		// authenticate the user from firebase auth
 		if (password) {
 			const confirmedReceiver = {
@@ -47,8 +47,8 @@ const FormSectionWitness = ({ po, setPo }) => {
 	// run component when grvWitnessReceipt changes
 	useEffect(() => {
 		// update po in firestore using useFirestore hook ONLY if there is an id
-		console.log(`response`, response)
-		console.log(`res`, res)
+		console.log(`response`, response);
+		console.log(`res`, res);
 		const id = po.id;
 		if (id) {
 			// console.log(`about to update po`);
@@ -91,23 +91,11 @@ const FormSectionWitness = ({ po, setPo }) => {
 	useEffect(() => {
 		const uid = po.poData.poGrv.grvWitnessReceipt.grvWitnessUid;
 		if (uid) {
-			// po has been witnessed. Get uid profile from firebase auth and set witness state
-			// console.log(
-			// 	`po has been witnessed. Get uid profile from fiebase auth and set witness state`,
-			// 	uid
-			// );
 			getDocument(uid);
-			// update witness state
-			// setWitness({
-			// 	dispalyName: "fikile kentane",
-			// 	email: "fikile@gmail.com",
-			// 	phoneNumber: "081 726 2352",
-			// });
 		}
 	}, [response.success]);
 
 	useEffect(() => {
-		// console.log(`res.document`, res.document);
 		setWitness(res.document);
 	}, [res]);
 
@@ -139,52 +127,51 @@ const FormSectionWitness = ({ po, setPo }) => {
 							).format("YYYY-MM-DD HH:mm:ss")}
 						</p>
 					</div>
-					<div className="cancell-witnesseing">
+					<div className="cancel-witnessing">
 						<button type="button">Cancel Witenssing</button>
 					</div>
 				</div>
 			) : (
 				<div className="fsw fsw-not-witnessed">
-					<div className="not-witnessed-msg">
-						<p>
-							The goods received in this Purchase Order have not been witnessed as yet.
-							To witness, supply user password and click the witness btn below.
-						</p>
-					</div>
-					<div className="witness-form">
-						<form onClick={handleSubmit}>
-							<div className="form-field form-field-email">
-								<span className="form-field-icon">
-									<MdEmail />
-								</span>
-								<input
-									disabled
-									type="email"
-									name="email"
-									id="email"
-									value={user.email}
-									placeholder="enter email used for signin"
-								/>
-							</div>
-							<div className="form-field form-field-password">
-								<span className="form-field-icon">
-									<MdPassword />
-								</span>
-								<input
-									autoFocus
-									type="password"
-									name="password"
-									id="password"
-									placeholder="Password"
-									value={password}
-									onChange={e => setPassword(e.target.value)}
-								/>
-							</div>
-							<FormError error={error} />
-							<FormError error={response.error} />
-							<FormSectionBtns />
-						</form>
-					</div>
+					<form onClick={handleSubmit}>
+						<p>The goods have not been witnessed as yet.</p>
+						<div className="form-field form-field-email">
+							<span className="form-field-icon">
+								<MdEmail />
+							</span>
+							<input
+								disabled
+								type="email"
+								name="email"
+								id="email"
+								value={user.email}
+								placeholder="enter email used for signin"
+							/>
+						</div>
+						<div className="form-field form-field-password">
+							<span className="form-field-icon">
+								<MdPassword />
+							</span>
+							<input
+								autoFocus
+								type="password"
+								name="password"
+								id="password"
+								placeholder="Password"
+								value={password}
+								onChange={e => setPassword(e.target.value)}
+							/>
+						</div>
+						{/* <FormError error={error} /> */}
+						{/* <FormError error={response.error} /> */}
+						{/* <FormSectionBtns /> */}
+						<div className="fsw-btns">
+							<button type="button" className="form-btn reset">
+								Reset
+							</button>
+							<button className="form-btn submit">Submit</button>
+						</div>
+					</form>
 				</div>
 			)}
 		</div>

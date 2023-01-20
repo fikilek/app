@@ -1,10 +1,7 @@
 import React from "react";
 import FormShowHideSection from "../formShowHideSection/FormShowHideSection";
-import FormSectionInvPopGrv from "../formSectioninvPop/FormSectionInvPop";
-import FormSectionSupplier from "../formSectionSupplier/FormSectionSupplier";
 import FormSectionStores from "../formSectionStores/FormSectionStores";
-import FormSectionWitness from "../formSectionWitness/FormSectionWitness";
-import FormSectionReceiver from "../formSectionReceiver/FormSectionReceiver";
+import FormSectionPoUser from "../formSectionPoUser/FormSectionPoUser";
 
 const FormSectionGrv = ({ po, setPo, active, setActive }) => {
 	return (
@@ -26,10 +23,12 @@ const FormSectionGrv = ({ po, setPo, active, setActive }) => {
 				</div>
 			</div>
 			<div
-				className={`fsb fsb-grv ${active === "grv" ? "showSection" : "hideSection"}`}
+				className={`fsb fsb-grv ${
+					active === "grv" ? "showSection" : "hideSection"
+				}`}
 			>
-				<FormSectionReceiver po={po} setPo={setPo} />
-				<FormSectionWitness po={po} setPo={setPo} />
+				<FormSectionPoUser po={po} setPo={setPo} formSectionName="receiver" />
+				<FormSectionPoUser po={po} setPo={setPo} formSectionName="witness" />
 				<FormSectionStores po={po} setPo={setPo} />
 			</div>
 		</div>

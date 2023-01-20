@@ -63,7 +63,7 @@ const FormBodyPo = ({ formData }) => {
 					active={active}
 					setActive={setActive}
 				/>
-				{(po.id || !response.isPending) &&  (
+				{po.id &&  (
 					<FormSectionGrv
 						po={po}
 						setPo={setPo}

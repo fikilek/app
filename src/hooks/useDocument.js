@@ -1,26 +1,34 @@
-import { useState, useEffect } from "react"
-import db from '../firebaseConfig/fbConfig'
-import { collection, onSnapshot } from "firebase/firestore"
+import { useState, useEffect } from "react";
+import { db } from "../firebaseConfig/fbConfig";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export const useDocument = (fbCollection, id) => {
+	const [document, setDocument] = useState(null);
+	const [error, setError] = useState(null);
 
-  const [document, setDocument] = useState(null)
-  const [error, setError] = useState(null)
+	useEffect(() => {
+		let unsub = null;
+		if (id) {
+			const docRef = doc(db, fbCollection, id);
+			// console.log(`docRef`, docRef);
+			unsub = onSnapshot(
+				docRef,
+				snapShot => {
+					setDocument({ ...snapShot.data(), id: snapShot.id });
+				},
+				error => {
+					console.log(`document fetch error`, error.message);
+					setError(`Failed to get document`, id);
+				}
+			);
+		}
 
-  useEffect(() => {
+		return () => {
+			if (unsub) {
+				unsub();
+			}
+		} 
+	}, [id]);
 
-    const docRef = collection(db, fbCollection, id)
-    const unsub = onSnapshot(docRef, (snapShot) => {
-      setDocument({...snapShot.data(), id: snapShot.id})
-    }, (error) => {
-      console.log(`document fetch error`, error.message)
-      setError(`Failed to get document`, id)
-    })
-
-    return () => unsub()
-    
-  }, [collection, id])
-  
-  return {error, document}
-
-}
+	return { error, document };
+};

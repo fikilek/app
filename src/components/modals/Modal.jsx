@@ -13,12 +13,16 @@ import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
 import PoForm2 from "../forms/poForms/PoForm2";
 import PoiTable2 from "../../pages/sch/PoiTable2";
 import PoAlterState from "../../pages/sch/PoAlterState";
+import UserSignature from "../userSignature/UserSignature";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
 		useContext(ModalContext);
+	// console.log(`modalOpened`, modalOpened);
 
 	const { name, payload } = componentToOpen;
+	// console.log(`name`, name)
+	// console.log(`payload`, payload);
 
 	const handleClick = e => {
 		// console.log(`modal background clicked`, e.target);
@@ -57,7 +61,9 @@ const Modal = () => {
 						<>{name === "trnForm" ? <TrnForm /> : ""}</>
 						{/* <>{name === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
 						<>{name === "poForm" ? <PoForm2 formData={payload} /> : ""}</>
-						<>{name === "poAlterState" ? <PoAlterState formData={payload} /> : ""}</>
+						<>
+							{name === "userSignature" ? <UserSignature formData={payload} /> : ""}
+						</>
 						{/* <>{name === "grvForm" ? <GrvForm2 formData={payload} /> : ""}</> */}
 						{/* <>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
 

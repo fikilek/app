@@ -34,28 +34,54 @@ export const capitalize = string => {
 	return string && `${firstLetter}${restOfString}`;
 };
 
-export const getSystemId = () => nanoid()
+export const getSystemId = () => nanoid();
 
 export const getGrvStatus = (inv, pop, cr, wr) => {
-
 	// if (poInvStatus === false || poPopStatus === false) return "No Grv"
 	// if (poInvStatus === true || poPopStatus === true) return "Created"
-	if (inv === false && pop === false && cr === false && wr === false ) return "No Grv";
-	if (inv === true && pop === false && cr === false && wr === false ) return "No Grv";
-	if (inv === false && pop === true && cr === false && wr === false ) return "No Grv";
-	if (inv === true && pop === true && cr === false && wr === false ) return "Created";
-	if (inv === false && pop === false && cr === true && wr === false ) return "No Grv";
-	if (inv === true && pop === false && cr === true && wr === false ) return "Created";
-	if (inv === false && pop === true && cr === true && wr === false ) return "No Grv";
-	if (inv === true && pop === true && cr === true && wr === false ) return "Received";
-	if (inv === false && pop === false && cr === false && wr === true ) return "No Grv";
-	if (inv === true && pop === false && cr === false && wr === true ) return "No Grv";
-	if (inv === false && pop === true && cr === false && wr === true ) return "No Grv";
-	if (inv === true && pop === true && cr === false && wr === true ) return "No Grv";
-	if (inv === false && pop === false && cr === true && wr === true ) return "No Grv";
-	if (inv === true && pop === false && cr === true && wr === true ) return "No Grv";
-	if (inv === false && pop === true && cr === true && wr === true ) return "No Grv";
-	if (inv === true && pop === true && cr === true && wr === true ) return "Witnessed";
+	if (inv === false && pop === false && cr === false && wr === false)
+		return "No Grv";
+	if (inv === true && pop === false && cr === false && wr === false)
+		return "No Grv";
+	if (inv === false && pop === true && cr === false && wr === false)
+		return "No Grv";
+	if (inv === true && pop === true && cr === false && wr === false)
+		return "Created";
+	if (inv === false && pop === false && cr === true && wr === false)
+		return "No Grv";
+	if (inv === true && pop === false && cr === true && wr === false)
+		return "Created";
+	if (inv === false && pop === true && cr === true && wr === false)
+		return "No Grv";
+	if (inv === true && pop === true && cr === true && wr === false)
+		return "Received";
+	if (inv === false && pop === false && cr === false && wr === true)
+		return "No Grv";
+	if (inv === true && pop === false && cr === false && wr === true)
+		return "No Grv";
+	if (inv === false && pop === true && cr === false && wr === true)
+		return "No Grv";
+	if (inv === true && pop === true && cr === false && wr === true)
+		return "No Grv";
+	if (inv === false && pop === false && cr === true && wr === true)
+		return "No Grv";
+	if (inv === true && pop === false && cr === true && wr === true)
+		return "No Grv";
+	if (inv === false && pop === true && cr === true && wr === true)
+		return "No Grv";
+	if (inv === true && pop === true && cr === true && wr === true)
+		return "Witnessed";
+};
 
-
+export const getUidFromPo = ({ po, signatureName }) => {
+	if (signatureName === "receiver") {
+		return po.poData.poGrv.grvReceiver.grvReceiverUid;
+	}
+	if (signatureName === "witness") {
+		return po.poData.poGrv.grvWitness.grvWitnessUid;
+	}
+	if (signatureName === "poApprove") {
+		return po.poApprove.approveUid;
+	}
+	return null;
 };

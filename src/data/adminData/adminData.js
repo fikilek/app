@@ -351,7 +351,10 @@ const newTrnData = {
 };
 
 const newPoFormData = {
-	poStatus: "Created",
+	poApprove: {
+		approveUid: null,
+		approveDate: null,
+	},
 	poNo: 0,
 	metaData: {
 		updatedAtDatetime: timestamp.fromDate(new Date()),
@@ -363,12 +366,12 @@ const newPoFormData = {
 		poInv: [],
 		poPop: [], // Proof of Payment
 		poGrv: {
-			grvGoodsReceiver: {
+			grvReceiver: {
 				// This is the person confirms that the goods have been received
-				grvGoodsReceiverUid: "",
-				grvGoodsReceiverDate: null,
+				grvReceiverUid: "",
+				grvReceiveDate: null,
 			},
-			grvWitnessReceipt: {
+			grvWitness: {
 				// This is the person who has witnessed that the goods have indedd been received
 				grvWitnessUid: "",
 				grvWitnessDate: null,
