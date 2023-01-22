@@ -71,7 +71,7 @@ export const useFirestore = fbCollection => {
 	const deleteDocument = async id => {};
 
 	const updateDocument = async (document) => {
-		console.log(`document`, document)
+		// console.log(`document`, document)
 		const id = document.id;
 		const newObj = cloneDeep(document);
 		// delete newObj.id;

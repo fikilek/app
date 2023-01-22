@@ -1,7 +1,8 @@
 import React from 'react'
 import { ClipLoader } from 'react-spinners';
 
-const SubmitBtn = ({isPending}) => {
+const SubmitBtn = ({ isPending }) => {
+	console.log(`isPending`, isPending)
   return (
 			<div className="submit-btn">
 				{isPending ? (

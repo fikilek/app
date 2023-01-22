@@ -7,6 +7,7 @@ import { useAuthenticateUser } from "../../hooks/useAuthenticateUser";
 import { useFirestore } from "../../hooks/useFirestore";
 import useModal from "../../hooks/useModal";
 import FormError from "../../components/forms/formComponents/formError/FormError";
+import SubmitBtn from "../forms/formComponents/submitBtn/SubmitBtn";
 
 const UserSignatureForm = ({ formData }) => {
 	const { user } = useAuthContext();
@@ -15,7 +16,7 @@ const UserSignatureForm = ({ formData }) => {
 	const [po, setPo] = useState(poData);
 	const { response, updateDocument } = useFirestore("pos");
 	const { closeModal } = useModal();
-	console.log(`UserSignatureForm password:`, password);
+	// console.log(`UserSignatureForm password:`, password);
 
 	const {
 		user: signature,
@@ -38,11 +39,11 @@ const UserSignatureForm = ({ formData }) => {
 			password: password,
 		};
 		if (password) {
-			console.log(`witnessing PO`, confirmedReceiver);
+			// console.log(`witnessing PO`, confirmedReceiver);
 			await authenticateUser(confirmedReceiver);
 			setPassword(prev => (prev = null));
 		} else {
-			console.log(`there is no password`, confirmedReceiver);
+			// console.log(`there is no password`, confirmedReceiver);
 		}
 	};
 
@@ -55,6 +56,11 @@ const UserSignatureForm = ({ formData }) => {
 				setPo(prev => {
 					return {
 						...prev,
+						metaData: {
+							...prev.metaData,
+							updatedAtDatetime: timestamp.fromDate(new Date()),
+							updatedByUser: user.displayName,
+						},
 						poApprove: {
 							...prev.poApprove,
 							approveDate: timestamp.fromDate(new Date()),
@@ -62,7 +68,7 @@ const UserSignatureForm = ({ formData }) => {
 						},
 					};
 				});
-				console.log(`updated po`, po);
+				// console.log(`updated po`, po);
 			}
 
 			if (signatureName === "receiver") {
@@ -70,6 +76,11 @@ const UserSignatureForm = ({ formData }) => {
 				setPo(prev => {
 					return {
 						...prev,
+						metaData: {
+							...prev.metaData,
+							updatedAtDatetime: timestamp.fromDate(new Date()),
+							updatedByUser: user.displayName,
+						},
 						poData: {
 							...prev.poData,
 							poGrv: {
@@ -83,7 +94,7 @@ const UserSignatureForm = ({ formData }) => {
 						},
 					};
 				});
-				console.log(`updated po`, po);
+				// console.log(`updated po`, po);
 			}
 
 			if (signatureName === "witness") {
@@ -91,6 +102,11 @@ const UserSignatureForm = ({ formData }) => {
 				setPo(prev => {
 					return {
 						...prev,
+						metaData: {
+							...prev.metaData,
+							updatedAtDatetime: timestamp.fromDate(new Date()),
+							updatedByUser: user.displayName,
+						},
 						poData: {
 							...prev.poData,
 							poGrv: {
@@ -104,7 +120,7 @@ const UserSignatureForm = ({ formData }) => {
 						},
 					};
 				});
-				console.log(`updated po`, po);
+				// console.log(`updated po`, po);
 			}
 		}
 		if (error) {
@@ -114,11 +130,11 @@ const UserSignatureForm = ({ formData }) => {
 			console.log(`PENDING: Authentication is pending`);
 		}
 
-		return () => {
-			console.log(`password reset [unsubsribe]`, unsubsrcibe);
-			setPassword(null);
-			// unsubrscibe()
-		};
+		// return () => {
+		// 	// console.log(`password reset [unsubsribe]`, unsubsrcibe);
+		// 	setPassword(null);
+		// 	// unsubrscibe()
+		// };
 	}, [success, error, isPending]);
 
 	// update firestore if po changes
@@ -128,7 +144,7 @@ const UserSignatureForm = ({ formData }) => {
 		const id = po.id;
 		if (id && success) {
 			updateDocument(po);
-			setPassword(prev => (prev = null));
+			// setPassword(prev => (prev = null));
 		}
 		// else {
 		// 	console.log(`DID NOT UPDATE FIRESTORE with po: `, po);
@@ -148,7 +164,7 @@ const UserSignatureForm = ({ formData }) => {
 			closeModal();
 		}
 		return () => {
-			console.log(`clear password`);
+			// console.log(`clear password`);
 			// setPassword(null);
 			setPassword(prev => (prev = null));
 		};
@@ -159,8 +175,10 @@ const UserSignatureForm = ({ formData }) => {
 	return (
 		<div className="sf">
 			<div className="sf-info sf-header">
-				<h2>{signatureName === "poApprove" ? "approval" : signatureName} signature</h2>
-				<button onClick={() => closeModal()} >X</button>
+				<h2>
+					{signatureName === "poApprove" ? "approval" : signatureName} signature
+				</h2>
+				<button onClick={() => closeModal()}>X</button>
 			</div>
 			<form className="sf-form" onClick={handleSubmit}>
 				<div className="sf-form-field form-field form-field-email">
@@ -192,7 +210,8 @@ const UserSignatureForm = ({ formData }) => {
 				</div>
 				<FormError error={error} />
 				<div className="sf-form-btns">
-					<button className="submit">Sign</button>
+					{/* <button className="submit">Sign</button> */}
+					<SubmitBtn isPending={response.isPending} />
 				</div>
 			</form>
 		</div>

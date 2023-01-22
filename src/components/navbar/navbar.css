@@ -90,7 +90,7 @@ header nav .nav-list-right li.nav-list-btn-signedin-user div {
 }
 
 .menuAddPoBtn {
-	position: absolute;
+	position: fixed;
 	bottom: 40px;
 	right: 20px;
 	border-radius: 50%;

@@ -9,7 +9,7 @@ export const useAuthenticateUser = () => {
 	const [user, setUser] = useState(null)
 
 	const authenticateUser = async userCredentials => {
-		console.log(`authenticateUser`, userCredentials)
+		// console.log(`authenticateUser`, userCredentials)
 		const { email, password } = userCredentials;
 		try {
 			setIsPending(true);
