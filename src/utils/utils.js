@@ -85,3 +85,27 @@ export const getUidFromPo = ({ po, signatureName }) => {
 	}
 	return null;
 };
+
+export const getPoAction = signatureName => {
+	switch (signatureName) {
+		case "poApprove":
+			return "approved";
+		case "receiver":
+			return "received";
+		case "witness":
+			return "witnessed";
+		default:
+			return null;
+	}
+};
+
+export const getPoStatus = po => {
+	const poApproved = po.poApprove.approveUid
+	const poReceived = po.poData.poGrv.grvReceiver.grvReceiverUid
+	const poWitnessed = po.poData.poGrv.grvWitness.grvWitnessUid
+	if(!poApproved && !poReceived && !poWitnessed) return 'created'
+	if(poApproved && !poReceived && !poWitnessed) return 'approved'
+	if(poApproved && poReceived && !poWitnessed) return 'received'
+	if (poApproved && poReceived && poWitnessed) return 'witnessed'
+	return null
+}

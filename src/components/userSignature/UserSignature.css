@@ -65,10 +65,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 1rem 0;
 }
 
 .signature-container .sf .sf-form-btns button {
-	padding: 0.5rem;
 	border-radius: 0.5rem;
 	cursor: pointer;
 	width: 10rem;

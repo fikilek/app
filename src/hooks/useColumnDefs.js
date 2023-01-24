@@ -84,7 +84,8 @@ export const useColumnDefs = options => {
 			headerName: "Approval",
 			width: 120,
 			cellRenderer: UserSignatureBtn,
-			cellRendererParams: {signatureName: "poApprove"}
+			cellRendererParams: { signatureName: "poApprove" },
+			// tooltipField: "poApprove",
 			// TODO: implement the PO aproval system
 		},
 		{

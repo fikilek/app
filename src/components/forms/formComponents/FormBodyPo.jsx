@@ -7,6 +7,9 @@ import FormSectionPoItems from "./formSectionPoItems/FormSectionPoItems";
 import FormSectionInvPopGrvSupplier from "./formSectionInvPopSupplier/FormSectionInvPopSupplier";
 import FormSectionMetadata from "./formSectionMetadata/FormSectionMetadata";
 import FormSectionGrv from "./formSectionGrv/FormSectionGrv";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SubmitBtn from "./submitBtn/SubmitBtn";
 
 const FormBodyPo = ({ formData }) => {
 	const { setComponentToOpen, setModalOpened } = useContext(ModalContext);
@@ -39,6 +42,16 @@ const FormBodyPo = ({ formData }) => {
 			setPo([]);
 			setModalOpened(false);
 			setComponentToOpen("");
+			toast(`New Purchase Order ${po.id ? "updated" : "created"} succeesfully!`, {
+				position: "bottom-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
 		}
 	}, [response]);
 
@@ -63,7 +76,7 @@ const FormBodyPo = ({ formData }) => {
 					active={active}
 					setActive={setActive}
 				/>
-				{po.id &&  (
+				{po.id && (
 					<FormSectionGrv
 						po={po}
 						setPo={setPo}
@@ -71,7 +84,14 @@ const FormBodyPo = ({ formData }) => {
 						setActive={setActive}
 					/>
 				)}
-				<FormSectionBtns />
+				{/* <FormSectionBtns /> */}
+				<div className="fs-btns">
+					<button type="button" className="form-btn reset">
+						Reset
+					</button>
+					{/* <button className="form-btn submit">Submit</button> */}
+					<SubmitBtn isPending={response.isPending} />
+				</div>
 			</form>
 		</div>
 	);

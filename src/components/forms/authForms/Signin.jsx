@@ -7,6 +7,9 @@ import { MenuContext } from "../../../contexts/MenuContext";
 import { useSignin } from "../../../hooks/useSignin";
 import useModal from "../../../hooks/useModal";
 import SubmitBtn from "../formComponents/submitBtn/SubmitBtn";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import useAuthContext from "../../../hooks/useAuthContext";
 
 const initSigninData = {
 	email: "",
@@ -16,6 +19,8 @@ const initSigninData = {
 const Signin = () => {
 	// user credentials comprise of user email and password
 	const [userCredentials, setUserCredentials] = useState(initSigninData);
+
+	const { user } = useAuthContext();
 
 	// this section sontrols the display of the modal
 	const { openModal, closeModal } = useModal();
@@ -55,6 +60,16 @@ const Signin = () => {
 
 	useEffect(() => {
 		if (success) {
+			toast(`${user.displayName} succesfully signedin!`, {
+				position: "bottom-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
 			closeModal({ modalName: "signin" });
 			// setModalOpened(false);
 			setMenuStatus(false);

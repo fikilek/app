@@ -26,6 +26,9 @@ import FormSectionBtns from "../formComponents/formSectionBtns/FormSectionBtns";
 import { useSignup } from "../../../hooks/useSignup";
 import useAuthContext from "../../../hooks/useAuthContext";
 import SubmitBtn from "../formComponents/submitBtn/SubmitBtn";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export const userObj = {
 	surname: "",
@@ -44,6 +47,8 @@ const Signup = () => {
 		useContext(ModalContext);
 	const navigate = useNavigate();
 	const { signup, error, isPending, success } = useSignup();
+	const { user } = useAuthContext();
+
 
 	useEffect(() => {
 		setUserCredentials(userObj);
@@ -66,6 +71,16 @@ const Signup = () => {
 
 	useEffect(() => {
 		if (success) {
+			toast(`${user.displayName} succesfully signedin!`, {
+				position: "bottom-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
 			setModalOpened(false);
 			navigate("/unp", { replace: true });
 		}

@@ -1,12 +1,14 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "../firebaseConfig/fbConfig";
+import { auth, functions } from "../firebaseConfig/fbConfig";
+import { httpsCallable } from "firebase/functions";
 
-export const useAuthenticateUser = () => {
+export const useAuthenticateUser = ({ poData, signatureName }) => {
+	// console.log(`poData`, poData);
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [user, setUser] = useState(null)
+	const [user, setUser] = useState(null);
 
 	const authenticateUser = async userCredentials => {
 		// console.log(`authenticateUser`, userCredentials)
@@ -19,8 +21,15 @@ export const useAuthenticateUser = () => {
 			if (!result) {
 				throw new Error("User signin failed");
 			}
-			console.log(`result.user`, result.user);
-			setUser(result.user)
+			// console.log(`result.user`, result.user);
+			// call cloud function signPo(uid, po id, signatureName)
+
+			const signPo = httpsCallable(functions, "signPo");
+			signPo({uid: result.user.uid, poId: poData.id, signatureName }).then(result => {
+				console.log(`result`, result);
+			});
+
+			setUser(result.user);
 			setIsPending(false);
 			setError(null);
 			setSuccess(true);
@@ -30,7 +39,6 @@ export const useAuthenticateUser = () => {
 			setSuccess(false);
 			// console.log(`signin err`, err.message)
 		}
-	
 	};
 
 	return { authenticateUser, error, isPending, success, user };
