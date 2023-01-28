@@ -6,6 +6,8 @@ import TableCellPoleData from "../components/tableBtns/TableCellPoleData";
 import PoiBtnViewPoi from "../components/tables/poi/PoiBtnViewPoi";
 import PoViewExistingPoBtn from "../pages/sch/PoViewExistingPoBtn";
 import UserSignatureBtn from '../components/userSignature/UserSignatureBtn'
+import { getPoStatus } from "../utils/utils";
+import PoInvPopBtn from "../pages/sch/PoInvPopBtn";
 
 export const useColumnDefs = options => {
 	const { ml1, ml2, ml3 } = options;
@@ -21,6 +23,16 @@ export const useColumnDefs = options => {
 			headerName: "Po No",
 			width: 120,
 			cellRenderer: PoViewExistingPoBtn,
+		},
+		{
+			// A click displays a modal that shows the Purchase Order
+			field: "poStatus",
+			headerName: "Status",
+			width: 120,
+			cellRenderer: params => {
+				// console.log(`params`, params)
+				return getPoStatus(params.data) || "Error";
+			},
 		},
 		{
 			headerName: "Updated",
@@ -93,31 +105,10 @@ export const useColumnDefs = options => {
 			children: [
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO
-					field: "poData.poInv[0]",
-					headerName: "Invoices",
-					width: 110,
-					cellRenderer: p => {
-						// console.log(`p`, p);
-						return (
-							<button className="btn-table-row btn-trn-count">
-								{p.data.poData.poInv.length}
-							</button>
-						);
-					},
-				},
-				{
-					// A click displays a modal that shows Proof of Payment for the invoices
-					field: "poData.poPop[0]",
-					headerName: "Pop",
-					width: 90,
-					cellRenderer: p => {
-						// console.log(`p`, p);
-						return (
-							<button className="btn-table-row btn-trn-count">
-								{p.data.poData.poPop.length}
-							</button>
-						);
-					},
+					field: "",
+					headerName: "Inv & Pop",
+					width: 120,
+					cellRenderer: PoInvPopBtn,
 				},
 				{
 					field: "poData.poTotalItems",

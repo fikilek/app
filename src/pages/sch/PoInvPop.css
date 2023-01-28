@@ -1,0 +1,46 @@
+.poip-container {
+  width: 70rem;
+  outline: 1px solid;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.poip-container .poip-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  outline: 1px solid;
+}
+
+.poip-container .poip-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "invoices pop"
+  ;
+  gap: 1rem;
+}
+
+.poip-container .poip-body .invoices .header,
+.poip-container .poip-body .pop .header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: lightcyan;
+}
+
+.poip-container .poip-body .invoices {
+  grid-area: invoices;
+  outline: 1px solid;
+  position: relative;
+}
+
+.poip-container .poip-body .pop {
+  grid-area: pop;
+  outline: 1px solid;
+  position: relative;
+}
+

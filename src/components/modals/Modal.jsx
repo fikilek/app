@@ -1,19 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../contexts/ModalContext";
-// import AstForm from "../../pages/asts/astForm/AstForm";
-// import AstMapView from "../../pages/asts/astMapView/AstsMapView";
 import Signin from "../../components/forms/authForms/Signin";
 import Signout from "../../components/forms/authForms/Signout";
 import Signup from "../../components/forms/authForms/Signup";
 import ForgottenPassword from "../../components/forms/authForms/ForgottenPassword";
 import TrnForm from "../../components/forms/trnForms/TrnForm";
-// import ViewOnMap from "../tabs/table/viewOnMap/ViewOnMap";
 import "./modal.css";
 import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
 import PoForm2 from "../forms/poForms/PoForm2";
 import PoiTable2 from "../../pages/sch/PoiTable2";
-import PoAlterState from "../../pages/sch/PoAlterState";
 import UserSignature from "../userSignature/UserSignature";
+import PoInvPop from "../../pages/sch/PoInvPop";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -64,7 +61,7 @@ const Modal = () => {
 						<>
 							{name === "userSignature" ? <UserSignature formData={payload} /> : ""}
 						</>
-						{/* <>{name === "grvForm" ? <GrvForm2 formData={payload} /> : ""}</> */}
+						<>{name === "poInvPop" ? <PoInvPop po={payload.poData} /> : ""}</>
 						{/* <>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
 
 						<>

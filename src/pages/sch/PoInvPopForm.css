@@ -1,0 +1,29 @@
+
+
+.poipf-container {
+  background-color: bisque;
+  position: absolute;
+  top: 100%;
+  outline: 1px solid;
+  width: 100%;
+}
+
+.poipf-container .poipf-hide {
+  display: none;
+}
+
+.poipf-container .poipf-show {
+  display: block;
+}
+
+.poipf-container .poipf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.poipf-container .error {
+  color: red;
+  text-align: center;
+}
+
