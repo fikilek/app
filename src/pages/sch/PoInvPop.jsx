@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import useModal from "../../hooks/useModal";
 import "./PoInvPop.css";
-import PoInvForm from "./PoInvForm";
-import PoPopForm from "./PoPopForm";
+import PoInvPopForm from "./PoInvPopForm";
 import PoInvPopTable from "./PoInvPopTable";
 
 const PoInvPop = ({ po }) => {
 	const { closeModal} = useModal();
-	const [showHideInvForm, setShowHideInvForm] = useState('poipf-hide');
-	const [showHidePopForm, setShowHidePopForm] = useState('poipf-hide');
+	const [showHideInvPopForm, setShowHideInvPopForm] = useState('poipf-hide');
+	const [type, setType] = useState('invoice')
 	// poip: po Inv Pop
 	return (
 		<div className="poip-container">
@@ -23,7 +22,8 @@ const PoInvPop = ({ po }) => {
 					<div className="header">
 						<button
 							onClick={() => {
-								setShowHideInvForm("poipf-show");
+								setShowHideInvPopForm("poipf-show");
+								setType("invoice");
 							}}
 						>
 							{" "}
@@ -33,20 +33,15 @@ const PoInvPop = ({ po }) => {
 						<p>3000</p>
 					</div>
 					<div className="invoices-body">
-						<PoInvPopTable data={po.poData.poInv} />
+						<PoInvPopTable data={po.poData.poInv} type={'invoices'} />
 					</div>
-					<PoInvForm
-						po={po}
-						type="invoice"
-						showHideInvForm={showHideInvForm}
-						setShowHideInvForm={setShowHideInvForm}
-					/>
 				</div>
 				<div className="pop">
 					<div className="header">
 						<button
 							onClick={() => {
-								setShowHidePopForm("poipf-show");
+								setShowHideInvPopForm("poipf-show");
+								setType("pop");
 							}}
 						>
 							{" "}
@@ -56,15 +51,17 @@ const PoInvPop = ({ po }) => {
 						<p>2000</p>
 					</div>
 					<div className="pop-body">
-						<PoInvPopTable data={po.poData.poPop} />
+						<PoInvPopTable data={po.poData.poPop} type={'pop'} />
 					</div>
-					<PoPopForm
-						po={po}
-						type="pop"
-						showHidePopForm={showHidePopForm}
-						setShowHidePopForm={setShowHidePopForm}
-					/>
 				</div>
+
+				<PoInvPopForm
+					po={po}
+					type={type}
+					index={0}
+					showHideInvPopForm={showHideInvPopForm}
+					setShowHideInvPopForm={setShowHideInvPopForm}
+				/>
 			</div>
 		</div>
 	);

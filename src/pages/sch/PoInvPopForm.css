@@ -3,7 +3,6 @@
 .poipf-container {
   background-color: bisque;
   position: absolute;
-  top: 100%;
   outline: 1px solid;
   width: 100%;
 }

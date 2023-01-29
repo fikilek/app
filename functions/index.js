@@ -2,30 +2,14 @@ const functions = require("firebase-functions");
 
 // The Firebase Admin SDK to access Firestore.
 const admin = require("firebase-admin");
-const {
-	getFirestore,
-	Timestamp,
-	FieldValue,
-} = require("firebase-admin/firestore");
-// const { doc } = require("firebase/firestore");
-// const { db, timestamp } = require("../src/firebaseConfig/fbConfig");
-// const { doc, updateDoc } = require("firebase/firestore");
-// const { collection } = require("firebase/firestore");
+const { getFirestore, Timestamp } = require("firebase-admin/firestore");
 admin.initializeApp();
-const db = getFirestore()
-
-// // Create and deploy your first functions
-// // https://firebase.google.com/docs/functions/get-started
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const db = getFirestore();
 
 exports.randomNumber = functions.https.onRequest((request, response) => {
 	const name = "fikile Kentane";
-	console.log(`name - from console.log`, name);
-	functions.logger.log("name - functions.logger", name);
+	// console.log(`name - from console.log`, name);
+	// functions.logger.log("name - functions.logger", name);
 	response.send(name);
 });
 
@@ -52,14 +36,14 @@ exports.createPo = functions.firestore
 // update po after user has signed (poApprove, receiver or witness) the po
 // get po using po id and update the signed field (poApprove or receiver or witness) with user uid and timestamp
 exports.signPo = functions.https.onCall(async (data, context) => {
-	functions.logger.log(`data:`, data);
-	functions.logger.log(`context:`, context);
+	// functions.logger.log(`data:`, data);
+	// functions.logger.log(`context:`, context);
 	const { poId, signatureName, uid } = data;
-	const docRef = db.collection('pos').doc(poId);
+	const docRef = db.collection("pos").doc(poId);
 	// functions.logger.log(`docRef:`, docRef);
-	const datetime = Timestamp.now()
+	const datetime = Timestamp.now();
 	const displayName = context.auth.token.name;
-	let updatedDoc = null
+	let updatedDoc = null;
 	if (signatureName === "poApprove") {
 		updatedDoc = await docRef.update({
 			"poApprove.approveDate": datetime,
@@ -86,6 +70,35 @@ exports.signPo = functions.https.onCall(async (data, context) => {
 			"metaData.updatedByUser": displayName,
 		});
 		// functions.logger.log(`updatedDoc:`, updatedDoc);
+	}
+	return updatedDoc;
+});
+
+// update poInv or poPop
+exports.updatePoInvPop = functions.https.onCall(async (data, context) => {
+	// functions.logger.log(`data:`, data);
+	// functions.logger.log(`context:`, context);
+	const { poId, type, schData } = data;
+	const docRef = db.collection("pos").doc(poId);
+	// functions.logger.log(`docRef:`, docRef);
+	const datetime = Timestamp.now();
+	const displayName = context.auth.token.name;
+	let updatedDoc = null;
+	if (type === "invoice") {
+		updatedDoc = await docRef.update({
+			"poData.poInv": admin.firestore.FieldValue.arrayUnion(schData),
+			"metaData.updatedAtDatetime": datetime,
+			"metaData.updatedByUser": displayName,
+		});
+		functions.logger.log(`updatedDoc:`, updatedDoc);
+	}
+	if (type === "pop") {
+		updatedDoc = await docRef.update({
+			"poData.poPop": admin.firestore.FieldValue.arrayUnion(schData),
+			"metaData.updatedAtDatetime": datetime,
+			"metaData.updatedByUser": displayName,
+		});
+		functions.logger.log(`updatedDoc:`, updatedDoc);
 	}
 	return updatedDoc;
 });

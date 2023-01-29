@@ -22,6 +22,7 @@
     "invoices pop"
   ;
   gap: 1rem;
+  position: relative;
 }
 
 .poip-container .poip-body .invoices .header,
@@ -35,12 +36,10 @@
 .poip-container .poip-body .invoices {
   grid-area: invoices;
   outline: 1px solid;
-  position: relative;
 }
 
 .poip-container .poip-body .pop {
   grid-area: pop;
   outline: 1px solid;
-  position: relative;
 }
 

@@ -10,8 +10,6 @@ const useStorage = () => {
 
   const addFile = (path, file) => {
 
-      
-
 			// Upload file and metadata to the object 'images/mountains.jpg'
 			const storageRef = ref(storage, path);
 			const uploadTask = uploadBytesResumable(storageRef, file);
@@ -23,28 +21,28 @@ const useStorage = () => {
 					// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setUploadProgress(uploadProgress);
-					console.log("Upload is " + uploadProgress + "% done");
+					// console.log("Upload is " + uploadProgress + "% done");
 					switch (snapshot.state) {
 						case "paused":
-              console.log("Upload is paused");
+              // console.log("Upload is paused");
               setUploadProgress('paused');
 							break;
 						case "running":
-							console.log("Upload is running");
+							// console.log("Upload is running");
               setUploadProgress("running");
               break;
             default:
-              console.log(`snapshot.state`, snapshot.state);
+              // console.log(`snapshot.state`, snapshot.state);
 					}
 				},
         error => {
-          console.log(`upoad error`, error)
+          // console.log(`upoad error`, error)
           setUploadError(error.code)
 				},
 				() => {
 					// Upload completed successfully, now we can get the download URL
 					getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
-            console.log("File available at", downloadURL);
+            // console.log("File available at", downloadURL);
             setUploadUrl(downloadURL);
 					});
 				}
