@@ -6,8 +6,7 @@ import Signup from "../../components/forms/authForms/Signup";
 import ForgottenPassword from "../../components/forms/authForms/ForgottenPassword";
 import TrnForm from "../../components/forms/trnForms/TrnForm";
 import "./modal.css";
-import WarningPoStatusModifier from "../forms/poForms/WarningPoStatusModifier";
-import PoForm2 from "../forms/poForms/PoForm2";
+import PoForm from "../forms/poForms/PoForm";
 import PoiTable2 from "../../pages/sch/PoiTable2";
 import UserSignature from "../userSignature/UserSignature";
 import PoInvPop from "../../pages/sch/PoInvPop";
@@ -17,8 +16,8 @@ const Modal = () => {
 		useContext(ModalContext);
 	// console.log(`modalOpened`, modalOpened);
 
-	const { name, payload } = componentToOpen;
-	// console.log(`name`, name)
+	const { modalName, payload } = componentToOpen;
+	// console.log(`modalName`, modalName)
 	// console.log(`payload`, payload);
 
 	const handleClick = e => {
@@ -27,7 +26,7 @@ const Modal = () => {
 			// console.log(`closing modal`)
 			setModalOpened(null);
 			setComponentToOpen({
-				name: false,
+				modalName: false,
 				payload: {},
 			});
 			// console.log(`modal closed`);
@@ -51,34 +50,28 @@ const Modal = () => {
 			>
 				<div className="modal-payload">
 					<div className="modal-body">
-						<>{name === "signin" ? <Signin /> : ""}</>
-						<>{name === "signout" ? <Signout /> : ""}</>
-						<>{name === "signup" ? <Signup /> : ""}</>
-						<>{name === "fpw" ? <ForgottenPassword /> : ""}</>
-						<>{name === "trnForm" ? <TrnForm /> : ""}</>
-						{/* <>{name === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
-						<>{name === "poForm" ? <PoForm2 formData={payload} /> : ""}</>
+						<>{modalName === "signin" ? <Signin /> : ""}</>
+						<>{modalName === "signout" ? <Signout /> : ""}</>
+						<>{modalName === "signup" ? <Signup /> : ""}</>
+						<>{modalName === "fpw" ? <ForgottenPassword /> : ""}</>
+						<>{modalName === "trnForm" ? <TrnForm /> : ""}</>
+						{/* <>{modalName === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
+						<>{modalName === "poForm" ? <PoForm formData={payload} /> : ""}</>
 						<>
-							{name === "userSignature" ? <UserSignature formData={payload} /> : ""}
+							{modalName === "userSignature" ? <UserSignature formData={payload} /> : ""}
 						</>
-						<>{name === "poInvPop" ? <PoInvPop po={payload.poData} /> : ""}</>
-						{/* <>{name === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
+						<>{modalName === "poInvPop" ? <PoInvPop po={payload.poData} /> : ""}</>
+						{/* <>{modalName === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
 
 						<>
-							{name === "poiTable" ? (
+							{modalName === "poiTable" ? (
 								// <Table ml1={"poi"} otherData={{ id: payload }} />
 								<PoiTable2 rowData={payload.rowData} columnDefs={payload.columnDefs} />
 							) : (
 								""
 							)}
 						</>
-						<>
-							{name === "btnPoStatusModifier" ? (
-								<WarningPoStatusModifier payload={payload} />
-							) : (
-								""
-							)}
-						</>
+
 					</div>
 
 					<div className="modal-footer"></div>

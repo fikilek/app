@@ -4,7 +4,7 @@ import { ModalContext } from "../../../contexts/ModalContext";
 import { useFirestore } from "../../../hooks/useFirestore";
 import FormSectionBtns from "./formSectionBtns/FormSectionBtns";
 import FormSectionPoItems from "./formSectionPoItems/FormSectionPoItems";
-import FormSectionInvPopGrvSupplier from "./formSectionInvPopSupplier/FormSectionInvPopSupplier";
+import FormSectionInvPopSupplier from "./formSectionInvPopSupplier/FormSectionInvPopSupplier";
 import FormSectionMetadata from "./formSectionMetadata/FormSectionMetadata";
 import FormSectionGrv from "./formSectionGrv/FormSectionGrv";
 import { toast } from "react-toastify";
@@ -64,7 +64,7 @@ const FormBodyPo = ({ formData }) => {
 					active={active}
 					setActive={setActive}
 				/>
-				<FormSectionInvPopGrvSupplier
+				<FormSectionInvPopSupplier
 					po={po}
 					setPo={setPo}
 					active={active}

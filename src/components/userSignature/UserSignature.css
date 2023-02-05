@@ -73,3 +73,8 @@
 	cursor: pointer;
 	width: 10rem;
 }
+
+.signature-container .ss .ss-footer .user-signature-cancel-btn {
+	display: flex;
+	justify-content: center;
+}

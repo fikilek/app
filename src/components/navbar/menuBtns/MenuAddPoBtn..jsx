@@ -2,18 +2,15 @@ import React, { useContext } from "react";
 import { ModalContext } from "../../../contexts/ModalContext";
 import "../navbar.css";
 import {newPoFormData } from '../../../data/adminData/adminData'
+import useModal from "../../../hooks/useModal";
 
 const MenuAddPoBtn = () => {
-	const { componentToOpen, setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
+
+	const { openModal } = useModal();
 
 	const handleClick = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: "poForm",
-			payload: newPoFormData,
-		});
-		setModalOpened(true);
+		e.preventDefault();
+		openModal({ modalName: "poForm", payload: newPoFormData });
 	};
 
 	return (

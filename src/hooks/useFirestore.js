@@ -68,7 +68,9 @@ export const useFirestore = fbCollection => {
 		}
 	};
 
-	const deleteDocument = async id => {};
+	const deleteDocument = async id => {
+		
+	};
 
 	const updateDocument = async (document) => {
 		// console.log(`document`, document)

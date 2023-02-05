@@ -6,14 +6,14 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
-import PoTooltip from "./PoTooltip";
+// import PoTooltip from "./PoTooltip";
 
 const PoTable = ({ rowData, columnDefs }) => {
-	// console.log(`ml2`, ml2);
-	const [style, setStyle] = useState({
-		height: "100%",
-		width: "100%",
-	});
+	// console.log(`rowData`, rowData);
+	// const [style, setStyle] = useState({
+	// 	height: "100%",
+	// 	width: "100%",
+	// });
 
 	const gridRef = useRef(); // Optional - for accessing Grid's API
 	// import PoTable frields from useTableConfig

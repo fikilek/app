@@ -31,7 +31,7 @@ const FormSectionPoItems = ({ po, setPo, active, setActive }) => {
 					/>
 				</div>
 				<div>
-					<p>Form Section: PoiTable</p>
+					<p>Purchase Order Items</p>
 				</div>
 			</div>
 			<div

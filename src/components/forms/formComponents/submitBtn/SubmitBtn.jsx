@@ -1,4 +1,5 @@
 import React from 'react'
+import { GiTennisBall } from 'react-icons/gi';
 import { ClipLoader } from 'react-spinners';
 
 const SubmitBtn = ({ isPending }) => {
@@ -15,9 +16,10 @@ const SubmitBtn = ({ isPending }) => {
 							data-testid="loader"
 						/>
 					</button>
-				) : (
+			) : (
+					
 					<button className="form-btn submit">
-						Submit
+						Sign
 					</button>
 				)}
 			</div>

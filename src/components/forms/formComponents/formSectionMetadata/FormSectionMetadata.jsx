@@ -20,7 +20,7 @@ const FormSectionMetadata = ({ po, setPo, active, setActive }) => {
 					/>
 				</div>
 				<div>
-					<p>Form Section: Metadata</p>
+					<p>Updated / Created</p>
 				</div>
 			</div>
 			<div

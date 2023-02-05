@@ -19,7 +19,7 @@ const FormSectionGrv = ({ po, setPo, active, setActive }) => {
 					/>
 				</div>
 				<div>
-					<p>Form Section: Grv</p>
+					<p>Goosds Receiving</p>
 				</div>
 			</div>
 			<div

@@ -3,12 +3,7 @@ import { FaFileInvoiceDollar, FaShoppingBasket } from "react-icons/fa";
 import { MdLockClock, MdPerson } from "react-icons/md";
 import { RiMoneyCnyBoxLine } from "react-icons/ri";
 
-const FormSectionInvPopGrv = ({
-	po,
-	setPo,
-	sectionState,
-	setSectionStates,
-}) => {
+const FormSectionInvPop = ({ po, setPo, sectionState, setSectionStates }) => {
 	return (
 		<div className="fs fs-ipg">
 			<p className="fs-title ipg-title ">Inv, Pop and Grv Data</p>
@@ -37,12 +32,10 @@ const FormSectionInvPopGrv = ({
 					id="po-pop"
 					className="btn-po-form-pop"
 				>
-					{po.poData.poPop.length === 0
-						? "No Pop"
-						: po.poData.poPop.length}
+					{po.poData.poPop.length === 0 ? "No Pop" : po.poData.poPop.length}
 				</button>
 			</div>
 		</div>
 	);
 };
-export default FormSectionInvPopGrv;
+export default FormSectionInvPop;

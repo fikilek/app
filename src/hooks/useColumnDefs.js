@@ -3,26 +3,27 @@ import TableBtnOpenTrns from "../components/tableBtns/TableBtnOpenTrns";
 import TableBtnTrnSelect from "../components/tableBtns/TableBtnTrnSelect";
 import TableCellArrayData from "../components/tableBtns/TableCellArrayData";
 import TableCellPoleData from "../components/tableBtns/TableCellPoleData";
-import PoiBtnViewPoi from "../components/tables/poi/PoiBtnViewPoi";
-import PoViewExistingPoBtn from "../pages/sch/PoViewExistingPoBtn";
-import UserSignatureBtn from '../components/userSignature/UserSignatureBtn'
+import PoiBtn from "../components/tables/poi/PoiBtn";
+import PoBtn from "../pages/sch/PoBtn";
+import UserSignatureBtn from "../components/userSignature/UserSignatureBtn";
 import { getPoStatus } from "../utils/utils";
 import PoInvPopBtn from "../pages/sch/PoInvPopBtn";
 
-export const useColumnDefs = options => {
-	const { ml1, ml2, ml3 } = options;
-
+export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 	// Purchase Order (po) table fields
-
 	const poTableFields = [
-		{ field: "id", headerName: "System Id", width: 90, hide: true },
-		// { field: "id", headerName: "System Id", width: 90 },
+		{
+			field: "id",
+			headerName: "System Id",
+			width: 90,
+			hide: true
+		},
 		{
 			// A click displays a modal that shows the Purchase Order
 			field: "poNo",
 			headerName: "Po No",
 			width: 120,
-			cellRenderer: PoViewExistingPoBtn,
+			cellRenderer: PoBtn,
 		},
 		{
 			// A click displays a modal that shows the Purchase Order
@@ -101,7 +102,7 @@ export const useColumnDefs = options => {
 			// TODO: implement the PO aproval system
 		},
 		{
-			headerName: "Supply Chain Data",
+			headerName: "Supply Chain",
 			children: [
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO
@@ -114,7 +115,7 @@ export const useColumnDefs = options => {
 					field: "poData.poTotalItems",
 					headerName: "Total Items",
 					width: 120,
-					cellRenderer: PoiBtnViewPoi,
+					cellRenderer: PoiBtn,
 				},
 			],
 		},
@@ -136,7 +137,7 @@ export const useColumnDefs = options => {
 			// TODO: implement the PO aproval system
 		},
 		{
-			headerName: "Supplier Details",
+			headerName: "Supplier",
 			children: [
 				{
 					field: "poSplData.splName",
@@ -197,9 +198,13 @@ export const useColumnDefs = options => {
 	if (ml1 === "poi") {
 		return { poiTableFields };
 	}
-
+	// Assets (asts) table fields
 	const astTableFields = [
-		{ field: "id", headerName: "Ast Id", width: 90 },
+		{
+			field: "id",
+			headerName: "Ast Id",
+			width: 90
+		},
 		{
 			headerName: "Updated",
 			children: [
@@ -353,24 +358,24 @@ export const useColumnDefs = options => {
 	];
 
 	const astCB = [
-		// 1
 		{ field: "size", headerName: "Size", initialWidth: 120 },
 	];
 
 	const astFeeder = [
-		// 1
 		{ field: "length", headerName: "Size", initialWidth: 120 },
 	];
 
 	const astSeal = [
-		// 1
 		{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
 	];
 
 	const astVtct = [
-		// 1
 		{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
 	];
+
+	const astTrf = [
+			{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
+		];
 
 	const media = [
 		{
@@ -415,7 +420,8 @@ export const useColumnDefs = options => {
 	if (ml2 === "box") return [...astTableFields, ...astBox, ...media];
 	if (ml2 === "cb") return [...astTableFields, ...astCB, ...media];
 	if (ml2 === "feeder") return [...astTableFields, ...astFeeder, ...media];
-	if (ml2 === "seals") return [...astTableFields, ...astSeal, ...media];
+	if (ml2 === "seal") return [...astTableFields, ...astSeal, ...media];
 	if (ml2 === "vtct") return [...astTableFields, ...astVtct, ...media];
+	if (ml2 === "trf") return [...astTableFields, ...astTrf, ...media];
 	return [...astTableFields, ...media];
 };

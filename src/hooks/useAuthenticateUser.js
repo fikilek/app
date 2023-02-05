@@ -25,14 +25,15 @@ export const useAuthenticateUser = ({ poData, signatureName }) => {
 			// call cloud function signPo(uid, po id, signatureName)
 
 			const signPo = httpsCallable(functions, "signPo");
-			signPo({uid: result.user.uid, poId: poData.id, signatureName }).then(result => {
+			await signPo({uid: result.user.uid, poId: poData.id, signatureName }).then(result => {
 				console.log(`result`, result);
+				setUser(result.user);
+				setIsPending(false);
+				setError(null);
+				setSuccess(true);
 			});
 
-			setUser(result.user);
-			setIsPending(false);
-			setError(null);
-			setSuccess(true);
+			
 		} catch (err) {
 			setIsPending(false);
 			setError(err.message);

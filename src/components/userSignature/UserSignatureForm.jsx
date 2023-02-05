@@ -70,9 +70,11 @@ const UserSignatureForm = ({ formData }) => {
 		}
 		if (error) {
 			console.log(`ERROR: Authentication failed`, error);
+			// TODO: take care of auth error
 		}
 		if (isPending) {
 			console.log(`PENDING: Authentication is pending`);
+			// TODO: tale care of isPending
 		}
 	}, [success, error, isPending]);
 

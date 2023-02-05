@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import useModal from "../../hooks/useModal";
 
 const PoInvPopBtn = params => {
+	// console.log(`params`, params);
+	const { openModal } = useModal();
 
-	const { openModal } = useModal()
-	
 	const handleClick = e => {
-		e.preventDefault()
+		e.preventDefault();
 		// modalOpened a modal window
 		openModal({
 			modalName: "poInvPop",
@@ -14,7 +14,7 @@ const PoInvPopBtn = params => {
 				poData: params.data,
 			},
 		});
-	}
+	};
 
 	return (
 		<button onClick={handleClick} className="btn-table-row btn-trn-count">

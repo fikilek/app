@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import useFilterData from "../../../hooks/useFilterData";
-import PoViewExistingPoBtn from "../../../pages/sch/PoViewExistingPoBtn";
+import PoBtn from "../../../pages/sch/PoBtn";
 import useOpenModal from "../../modals/useOpenModal";
 import CreatedAtLocation from "../../tableBtns/CreatedAtLocation";
 import TableBtnOpenTrns from "../../tableBtns/TableBtnOpenTrns";
 import TableBtnTrnSelect from "../../tableBtns/TableBtnTrnSelect";
 import TableCellArrayData from "../../tableBtns/TableCellArrayData";
 import TableCellPoleData from "../../tableBtns/TableCellPoleData";
-import PoiBtnViewPoi from "../../tables/poi/PoiBtnViewPoi";
+import PoiBtnViewPoi from "../../tables/poi/PoiBtn";
 
 const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 	// TODO: come back and do all combinations of ml1, ml2 and ml3
@@ -91,7 +91,7 @@ const useTableConfig = ({ ml1, ml2, ml3, otherData }) => {
 					field: "poData.poNo",
 					headerName: "Po No",
 					width: 120,
-					cellRenderer: PoViewExistingPoBtn,
+					cellRenderer: PoBtn,
 				},
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO

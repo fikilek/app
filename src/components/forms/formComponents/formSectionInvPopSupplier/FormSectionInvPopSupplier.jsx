@@ -1,9 +1,9 @@
 import React from "react";
 import FormShowHideSection from "../formShowHideSection/FormShowHideSection";
-import FormSectionInvPopGrv from "../formSectioninvPop/FormSectionInvPop";
+import FormSectionInvPop from "../formSectioninvPop/FormSectionInvPop";
 import FormSectionSupplier from "../formSectionSupplier/FormSectionSupplier";
 
-const FormSectionInvPopGrvSupplier = ({ po, setPo, active, setActive }) => {
+const FormSectionInvPopSupplier = ({ po, setPo, active, setActive }) => {
 	// console.log(`sectionStates`, sectionStates);
 	return (
 		// fs - form section
@@ -20,7 +20,7 @@ const FormSectionInvPopGrvSupplier = ({ po, setPo, active, setActive }) => {
 					/>
 				</div>
 				<div>
-					<p>Form Section: InvPopGrvSupplier</p>
+					<p>Invoice / Payments / Supplier</p>
 				</div>
 			</div>
 			<div
@@ -28,11 +28,11 @@ const FormSectionInvPopGrvSupplier = ({ po, setPo, active, setActive }) => {
 					active === "invpopgrvsupplier" ? "showSection" : "hideSection"
 				}`}
 			>
-				<FormSectionInvPopGrv po={po} setPo={setPo} />
+				<FormSectionInvPop po={po} setPo={setPo} />
 				<FormSectionSupplier po={po} setPo={setPo} />
 			</div>
 		</div>
 	);
 };
 
-export default FormSectionInvPopGrvSupplier;
+export default FormSectionInvPopSupplier;

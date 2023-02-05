@@ -6,9 +6,9 @@ import useStorage from "../../hooks/useStorage";
 import "./PoInvPopForm.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useValidateFileFormField from "../../hooks/useValidateImageFormField";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../../firebaseConfig/fbConfig";
+import useModal from "../../hooks/useModal";
 
 const newInvFormData = {
 	no: "",
@@ -32,7 +32,7 @@ const PoInvPopForm = ({
 	const [formError, setFormError] = useState("");
 	const { addFile, progress, error, url } = useStorage();
 	const [isPending, setIsPending] = useState(null);
-	const { validateFileFormField } = useValidateFileFormField();
+	const {closeModal} = useModal()
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -64,7 +64,7 @@ const PoInvPopForm = ({
 					url,
 				},
 			};
-			console.log(`update po.poInv / poPop`, poInvPopData);
+			// console.log(`update po.poInv / poPop`, poInvPopData);
 
 			const updatePoInvPop = httpsCallable(functions, "updatePoInvPop");
 			updatePoInvPop(poInvPopData);
@@ -84,10 +84,12 @@ const PoInvPopForm = ({
 			setShowHideInvPopForm("poipf-hide");
 			setFormError("");
 			setData(newInvFormData);
+			closeModal()
 		}
 	}, [progress, error, url]);
 
 	const handleImageFile = e => {
+		setFormError("");
 		setData({
 			...data,
 			[e.target.name]: null,
@@ -95,18 +97,29 @@ const PoInvPopForm = ({
 
 		let selectedFile = e.target.files[0];
 
-		const { validationError, ErrorMsg } = validateFileFormField(selectedFile);
+		// const { validationError, errorMsg } = validateFileFormField(selectedFile);
 
-		if (validationError) {
-			// Error in the file form field
-			setFormError(ErrorMsg);
-		} else {
-			// No Error in the file form field
-			setData({
-				...data,
-				[e.target.name]: selectedFile,
-			});
+		if (!selectedFile) {
+			setFormError("please select a file");
+			console.log("please select a file");
+			return;
 		}
+		if (!selectedFile.type.includes("image")) {
+			setFormError("selected file must be an image");
+			console.log("selected file must be an image");
+			return;
+		}
+		if (Number(selectedFile.size) > 100000) {
+			setFormError("selected file must less than 100kb");
+			console.log("selected file must less than 100kb");
+			return;
+		}
+
+		// No Error in the file form field
+		setData({
+			...data,
+			[e.target.name]: selectedFile,
+		});
 	};
 
 	return (
