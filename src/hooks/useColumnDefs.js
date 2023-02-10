@@ -8,6 +8,7 @@ import PoBtn from "../pages/sch/PoBtn";
 import UserSignatureBtn from "../components/userSignature/UserSignatureBtn";
 import { getPoStatus } from "../utils/utils";
 import PoInvPopBtn from "../pages/sch/PoInvPopBtn";
+import { memo } from "react";
 
 export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 	// Purchase Order (po) table fields
@@ -23,7 +24,7 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 			field: "poNo",
 			headerName: "Po No",
 			width: 120,
-			cellRenderer: PoBtn,
+			cellRenderer: memo(PoBtn),
 		},
 		{
 			// A click displays a modal that shows the Purchase Order
@@ -96,7 +97,7 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 			field: "poApprove",
 			headerName: "Approval",
 			width: 120,
-			cellRenderer: UserSignatureBtn,
+			cellRenderer: memo(UserSignatureBtn),
 			cellRendererParams: { signatureName: "poApprove" },
 			// tooltipField: "poApprove",
 			// TODO: implement the PO aproval system
@@ -109,13 +110,13 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 					field: "",
 					headerName: "Inv & Pop",
 					width: 120,
-					cellRenderer: PoInvPopBtn,
+					cellRenderer: memo(PoInvPopBtn),
 				},
 				{
 					field: "poData.poTotalItems",
 					headerName: "Total Items",
 					width: 120,
-					cellRenderer: PoiBtn,
+					cellRenderer: memo(PoiBtn),
 				},
 			],
 		},

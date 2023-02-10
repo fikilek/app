@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSignature } from "../../hooks/useSignature";
 
 const UserSignatureCancelBtn = ({ po, signatureName, closeModal }) => {
-	console.log(`po`, po);
-	console.log(`signatureName`, signatureName);
+	// console.log(`po`, po);
+	// console.log(`signatureName`, signatureName);
   const { response, cancelSignature } = useSignature(
     'pos',
 		po,

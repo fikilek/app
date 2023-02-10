@@ -1,5 +1,6 @@
 .poip-container {
-  width: 70rem;
+  width: 80rem;
+  height: auto;
   outline: 1px solid;
   padding: 0.5rem;
   font-size: 1.5rem;
@@ -17,9 +18,10 @@
 
 .poip-container .poip-body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 45fr 55fr;
   grid-template-areas:
-    "invoices pop"
+    "inv-pop-image invoices"
+    "inv-pop-image pop"
   ;
   gap: 1rem;
   position: relative;
@@ -43,3 +45,21 @@
   outline: 1px solid;
 }
 
+.poip-container .show {
+  visibility: visible;
+}
+
+.poip-container .hide {
+  visibility:hidden;
+}
+
+.poip-container .inv-pop-image {
+  grid-area: inv-pop-image;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.poip-container .inv-pop-image img {
+  width: 300px;
+}

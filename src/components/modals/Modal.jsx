@@ -26,12 +26,9 @@ const Modal = () => {
 			// console.log(`closing modal`)
 			setModalOpened(null);
 			setComponentToOpen({
-				modalName: false,
+				modalName: '',
 				payload: {},
 			});
-			// console.log(`modal closed`);
-		} else {
-			// console.log(`modal NOT closed`);
 		}
 	};
 
@@ -60,7 +57,7 @@ const Modal = () => {
 						<>
 							{modalName === "userSignature" ? <UserSignature formData={payload} /> : ""}
 						</>
-						<>{modalName === "poInvPop" ? <PoInvPop po={payload.poData} /> : ""}</>
+						<>{modalName === "poInvPop" ? <PoInvPop po={payload.po} /> : ""}</>
 						{/* <>{modalName === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
 
 						<>

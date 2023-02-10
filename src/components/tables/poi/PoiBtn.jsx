@@ -4,6 +4,7 @@ import useModal from "../../../hooks/useModal";
 import { getTotalQauntites } from "./poiUtils";
 
 const PoiBtn = params => {
+	// console.log(`params`, params);
 	const { poiTableFields: columnDefs } = useColumnDefs({ ml1: "poi" })
 	const {openModal} = useModal()
 	const poPi = params.data.poPi;

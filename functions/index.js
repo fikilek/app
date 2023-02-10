@@ -78,13 +78,14 @@ exports.signPo = functions.https.onCall(async (data, context) => {
 exports.updatePoInvPop = functions.https.onCall(async (data, context) => {
 	// functions.logger.log(`data:`, data);
 	// functions.logger.log(`context:`, context);
-	const { poId, type, schData } = data;
+	const { poId, type, schData, transactionType } = data;
 	const docRef = db.collection("pos").doc(poId);
+	
 	// functions.logger.log(`docRef:`, docRef);
 	const datetime = Timestamp.now();
 	const displayName = context.auth.token.name;
 	let updatedDoc = null;
-	if (type === "invoice") {
+	if (type === "invoice" && transactionType === 'add') {
 		updatedDoc = await docRef.update({
 			"poData.poInv": admin.firestore.FieldValue.arrayUnion(schData),
 			"metaData.updatedAtDatetime": datetime,
@@ -92,9 +93,25 @@ exports.updatePoInvPop = functions.https.onCall(async (data, context) => {
 		});
 		functions.logger.log(`updatedDoc:`, updatedDoc);
 	}
-	if (type === "pop") {
+	if (type === "invoice" && transactionType === "remove") {
+		updatedDoc = await docRef.update({
+			"poData.poInv": admin.firestore.FieldValue.arrayRemove(schData),
+			"metaData.updatedAtDatetime": datetime,
+			"metaData.updatedByUser": displayName,
+		});
+		functions.logger.log(`updatedDoc:`, updatedDoc);
+	}
+	if (type === "pop" && transactionType === "add") {
 		updatedDoc = await docRef.update({
 			"poData.poPop": admin.firestore.FieldValue.arrayUnion(schData),
+			"metaData.updatedAtDatetime": datetime,
+			"metaData.updatedByUser": displayName,
+		});
+		functions.logger.log(`updatedDoc:`, updatedDoc);
+	}
+	if (type === "pop" && transactionType === "remove") {
+		updatedDoc = await docRef.update({
+			"poData.poPop": admin.firestore.FieldValue.arrayRemove(schData),
 			"metaData.updatedAtDatetime": datetime,
 			"metaData.updatedByUser": displayName,
 		});

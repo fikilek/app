@@ -5,7 +5,7 @@ import React, { createContext, useState } from "react";
 export const ModalContext = createContext();
 
 const intiValue = {
-	name: "",
+	modalName: "",
 	payload: {},
 };
 

@@ -1,10 +1,9 @@
-
-
 .poipf-container {
   background-color: bisque;
   position: absolute;
   outline: 1px solid;
-  width: 100%;
+  width: 45%;
+  z-index: 100;
 }
 
 .poipf-container .poipf-hide {
@@ -26,3 +25,12 @@
   text-align: center;
 }
 
+.poipf-container .img-preview-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid;
+  margin: 1rem auto;
+}

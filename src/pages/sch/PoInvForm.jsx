@@ -50,8 +50,8 @@ const PoInvPopForm = ({
 			setImageError("selected file must be an image");
 			return;
 		}
-		if (selectedFile.size > 100000) {
-			setImageError("selected file must less than 100kb");
+		if (selectedFile.size > 200000) {
+			setImageError("selected file must less than 200kb");
 			return;
 		}
 		setImageError(null);

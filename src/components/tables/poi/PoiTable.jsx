@@ -55,7 +55,7 @@ const PoiTable = ({ po, setPo }) => {
 		{
 			field: "Del",
 			flex: 1.5,
-			cellRenderer: p => PoiBtnDeleteItem(p),
+			cellRenderer: PoiBtnDeleteItem,
 			cellRendererParams: { po, setPo },
 			sortable: false,
 			filter: false,
@@ -73,9 +73,6 @@ const PoiTable = ({ po, setPo }) => {
 	const poPiCopy = JSON.parse(JSON.stringify(po.poPi));
 	// console.log(`poPiCopy`, poPiCopy);
 	// console.log(`po`, po)
-
-
-
 
 	const gridRef = useRef();
 	const [rowData, setRowData] = useState(poPiCopy);

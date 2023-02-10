@@ -9,12 +9,16 @@ const useModal = () => {
 		setComponentToOpen({
 			...componentToOpen,
 			modalName, // name of the modal to open. see <Modal />
-			payload: payload, // data to be passed as props to the component to be opened
+			payload, // data to be passed as props to the component to be opened
 		});
 		setModalOpened(true);
 	};
 
 	const closeModal = () => {
+		setComponentToOpen({
+			modalName: '', // name of the modal to open. see <Modal />
+			payload: '', // data to be passed as props to the component to be opened
+		});
 		setModalOpened(false);
 	};
 

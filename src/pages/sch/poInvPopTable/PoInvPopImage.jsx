@@ -1,14 +1,27 @@
-import React from 'react'
-import './PoInvPopImage.css'
+import React from "react";
+import "./PoInvPopImage.css";
 
-const PoInvPopImage = (params) => {
-  // console.log(`value`, params)
-  return (
-    // pipi: po inv pop image
-    <div className='pipi'>
-      <img src={params.value} alt="invoice or Payment info" />
-    </div>
-  )
-}
+const PoInvPopImage = params => {
+	// console.log(`params`, params);
+	const { setShowImage, setUrl, setAlt, value: url, type } = params;
 
-export default PoInvPopImage
+	const handleClick = e => {
+		e.preventDefault();
+		setShowImage(true);
+		setUrl(url);
+		setAlt("invoice or payment");
+	};
+
+	return (
+		// pipi: po inv pop image
+		<div className="pipi">
+			<img
+				onClick={handleClick}
+				src={params.value}
+				alt={`${type} info`}
+			/>
+		</div>
+	);
+};
+
+export default PoInvPopImage;

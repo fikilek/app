@@ -29,10 +29,12 @@ const PoInvPopForm = ({
 	// console.log(`showHideInvPopForm`, showHideInvPopForm);
 	const formData = false ? po.poData.poPop[index] : newInvFormData;
 	const [data, setData] = useState(formData);
+	const [fileDataURL, setFileDataURL] = useState(null);
 	const [formError, setFormError] = useState("");
 	const { addFile, progress, error, url } = useStorage();
 	const [isPending, setIsPending] = useState(null);
-	const {closeModal} = useModal()
+	const { closeModal, openModal } = useModal();
+	const [invPopImagePath, setInvPopImagePath] = useState('')
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -41,10 +43,11 @@ const PoInvPopForm = ({
 		if (!data.no || !data.amount || !data.image) {
 			setFormError("all fields must be completed");
 		} else {
-			const popImagePath = `pos/${po.id}/${type}/${data.image.name}`;
+			const invPopImagePath = `pos/${po.id}/${type}/${data.image.name}`;
+			setInvPopImagePath(invPopImagePath);
 			// write image into firebase storage
 			setIsPending(true);
-			addFile(popImagePath, data.image);
+			addFile(invPopImagePath, data.image);
 		}
 	};
 
@@ -57,11 +60,13 @@ const PoInvPopForm = ({
 			const poInvPopData = {
 				poId: po.id,
 				type,
+				transactionType: 'add',
 				schData: {
 					id: nanoid(),
 					no: data.no,
 					amount: data.amount,
 					url,
+					invPopImagePath,
 				},
 			};
 			// console.log(`update po.poInv / poPop`, poInvPopData);
@@ -84,7 +89,8 @@ const PoInvPopForm = ({
 			setShowHideInvPopForm("poipf-hide");
 			setFormError("");
 			setData(newInvFormData);
-			closeModal()
+			setInvPopImagePath('');
+			closeModal();
 		}
 	}, [progress, error, url]);
 
@@ -109,9 +115,9 @@ const PoInvPopForm = ({
 			console.log("selected file must be an image");
 			return;
 		}
-		if (Number(selectedFile.size) > 100000) {
-			setFormError("selected file must less than 100kb");
-			console.log("selected file must less than 100kb");
+		if (Number(selectedFile.size) > 200000) {
+			setFormError("selected file must less than 200kb");
+			console.log("selected file must less than 200kb");
 			return;
 		}
 
@@ -122,6 +128,35 @@ const PoInvPopForm = ({
 		});
 	};
 
+	useEffect(() => {
+		let fileReader,
+			isCancel = false;
+		if (data.image) {
+			fileReader = new FileReader();
+			fileReader.onload = e => {
+				const { result } = e.target;
+				if (result && !isCancel) {
+					setFileDataURL(result);
+				}
+			};
+			fileReader.readAsDataURL(data.image);
+		}
+		return () => {
+			isCancel = true;
+			if (fileReader && fileReader.readyState === 1) {
+				fileReader.abort();
+			}
+		};
+	}, [data.image]);
+
+	const handleCloseForm = e => {
+		setShowHideInvPopForm("poipf-hide");
+		setData(newInvFormData);
+		setFileDataURL(null);
+		setFormError(null);
+		setIsPending(null);
+	};
+
 	return (
 		// poipf
 		<div className={`poipf-container`}>
@@ -129,7 +164,7 @@ const PoInvPopForm = ({
 				<div className="poipf-header">
 					<p>Po-2</p>
 					<p>{type} Form</p>
-					<button onClick={() => setShowHideInvPopForm("poipf-hide")}>x</button>
+					<button onClick={handleCloseForm}>x</button>
 				</div>
 				<div className="poipf-body">
 					<form onSubmit={handleSubmit} className="poip-form">
@@ -185,6 +220,11 @@ const PoInvPopForm = ({
 						{formError && <div className="error">{formError}</div>}
 						<SubmitBtn isPending={isPending} />
 					</form>
+					{fileDataURL ? (
+						<div className="img-preview-wrapper">
+							{<img src={fileDataURL} alt="preview" />}
+						</div>
+					) : null}
 				</div>
 			</div>
 		</div>
