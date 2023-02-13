@@ -8,8 +8,18 @@ import "react-tippy/dist/tippy.css";
 // import { Tooltip } from "react-tippy";
 import PoInvPopDeleteBtn from "./PoInvPopDeleteBtn";
 import PoInvPopImage from "./PoInvPopImage";
+import PoInvPopEditBtn from "./PoInvPopEditBtn";
 
-const PoInvPopTable = ({ poData, setShowImage, setUrl, setAlt, type }) => {
+const PoInvPopTable = ({
+	poData,
+	setShowImage,
+	setUrl,
+	setAlt,
+	type,
+	setType,
+	setShowHideInvPopForm,
+	setInvPopDataToEdit,
+}) => {
 	const [po, setPo] = useState(poData);
 	// console.log(`po`, po);
 
@@ -38,15 +48,28 @@ const PoInvPopTable = ({ poData, setShowImage, setUrl, setAlt, type }) => {
 			headerName: `image`,
 			flex: 2,
 			cellRenderer: PoInvPopImage,
-			cellRendererParams: { setShowImage, setUrl, setAlt, type },
+			cellRendererParams: {
+				setShowImage,
+				setUrl,
+				setAlt,
+				type,
+				setShowHideInvPopForm,
+			},
 			headerTooltip: `${type} image`,
 		},
 		{
 			field: "Edit",
 			headerName: ``,
 			flex: 1,
-			// cellRenderer: PoInvPopEditBtn,
-			cellRendererParams: { po, setPo },
+			cellRenderer: PoInvPopEditBtn,
+			cellRendererParams: {
+				po,
+				setPo,
+				type,
+				setShowHideInvPopForm,
+				setInvPopDataToEdit,
+				setType,
+			},
 			sortable: false,
 			filter: false,
 			resizable: false,
@@ -56,7 +79,7 @@ const PoInvPopTable = ({ poData, setShowImage, setUrl, setAlt, type }) => {
 		{
 			field: "Del",
 			headerName: ``,
-			flex: 1,
+			flex: 1.5,
 			cellRenderer: PoInvPopDeleteBtn,
 			cellRendererParams: { po, setPo, type },
 			sortable: false,
@@ -71,9 +94,9 @@ const PoInvPopTable = ({ poData, setShowImage, setUrl, setAlt, type }) => {
 	if (type === "invoice") {
 		poInvPopData = JSON.parse(JSON.stringify(po.poData.poInv));
 	}
-	if (type === "pop") {
+	if (type === "payment") {
 		poInvPopData = JSON.parse(JSON.stringify(po.poData.poPop));
-	} 
+	}
 	// console.log(`poInvPopData`, poInvPopData);
 	// console.log(`po`, po)
 

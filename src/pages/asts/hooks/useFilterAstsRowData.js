@@ -11,7 +11,7 @@ const findPath = (ob, key) => {
 		} else if (obj.hasOwnProperty(key)) {
 			return true;
 		} else if (Array.isArray(obj)) {
-			let parentKey = path.length ? path.pop() : "";
+			let parentKey = path.length ? path.payment() : "";
 
 			for (let i = 0; i < obj.length; i++) {
 				path.push(`${parentKey}[${i}]`);
@@ -19,7 +19,7 @@ const findPath = (ob, key) => {
 				if (result) {
 					return result;
 				}
-				path.pop();
+				path.payment();
 			}
 		} else {
 			for (const k in obj) {
@@ -28,7 +28,7 @@ const findPath = (ob, key) => {
 				if (result) {
 					return result;
 				}
-				path.pop();
+				path.payment();
 			}
 		}
 		return false;

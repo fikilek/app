@@ -26,7 +26,7 @@ export const useAuthenticateUser = ({ poData, signatureName }) => {
 
 			const signPo = httpsCallable(functions, "signPo");
 			await signPo({uid: result.user.uid, poId: poData.id, signatureName }).then(result => {
-				console.log(`result`, result);
+				// console.log(`result`, result);
 				setUser(result.user);
 				setIsPending(false);
 				setError(null);

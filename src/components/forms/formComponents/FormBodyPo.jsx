@@ -26,7 +26,7 @@ const FormBodyPo = ({ formData }) => {
 		// console.log(`po`, po);
 		if (po.id) {
 			// there is an id. So the document exists. It therefore must only be updated.
-			console.log(`Updating doc:`, po);
+			// console.log(`Updating doc:`, po);
 			// const id = po.id;
 			// delete po.id;
 			updateDocument(po);

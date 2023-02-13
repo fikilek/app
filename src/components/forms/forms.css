@@ -71,7 +71,7 @@
 	grid-template-columns: 1fr;
 	grid-template-areas:
 		"fs-uc" /* form section updated created*/
-		"fs-ipgs" /* form section inv pop grv*/
+		"fs-ipgs" /* form section inv payment grv*/
 		"fs-poi" /* form section purchase order items*/
 		"fs-grv" /* form section goods received*/
 		"form-btns"; /* form section buttons */
@@ -95,7 +95,7 @@
 	margin: 2px 0px;
 }
 
-/* form section Inv Pop Grv Supplier (ipgs) */
+/* form section Inv Payment Grv Supplier (ipgs) */
 
 .ireps-form .po-container .form-body .fs-ipgs {
 	grid-area: fs-ipgs;
@@ -111,13 +111,13 @@
 }
 
 .ireps-form .po-container .form-body div.fs-ipg div.po-form-inv,
-.ireps-form .po-container .form-body div.fs-ipg div.po-form-pop,
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-payment,
 .ireps-form .po-container .form-body div.fs-ipg div.po-form-grv {
 	grid-template-columns: 10% 50% 40%;
 }
 
 .ireps-form .po-container .form-body div.fs-ipg div.po-form-inv .ipg-data,
-.ireps-form .po-container .form-body div.fs-ipg div.po-form-pop .ipg-data,
+.ireps-form .po-container .form-body div.fs-ipg div.po-form-payment .ipg-data,
 .ireps-form .po-container .form-body div.fs-ipg div.po-form-grv .ipg-data {
 	display: flex;
 	align-items: center;
@@ -392,8 +392,8 @@ START of Po form
 	margin-right: 2px;
 }
 
-.po-form-pop {
-	grid-area: po-form-pop;
+.po-form-payment {
+	grid-area: po-form-payment;
 }
 
 .fs-title-created {

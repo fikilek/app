@@ -5,11 +5,13 @@ import { functions, storage } from "../../../firebaseConfig/fbConfig";
 import "./PoInvPopDeleteBtn.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import useModal from "../../../hooks/useModal";
 
 const PoInvPopDeleteBtn = params => {
 	// console.log(`params`, params);
 	const { po, setPo, type } = params;
-	const [fileDeleted, setFileDeleted] = useState(null);
+	const {closeModal} = useModal()
 
 	const getRowData = useCallback(() => {
 		const rowData = [];
@@ -52,10 +54,9 @@ const PoInvPopDeleteBtn = params => {
 		getRowData();
 		// deleteFile(path);
 		const fileRef = ref(storage, path);
-		setFileDeleted(false);
 		deleteObject(fileRef)
 			.then(() => {
-				console.log(`file in path [${path}] deleted successfully`);
+				// console.log(`file in path [${path}] deleted successfully`);
 				const poInvPopData = {
 					poId: po.id,
 					type,
@@ -64,7 +65,7 @@ const PoInvPopDeleteBtn = params => {
 				};
 				const updatePoInvPop = httpsCallable(functions, "updatePoInvPop");
 				const result = updatePoInvPop(poInvPopData);
-				// console.log(`result`, result);
+				console.log(`result`, result);
 				toast(`${type} for Po-${po.poNo} succesfully updated!`, {
 					position: "bottom-left",
 					autoClose: 5000,
@@ -75,27 +76,23 @@ const PoInvPopDeleteBtn = params => {
 					progress: undefined,
 					theme: "light",
 				});
+				closeModal()
 			})
 			.catch(error => {
 				console.log(`error deleting file`, error.message);
 			});
 	};
 
-	useEffect(() => {
-		// console.log(`fileDeleted`, fileDeleted);
-		// console.log(`po`, po);
-	}, [po.poData.poInv, po.poData.poPop]);
-
-	// console.log(`po`, po);
-
 	return (
-		<button
-			type="button"
-			className="btnPoi btnPoiDeleteItem"
-			onClick={handleDeleteItem}
-		>
-			x
-		</button>
+		<div className="po-inv-payment-delete-btn-wrapper">
+			<button
+				type="button"
+				className="btnPoi btnPoiDeleteItem"
+				onClick={handleDeleteItem}
+			>
+				<MdOutlineDeleteForever />
+			</button>
+		</div>
 	);
 };
 

@@ -1,18 +1,28 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import useModal from "../../hooks/useModal";
 import "./PoInvPop.css";
 import PoInvPopForm from "./PoInvPopForm";
 import PoInvPopTable from "./poInvPopTable/PoInvPopTable";
 
+const initInvPopData = {
+	no: "",
+	amount: "",
+	image: "",
+	url: "",
+	invPopImagePath: "",
+};
+
 const PoInvPop = ({ po }) => {
 	// console.log(`po`, po)
 	const { closeModal } = useModal();
 	const [showHideInvPopForm, setShowHideInvPopForm] = useState("poipf-hide");
-	const [type, setType] = useState("invoice");
+	const [type, setType] = useState(null);
 	const [showImage, setShowImage] = useState(false);
 	const [url, setUrl] = useState("");
 	const [alt, setAlt] = useState("");
-	// poip: po Inv Pop
+	const [invPopDataToEdit, setInvPopDataToEdit] = useState(initInvPopData);
+	// poip: po Inv Payment
 
 	const poInvArray = po.poData.poInv;
 	const totInv = poInvArray.reduce((accumulator, currentValue) => {
@@ -38,6 +48,8 @@ const PoInvPop = ({ po }) => {
 							onClick={() => {
 								setShowHideInvPopForm("poipf-show");
 								setType("invoice");
+								setInvPopDataToEdit(initInvPopData);
+								setShowImage(false)
 							}}
 						>
 							{" "}
@@ -49,20 +61,24 @@ const PoInvPop = ({ po }) => {
 					<div className="invoices-body">
 						<PoInvPopTable
 							poData={po}
-							data={po.poData.poInv}
 							setUrl={setUrl}
 							setAlt={setAlt}
 							setShowImage={setShowImage}
 							type="invoice"
+							setType={setType}
+							setShowHideInvPopForm={setShowHideInvPopForm}
+							setInvPopDataToEdit={setInvPopDataToEdit}
 						/>
 					</div>
 				</div>
-				<div className="pop">
+				<div className="payment">
 					<div className="header">
 						<button
 							onClick={() => {
 								setShowHideInvPopForm("poipf-show");
-								setType("pop");
+								setType("payment");
+								setInvPopDataToEdit(initInvPopData);
+								setShowImage(false);
 							}}
 						>
 							{" "}
@@ -71,14 +87,16 @@ const PoInvPop = ({ po }) => {
 						<p>Payments</p>
 						<p>{totPop}</p>
 					</div>
-					<div className="pop-body">
+					<div className="payment-body">
 						<PoInvPopTable
 							poData={po}
-							data={po.poData.poPop}
 							setUrl={setUrl}
 							setAlt={setAlt}
 							setShowImage={setShowImage}
-							type="pop"
+							type="payment"
+							setType={setType}
+							setShowHideInvPopForm={setShowHideInvPopForm}
+							setInvPopDataToEdit={setInvPopDataToEdit}
 						/>
 					</div>
 				</div>
@@ -86,20 +104,17 @@ const PoInvPop = ({ po }) => {
 				<PoInvPopForm
 					po={po}
 					type={type}
-					index={0}
 					showHideInvPopForm={showHideInvPopForm}
 					setShowHideInvPopForm={setShowHideInvPopForm}
+					invPopDataToEdit={invPopDataToEdit}
 				/>
-				<div className={`inv-pop-image ${showImage ? "show" : "hide"}`}>
-					<div className="inv-pop-image-header">
+				<div className={`inv-payment-image ${showImage ? "show" : "hide"}`}>
+					<div className="inv-payment-image-header">
 						<p>Invoice / Payment image</p>
 						<button onClick={() => setShowImage(false)}>X</button>
 					</div>
-					<img src={url} alt={alt} />{" "}
-					<div className="image-review">
-						
-					</div>
-					<div className="inv-pop-image-footer">
+					<img src={url} alt={alt} /> <div className="image-review"></div>
+					<div className="inv-payment-image-footer">
 						<button>Email</button>
 						<button>SMS</button>
 						<button>WhatsApp</button>

@@ -17,7 +17,7 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 			field: "id",
 			headerName: "System Id",
 			width: 90,
-			hide: true
+			hide: true,
 		},
 		{
 			// A click displays a modal that shows the Purchase Order
@@ -35,6 +35,34 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 				// console.log(`params`, params)
 				return getPoStatus(params.data) || "Error";
 			},
+		},
+		{
+			headerName: "Created",
+			children: [
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "closed",
+					headerName: "Created By",
+					width: 130,
+				},
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "open",
+					headerName: "Created By",
+					width: 130,
+				},
+				{
+					field: "metaData.createdAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Date Created",
+					width: 180,
+					cellRenderer: params => {
+						return (
+							<p>{moment(params.value.toDate()).format("YYYY-MM-DD HH:mm:ss")}</p>
+						);
+					},
+				},
+			],
 		},
 		{
 			headerName: "Updated",
@@ -66,34 +94,6 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 			],
 		},
 		{
-			headerName: "Created",
-			children: [
-				{
-					field: "metaData.createdByUser",
-					columnGroupShow: "closed",
-					headerName: "Created By",
-					width: 130,
-				},
-				{
-					field: "metaData.createdByUser",
-					columnGroupShow: "open",
-					headerName: "Created By",
-					width: 130,
-				},
-				{
-					field: "metaData.createdAtDatetime",
-					columnGroupShow: "open",
-					headerName: "Date Created",
-					width: 180,
-					cellRenderer: params => {
-						return (
-							<p>{moment(params.value.toDate()).format("YYYY-MM-DD HH:mm:ss")}</p>
-						);
-					},
-				},
-			],
-		},
-		{
 			field: "poApprove",
 			headerName: "Approval",
 			width: 120,
@@ -108,7 +108,7 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 				{
 					// A click displays a modal of image(s) of the invoice(s) of the PO
 					field: "",
-					headerName: "Inv & Pop",
+					headerName: "Inv & Payment",
 					width: 120,
 					cellRenderer: memo(PoInvPopBtn),
 				},

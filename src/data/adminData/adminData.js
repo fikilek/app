@@ -3,6 +3,7 @@ import moment from "moment";
 import { nanoid } from "@reduxjs/toolkit";
 import { getPoSystmeId } from "../../components/tables/poi/poiUtils";
 import { timestamp } from "../../firebaseConfig/fbConfig";
+import { Timestamp } from "firebase/firestore";
 
 const astStateNames = [
 	{
@@ -357,9 +358,9 @@ const newPoFormData = {
 	},
 	poNo: 0,
 	metaData: {
-		updatedAtDatetime: timestamp.fromDate(new Date()),
+		updatedAtDatetime: Timestamp.now(),
 		updatedByUser: "",
-		createdAtDatetime: timestamp.fromDate(new Date()),
+		createdAtDatetime: Timestamp.now(),
 		createdByUser: "",
 	},
 	poData: {

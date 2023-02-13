@@ -36,40 +36,40 @@ export const capitalize = string => {
 
 export const getSystemId = () => nanoid();
 
-export const getGrvStatus = (inv, pop, cr, wr) => {
+export const getGrvStatus = (inv, payment, cr, wr) => {
 	// if (poInvStatus === false || poPopStatus === false) return "No Grv"
 	// if (poInvStatus === true || poPopStatus === true) return "Created"
-	if (inv === false && pop === false && cr === false && wr === false)
+	if (inv === false && payment === false && cr === false && wr === false)
 		return "No Grv";
-	if (inv === true && pop === false && cr === false && wr === false)
+	if (inv === true && payment === false && cr === false && wr === false)
 		return "No Grv";
-	if (inv === false && pop === true && cr === false && wr === false)
+	if (inv === false && payment === true && cr === false && wr === false)
 		return "No Grv";
-	if (inv === true && pop === true && cr === false && wr === false)
+	if (inv === true && payment === true && cr === false && wr === false)
 		return "Created";
-	if (inv === false && pop === false && cr === true && wr === false)
+	if (inv === false && payment === false && cr === true && wr === false)
 		return "No Grv";
-	if (inv === true && pop === false && cr === true && wr === false)
+	if (inv === true && payment === false && cr === true && wr === false)
 		return "Created";
-	if (inv === false && pop === true && cr === true && wr === false)
+	if (inv === false && payment === true && cr === true && wr === false)
 		return "No Grv";
-	if (inv === true && pop === true && cr === true && wr === false)
+	if (inv === true && payment === true && cr === true && wr === false)
 		return "Received";
-	if (inv === false && pop === false && cr === false && wr === true)
+	if (inv === false && payment === false && cr === false && wr === true)
 		return "No Grv";
-	if (inv === true && pop === false && cr === false && wr === true)
+	if (inv === true && payment === false && cr === false && wr === true)
 		return "No Grv";
-	if (inv === false && pop === true && cr === false && wr === true)
+	if (inv === false && payment === true && cr === false && wr === true)
 		return "No Grv";
-	if (inv === true && pop === true && cr === false && wr === true)
+	if (inv === true && payment === true && cr === false && wr === true)
 		return "No Grv";
-	if (inv === false && pop === false && cr === true && wr === true)
+	if (inv === false && payment === false && cr === true && wr === true)
 		return "No Grv";
-	if (inv === true && pop === false && cr === true && wr === true)
+	if (inv === true && payment === false && cr === true && wr === true)
 		return "No Grv";
-	if (inv === false && pop === true && cr === true && wr === true)
+	if (inv === false && payment === true && cr === true && wr === true)
 		return "No Grv";
-	if (inv === true && pop === true && cr === true && wr === true)
+	if (inv === true && payment === true && cr === true && wr === true)
 		return "Witnessed";
 };
 

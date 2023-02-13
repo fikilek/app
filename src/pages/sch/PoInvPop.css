@@ -20,15 +20,15 @@
   display: grid;
   grid-template-columns: 45fr 55fr;
   grid-template-areas:
-    "inv-pop-image invoices"
-    "inv-pop-image pop"
+    "inv-payment-image invoices"
+    "inv-payment-image payment"
   ;
   gap: 1rem;
   position: relative;
 }
 
 .poip-container .poip-body .invoices .header,
-.poip-container .poip-body .pop .header {
+.poip-container .poip-body .payment .header {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -40,8 +40,8 @@
   outline: 1px solid;
 }
 
-.poip-container .poip-body .pop {
-  grid-area: pop;
+.poip-container .poip-body .payment {
+  grid-area: payment;
   outline: 1px solid;
 }
 
@@ -53,13 +53,13 @@
   visibility:hidden;
 }
 
-.poip-container .inv-pop-image {
-  grid-area: inv-pop-image;
+.poip-container .inv-payment-image {
+  grid-area: inv-payment-image;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.poip-container .inv-pop-image img {
+.poip-container .inv-payment-image img {
   width: 300px;
 }

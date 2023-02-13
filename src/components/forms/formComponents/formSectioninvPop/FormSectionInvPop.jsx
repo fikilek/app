@@ -6,7 +6,7 @@ import { RiMoneyCnyBoxLine } from "react-icons/ri";
 const FormSectionInvPop = ({ po, setPo, sectionState, setSectionStates }) => {
 	return (
 		<div className="fs fs-ipg">
-			<p className="fs-title ipg-title ">Inv, Pop and Grv Data</p>
+			<p className="fs-title ipg-title ">Inv, Payment and Grv Data</p>
 			<div className="form-field po-form-inv">
 				<span className="form-field-icon">
 					<FaFileInvoiceDollar />
@@ -21,18 +21,18 @@ const FormSectionInvPop = ({ po, setPo, sectionState, setSectionStates }) => {
 					{po.poData.poInv.length === 0 ? "No Invoice" : po.poData.poInv.length}
 				</button>
 			</div>
-			<div className="form-field po-form-pop">
+			<div className="form-field po-form-payment">
 				<span className="form-field-icon">
 					<RiMoneyCnyBoxLine />
 				</span>
-				<span className="ipg-data">Pop</span>
+				<span className="ipg-data">Payment</span>
 				<button
 					type="button"
 					// onClick={handleClickInvPopGrv}
-					id="po-pop"
-					className="btn-po-form-pop"
+					id="po-payment"
+					className="btn-po-form-payment"
 				>
-					{po.poData.poPop.length === 0 ? "No Pop" : po.poData.poPop.length}
+					{po.poData.poPop.length === 0 ? "No Payment" : po.poData.poPop.length}
 				</button>
 			</div>
 		</div>

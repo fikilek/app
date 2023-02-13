@@ -101,7 +101,7 @@ exports.updatePoInvPop = functions.https.onCall(async (data, context) => {
 		});
 		functions.logger.log(`updatedDoc:`, updatedDoc);
 	}
-	if (type === "pop" && transactionType === "add") {
+	if (type === "payment" && transactionType === "add") {
 		updatedDoc = await docRef.update({
 			"poData.poPop": admin.firestore.FieldValue.arrayUnion(schData),
 			"metaData.updatedAtDatetime": datetime,
@@ -109,7 +109,7 @@ exports.updatePoInvPop = functions.https.onCall(async (data, context) => {
 		});
 		functions.logger.log(`updatedDoc:`, updatedDoc);
 	}
-	if (type === "pop" && transactionType === "remove") {
+	if (type === "payment" && transactionType === "remove") {
 		updatedDoc = await docRef.update({
 			"poData.poPop": admin.firestore.FieldValue.arrayRemove(schData),
 			"metaData.updatedAtDatetime": datetime,
