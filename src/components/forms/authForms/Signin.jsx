@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MenuContext } from "../../../contexts/MenuContext";
 import { useSignin } from "../../../hooks/useSignin";
 import useModal from "../../../hooks/useModal";
-import SubmitBtn from "../formComponents/submitBtn/SubmitBtn";
+import FormBtn from "../formComponents/formBtn/FormBtn";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthContext from "../../../hooks/useAuthContext";
@@ -144,7 +144,7 @@ const Signin = () => {
 					>
 						Clear
 					</button>
-					<SubmitBtn isPending={isPending} />
+					<FormBtn isPending={isPending} />
 				</div>
 			</form>
 

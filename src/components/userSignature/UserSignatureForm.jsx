@@ -5,7 +5,7 @@ import useAuthContext from "../../hooks/useAuthContext";
 import { useAuthenticateUser } from "../../hooks/useAuthenticateUser";
 import useModal from "../../hooks/useModal";
 import FormError from "../../components/forms/formComponents/formError/FormError";
-import SubmitBtn from "../forms/formComponents/submitBtn/SubmitBtn";
+import FormBtn from "../forms/formComponents/formBtn/FormBtn";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getPoAction } from "../../utils/utils";
@@ -118,7 +118,7 @@ const UserSignatureForm = ({ formData }) => {
 				</div>
 				<FormError error={error} />
 				<div className="sf-form-btns">
-					<SubmitBtn isPending={isPending} />
+					<FormBtn isPending={isPending} />
 				</div>
 			</form>
 		</div>

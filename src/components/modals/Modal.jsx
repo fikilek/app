@@ -10,6 +10,7 @@ import PoForm from "../forms/poForms/PoForm";
 import PoiTable2 from "../../pages/sch/PoiTable2";
 import UserSignature from "../userSignature/UserSignature";
 import PoInvPop from "../../pages/sch/PoInvPop";
+import SplForm from "../forms/splForms/SplForm";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -55,7 +56,11 @@ const Modal = () => {
 						{/* <>{modalName === "poForm" ? <PoForm formData={payload} /> : ""}</> */}
 						<>{modalName === "poForm" ? <PoForm formData={payload} /> : ""}</>
 						<>
-							{modalName === "userSignature" ? <UserSignature formData={payload} /> : ""}
+							{modalName === "userSignature" ? (
+								<UserSignature formData={payload} />
+							) : (
+								""
+							)}
 						</>
 						<>{modalName === "poInvPop" ? <PoInvPop po={payload.po} /> : ""}</>
 						{/* <>{modalName === "existingPoForm" ? <PoForm formData={payload} /> : ""}</> */}
@@ -69,6 +74,7 @@ const Modal = () => {
 							)}
 						</>
 
+						<>{modalName === "splForm" ? <SplForm formData={payload} /> : ""}</>
 					</div>
 
 					<div className="modal-footer"></div>

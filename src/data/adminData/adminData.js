@@ -370,7 +370,7 @@ const newPoFormData = {
 			grvReceiver: {
 				// This is the person confirms that the goods have been received
 				grvReceiverUid: "",
-				grvReceiveDate: null,
+				grvReceiverDate: null,
 			},
 			grvWitness: {
 				// This is the person who has witnessed that the goods have indedd been received
@@ -477,6 +477,22 @@ const astCartegories = {
 	box: {},
 };
 
+const newSplFormData = {
+	splNo: "",
+	splName: "",
+	splStatus: "",
+	metaData: {
+		updatedAtDatetime: '',
+		updatedByUser: "",
+		createdAtDatetime: '',
+		createdByUser: "",
+	},
+	splContactEmailAdr: "",
+	splContactSurname: "",
+	splContactName: "",
+	splContactNo: "",
+};
+
 export {
 	astStateNames,
 	trnNames,
@@ -489,4 +505,5 @@ export {
 	newPoItem,
 	stores,
 	astCartegories,
+	newSplFormData,
 };

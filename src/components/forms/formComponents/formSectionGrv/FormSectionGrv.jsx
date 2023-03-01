@@ -27,8 +27,8 @@ const FormSectionGrv = ({ po, setPo, active, setActive }) => {
 					active === "grv" ? "showSection" : "hideSection"
 				}`}
 			>
-				<FormSectionPoUser po={po} setPo={setPo} formSectionName="receiver" />
-				<FormSectionPoUser po={po} setPo={setPo} formSectionName="witness" />
+				<FormSectionPoUser po={po} setPo={setPo} signatureName="receiver" />
+				<FormSectionPoUser po={po} setPo={setPo} signatureName="witness" />
 				<FormSectionStores po={po} setPo={setPo} />
 			</div>
 		</div>

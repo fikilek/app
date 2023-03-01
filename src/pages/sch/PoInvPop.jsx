@@ -49,13 +49,13 @@ const PoInvPop = ({ po }) => {
 								setShowHideInvPopForm("poipf-show");
 								setType("invoice");
 								setInvPopDataToEdit(initInvPopData);
-								setShowImage(false)
+								setShowImage(false);
 							}}
 						>
 							{" "}
 							+{" "}
 						</button>
-						<p>Invoices</p>
+						<p>invoices</p>
 						<p>{totInv}</p>
 					</div>
 					<div className="invoices-body">
@@ -84,7 +84,7 @@ const PoInvPop = ({ po }) => {
 							{" "}
 							+{" "}
 						</button>
-						<p>Payments</p>
+						<p>payments</p>
 						<p>{totPop}</p>
 					</div>
 					<div className="payment-body">
@@ -113,7 +113,9 @@ const PoInvPop = ({ po }) => {
 						<p>Invoice / Payment image</p>
 						<button onClick={() => setShowImage(false)}>X</button>
 					</div>
-					<img src={url} alt={alt} /> <div className="image-review"></div>
+					<div className="inv-payment-image-wrapper">
+						<img src={url} alt={alt} /> <div className="image-review"></div>
+					</div>
 					<div className="inv-payment-image-footer">
 						<button>Email</button>
 						<button>SMS</button>

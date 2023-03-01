@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 import useModal from "../../hooks/useModal";
-import SubmitBtn from "../forms/formComponents/submitBtn/SubmitBtn";
+import FormBtn from "../forms/formComponents/formBtn/FormBtn";
 import UserSignatureCancelBtn from "./UserSignatureCancelBtn";
 import "./UserSignatureStatus.css";
 
@@ -49,7 +49,11 @@ const UserSignatureStatus = ({ formData }) => {
 				<strong>Date:</strong> {date}
 			</p>
 			<div className="sf-info ss-footer">
-				<UserSignatureCancelBtn po={po} signatureName={signatureName} closeModal={closeModal} />
+				<UserSignatureCancelBtn
+					po={po}
+					signatureName={signatureName}
+					closeModal={closeModal}
+				/>
 			</div>
 		</div>
 	);

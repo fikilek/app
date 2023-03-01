@@ -8,6 +8,8 @@
 	--header-height: 6rem;
 
 	/* forms */
+	--form-background: rgb(245, 255, 250);
+	--form-label-color: rgba(150, 149, 149, 0.539);
 }
 
 *,

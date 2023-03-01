@@ -199,12 +199,123 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 	if (ml1 === "poi") {
 		return { poiTableFields };
 	}
+
+	const splTableFields = [
+		{
+			field: "id",
+			headerName: "Spl Id",
+			width: 90,
+			hide: true,
+		},
+		{
+			// A click displays a modal that shows the existing Supplier data
+			field: "splNo",
+			headerName: "Spl No",
+			width: 100,
+			// cellRenderer: memo(SplBtn),
+		},
+		{
+			field: "splName",
+			headerName: "Email adr",
+			width: 120,
+		},
+		{
+			field: "splStatus",
+			headerName: "Status",
+			width: 120,
+			cellRenderer: params => {
+				return params.data.value;
+				// console.log(`params`, params)
+				// return getPoStatus(params.data) || "Error";
+			},
+		},
+		{
+			headerName: "Created",
+			children: [
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "closed",
+					headerName: "Created By",
+					width: 130,
+				},
+				{
+					field: "metaData.createdByUser",
+					columnGroupShow: "open",
+					headerName: "Created By",
+					width: 130,
+				},
+				{
+					field: "metaData.createdAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Date Created",
+					width: 180,
+					cellRenderer: params => {
+						return (
+							<p>{moment(params.value.toDate()).format("YYYY-MM-DD HH:mm:ss")}</p>
+						);
+					},
+				},
+			],
+		},
+		{
+			headerName: "Updated",
+			children: [
+				{
+					field: "metaData.updatedByUser",
+					columnGroupShow: "closed",
+					headerName: "Updated By",
+					width: 130,
+				},
+				{
+					field: "metaData.updatedByUser",
+					columnGroupShow: "open",
+					headerName: "Updated By",
+					width: 130,
+				},
+				{
+					field: "metaData.updatedAtDatetime",
+					columnGroupShow: "open",
+					headerName: "Updated At Datetime",
+					width: 190,
+					cellRenderer: params => {
+						return (
+							<p>{moment(params.value.toDate()).format("YYYY-MM-DD HH:mm:ss")}</p>
+						);
+					},
+				},
+			],
+		},
+		{
+			field: "splContactEmailAdr",
+			headerName: "Email adr",
+			width: 170,
+		},
+		{
+			field: "splContactSurname",
+			headerName: "Email adr",
+			width: 120,
+		},
+		{
+			field: "splContactName",
+			headerName: "Email adr",
+			width: 120,
+		},
+		{
+			field: "splContactNo",
+			headerName: "Email adr",
+			width: 120,
+		},
+	];
+
+	if (ml1 === "suppliers") {
+		return { splTableFields };
+	}
 	// Assets (asts) table fields
 	const astTableFields = [
 		{
 			field: "id",
 			headerName: "Ast Id",
-			width: 90
+			width: 90,
 		},
 		{
 			headerName: "Updated",
@@ -358,13 +469,9 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 		},
 	];
 
-	const astCB = [
-		{ field: "size", headerName: "Size", initialWidth: 120 },
-	];
+	const astCB = [{ field: "size", headerName: "Size", initialWidth: 120 }];
 
-	const astFeeder = [
-		{ field: "length", headerName: "Size", initialWidth: 120 },
-	];
+	const astFeeder = [{ field: "length", headerName: "Size", initialWidth: 120 }];
 
 	const astSeal = [
 		{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
@@ -375,8 +482,8 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 	];
 
 	const astTrf = [
-			{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
-		];
+		{ field: "manufacture", headerName: "Manufacture", initialWidth: 120 },
+	];
 
 	const media = [
 		{

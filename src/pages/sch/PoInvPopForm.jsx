@@ -1,7 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { MdPassword } from "react-icons/md";
-import SubmitBtn from "../../components/forms/formComponents/submitBtn/SubmitBtn";
+import FormBtn from "../../components/forms/formComponents/formBtn/FormBtn";
 import useStorage from "../../hooks/useStorage";
 import "./PoInvPopForm.css";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ const PoInvPopForm = ({
 	invPopDataToEdit,
 }) => {
 	// console.log(`po`, po);
-	console.log(`type`, type);
+	// console.log(`type`, type);
 	// console.log(`invPopDataToEdit`, invPopDataToEdit);
 
 	const [data, setData] = useState(invPopDataToEdit);
@@ -36,10 +36,15 @@ const PoInvPopForm = ({
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		console.log(`data`, data);
+		// console.log(`data`, data);
 		// prepare path to store the image if data is valid
-		if (!data.no || !data.amount) {
-			setFormError("Document No and Amount fields required");
+		setFormError("");
+		if (!data.no) {
+			setFormError(`error, ${type} number field required`);
+			return null;
+		}
+		if (!data.amount) {
+			setFormError(`error, ${type} amount field required`);
 			return null;
 		}
 		if (
@@ -131,7 +136,7 @@ const PoInvPopForm = ({
 			addFile(invPopImagePath, data.image);
 			return null;
 		}
-		console.log(`form not submitted`)
+		console.log(`form not submitted`);
 		setFormError("error, image required");
 	};
 
@@ -189,18 +194,18 @@ const PoInvPopForm = ({
 		// const { validationError, errorMsg } = validateFileFormField(selectedFile);
 
 		if (!selectedFile) {
-			setFormError("please select a file");
-			console.log("please select a file");
+			setFormError("error, file required");
+			console.log("error, file required");
 			return;
 		}
 		if (!selectedFile.type.includes("image")) {
-			setFormError("selected file must be an image");
-			console.log("selected file must be an image");
+			setFormError("error, selected file must be an image");
+			console.log("error, selected file must be an image");
 			return;
 		}
 		if (Number(selectedFile.size) > 200000) {
-			setFormError("selected file must less than 200kb");
-			console.log("selected file must less than 200kb");
+			setFormError("error, selected file must less than 200kb");
+			console.log("error, selected file must less than 200kb");
 			return;
 		}
 
@@ -244,69 +249,72 @@ const PoInvPopForm = ({
 		<div className={`poipf-container`}>
 			<div className={`${showHideInvPopForm} `}>
 				<div className="poipf-header">
-					<p>{`Po-${po.poNo}`}</p>
-					<p>{type} Form</p>
+					<p>{type} form</p>
 					<button onClick={handleCloseForm}>x</button>
 				</div>
 				<div className="poipf-body">
 					<form onSubmit={handleSubmit} className="poip-form">
-						<div className="form-field form-field-number">
-							<span className="form-field-icon">
-								<MdPassword />
-							</span>
-							<input
-								autoFocus
-								type="text"
-								name={`no`}
-								id={`no`}
-								placeholder={`${type} number`}
-								value={data.no}
-								onChange={e =>
-									setData({
-										...data,
-										[e.target.id]: e.target.value,
-									})
-								}
-							/>
+						<div className="poip-form-fields">
+							<div className="form-field form-field-number">
+								<span className="form-field-icon">
+									<MdPassword />
+								</span>
+								<input
+									autoFocus
+									type="text"
+									name={`no`}
+									id={`no`}
+									placeholder={`${type} number`}
+									value={data.no}
+									onChange={e =>
+										setData({
+											...data,
+											[e.target.id]: e.target.value,
+										})
+									}
+								/>
+							</div>
+							<div className="form-field form-field-amount">
+								<span className="form-field-icon">
+									<MdPassword />
+								</span>
+								<input
+									type="number"
+									name={`amount`}
+									id={`amount`}
+									placeholder={`${type} amount`}
+									value={data.amount}
+									onChange={e =>
+										setData({
+											...data,
+											[e.target.id]: e.target.value,
+										})
+									}
+								/>
+							</div>{" "}
+							<div className="form-field form-field-image">
+								<span className="form-field-icon">
+									<MdPassword />
+								</span>
+								<input
+									type="file"
+									name={`image`}
+									id={`image`}
+									placeholder={`${type} image`}
+									onChange={handleImageFile}
+								/>
+							</div>
 						</div>
-						<div className="form-field form-field-amount">
-							<span className="form-field-icon">
-								<MdPassword />
-							</span>
-							<input
-								type="number"
-								name={`amount`}
-								id={`amount`}
-								placeholder={`${type} amount`}
-								value={data.amount}
-								onChange={e =>
-									setData({
-										...data,
-										[e.target.id]: e.target.value,
-									})
-								}
-							/>
-						</div>{" "}
-						<div className="form-field form-field-image">
-							<span className="form-field-icon">
-								<MdPassword />
-							</span>
-							<input
-								type="file"
-								name={`image`}
-								id={`image`}
-								placeholder={`${type} image`}
-								onChange={handleImageFile}
-							/>
+						<div className="poip-form-image-preview-and-btn">
+							{fileDataURL ? (
+								<div className="img-preview-wrapper">
+									{<img src={fileDataURL} alt="preview" />}
+								</div>
+							) : null}
+							{formError && <div className="error">{formError}</div>}
+							<FormBtn isPending={isPending} />
 						</div>
-						{formError && <div className="error">{formError}</div>}
-						<SubmitBtn isPending={isPending} />
 					</form>
-					{fileDataURL ? (
-						<div className="img-preview-wrapper">
-							{<img src={fileDataURL} alt="preview" />}
-						</div>
-					) : null}
 				</div>
 			</div>
 		</div>

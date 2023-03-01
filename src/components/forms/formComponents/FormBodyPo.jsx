@@ -9,7 +9,7 @@ import FormSectionMetadata from "./formSectionMetadata/FormSectionMetadata";
 import FormSectionGrv from "./formSectionGrv/FormSectionGrv";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SubmitBtn from "./submitBtn/SubmitBtn";
+import FormBtn from "./formBtn/FormBtn";
 
 const FormBodyPo = ({ formData }) => {
 	const { setComponentToOpen, setModalOpened } = useContext(ModalContext);
@@ -90,7 +90,7 @@ const FormBodyPo = ({ formData }) => {
 						Reset
 					</button>
 					{/* <button className="form-btn submit">Submit</button> */}
-					<SubmitBtn isPending={response.isPending} />
+					<FormBtn isPending={response.isPending} />
 				</div>
 			</form>
 		</div>

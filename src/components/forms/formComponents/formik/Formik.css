@@ -1,0 +1,127 @@
+.form-container {
+  width: 60rem;
+  background-color: var(--form-background);
+  border: 0.1rem solid;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.form-container form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "splName splAddress"
+    "splContactEmailAdr splContactNo"
+    "splContactSurname splContactName"
+    "updated created"
+    "form-btns form-btns";
+  column-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-container form .form-control {
+  height: 6rem;
+  position: relative;
+}
+
+.form-container form .form-control label {
+  position: absolute;
+  left: 1rem;
+  top: 0.8rem;
+  cursor: text;
+  transition: 250ms;
+  background-color: white;
+  padding: 0.1rem;
+  font-size: 1.5rem;
+  color: var(--form-label-color);
+}
+
+.form-container form .splName {
+  grid-area: splName;
+}
+
+.form-container form .splAddress {
+  grid-area: splAddress;
+}
+
+.form-container form .updated {
+  grid-area: updated;
+}
+
+.form-container form .created {
+  grid-area: created;
+}
+
+.form-container form .splContactEmailAdr {
+  grid-area: splContactEmailAdr;
+}
+
+.form-container form .splContactNo {
+  grid-area: splContactNo;
+}
+
+.form-container form .splContactSurname {
+  grid-area: splContactSurname;
+}
+
+.form-container form .splContactName {
+  grid-area: splContactName;
+}
+
+.form-container form .form-btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  grid-area: form-btns;
+  border: 1px solid;
+  border-radius: 0.6rem;
+  height: 5rem;
+}
+
+.form-container form .form-btns .form-btn {
+  background-color: #dae4fa99;
+  color: rgba(150, 149, 149, 0.539);
+  border: 1px solid lightgray;
+  border-radius: 0.6rem;
+  /* box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff; */
+  letter-spacing: 0.13rem;
+  width: 15rem;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+}
+
+.form-container form .form-btns .form-btn:hover {
+  outline: 0.1rem solid rgb(121, 255, 121);
+  cursor: pointer;
+  background-color: #e8fee8b5;
+}
+
+.form-container form .form-control .inputError {
+  border: 1px solid red;
+}
+
+
+.form-container form .form-control input {
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 0.1rem solid;
+  height: 4rem;
+  padding: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.form-container form .form-control input::placeholder {
+  opacity: 0;
+}
+
+.form-container form .form-control input:focus~label,
+.form-container form .form-control input:not(:placeholder-shown)~label,
+.form-container form .form-control .react-datepicker-wrapper~label {
+  top: -1rem;
+  font-size: 1.3rem;
+  left: 0.8rem;
+  color: white;
+  background-color: grey;
+  outline: 0.1rem solid darkgray;
+}

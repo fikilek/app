@@ -25,10 +25,9 @@ import { useNavigate } from "react-router-dom";
 import FormSectionBtns from "../formComponents/formSectionBtns/FormSectionBtns";
 import { useSignup } from "../../../hooks/useSignup";
 import useAuthContext from "../../../hooks/useAuthContext";
-import SubmitBtn from "../formComponents/submitBtn/SubmitBtn";
+import FormBtn from "../formComponents/formBtn/FormBtn";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 export const userObj = {
 	surname: "",
@@ -38,7 +37,7 @@ export const userObj = {
 	password: "",
 	confirmPassword: "",
 	signedon: false,
-	phoneNumber:"",
+	phoneNumber: "",
 };
 
 const Signup = () => {
@@ -48,7 +47,6 @@ const Signup = () => {
 	const navigate = useNavigate();
 	const { signup, error, isPending, success } = useSignup();
 	const { user } = useAuthContext();
-
 
 	useEffect(() => {
 		setUserCredentials(userObj);
@@ -217,7 +215,7 @@ const Signup = () => {
 					</button>
 
 					{isPending ? (
-						<SubmitBtn isPending={isPending} />
+						<FormBtn isPending={isPending} />
 					) : (
 						<button className="form-btn submit">Submit</button>
 					)}
