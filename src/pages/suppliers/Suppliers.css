@@ -1,4 +1,16 @@
-
 .suppliers {
   height: 100%;
+}
+
+.spl-edit-btn,
+.spl-delete-btn {
+  outline: 0.3rem solid green;
+  border-radius: 0.4rem;
+  border: none;
+}
+
+.spl-edit-btn:hover,
+.spl-delete-btn:hover {
+  cursor: pointer;
+  outline: 0.3rem solid rgb(119, 255, 119);
 }

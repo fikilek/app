@@ -28,7 +28,7 @@ const SplForm = ({ formData }) => {
 	// console.log(`formData`, formData);
 
 	const { addDocument, response, updateDocument } = useFirestore("suppliers");
-	const {closeModal} = useModal()
+	const { closeModal } = useModal();
 
 	const { user } = useAuthContext();
 	// console.log(`user`, user)
@@ -43,14 +43,19 @@ const SplForm = ({ formData }) => {
 	});
 
 	const onSubmit = values => {
-		console.log(`values`, values);
-		addDocument(values);
+		// console.log(`values`, values);
+		if (values.id) {
+			updateDocument(values);
+		} else {
+			addDocument(values);
+		}
 	};
 	// console.log(`spl`, spl);
+	// console.log(`response`, response);
 
 	useEffect(() => {
 		if (response.success) {
-			closeModal()
+			closeModal();
 			toast(`New Suppiler created succeesfully!`, {
 				position: "bottom-left",
 				autoClose: 5000,
@@ -62,7 +67,7 @@ const SplForm = ({ formData }) => {
 				theme: "light",
 			});
 		}
-	}, [response]);
+	}, [response, closeModal]);
 
 	return (
 		<div className="form-wrapper">
@@ -74,7 +79,7 @@ const SplForm = ({ formData }) => {
 					validationSchema={validationSchema}
 				>
 					{formik => {
-						console.log(`formik`, formik)
+						// console.log(`formik`, formik)
 						return (
 							<Form>
 								<FormikControl
@@ -124,7 +129,7 @@ const SplForm = ({ formData }) => {
 
 									<FormikControl
 										control="datetime"
-										label="updated at datetime"
+										label="created at datetime"
 										name="metaData.createdAtDatetime"
 										readOnly="readOnly"
 										dateFormat="yyyy MM dd - HH:mm:ss"
@@ -167,9 +172,9 @@ const SplForm = ({ formData }) => {
 								<div className="form-btns">
 									<FormBtn isPending={false} btnName="reset" />
 									<FormBtn
-										isPending={formik.isSubmitting}
+										isPending={response.isPending}
 										btnName="submit"
-										disabled={!formik.isValid}
+										disabled={!formik.isValid || formik.touched}
 									/>
 								</div>
 							</Form>

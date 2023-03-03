@@ -9,9 +9,16 @@ import UserSignatureBtn from "../components/userSignature/UserSignatureBtn";
 import { getPoStatus } from "../utils/utils";
 import PoInvPopBtn from "../pages/sch/PoInvPopBtn";
 import { memo } from "react";
+import { MdDeleteForever, MdEdit } from "react-icons/md";
+import SplBtn from "../pages/suppliers/SplEditBtn";
+import SplEditBtn from "../pages/suppliers/SplEditBtn";
+import SplDeleteBtn from "../pages/suppliers/SplDeleteBtn";
 
 export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 	// Purchase Order (po) table fields
+
+
+
 	const poTableFields = [
 		{
 			field: "id",
@@ -216,16 +223,16 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 		},
 		{
 			field: "splName",
-			headerName: "Email adr",
-			width: 120,
+			headerName: "Supplier Name",
+			width: 150,
 		},
 		{
 			field: "splStatus",
 			headerName: "Status",
 			width: 120,
 			cellRenderer: params => {
-				return params.data.value;
 				// console.log(`params`, params)
+				return params.value;
 				// return getPoStatus(params.data) || "Error";
 			},
 		},
@@ -291,19 +298,31 @@ export const useColumnDefs = ({ ml1, ml2, ml3 }) => {
 			width: 170,
 		},
 		{
+			field: "splContactNo",
+			headerName: "Contact No",
+			width: 130,
+		},
+		{
 			field: "splContactSurname",
-			headerName: "Email adr",
+			headerName: "Surname",
 			width: 120,
 		},
 		{
 			field: "splContactName",
-			headerName: "Email adr",
+			headerName: "Name",
 			width: 120,
 		},
 		{
-			field: "splContactNo",
-			headerName: "Email adr",
-			width: 120,
+			field: "",
+			headerName: "Edit",
+			width: 80,
+			cellRenderer: memo(SplEditBtn),
+		},
+		{
+			field: "",
+			headerName: "Delete",
+			width: 100,
+			cellRenderer: memo(SplDeleteBtn),
 		},
 	];
 

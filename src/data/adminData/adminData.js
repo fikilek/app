@@ -480,7 +480,7 @@ const astCartegories = {
 const newSplFormData = {
 	splNo: "",
 	splName: "",
-	splStatus: "",
+	splStatus: "green",
 	metaData: {
 		updatedAtDatetime: '',
 		updatedByUser: "",
