@@ -4,8 +4,8 @@ import { MdBusiness, MdOutlineEmail } from "react-icons/md";
 import useCollection from "../../../../hooks/useCollection";
 
 const FormSectionStores = ({ po, setPo }) => {
-	// console.log(`po`, po);
-	const { data: stores } = useCollection("stores");
+	// console.log(`stores po`, po);
+	const { data: stores } = useCollection("sch","stores");
 	// console.log(`stores`, stores)
 
 	const handleChangeStores = e => {
@@ -24,11 +24,11 @@ const FormSectionStores = ({ po, setPo }) => {
 						poStoreData: {
 							...prev.poData.poGrv.poStoreData,
 							id: selectedStore.id,
-							storeName: selectedStore.storeName,
-							storeContactSurname: selectedStore.storeContactSurname,
-							storeContactName: selectedStore.storeContactName,
-							storeContactNo: selectedStore.storeContactNo,
-							storeContactEmailAdr: selectedStore.storeContactEmailAdr,
+							storeName: selectedStore.storesName,
+							storeContactSurname: selectedStore.storesContactSurname,
+							storeContactName: selectedStore.storesContactName,
+							storeContactNo: selectedStore.storesContactNo,
+							storeContactEmailAdr: selectedStore.storesContactEmailAdr,
 						},
 					},
 				},
@@ -57,7 +57,7 @@ const FormSectionStores = ({ po, setPo }) => {
 						stores.map(store => {
 							return (
 								<option key={store.id} value={store.id}>
-									{store.storeName}
+									{store.storesName}
 								</option>
 							);
 						})}

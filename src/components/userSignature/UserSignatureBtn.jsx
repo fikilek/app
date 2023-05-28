@@ -2,6 +2,7 @@ import React from "react";
 import "./UserSignatureBtn.css";
 import useModal from "../../hooks/useModal";
 import { useGetUser } from "../../hooks/useGetUser";
+import { getPoStatus } from "../../utils/utils";
 
 const signatureToUse = (user,sgName) => {
 	switch (sgName) {
@@ -18,7 +19,7 @@ const UserSignatureBtn = params => {
 	// console.log(`params`, params);
 	const { openModal } = useModal();
 
-	const {user} = useGetUser({ po: params.data, signatureName: params.signatureName });
+	const { user } = useGetUser({ po: params.data, signatureName: params.signatureName });
 	// console.log(`user`, user);
 
 	const handleClick = e => {
@@ -34,8 +35,22 @@ const UserSignatureBtn = params => {
 		});
 	};
 
+	const disableBtn = () => {
+		const status = getPoStatus(params.data)
+		// console.log(`stauts`, status)
+		const signatureName = params.signatureName
+		// console.log(`signatureName`, signatureName)
+		// return (status === "witnessed" && signatureName === 'witness') ? true : false
+		return false
+	}
+
 	return (
-		<button onClick={handleClick} className={`btn-table-row user-signature-btn`}>
+		<button
+			onClick={handleClick}
+			className={`btn-table-row user-signature-btn ${disableBtn() ? "disabled" : ''
+				} `}
+			disabled= {disableBtn()} 
+		>
 			{signatureToUse(user, params.signatureName)}
 		</button>
 	);

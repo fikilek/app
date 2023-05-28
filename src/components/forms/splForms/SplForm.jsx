@@ -56,7 +56,7 @@ const SplForm = ({ formData }) => {
 	useEffect(() => {
 		if (response.success) {
 			closeModal();
-			toast(`New Suppiler created succeesfully!`, {
+			toast(`Suppiler data CREATED/UPDATED succeesfully!`, {
 				position: "bottom-left",
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -72,7 +72,11 @@ const SplForm = ({ formData }) => {
 	return (
 		<div className="form-wrapper">
 			<div className="form-container spl-form-container">
-				<FormHeader1 formName="Supplier Form" closeModal={closeModal} />
+				<FormHeader1
+					formName="Supplier Form"
+					fn={`Supplier No: ${spl.splNo}`}
+					closeModal={closeModal}
+				/>
 				<Formik
 					initialValues={spl}
 					onSubmit={onSubmit}
@@ -80,101 +84,108 @@ const SplForm = ({ formData }) => {
 				>
 					{formik => {
 						// console.log(`formik`, formik)
+						const disable = !(formik.isValid && formik.dirty);
+						// console.log(`formik.dirty`, formik.dirty);
+						// console.log(`formik.isValid`, formik.isValid);
+						// console.log(`formState`, disable);
 						return (
 							<Form>
-								<FormikControl
-									control="input"
-									type="text"
-									label="supplier name"
-									name="splName"
-									placeholder="supplier name"
-								/>
-								<FormikControl
-									control="input"
-									type="text"
-									label="address"
-									name="splAddress"
-									placeholder="supplier address"
-								/>
-								{/* updated */}
-								<div className="updated">
-									<FormikControl
-										control="input"
-										type="text"
-										label="updated by user"
-										name="metaData.updatedByUser"
-										readOnly="readOnly"
-										placeholder="updated by user"
-									/>
+								<div className="spl-form">
+									<div className="specific-data">
+										<FormikControl
+											control="input"
+											type="text"
+											label="supplier name"
+											name="splName"
+											placeholder="supplier name"
+										/>
+										<FormikControl
+											control="input"
+											type="text"
+											label="address"
+											name="splAddress"
+											placeholder="supplier address"
+										/>
+										{/* splContactEmailAdr */}
+										<FormikControl
+											control="input"
+											type="text"
+											label="contact email adr"
+											name="splContactEmailAdr"
+											placeholder="contact email adr"
+										/>
+										{/* splContactNo */}
+										<FormikControl
+											control="input"
+											type="text"
+											label="contact number"
+											name="splContactNo"
+											placeholder="supplier contact number"
+										/>
+										{/* splContactSurname */}
+										<FormikControl
+											control="input"
+											type="text"
+											label="contact surname"
+											name="splContactSurname"
+											placeholder="supplier contact surname"
+										/>
+										{/* splContactName */}
+										<FormikControl
+											control="input"
+											type="text"
+											label="contact name"
+											name="splContactName"
+											placeholder="supplier contact name"
+										/>
+									</div>
+										{/* updated */}
+									<div className="updated">
+										<FormikControl
+											control="input"
+											type="text"
+											label="updated by user"
+											name="metaData.updatedByUser"
+											readOnly="readOnly"
+											placeholder="updated by user"
+										/>
 
-									<FormikControl
-										control="datetime"
-										label="updated at datetime"
-										name="metaData.updatedAtDatetime"
-										readOnly="readOnly"
-										dateFormat="yyyy MM dd - HH:mm:ss"
-										placeholder="updated at datetime"
-									/>
+										<FormikControl
+											control="datetime"
+											label="updated at datetime"
+											name="metaData.updatedAtDatetime"
+											readOnly="readOnly"
+											dateFormat="yyyy MM dd - HH:mm:ss"
+											placeholder="updated at datetime"
+										/>
+									</div>
+									{/* create */}
+									<div className="created">
+										<FormikControl
+											control="input"
+											type="text"
+											label="created by user"
+											name="metaData.createdByUser"
+											readOnly="readOnly"
+											placeholder="created by user"
+										/>
+
+										<FormikControl
+											control="datetime"
+											label="created at datetime"
+											name="metaData.createdAtDatetime"
+											readOnly="readOnly"
+											dateFormat="yyyy MM dd - HH:mm:ss"
+											placeholder="dated at datetime"
+										/>
+									</div>
 								</div>
-								{/* create */}
-								<div className="created">
-									<FormikControl
-										control="input"
-										type="text"
-										label="created by user"
-										name="metaData.createdByUser"
-										readOnly="readOnly"
-										placeholder="created by user"
-									/>
-
-									<FormikControl
-										control="datetime"
-										label="created at datetime"
-										name="metaData.createdAtDatetime"
-										readOnly="readOnly"
-										dateFormat="yyyy MM dd - HH:mm:ss"
-										placeholder="dated at datetime"
-									/>
-								</div>
-								{/* splContactEmailAdr */}
-								<FormikControl
-									control="input"
-									type="text"
-									label="contact email adr"
-									name="splContactEmailAdr"
-									placeholder="contact email adr"
-								/>
-								{/* splContactSurname */}
-
-								<FormikControl
-									control="input"
-									type="text"
-									label="contact surname"
-									name="splContactSurname"
-									placeholder="supplier contact surname"
-								/>
-								{/* splContactName */}
-								<FormikControl
-									control="input"
-									type="text"
-									label="contact name"
-									name="splContactName"
-									placeholder="supplier contact name"
-								/>
-								{/* splContactNo */}
-								<FormikControl
-									control="input"
-									type="text"
-									label="contact number"
-									name="splContactNo"
-									placeholder="supplier contact number"
-								/>
 								<div className="form-btns">
 									<FormBtn isPending={false} btnName="reset" />
 									<FormBtn
 										isPending={response.isPending}
 										btnName="submit"
-										disabled={!formik.isValid || formik.touched}
+										disabled={disable}
 									/>
 								</div>
 							</Form>

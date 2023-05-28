@@ -1,30 +1,86 @@
 import React from "react";
 import "./admin.css";
-import AdminUsers from "./ml2/AdminUsers";
 import AdminSystTables from "./ml2/AdminSystTables";
-import AdminMobileDevices from "./ml2/AdminMobileDevices";
-import AdminSimCards from "./ml2/AdminSimCards";
-import AdminSystUserRoles from "./ml3/AdminSystUserRoles";
-import AdminSystAstStates from './ml3/AdminSystAstStates'
-import AdminSystTrnStates from './ml3/AdminSystTrnStates'
-
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import TableWithAddRecordBtn from "../../components/table/TableWithAddRecordBtn";
 
 const Admin = () => {
 	const { ml2, ml3 } = useParams();
-	const navigate = useNavigate()
 	return (
-		<div className="admin">
-			{navigate("/noPageFou")}
-			{ml2 === "unps" && ml3 === undefined ? <AdminUsers /> : ""}
-			{ml2 === "syst" && ml3 === undefined ? <AdminSystTables /> : ""}
-			{ml2 === "mds" && ml3 === undefined ? <AdminMobileDevices /> : ""}
-			{ml2 === "smcs" && ml3 === undefined ? <AdminSimCards /> : ""}
+		<>
+			{/* users */}
+			{ml2 === "unps" && ml3 === undefined && (
+				<TableWithAddRecordBtn ml1="admin" tn="users" nfd="" fn="" />
+			)}
 
-			{ml2 === "syst" && ml3 === "urs" ? <AdminSystUserRoles /> : ""}
-			{ml2 === "syst" && ml3 === "ast-stt" ? <AdminSystAstStates /> : ""}
-			{ml2 === "syst" && ml3 === "trn-stt" ? <AdminSystTrnStates /> : ""}
-		</div>
+			{ml2 === "syst" && ml3 === undefined ? <AdminSystTables /> : ""}
+
+			{/* mibile devices (tablets and cell phones) */}
+			{ml2 === "mobile-devices" && ml3 === undefined && (
+				<TableWithAddRecordBtn
+					ml1="admin"
+					tn="mobile-devices"
+					nfd="newMobileDevicesFormData"
+					fn="mobileDevicesForm"
+				/>
+			)}
+
+			{/* sim cards */}
+			{ml2 === "simcards" && ml3 === undefined && (
+				<TableWithAddRecordBtn
+					ml1="admin"
+					tn="simcards"
+					nfd="newSimcardsFormData"
+					fn="simcardsForm"
+				/>
+			)}
+
+			{/* system tables */}
+
+			{/* user roles */}
+			{ml2 === "systt" && ml3 === "user-roles" && (
+				<TableWithAddRecordBtn
+					ml1="admin"
+					tn="systt"
+					ml3="user-roles"
+					nfd="newUserRolesFormData"
+					fn="userRolesForm"
+				/>
+			)}
+
+			{/* asset states */}
+			{ml2 === "systt" && ml3 === "ast-states" && (
+				<TableWithAddRecordBtn
+					ml1="admin"
+					tn="systt"
+					ml3="ast-states"
+					nfd="newAstStatesFormData"
+					fn="astStatesForm"
+				/>
+			)}
+
+			{/* transaction (trn) states */}
+			{ml2 === "systt" && ml3 === "trn-states" && (
+				<TableWithAddRecordBtn
+					ml1="admin"
+					tn="systt"
+					ml3="trn-states"
+					nfd="newTrnStatesFormData"
+					fn="trnStatesForm"
+				/>
+			)}
+
+			{/* asset cartegories */}
+			{ml2 === "systt" && ml3 === "ast-cartegories" && (
+				<TableWithAddRecordBtn
+					ml1="admin"
+					tn="systt"
+					ml3="ast-cartegories"
+					nfd="newAstCartegoriesFormData"
+					fn="astCartegoriesForm"
+				/>
+			)}
+		</>
 	);
 };
 

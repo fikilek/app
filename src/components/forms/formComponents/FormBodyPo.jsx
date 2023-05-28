@@ -90,7 +90,7 @@ const FormBodyPo = ({ formData }) => {
 						Reset
 					</button>
 					{/* <button className="form-btn submit">Submit</button> */}
-					<FormBtn isPending={response.isPending} />
+					<FormBtn isPending={response.isPending} btnName="submit" disabled={false} />
 				</div>
 			</form>
 		</div>

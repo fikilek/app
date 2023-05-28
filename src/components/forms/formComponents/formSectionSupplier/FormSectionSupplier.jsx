@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+import React, { useEffect, useState } from "react";
 import { FaFileInvoiceDollar, FaShoppingBasket } from "react-icons/fa";
 import { FcBusinessman, FcCellPhone } from "react-icons/fc";
 import {
@@ -10,19 +11,12 @@ import {
 import { RiMoneyCnyBoxLine } from "react-icons/ri";
 import useCollection from "../../../../hooks/useCollection";
 
-const FormSectionSupplier = ({
-	po,
-	setPo,
-	modalData,
-	sectionState,
-	setSectionStates,
-}) => {
-	// get all suppliers from firestore collection
-	// const suppliers = getSuppliers("suppliers")
-
-	// const [suppliers, setSuppliers] = useState(initSuppliers);
-	const { data: suppliers, error, isPending } = useCollection("suppliers")
+const FormSectionSupplier = ({ po, setPo }) => {
+	const { data: suppliers } = useCollection('sch', "suppliers");
 	// console.log(`suppliers`, suppliers)
+	// console.log(`po.poSplData.splName`, po.poSplData.splName);
+	const [selected, setSelected] = useState("");
+	// console.log(`selected`, selected);
 
 	const handleChangeSupplier = e => {
 		e.preventDefault();
@@ -49,6 +43,11 @@ const FormSectionSupplier = ({
 		});
 	};
 
+	useEffect(() => {
+		// console.log(`useEffect po.poSplData.splName`, po.poSplData.splName);
+		setSelected(po.poSplData.splName);
+	}, [po.poSplData.splName]);
+
 	return (
 		<div className="fs fs-supplier">
 			<p className="fs-title supplier-title">Supplier</p>
@@ -60,17 +59,22 @@ const FormSectionSupplier = ({
 				<select
 					name="splName"
 					id="splName"
-					// value={po.poData.poGrv.grvStoreData.storeName}
+					value={selected}
 					onChange={handleChangeSupplier}
 					placeholder="Supplier Name"
 				>
+					<option key={selected} value={selected}>
+						{selected}
+					</option>
 					{suppliers &&
 						suppliers.map(supplier => {
-							return (
-								<option key={supplier.id} value={supplier.id}>
-									{supplier.splName}
-								</option>
-							);
+							if (selected !== supplier.splName) {
+								return (
+									<option key={supplier.id} value={supplier.id}>
+										{supplier.splName}
+									</option>
+								);
+							}
 						})}
 				</select>
 			</div>

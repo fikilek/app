@@ -11,7 +11,7 @@ const useTrnFormMeter = () => {
 			asr: 1,
 			actionTaken: 0,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		returnToSupplier: {
@@ -23,7 +23,7 @@ const useTrnFormMeter = () => {
 			asr: 1,
 			actionTaken: 0,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		installation: {
@@ -35,10 +35,10 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 1,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
-		comissioning: {
+		commissioning: {
 			metaData: 1,
 			customerAdr: 0,
 			billing: 0,
@@ -47,7 +47,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 0,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		vending: {
@@ -59,7 +59,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 0,
 			vending: 1,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		missing: {
@@ -71,7 +71,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 0,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		found: {
@@ -83,7 +83,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 1,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		disconnection: {
@@ -95,7 +95,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 1,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		reconnection: {
@@ -107,7 +107,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 1,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		audit: {
@@ -119,7 +119,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 1,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		inspection: {
@@ -131,7 +131,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 1,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 		sell: {
@@ -143,7 +143,7 @@ const useTrnFormMeter = () => {
 			asr: 0,
 			actionTaken: 0,
 			vending: 0,
-			comissioning: 0,
+			commissioning: 0,
 			decomissioning: 0,
 		},
 	};

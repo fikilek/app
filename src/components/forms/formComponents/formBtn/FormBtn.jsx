@@ -2,7 +2,7 @@ import React from "react";
 import { GiTennisBall } from "react-icons/gi";
 import { ClipLoader } from "react-spinners";
 
-const FormBtn = ({ isPending, btnName }) => {
+const FormBtn = ({ isPending, btnName, disabled }) => {
 	// console.log(`isPending`, isPending)
 	return (
 		<div className={`${btnName}-btn`}>
@@ -17,7 +17,7 @@ const FormBtn = ({ isPending, btnName }) => {
 					/>
 				</button>
 			) : (
-				<button type={`${btnName}`} className={`form-btn ${btnName}`}>
+				<button type={`${btnName}`} className={`form-btn ${btnName}`} disabled={disabled}>
 					{btnName}
 				</button>
 			)}

@@ -9,6 +9,8 @@ import FormBtn from "../forms/formComponents/formBtn/FormBtn";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getPoAction } from "../../utils/utils";
+import { useValidatePoProcess } from "../../hooks/useValidatePoProcess";
+import { useCreateAsts } from "../../hooks/useCreateAsts";
 
 const UserSignatureForm = ({ formData }) => {
 	// console.log(`formData`, formData)
@@ -17,14 +19,13 @@ const UserSignatureForm = ({ formData }) => {
 	const { signatureName, poData } = formData;
 	const { closeModal } = useModal();
 	// console.log(`UserSignatureForm password:`, password);
+	const { validatePoProcess, canApprove, VpError } = useValidatePoProcess();
+	// console.log(`canApprove`, canApprove);
+	const [validatePoProcessError, setValidatePoProcessError] = useState("");
+	const { createAsts, response } = useCreateAsts();
 
-	const {
-		user: signature,
-		authenticateUser,
-		error,
-		isPending,
-		success,
-	} = useAuthenticateUser(formData);
+	const { authenticateUser, error, isPending, success } =
+		useAuthenticateUser(formData);
 
 	useEffect(() => {
 		setPassword(null);
@@ -32,17 +33,38 @@ const UserSignatureForm = ({ formData }) => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		// console.log(`signing a po`);
-		// authenticate the user from firebase auth
-		const confirmedReceiver = {
-			email: user.email,
-			password: password,
-		};
-		if (password) {
-			// console.log(`witnessing PO`, confirmedReceiver);
-			await authenticateUser(confirmedReceiver);
+		const validationResult = validatePoProcess(user, signatureName, poData);
+		// console.log(`vaidationResult`, validationResult);
+
+		if (
+			validationResult === "can approve" ||
+			validationResult === "can receive" ||
+			validationResult === "can witness"
+		) {
+			const confirmedReceiver = {
+				email: user.email,
+				password: password,
+			};
+			if (password) {
+				authenticateUser(confirmedReceiver);
+			} else {
+				// console.log(`cannot authenticate: no password`);
+				setValidatePoProcessError("cannot authenticate: no password");
+			}
+		} else {
+			setValidatePoProcessError(validationResult);
 		}
 	};
+
+	useEffect(() => {
+		// console.log(`useEffect`, response);
+		if (response.error) {
+			// console.log(`ast creation error`);
+		}
+		if (response.success) {
+			console.log(`ast creation success`, response.asts);
+		}
+	},[response]);
 
 	// confirm witness using useAuthenticateUser
 	useEffect(() => {
@@ -50,6 +72,13 @@ const UserSignatureForm = ({ formData }) => {
 			// console.log(`SUCCESS: auttentication succeeded`, signature.uid);
 			// po actione
 			let action = getPoAction(signatureName);
+
+			// if action is 'witnessed', then create assets
+			if (action === "witnessed") {
+				// console.log(`witness signed, creating asts`);
+				const result = createAsts(poData)
+				console.log(`assets created`, result);
+			}
 
 			// clear password
 			setPassword(prev => (prev = null));
@@ -69,11 +98,11 @@ const UserSignatureForm = ({ formData }) => {
 			});
 		}
 		if (error) {
-			console.log(`ERROR: Authentication failed`, error);
+			// console.log(`ERROR: Authentication failed`, error);
 			// TODO: take care of auth error
 		}
 		if (isPending) {
-			console.log(`PENDING: Authentication is pending`);
+			// console.log(`PENDING: Authentication is pending`);
 			// TODO: tale care of isPending
 		}
 	}, [success, error, isPending]);
@@ -116,9 +145,9 @@ const UserSignatureForm = ({ formData }) => {
 						onChange={e => setPassword(e.target.value)}
 					/>
 				</div>
-				<FormError error={error} />
+				<FormError error={error || validatePoProcessError} />
 				<div className="sf-form-btns">
-					<FormBtn isPending={isPending} />
+					<FormBtn isPending={isPending} btnName="sign" disabled={false} />
 				</div>
 			</form>
 		</div>

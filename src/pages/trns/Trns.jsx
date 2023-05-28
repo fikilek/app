@@ -1,17 +1,12 @@
 import React from "react";
-import "./trns.css";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import Tabs from "../../components/tabs/Tabs";
+import { useParams } from "react-router-dom";
+import TableWithAddRecordBtn from "../../components/table/TableWithAddRecordBtn";
 
 const Trns = () => {
 	const { ml2, ml3 } = useParams();
-	// const [search, setSearch] = useSearchParams();
-	// console.log(`ml3: ${ml3}`);
-	return (
-		<div className="asts">
-			<Tabs ml1={"trns"} ml2={ml2} ml3={ml3} />
-		</div>
-	);
+	// console.log(`ml2`, ml2)
+	// console.log(`ml3`, ml3)
+	return <TableWithAddRecordBtn ml1="trns" tn={ml2} ml3={ml3} fn="TrnsForm" />
 };
 
 export default Trns;

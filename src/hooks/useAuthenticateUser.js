@@ -8,7 +8,6 @@ export const useAuthenticateUser = ({ poData, signatureName }) => {
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [user, setUser] = useState(null);
 
 	const authenticateUser = async userCredentials => {
 		// console.log(`authenticateUser`, userCredentials)
@@ -27,7 +26,6 @@ export const useAuthenticateUser = ({ poData, signatureName }) => {
 			const signPo = httpsCallable(functions, "signPo");
 			await signPo({uid: result.user.uid, poId: poData.id, signatureName }).then(result => {
 				// console.log(`result`, result);
-				setUser(result.user);
 				setIsPending(false);
 				setError(null);
 				setSuccess(true);
@@ -42,5 +40,5 @@ export const useAuthenticateUser = ({ poData, signatureName }) => {
 		}
 	};
 
-	return { authenticateUser, error, isPending, success, user };
+	return { authenticateUser, error, isPending, success };
 };

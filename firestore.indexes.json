@@ -1,19 +1,4 @@
 {
-  "indexes": [
-    {
-      "collectionGroup": "trns_history",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "assetData.meter_no",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "metaData.updated_at_datetime",
-          "order": "DESCENDING"
-        }
-      ]
-    }
-  ],
+  "indexes": [],
   "fieldOverrides": []
 }

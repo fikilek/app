@@ -29,14 +29,18 @@ const PoiTable2 = ({ rowData, columnDefs }) => {
 
 	return (
 		// <div className={`ag-theme-alpine ${ml1 === "poi" ? "poi" : "ireps"}-table`}>
-		<div className={`ag-theme-alpine poi-table`}>
+		
+		<div
+			style={{ height: "calc(100% - 25px)", width: '70rem' }}
+			className={`ag-theme-alpine poi-table`}
+		>
 			<AgGridReact
 				ref={gridRef} // Ref for accessing Grid's API
 				rowData={rowData} // Row Data for Rows
 				columnDefs={columnDefs} // Column Defs for Columns
 				defaultColDef={defaultColDef} // Default Column Properties
 				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-				rowSelection="single" // Options - allows click selection of rows
+				// rowSelection="single" // Options - allows click selection of rows
 				domLayout={"autoHeight"}
 			/>
 		</div>

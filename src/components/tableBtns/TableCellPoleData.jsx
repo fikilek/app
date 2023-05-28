@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableCellPoleData = ({ params }) => {
+const TableCellPoleData = (params ) => {
 	// console.log(`params`, params);
 	return (
 		<>

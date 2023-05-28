@@ -1,0 +1,98 @@
+import React from "react";
+import { formSelectOptions } from "../../../../../../utils/utils";
+import FormikControl from "../../../formik/FormikControl";
+import FormSectionTrn from "../../../formSection/FormSectionTrn";
+
+const CbInstallation = props => {
+  const { ast, trn, astCat, astCatIndex } = props;
+  
+	return (
+			<FormSectionTrn
+				trn={trn}
+				ast={ast}
+				astCat={astCat}
+				astCatIndex={astCatIndex}
+			>
+				<div className="ast">
+					<div className="row-1 ast-row read-only-row">
+						<div className="data">
+							<p>
+								CB No - <span>{ast?.astData.astNo}</span>
+							</p>
+							<p>
+								CB Size (Amps) - <span>{ast?.astData.cb.size}</span>
+							</p>
+							<p>
+								CB Type (Sinlge/Double Pole) - <span>{ast?.astData.cb.type}</span>
+							</p>
+						</div>
+						<div className="photos"></div>
+					</div>
+					<div className="row-2 ast-row">
+						<FormikControl
+							control="select"
+							type="text"
+							label="is cb inside or outside premises"
+							name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.location.premises`}
+							placeholder="Where is cb Placed"
+							options={formSelectOptions.astLocationPremisesOptions}
+						/>
+						<FormikControl
+							control="select"
+							type="text"
+							label="box exact location"
+							name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.location.exactLocation`}
+							placeholder="Exact Location"
+							options={formSelectOptions.astExactLocationOptions}
+						/>
+					</div>
+					<div className="row-3 ast-row">
+						<FormikControl
+							control="select"
+							type="text"
+							label="is cb inside box?"
+							name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.location.insideBox`}
+							placeholder="Inside Box?"
+							options={formSelectOptions.yesNoOptions}
+						/>
+						<div className="half-row">
+							<FormikControl
+								control="select"
+								type="text"
+								label="linked meter?"
+								name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.linkedMeter.isLinkedToMeter`}
+								placeholder="Is Linked To Meter?"
+								options={formSelectOptions.yesNoOptions}
+							/>
+							<FormikControl
+								control="input"
+								type="text"
+								label="linked meter no"
+								name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.linkedMeter.meterNo`}
+								placeholder="Meter No"
+							/>
+						</div>
+					</div>
+
+					<div className="row-4 ast-row">
+						<FormikControl
+							control="input"
+							type="text"
+							label="exact/nearest cb address"
+							name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.astAdr.adr`}
+							placeholder="exact/nearest address"
+						/>
+						<FormikControl
+							control="input"
+							type="text"
+							label="box lat/lon"
+							name={`astData[${astCat}][${astCatIndex}].trnData.cbInstallation.astAdr.gps`}
+							placeholder="Exact Gps"
+						/>
+					</div>
+				</div>
+			</FormSectionTrn>
+	);
+};
+
+export default CbInstallation;

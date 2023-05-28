@@ -5,7 +5,7 @@ import { getTotalQauntites } from "./poiUtils";
 
 const PoiBtn = params => {
 	// console.log(`params`, params);
-	const { poiTableFields: columnDefs } = useColumnDefs({ ml1: "poi" })
+	const { tableFields: columnDefs } = useColumnDefs({ ml1: "sch", ml2: 'poi' })
 	const {openModal} = useModal()
 	const poPi = params.data.poPi;
 	const totalQuantites = getTotalQauntites(poPi, "itemQuantity");

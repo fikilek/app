@@ -47,27 +47,6 @@ ul {
 	height: inherit;
 }
 
-.home,
-.bok,
-.user,
-.user-updated,
-.no-page-found,
-.users,
-.trns,
-.erfs,
-.bok,
-.admin,
-.unp,
-.signup,
-.signin {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid;
-	width: 100%;
-	height: 100%;
-}
-
 .sch {
 	position: relative;
 	height: inherit;

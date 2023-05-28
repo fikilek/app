@@ -17,18 +17,14 @@ const PoiBtnAddItem = params => {
 			rowData.push(node.data);
 		});
 
-
-			params.setPo(prev => {
-				// console.log(`prev`, prev)
-				// console.log(`newPoPi`, newPoPi);
-				return {
-					...prev,
-					poPi: rowData,
-				};
-			});
-	
-
-
+		params.setPo(prev => {
+			// console.log(`prev`, prev)
+			// console.log(`newPoPi`, newPoPi);
+			return {
+				...prev,
+				poPi: rowData,
+			};
+		});
 	}, [params]);
 
 	const handleAddItem = e => {

@@ -12,10 +12,10 @@ import { GiChoice } from "react-icons/gi";
 const TrnFormMeterComissioning = () => {
 	return (
 		<>
-			{/* comissioning */}
+			{/* commissioning */}
 			<div>
 				<div className="fs-title">
-					<p>Comissioning</p>
+					<p>commissioning</p>
 				</div>
 			</div>
 		</>

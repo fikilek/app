@@ -93,7 +93,7 @@ const TrnFormMeter = ({ trnType }) => {
 					)}
 				</>
 				<>
-					{formSections.comissioning ? (
+					{formSections.commissioning ? (
 						<TrnFormMeterComissioning
 							formSate={formState}
 							setFormState={setFormState}

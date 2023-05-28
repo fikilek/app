@@ -7,7 +7,7 @@ export const dataAdmin = [
 		menu: "Admin",
 		"menu-level": "1",
 		icon: <MdArrowDropDown />,
-		"menuSide": "right",
+		menuSide: "right",
 		children: [
 			// The children is always a "Ul" element followed by 'li'
 			{
@@ -25,22 +25,29 @@ export const dataAdmin = [
 				icon: <MdArrowRight />,
 				children: [
 					{
-						to: "/admin/syst/urs",
+						to: "/admin/systt/user-roles",
 						menu: "User Roles",
 						"menu-level": "3",
 						icon: "",
 						children: null,
 					},
 					{
-						to: "/admin/syst/ast-stt",
+						to: "/admin/systt/ast-states",
 						menu: "Asset states",
 						"menu-level": "3",
 						icon: null,
 						children: null,
 					},
 					{
-						to: "/admin/syst/trn-stt",
+						to: "/admin/systt/trn-states",
 						menu: "Transaction States",
+						"menu-level": "3",
+						icon: null,
+						children: null,
+					},
+					{
+						to: "/admin/systt/ast-cartegories",
+						menu: "Asset Cartegories",
 						"menu-level": "3",
 						icon: null,
 						children: null,
@@ -49,7 +56,7 @@ export const dataAdmin = [
 			},
 			{
 				// Mobile devices
-				to: "/admin/mds",
+				to: "/admin/mobile-devices",
 				menu: "Mobile Devices",
 				"menu-level": "2",
 				icon: "",
@@ -57,7 +64,7 @@ export const dataAdmin = [
 			},
 			{
 				// Simcards
-				to: "/admin/smcs",
+				to: "/admin/simcards",
 				menu: "Simcards",
 				"menu-level": "2",
 				icon: "",

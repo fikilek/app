@@ -1,88 +1,117 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
-import { useSelector } from "react-redux";
-import useOpenModal from "../modals/useOpenModal";
-import { UserContext } from "../../contexts/UserContext";
+import React, { useState, useEffect, useMemo } from "react";
 import moment from "moment";
-import { MdFilter2 } from "react-icons/md";
 import useAuthContext from "../../hooks/useAuthContext";
+import useModal from "../../hooks/useModal";
+import { astStateNames, newTrnData } from "../../data/adminData/adminData.js";
+import FormikControl from "../forms/formComponents/formik/FormikControl";
+import { Form, Formik } from "formik";
+import { timestamp } from "../../firebaseConfig/fbConfig";
 
-const TableBtnTrnSelect = ({ params }) => {
-	const { modalToOpen } = useOpenModal();
-	// console.log(`params`, params);
-	// console.log(`ast state`, params.data.astState);
-	const { astStateNames, newTrnData } = useSelector(state => state.admin);
+const TableBtnTrnSelect = params => {
+	// console.log(`params.data`, params.data);
+	const { user } = useAuthContext();
+	const { astState, astCartegory, astNo } = params.data.astData;
+	// const { astData } = params.data;
+	const { openModal } = useModal();
 	// console.log(`newTrnData`, newTrnData);
 	// console.log(`astStateNames`, astStateNames);
-	const [status, setStatus] = useState("");
-	const [newTrn, setNewTrn] = useState({});
-	const { user } = useAuthContext();
-	// console.log(`user`, user)
+	// console.log(`astState`, astState);
+	// console.log(`astCartegory`, astCartegory);
+	// console.log(`astNo`, astNo);
 
-	const memoizedNewTrnData = useMemo(() => newTrnData, [newTrnData]);
-	// console.log(`memoizedNewTrnData`, memoizedNewTrnData);
+	const [newTrn, setNewTrn] = useState(newTrnData);
+
+	// // const [status, setStatus] = useState("");
+	// const [newTrn, setNewTrn] = useState({
+	// 	...newTrnData,
+	// 	metaData: {
+	// 		...newTrnData.metaData,
+	// 		createdAtDatetime: timestamp.fromDate(new Date()),
+	// 		createdByUser: user.displayName,
+	// 		updatedAtDatetime: timestamp.fromDate(new Date()),
+	// 		updatedByUser: user.displayName,
+	// 	},
+	// 	// astData: params.data.astData,
+	// 	astId: params.data.astData.id,
+	// 	// astData: {
+	// 	// 	...newTrnData.astData,
+	// 	// 	id: params.data.astData.id,
+	// 	// 	astCartegory: astCartegory,
+	// 	// 	astNo: astNo,
+	// 	// 	astState: astState,
+	// 	// },
+	// });
 
 	useEffect(() => {
-		setNewTrn(() => memoizedNewTrnData);
-	}, [memoizedNewTrnData]);
-	// console.log(`newTrn`, newTrn);
+		// console.log(`uesEffect to set newTRn`);
+		// console.log(`params.data`, params.data);
+		setNewTrn({
+			...newTrnData,
+			metaData: {
+				...newTrnData.metaData,
+				createdAtDatetime: timestamp.fromDate(new Date()),
+				createdByUser: user.displayName,
+				updatedAtDatetime: timestamp.fromDate(new Date()),
+				updatedByUser: user.displayName,
+			},
+			astData: { ...params.data.astData, id: params.data.id },
+		});
+
+		return () => {
+			// console.log(`unmounting component`);
+			setNewTrn({});
+		};
+	}, [params, user]);
 
 	// find the all possible transactions from existing asset state
 	const possibleTrns =
-		astStateNames &&
-		astStateNames.find(item => item.name === params.data.astData.astState);
+		astStateNames && astStateNames.find(item => item.name === astState);
 	// console.log(`possibleTrns`, possibleTrns);
+	const pTrns = possibleTrns.possibleTrns;
+	// console.log(`pTrns`, pTrns);
 
 	// get the array of possbie
 
-	const changeStatus = e => {
-		setStatus(e.target.value);
-
+	const handleChange = e => {
+		// console.log(`e.target.value`, e.target.value);
 		// console.log(`newTrn`, newTrn);
-		const newTransactionData = JSON.stringify({
-			...newTrn,
-			metaData: {
-				...newTrn.metaData,
-				trnType: e.target.value,
-				createdByUser: `${user.name} ${user.surname}`,
-				updatedByUser: `${user.name} ${user.surname}`,
-				createdAtDatetime: moment(new Date()).format("YYYY-MM-DD HH:mm"),
-			},
+		setNewTrn(prev => {
+			return {
+				...prev,
+				metaData: {
+					...prev.metaData,
+					trnType: e.target.value,
+				},
+			};
 		});
+	};
 
-		if (e.target.value === "choose") {
-			return;
-		} else {
-			// prepare new trn form data. New Trn form data must be sent to the TrnForm ready for dispaly
-			// console.log(`e`, e.target.value);
-			// console.log(`status`, status);
-			// console.log(`new trn param data`, e.target.getAttribute("data-new-trn"));
-			modalToOpen("trnForm", newTransactionData);
+	const openNewTrn = () => {
+		// console.log(`newTrn`, newTrn);
+		if (newTrn.metaData.trnType) {
+			openModal({
+				modalName: "trnForm",
+				payload: newTrn,
+			});
 		}
 	};
 
 	// console.log(`possibleTrns.possibleTrns`, possibleTrns.possibleTrns);
-	// console.log(`ml2`, ml2);
+	// console.log(`newTrn`, newTrn);
 
 	return (
 		<>
+			<button onClick={openNewTrn}>NT</button>
 			<select
-				data-new-trn={JSON.stringify({
-					...newTrnData,
-					trnType: status,
-					createdByUser: `${user.name} ${user.surname}`,
-					updatedByUser: `${user.name} ${user.surname}`,
-				})}
-				value={status}
-				onChange={changeStatus}
-				className="btn-table-row btn-trn-select"
+				value={newTrn.metaData.trnType}
+				onChange={handleChange}
+				placeholder="Store Name"
 			>
-				{/* <option value="choose">choose trn</option> */}
-				{possibleTrns.possibleTrns[params.data.astData.astCartegory] &&
-					possibleTrns.possibleTrns[params.data.astData.astCartegory].map(trn => {
-						// console.log(`trn`, trn);
+				{pTrns[astCartegory] &&
+					pTrns[astCartegory].map(trn => {
 						return (
-							<option key={trn} value={trn}>
-								{trn}
+							<option key={trn.key} value={trn.value}>
+								{trn.value}
 							</option>
 						);
 					})}

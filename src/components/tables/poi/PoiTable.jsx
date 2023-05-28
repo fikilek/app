@@ -8,6 +8,7 @@ import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 import PoiBtnDeleteItem from "./PoiBtnDeleteItem";
 import PoiBtnAddItem from "./PoiBtnAddItem";
+import PoiTableItemSelect from "./PoiTableItemSelect";
 
 const PoiTable = ({ po, setPo }) => {
 	// console.log(`PoiTable po`, po);
@@ -24,6 +25,8 @@ const PoiTable = ({ po, setPo }) => {
 			flex: 3,
 			headerTooltip: "Name of the item to be procured",
 			colSpan: params => 2,
+			cellRenderer: PoiTableItemSelect,
+			cellRendererParams: { po, setPo },
 		},
 		{
 			field: "itemAddBtn",
@@ -140,7 +143,7 @@ const PoiTable = ({ po, setPo }) => {
 				columnDefs={columnDefs} // Column Defs for Columns
 				defaultColDef={defaultColDef} // Default Column Properties
 				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-				rowSelection="single" // Options - allows click selection of rows
+				// rowSelection="single" // Options - allows click selection of rows
 				// onCellClicked={addItems}
 				domLayout={"autoHeight"}
 				getRowId={getRowId}

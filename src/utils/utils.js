@@ -1,12 +1,16 @@
 import { nanoid } from "@reduxjs/toolkit";
 import totals3 from "../images/totals3.png";
 
-// finction to generate rendom number betwen min and max
+// maths
+
+// function to generate rendom number betwen min and max
 export const randomNumber = (min, max) => {
 	min = Math.ceil(min);
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+// Dashboard (Dbd)
 
 export const getDbdTotals = data => {
 	console.log(`data received by getDbdTotals`, data);
@@ -27,14 +31,9 @@ export const getDbdTotals = data => {
 	return { totals, asts: objEnt };
 };
 
-// capilalize first letter of a string and the rest small letters
-export const capitalize = string => {
-	const firstLetter = string.charAt(0).toUpperCase();
-	const restOfString = string.slice(1).toLowerCase();
-	return string && `${firstLetter}${restOfString}`;
-};
-
 export const getSystemId = () => nanoid();
+
+// grv / po
 
 export const getGrvStatus = (inv, payment, cr, wr) => {
 	// if (poInvStatus === false || poPopStatus === false) return "No Grv"
@@ -108,4 +107,152 @@ export const getPoStatus = po => {
 	if (poApproved && poReceived && !poWitnessed) return "received";
 	if (poApproved && poReceived && poWitnessed) return "witnessed";
 	return null;
+};
+
+// ******************************************************
+// strings
+// ******************************************************
+
+// capilalize first letter of a string and the rest small letters
+export const capitalizeFirstLetter = string => {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const capitalize = string => {
+	const firstLetter = string.charAt(0).toUpperCase();
+	const restOfString = string.slice(1).toLowerCase();
+	return string && `${firstLetter}${restOfString}`;
+};
+
+// ******************************************************
+// form - select options
+// ******************************************************
+
+export const formSelectOptions = {
+
+	goodBadOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "good", value: "good" },
+		{ key: "bad", value: "bad" },
+	],
+
+		cbPoleOtions: [
+		{ key: "choose", value: "choose" },
+		{ key: "single pole", value: "single pole" },
+		{ key: "double pole", value: "double pole" },
+	],
+	
+	trnConfirmationOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "done", value: "done" },
+		{ key: "not done", value: "not done" },
+	],
+
+	serviceConnectionEntryOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "overhead", value: "overhead" },
+		{ key: "underground", value: "underground" },
+	],
+
+	yesNoOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "yes", value: "yes" },
+		{ key: "no", value: "no" },
+	],
+
+	astLocationPremisesOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "inside", value: "inside" },
+		{ key: "outside", value: "outside" },
+	],
+
+	meterTypeOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "pre-paid", value: "pre-paid" },
+		{ key: "conventional", value: "conventional" },
+	],
+
+	meterPhaseOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "single", value: "single" },
+		{ key: "three", value: "three" },
+	],
+
+	astExactLocationOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "poleBottom", value: "poleBottom" },
+		{ key: "poleTop", value: "poleTop" },
+		{ key: "standAlone", value: "standAlone" },
+		{ key: "other", value: "other" },
+	],
+
+	confirmInstallationDataOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "confirmed correct", value: "confirmed correct" },
+		{ key: "data wrong", value: "data wrong" },
+		{ key: "other", value: "other" },
+	],
+
+	genderOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "male", value: "male" },
+		{ key: "female", value: "female" },
+		{ key: "none", value: "none" },
+	],
+
+	customerCartegoryOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "owner", value: "owner" },
+		{ key: "occupant", value: "occupant" },
+	],
+
+	customerTypeOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "warm body", value: "warm body" },
+		{ key: "juristic person", value: "juristic person" },
+	],
+
+	standUseOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "residential suburb", value: "residential suburb" },
+		{ key: "residential township", value: "residential township" },
+		{ key: "business", value: "business" },
+		{ key: "church", value: "church" },
+		{ key: "government", value: "government" },
+	],
+
+	poleHasLampOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "yes", value: "yes" },
+		{ key: "no", value: "no" },
+	],
+
+	poleTypeOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "wood", value: "wood" },
+		{ key: "cement", value: "cement" },
+		{ key: "metal", value: "metal" },
+	],
+
+	poleConditionOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "good", value: "good" },
+		{ key: "leaning", value: "leaning" },
+		{ key: "burned", value: "burned" },
+		{ key: "bad", value: "bad" },
+	],
+
+	boxTypeOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "fibreglass", value: "fibreglass" },
+		{ key: "metal", value: "metal" },
+		{ key: "pvc", value: "pvc" },
+	],
+
+	boxLocationOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "pole top", value: "pole top" },
+		{ key: "pole bottom", value: "pole bottom" },
+		{ key: "stand alone", value: "stand alone" },
+	],
 };

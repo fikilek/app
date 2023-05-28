@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const TableBtnOpenTrns = ({ params }) => {
+const TableBtnOpenTrns = params => {
 	// console.log(`params`, params)
 	const navigate = useNavigate();
 	const handleOpenAst = e => {

@@ -1,12 +1,18 @@
 import React from "react";
-import "./erfs.css";
-
+import { useParams } from "react-router-dom";
+import TableErfs from "../../components/table/TableErfs";
 const Erfs = () => {
+	const { ml2, ml3 } = useParams();
+	// console.log(`ml2`, ml2)
+	// console.log(`ml3`, ml3)
 	return (
-		<div className="erfs">
-			<p>Erfs</p>
-			<p>Land Parcels</p>
-		</div>
+		<TableErfs
+			ml1="erfs"
+			tn={ml2}
+			ml3={ml3}
+			nfd="newErfsFormData"
+			fn="erfsForm"
+		/>
 	);
 };
 

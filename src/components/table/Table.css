@@ -1,2 +1,26 @@
+.table {
+  height: 100%;
+  font-size: 1.5rem;
+}
 
-.table {height: 100%}
+.table .table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.table .table-header .views {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table .table-header .views .views-btn {
+  margin: 0 0.5rem;
+}
+
+.new-trns-from-erfs {
+  height: 60rem;
+  font-size: 1.5rem;
+  width: 90rem;
+}
+
