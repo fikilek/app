@@ -20,13 +20,13 @@ const SealAuditJsx = props => {
 								type="text"
 								label="seal no"
 								name={`astData[${astCat}][${astCatIndex}].astData.seal.no`}
-								placeholder="Meter No"
+								placeholder="Seal No"
 							/>
 							<FormikControl
 								control="input"
 								type="text"
 								label="linked meter no"
-								name={`astData[${astCat}][${astCatIndex}].trnData.sealInstallation.linkedMeterNo`}
+								name={`astData[${astCat}][${astCatIndex}].trnData.linkedMeterNo`}
 								placeholder="Linked Meter No"
 							/>
 					</div>

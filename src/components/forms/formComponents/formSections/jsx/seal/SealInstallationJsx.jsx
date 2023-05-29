@@ -33,7 +33,7 @@ const SealInstallation = props => {
 						control="input"
 						type="text"
 						label="linked meter no?"
-						name={`astData[${astCat}][${astCatIndex}].trnData.sealInstallation.linkedMeterNo`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.linkedMeterNo`}
 						placeholder="Linked Meter No?"
 					/>
 				</div>

@@ -9,35 +9,41 @@ import "./Table.css";
 import TableAddRecordBtn from "./tableBtns/TableAddRecordBtn";
 import TableTrns from "./TableTrns";
 import { formSects } from "../forms/formComponents/formSections/formSects";
+import { nanoid } from "@reduxjs/toolkit";
 
 const trnAstsObjects = {
-	meter: [
-		{
-			astData: { ...formSects.meter.audit.astData },
-			trnData: { ...formSects.meter.audit.trnData },
-		},
-	],
-	cb: [
-		{
-			astData: { ...formSects.cb.audit.astData, },
-			trnData: { ...formSects.cb.audit.trnData,},
-		},],
+	// meter: [
+	// 	{
+	// 		astData: { ...formSects.meter.audit.astData },
+	// 		id: nanoid(),
+	// 		trnData: { ...formSects.meter.audit.trnData },
+	// 	},
+	// ],
+	// cb: [
+	// 	{
+	// 		astData: { ...formSects.cb.audit.astData, },
+	// 		id: nanoid(),
+	// 		trnData: { ...formSects.cb.audit.trnData,},
+	// 	},],
 	seal: [
 		{
 			astData: { ...formSects.seal.audit.astData, },
+			id: nanoid(),
 			trnData: { ...formSects.seal.audit.trnData,},
 		},],
-	box: [
-		{
-			astData: { ...formSects.box.audit.astData, },
-			trnData: { ...formSects.box.audit.trnData,},
-		},],
-	pole: [
-		{
-			astData: { ...formSects.pole.audit.astData },
-			trnData: { ...formSects.pole.audit.trnData },
-		},
-	],
+	// box: [
+	// 	{
+	// 		astData: { ...formSects.box.audit.astData, },
+	// 		id: nanoid(),
+	// 		trnData: { ...formSects.box.audit.trnData,},
+	// 	},],
+	// pole: [
+	// 	{
+	// 		astData: { ...formSects.pole.audit.astData },
+	// 		id: nanoid(),
+	// 		trnData: { ...formSects.pole.audit.trnData },
+	// 	},
+	// ],
 };
 
 // Suppliers is a page component

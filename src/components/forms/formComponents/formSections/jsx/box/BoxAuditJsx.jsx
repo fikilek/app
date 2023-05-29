@@ -30,7 +30,7 @@ const BoxAuditJsx = props => {
 								control="input"
 								type="text"
 								label="box no"
-								name={`astData[${astCat}][${astCatIndex}].astData.${astCat}.astNo`}
+								name={`astData[${astCat}][${astCatIndex}].astData.astNo`}
 								placeholder="Box No"
 							/>
 						</div>

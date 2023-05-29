@@ -9,6 +9,45 @@ import { formSects } from "../components/forms/formComponents/formSections/formS
 import FormSectionTrnScns from "../components/forms/formComponents/formSection/FormSectionTrnScns";
 import FormSectionTrnAsts from "../components/forms/formComponents/formSection/FormSectionTrnAst";
 
+const getKey = (path, cat) => {
+	console.log(`path`, path);
+	// console.log(`cat`, cat);
+
+	const hasTrnData = path.includes("trnData");
+
+	const firstPartLength = path.split(".")[0].length;
+	// console.log(`firstPartLength`, path.split(".")[0], firstPartLength);
+
+	// const installationStr = "installation";
+	const astDataStr = "astData";
+	const trnDataStr = "trnData";
+
+	if (hasTrnData) {
+
+		const trnDataLength = trnDataStr.length
+		// console.log(`trnDataLength`, trnDataStr, trnDataLength);
+
+		// const catLength = cat.length;
+		// console.log(`catLength`, cat, catLength);
+
+		// const lastPartLength = installationStr.length;
+		// console.log(`lastPartLength`, installationStr, lastPartLength);
+
+		const key = path.slice(
+			firstPartLength + trnDataLength + 2
+		);
+		// console.log(`key`, key);
+
+		return key;
+	} else {
+		const middlePartLength = astDataStr.length;
+		// console.log(`middlePartLength`,astDataStr, middlePartLength);
+
+		const key = path.slice(middlePartLength + firstPartLength + 2);
+		return key;
+	}
+};
+
 const isEqual = (arr, value) => arr.every(item => item.astVerdict === value);
 
 const getFormState = (astVerdictArray, trn) => {
@@ -452,7 +491,7 @@ export const useTrnForm = (trn, setTrn) => {
 
 	// this method validates all fields on load of the form and update the validation object via dispatch method
 	const allFieldValidation = () => {
-		// console.log(`validationObject`, validationObject);
+		console.log(`validationObject`, validationObject);
 		// console.log(`allFieldValidation running trn`, trn, );
 		// console.log(`allFieldValidation running validationObject`, validationObject );
 
@@ -501,18 +540,34 @@ export const useTrnForm = (trn, setTrn) => {
 							const trnValuesData = trn.astData[cat][index].trnData;
 							// console.log(`trnValuesData`, trnValuesData);
 
+							// use cat and index to extract values from trn ast
+							const trnValuesAstData = trn.astData[cat][index].astData;
+							// console.log(`trnValuesAstData`, trnValuesAstData);
+
 							// flatten both trnVData and trnValuesData
 							const flattenedValidationData = flatten(trnVData, { overwrite: true });
-							// console.log(`flattenedValidationData`, flattenedValidationData);
+							console.log(`flattenedValidationData`, flattenedValidationData);
 							const flattenedValuesData = flatten(trnValuesData, { overwrite: true });
 							// console.log(`flattenedValuesData`, flattenedValuesData);
+							const flattenedValuesAstData = flatten(trnValuesAstData, {
+								overwrite: true,
+							});
+							// console.log(`flattenedValuesAstData`, flattenedValuesAstData);
+
+							// combine the flattned values
+							const combinedFlattendValues = {
+								...flattenedValuesData,
+								...flattenedValuesAstData,
+							};
+							console.log(`combinedFlattendValues`, combinedFlattendValues);
 
 							// We are now ready to do validation. Loop through the flattened flattenedValuesData object and get value. On the same loop key, get the constraint constraint, validate and update verdict. This is all happening on the flattenedValidationData object
-							for (const key in flattenedValuesData) {
-								// console.log(`key`, key)
+							for (const key in combinedFlattendValues) {
+								console.log(`key`, key)
 
 								// get the value at eavh key
-								let value = flattenedValuesData[key];
+								// let value = flattenedValuesData[key];
+								let value = combinedFlattendValues[key];
 								// console.log(`key:${key} --- value:${value}`);
 
 								// get the constraints at each key and validate
@@ -531,6 +586,7 @@ export const useTrnForm = (trn, setTrn) => {
 									// console.log(`value.length === "0"`, value.length === "0");
 									// console.log(`value.length === 0`, value.length === 0);
 									// console.log(`value`, value);
+									// console.log(`vl`, vl);
 									if (
 										vl.length === "0" ||
 										vl.length === 0 ||
@@ -549,6 +605,7 @@ export const useTrnForm = (trn, setTrn) => {
 										verdict = "PASS`";
 									}
 
+									console.log(`verdict`, verdict)
 									// Update flattenedValidationData
 									flattenedValidationData[`${key}.verdict`] = verdict;
 									// console.log(`flattenedValidationData`, flattenedValidationData);
@@ -584,7 +641,7 @@ export const useTrnForm = (trn, setTrn) => {
 
 	const fieldValidation = (validationPath, value) => {
 		// console.log(`fieldValidation method-------------------------`);
-		// console.log(`validationPath`, validationPath);
+		console.log(`validationPath`, validationPath);
 		// console.log(`value`, value);
 		// console.log( `validationObject`, validationObject);
 
@@ -608,15 +665,16 @@ export const useTrnForm = (trn, setTrn) => {
 		// console.log(`astTrackingInfo`, astTrackingInfo)
 
 		const flattenedTvd = flatten(tvd, { overwrite: true });
-		// console.log(`flattenedTvd`, flattenedTvd);
+		console.log(`flattenedTvd`, flattenedTvd);
 
 		// get index of trnData
 		const indexOfTrnData = validationPath.indexOf("trnData");
 		// console.log(`indexOfTrnData`, indexOfTrnData);
 
 		// extract the key to locate constraint from validation path
-		const key = validationPath.slice(indexOfTrnData + 8);
-		// console.log(`key`, key);
+		// const key = validationPath.slice(indexOfTrnData + 8);
+		const key = getKey(validationPath, cat);
+		console.log(`key`, key);
 
 		// modifies key
 		const modifiedKey = `${key}.constraints.0.required`;
@@ -633,7 +691,7 @@ export const useTrnForm = (trn, setTrn) => {
 			// console.log(`value.length`, value.length);
 			// console.log(`value.length === "0"`, value.length === "0");
 			// console.log(`value.length === 0`, value.length === 0);
-			// console.log(`value`, value);
+			console.log(`value`, value);
 			if (
 				vl.length === "0" ||
 				vl.length === 0 ||
@@ -652,6 +710,7 @@ export const useTrnForm = (trn, setTrn) => {
 				verdict = "PASS`";
 			}
 
+			console.log(`vercdict`, verdict);
 			// Update flattenedValidationData
 			flattenedTvd[`${key}.verdict`] = verdict;
 			// console.log(`flattenedTvd`, flattenedTvd);
@@ -802,12 +861,13 @@ export const useTrnForm = (trn, setTrn) => {
 							// iterate through the ast fields. First chekc for confirmTrn (ci). If ci is "not done", no reason to do field validations, jsut store a "N/A" verdict for the ast and procedd to the validate the next ast
 
 							// capitalize first letter of trnType
-							const capTrnType = trnType.charAt(0).toUpperCase() + trnType.slice(1);
+							// const capTrnType = trnType.charAt(0).toUpperCase() + trnType.slice(1);
 							// console.log(`capTrnType`, capTrnType)
 
 							// get the verdict for "ci"
 							const ciVerdict =
-								flattenedValuesData[`${cat}${capTrnType}.confirmations.confirmTrn`];
+								// flattenedValuesData[`${cat}${capTrnType}.confirmations.confirmTrn`];
+								flattenedValuesData[`confirmations.confirmTrn`];
 							// console.log(`ciVerdict`, ciVerdict);
 
 							if (ciVerdict === "not done") {

@@ -252,10 +252,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 		const previousTrnState = change.before.data().metaData.trnState;
 		console.log(`previousTrnState`, previousTrnState);
 		const trnType = change.after.data().metaData.trnType;
-		console.log(`trnType`, trnType);
+		// console.log(`trnType`, trnType);
 
 		if (
-			previousTrnState === "draft" &&
+			// previousTrnState === "draft" &&
 			currentTrnState === "valid" &&
 			trnType === "installation"
 		) {
@@ -311,11 +311,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					const newComObj = {
 						id: ast.astId,
 						astData: ast.trnObject.astData,
-						[`${ast.astCat}Installation`]:
-							ast.trnObject.trnData[`${ast.astCat}Installation`],
+						[`${ast.astCat}Installation`]: ast.trnObject.trnData,
 						trnData: trnComObj.getTrnComSection(ast.astCat),
 					};
-					// console.log(`newComObj`, newComObj);
+					console.log(`newComObj`, newComObj);
 
 					if (!newTrnCom.astData) {
 						newTrnCom.astData = {};
@@ -357,9 +356,9 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 
 			// get id of the trn doc
 			const trnIdb = change.before.data().id;
-			console.log(`trnId before`, trnIdb);
+			// console.log(`trnId before`, trnIdb);
 			const trnId = change.after.data().id;
-			console.log(`trnId after`, trnId);
+			// console.log(`trnId after`, trnId);
 
 			// change.after.ref.set({"metaData.trnState": "submited"},{ merge: true })
 			// TODO: investigate wht the ref.set method is not working?
@@ -367,7 +366,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			const updatedDoc = trnDocRef.update({
 				"metaData.trnState": "submited",
 			});
-			console.log(`updatedDoc`, updatedDoc);
+			// console.log(`updatedDoc`, updatedDoc);
 
 			// 3. Update all asts that have been 'checked out' and installed to "field" state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
 			const astIdsArray = getAstIdsInTrn(change.after.data());
@@ -387,7 +386,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 		}
 
 		if (
-			previousTrnState === "draft" &&
+			// previousTrnState === "draft" &&
 			currentTrnState === "valid" &&
 			trnType === "audit"
 		) {
@@ -407,17 +406,50 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			const updatedDoc = trnDocRef.update({
 				"metaData.trnState": "submited",
 			});
-			console.log(`updatedDoc`, updatedDoc);
+			// console.log(`updatedDoc`, updatedDoc);
 
-			// 3. Update all asts that have been 'checked out' and installed to "field" state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
+			// 3. Update all the trn asts that are on 'field' state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
 			const astIdsArray = getAstIdsInTrn(change.after.data());
-			// console.log(`astIdsArray`, astIdsArray);
+			console.log(`astIdsArray`, astIdsArray);
 
-			// iterate through astIdsArray, on each ast id, update ast to a 'field' state.
+			// iterate through astIdsArray, create new asts and update each to a 'field' state.
 			astIdsArray &&
 				astIdsArray.forEach(ast => {
-					// console.log(`ast`, ast);
-					// create ast object for each ast and add to asts collection
+					console.log(`ast`, ast);
+
+					// get the ast from ast
+					const { astData } = ast.trnObject;
+					console.log(`astData`, astData);
+
+					// create a new trn commissioning object
+					const newAst = {
+						metaData: {
+							// createdAtDatetime: db.Timestamp.fromDate(new Date()),
+							createdAtDatetime: Timestamp.now(),
+							createdByUser: "admin",
+							updatedAtDatetime: Timestamp.now(),
+							updatedByUser: "admin",
+							createdThrough: {
+								creator: "audit",
+								creatorNo: trn.metaData.trnNo,
+								id: trn.id,
+							},
+							trnCount: 0,
+						},
+						astData,
+					};
+					console.log(`newAst`, newAst);
+
+					// add the new ast to the asts collection
+					const astsRef = db.collection("asts");
+					astsRef
+						.add(newAst)
+						.then(docRef => {
+							console.log("Document added with ID: ", docRef.id);
+						})
+						.catch(error => {
+							console.error("Error adding document: ", error.msg);
+						});
 				});
 		}
 	});

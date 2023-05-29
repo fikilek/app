@@ -88,7 +88,8 @@ const FormSectionTrn = props => {
 							control="select"
 							type="text"
 							label="confirm Installation"
-							name={`astData[${sectionName}][${astCatIndex}].trnData.${catTypeStr}.confirmations.confirmTrn`}
+							name={`astData[${sectionName}][${astCatIndex}].trnData.confirmations.confirmTrn`}
+							// name={`astData[${sectionName}][${astCatIndex}].trnData.${sectionName}Installation.confirmations.confirmTrn`}
 							options={formSelectOptions.trnConfirmationOptions}
 						/>
 					</div>

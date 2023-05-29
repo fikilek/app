@@ -34,7 +34,7 @@ const SealCommissioningJsx = props => {
 							Linked Meter No -{" "}
 							<span>
 								{
-									trn.astData[astCat][astCatIndex][`${astCat}Installation`].linkedMeterNo
+									trn.astData[astCat][astCatIndex].sealInstallation.linkedMeterNo
 								}
 							</span>
 						</p>
@@ -45,7 +45,7 @@ const SealCommissioningJsx = props => {
 						control="select"
 						type="text"
 						label="seal no verfied"
-						name={`astData[${astCat}][${astCatIndex}].trnData.sealCommissioning.sealNoVerified`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.sealNoVerified`}
 						placeholder="Seal No Verified"
 						options={formSelectOptions.yesNoOptions}
 					/>
@@ -53,7 +53,7 @@ const SealCommissioningJsx = props => {
 						control="select"
 						type="text"
 						label="seal meter link verfied"
-						name={`astData[${astCat}][${astCatIndex}].trnData.sealCommissioning.sealMeterLinkVerified`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.sealMeterLinkVerified`}
 						placeholder="Seal Meter Link Verified"
 						options={formSelectOptions.yesNoOptions}
 					/>
@@ -64,7 +64,7 @@ const SealCommissioningJsx = props => {
 							control="select"
 							type="text"
 							label="seal locked?"
-							name={`astData[${astCat}][${astCatIndex}].trnData.sealCommissioning.sealLocked`}
+							name={`astData[${astCat}][${astCatIndex}].trnData.sealLocked`}
 							placeholder="Seal Locked?"
 							options={formSelectOptions.yesNoOptions}
 						/>

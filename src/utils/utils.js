@@ -136,12 +136,12 @@ export const formSelectOptions = {
 		{ key: "bad", value: "bad" },
 	],
 
-		cbPoleOtions: [
+	cbPoleOtions: [
 		{ key: "choose", value: "choose" },
 		{ key: "single pole", value: "single pole" },
 		{ key: "double pole", value: "double pole" },
 	],
-	
+
 	trnConfirmationOptions: [
 		{ key: "choose", value: "choose" },
 		{ key: "done", value: "done" },

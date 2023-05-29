@@ -6,14 +6,14 @@ import FormShowHideSection from "../formShowHideSection/FormShowHideSection";
 import { formSelectOptions } from "../../../../utils/utils";
 
 const FormSectionTrnAst = props => {
-	console.log(`props`, props);
-	const { children, ast, astCatIndex, trn, usage, subSectionName } = props;
+	// console.log(`props`, props);
+	const { children, ast, astCatIndex, trn } = props;
 	// console.log(`ast`, ast);
 	// console.log(`trn`, trn);
 
 	// distructure trnType
 	const { trnType } = trn.metaData;
-	console.log(`trnType`, trnType)
+	// console.log(`trnType`, trnType)
 
 	const capTrnType = trnType.charAt(0).toUpperCase() + trnType.slice(1);
 	// console.log(`capTrnType`, capTrnType)
@@ -72,7 +72,11 @@ const FormSectionTrnAst = props => {
 						/>
 					</div>
 					<p className="validationVerdic">{astValidationVerdict}</p>
-					<p className="ast-no">{ast.astData.astCartegory === 'cb' ? ast.astData.cb.size : astNo}</p>
+					<p className="ast-no">
+						{ast.astData.astCartegory === "cb"
+							? `${ast.astData.cb.size} Amps`
+							: astNo}
+					</p>
 					<p>{ast.astData.astCartegory}</p>
 				</div>
 
@@ -87,8 +91,8 @@ const FormSectionTrnAst = props => {
 							control="select"
 							type="text"
 							label="confirm Installation"
-							name={`astData[${sectionName}][${astCatIndex}].trnData.${catTypeStr}.confirmations.confirmTrn`}
-							options={formSelectOptions.yesNoOptions}
+							name={`astData[${sectionName}][${astCatIndex}].trnData.confirmations.confirmTrn`}
+							options={formSelectOptions.trnConfirmationOptions}
 						/>
 					</div>
 				</div>

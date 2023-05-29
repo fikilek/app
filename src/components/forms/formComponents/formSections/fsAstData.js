@@ -2,13 +2,13 @@ export const fsAstData = {
 	meter: {
 		astData: {
 			astCartegory: "meter",
-			astNo: "",
+			astNo: "", // vaidation : required
 			astSerialNo: "",
 			astState: "service",
 			meter: {
 				code: "",
-				phase: "",  //['single','three']
-				type: "",
+				phase: "", //['single','three'] // vaidation : required
+				type: "", // ['connventional', 'pre-paid'] // vaidation : required
 			},
 		},
 	},
@@ -19,9 +19,9 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			cb: {
-				size: "",
+				size: "", // vaidation : required
 				code: "",
-				type: "",
+				type: "", // vaidation : required
 			},
 		},
 	},
@@ -33,12 +33,13 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			seal: {
-				no: "",
+				no: "", // validation : required
 				code: "",
 				type: "",
 			},
 		},
 	},
+
 	box: {
 		astData: {
 			astCartegory: "box",
@@ -47,16 +48,17 @@ export const fsAstData = {
 			astState: "service",
 			box: {
 				dimensions: {
-					lenght: '',
-					width: '',
-					height: '',
+					lenght: "",
+					width: "",
+					height: "",
 				},
 				code: "",
-				type: "",
-				color: '',
+				type: "", // vaidation : required
+				color: "",
 			},
 		},
 	},
+	
 	pole: {
 		astData: {
 			astCartegory: "pole",
@@ -64,7 +66,7 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			pole: {
-				height: "",
+				height: "", // vaidation : required
 				code: "",
 				type: "",
 			},

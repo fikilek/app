@@ -41,15 +41,15 @@ const getTrnComSection = astCat => {
 
 		case "seal":
 			return {
-				sealCommissioning: {
-					sealNoVerified: "",
-					sealMeterLinkVerified: "",
-					sealLocked: "",
-					photos: ["Photo 1 url", "Photo 2 url"],
-					confirmations: {
-						confirmTrn: "",
-					},
+				// sealCommissioning: {
+				sealNoVerified: "",
+				sealMeterLinkVerified: "",
+				sealLocked: "",
+				photos: ["Photo 1 url", "Photo 2 url"],
+				confirmations: {
+					confirmTrn: "",
 				},
+				// },
 			};
 
 		case "pole":

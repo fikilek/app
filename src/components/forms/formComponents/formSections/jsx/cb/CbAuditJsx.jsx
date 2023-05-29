@@ -39,7 +39,7 @@ const CbAuditJsx = props => {
 								control="input"
 								type="text"
 								label="linked meter no"
-								name={`astData[${astCat}][${astCatIndex}].astData.${astCat}.linkedMeterNo`}
+								name={`astData[${astCat}][${astCatIndex}].trnData.${astCat}Installation.linkedMeterNo`}
 								placeholder="Lnked Meter No"
 							/>
 						</div>
