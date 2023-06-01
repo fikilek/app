@@ -21,6 +21,10 @@
   background-color: lightcyan;
 }
 
+.form-container form .fs .grey-out {
+  color: rgb(255, 0, 0);
+}
+
 .form-container form .fs .fsh button {
   font-size: 1.5rem;
   width: 2rem;

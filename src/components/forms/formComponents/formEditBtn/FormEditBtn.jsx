@@ -17,7 +17,7 @@ const FormEditBtn = params => {
 	};
 
 	return (
-		<button className="form-edit-btn" onClick={handleClick}>
+		<button className="form-edit-btn table-row-btn" onClick={handleClick}>
 			<MdEdit style={iconStyles} />
 		</button>
 	);

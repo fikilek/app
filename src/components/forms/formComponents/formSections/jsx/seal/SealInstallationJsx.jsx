@@ -7,20 +7,13 @@ const SealInstallation = props => {
 	const { ast, trn, astCat, astCatIndex } = props;
 
 	return (
-		<FormSectionTrn
-			ast={ast}
-			trn={trn}
-			astCat={astCat}
-			astCatIndex={astCatIndex}
-		>
+		<FormSectionTrn ast={ast} trn={trn} astCat={astCat} astCatIndex={astCatIndex}>
 			<div className="ast">
 				<div className="row-1 ast-row read-only-row">
 					<div className="data">
+						<p className="data-header">Asset Data</p>
 						<p>
 							Asset No - <span>{ast?.astData.astNo}</span>
-						</p>
-						<p>
-							Seal No - <span>{ast?.astData.seal.no}</span>
 						</p>
 						<p>
 							Seal Code - <span>{ast?.astData.seal.code}</span>

@@ -102,20 +102,27 @@ const getTrnAsts = trn => {
 				const astCatArray = trn.astData[key];
 				astCatArray &&
 					astCatArray.forEach(ast => {
-						// console.log(`ast`, ast);
-						if (
-							(tt === 'installation' && ts === "submited") ||
-							(tt === 'commissioning')
-						) {
-							trnAssets.push({
-								...ast,
-								astData: {
-									...ast.astData,
-									astState: "field",
-								},
-							});
-						} else {
-							trnAssets.push(ast);
+						console.log(`ast`, ast);
+
+						// if confirmations.confirTrn is 'not done', exclude the ast (dont push into the trnAssets)
+						const { confirmTrn } = ast.trnData.confirmations;
+						console.log(`confirmTrn`, confirmTrn);
+
+						if (confirmTrn === "done") {
+							if (
+								(tt === "installation" && ts === "submited") ||
+								tt === "commissioning"
+							) {
+								trnAssets.push({
+									...ast,
+									astData: {
+										...ast.astData,
+										astState: "field",
+									},
+								});
+							} else {
+								trnAssets.push(ast);
+							}
 						}
 					});
 			});
@@ -309,7 +316,9 @@ const TrnAstCheckoutForm = props => {
 						</div>
 					</div>
 					<div className="fh5-right">
-						<button>form state : <span>{props.data.metaData.trnState}</span> </button>
+						<button>
+							form state : <span>{props.data.metaData.trnState}</span>{" "}
+						</button>
 						<button onClick={() => closeModal()}>
 							<p>Cancel</p>
 						</button>
@@ -331,6 +340,7 @@ const TrnAstCheckoutForm = props => {
 							rowData={trnAsts}
 							columnDefs={columnDefsCheckin}
 							setSelectedRows={setSelectedAstFromCheckedout}
+							trn={props.data}
 						/>
 					</div>
 				</div>

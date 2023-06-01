@@ -17,6 +17,7 @@ const BoxInstallationJsx = props => {
 			<div className="ast">
 				<div className="row-1 ast-row read-only-row">
 					<div className="data">
+						<p className="data-header">Asset Data</p>
 						<p>
 							Box No - <span>{ast?.astData.astNo}</span>
 						</p>
@@ -25,9 +26,6 @@ const BoxInstallationJsx = props => {
 						</p>
 						<p>
 							Box Color - <span>{ast?.astData.box.color}</span>
-						</p>
-						<p>
-							Box Code - <span>{ast?.astData.box.code}</span>
 						</p>
 						<p>
 							Box Dimensions -<span>H:{ast?.astData.box.dimensions.height}</span>
@@ -46,7 +44,7 @@ const BoxInstallationJsx = props => {
 						control="select"
 						type="text"
 						label="is box inside or outside premises"
-						name={`astData[${astCat}][${astCatIndex}].trnData.boxInstallation.location.premises`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.location.premises`}
 						placeholder="Where is Box Placed"
 						options={formSelectOptions.astLocationPremisesOptions}
 					/>
@@ -54,7 +52,7 @@ const BoxInstallationJsx = props => {
 						control="select"
 						type="text"
 						label="box exact location"
-						name={`astData[${astCat}][${astCatIndex}].trnData.boxInstallation.location.exactLocation`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.location.exactLocation`}
 						placeholder="Exact Location"
 						options={formSelectOptions.astExactLocationOptions}
 					/>
@@ -65,7 +63,7 @@ const BoxInstallationJsx = props => {
 						control="input"
 						type="text"
 						label="exact/nearest box address"
-						name={`astData[${astCat}][${astCatIndex}].trnData.boxInstallation.astAdr.adr`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.adr`}
 						placeholder="exact/nearest address"
 					/>
 					{/* TODO: figure out how to display gps */}
@@ -75,21 +73,39 @@ const BoxInstallationJsx = props => {
 						control="input"
 						type="text"
 						label="box lat/lon"
-						name={`astData[${astCat}][${astCatIndex}].trnData.boxInstallation.astAdr.gps`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps`}
 						placeholder="Exact Gps"
 					/>
 				</div>
-				<div className="row-3 sc-row">
+				<div className="row-3 ast-row">
+					<FormikControl
+						// readOnly={true}
+						control="select"
+						type="text"
+						label="is box lockable?"
+						name={`astData[${astCat}][${astCatIndex}].trnData.boxLock.lockable`}
+						placeholder="Is Box Lockable?"
+						options={formSelectOptions.yesNoOptions}
+					/>
+					<FormikControl
+						control="select"
+						type="text"
+						label="is box locked?"
+						name={`astData[${astCat}][${astCatIndex}].trnData.boxLock.isLocked`}
+						placeholder="Is Box Locked?"
+						options={formSelectOptions.yesNoOptions}
+					/>
+				</div>{" "}
+				<div className="row-4 sc-row">
 					{/* service connection form- meter/cb/erfNo */}
 					<FormikControl
 						control="scFieldArray"
 						type="text"
-						name={`astData[${astCat}][${astCatIndex}].trnData.boxInstallation.scns`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.scns`}
 						astCat={astCat}
 						astCatIndex={astCatIndex}
 					/>
 				</div>
-				<div className="row-4 ast-row"></div>
 			</div>
 		</FormSectionTrn>
 	);

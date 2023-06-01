@@ -24,3 +24,33 @@
   width: 90rem;
 }
 
+.table .trn-ast-checkout .trn-ast-count {
+  color: blue;
+  font-weight: 800;
+}
+
+.table .table-row-btn {
+  background-color: #dae4fa99;
+  border: 1px solid lightgray;
+  border-radius: 0.6rem;
+  text-align: center;
+  font-size: inherit;
+  height: 2.5rem;
+  padding: 0 1rem;
+}
+
+.table .table-row-btn-trn-data {
+  width: 11rem;
+}
+
+.table .table-row-btn-creator {
+  width: 9rem;
+}
+
+.table .table-row-btn-ast-no {
+  width: 13rem;
+}
+
+.table .table-row-btn:hover {
+  cursor:pointer
+}

@@ -1366,7 +1366,7 @@ export const useColumnDefs = props => {
 		// { field: "delete", headerName: "Delete", width: 100, hide: true },
 	];
 
-	// checkout
+	// asts sitting in 'asts' collection (left pannel of checkout form)
 	const astCheckoutFields = [
 		{
 			field: "id",
@@ -1426,7 +1426,7 @@ export const useColumnDefs = props => {
 		},
 	];
 
-	// checkout
+	// asts sittong in trn object  (right pannel of checkout form)
 	const astCheckinFields = [
 		// {
 		// 	field: "id",
@@ -1463,7 +1463,7 @@ export const useColumnDefs = props => {
 				// console.log(`params`, params);
 				const astState = params.data.astData.astState;
 				// console.log(`astState`, astState);
-				return astState === "field"
+				return astState === "field" || astState === "service"
 					? { pointerEvents: "none", opacity: "0.4" }
 					: { disabled: false };
 			},
@@ -1539,6 +1539,7 @@ export const useColumnDefs = props => {
 			field: "edit",
 			headerName: "Edit",
 			width: 80,
+			floatingFilter: false,
 			cellRenderer: memo(FormEditBtn),
 			cellRendererParams: {
 				fn: "astsForm",
@@ -1548,14 +1549,11 @@ export const useColumnDefs = props => {
 		{
 			field: "metaData.createdThrough",
 			headerName: "Creator",
-			width: 100,
+			width: 130,
+			filter: "agTextColumnFilter",
 			cellRenderer: params => {
 				const { createdThrough } = params.data.metaData;
-				// console.log(`createdThrough`, createdThrough);
-				return <p>{`${createdThrough.creator} : ${createdThrough.creatorNo}`}</p>;
-				// return (
-				// 	<button className="btn-table-row btn-serial-no">{`${createdThrough.creator} : ${createdThrough.creatorNo}`}</button>
-				// );
+				return <button className="table-row-btn table-row-btn-creator ">{`${createdThrough.creator} : ${createdThrough.creatorNo}`}</button>;
 			},
 		},
 		{
@@ -1580,13 +1578,26 @@ export const useColumnDefs = props => {
 					field: "astData.astNo",
 					columnGroupShow: "closed",
 					headerName: `Asset No`,
-					width: 160,
-					cellRenderer: p =>
-						p.value ? (
-							<button className="btn-table-row btn-serial-no">{p.value}</button>
-						) : (
-							""
-						),
+					width: 180,
+					// cellRenderer: p => {
+					// 	console.log(`p.value`, p.value);
+					// 	return p.value ? (
+					// 		<button className="table-row-btn btn-serial-no">{p.value}</button>
+					// 	) : (
+					// 		""
+					// 	);
+					// },
+
+					cellRenderer: params => {
+						// console.log(`params`, params);
+						const str = params.value;
+						// console.log(`str`, str);
+						return (
+							<button className="table-row-btn table-row-btn-ast-no btn-serial-no">
+								{str}
+							</button>
+						);
+					},
 				},
 				{
 					field: "astData.astSerialNo",
@@ -1736,7 +1747,7 @@ export const useColumnDefs = props => {
 					width: 130,
 					columnGroupShow: "closed",
 					cellRenderer: p => (
-						<button className="btn-table-row btn-mediaFields btn-mediaFields-photos">
+						<button className="table-row-btn btn-mediaFields btn-mediaFields-photos">
 							Photos
 						</button>
 					),
@@ -1747,7 +1758,7 @@ export const useColumnDefs = props => {
 					width: 130,
 					columnGroupShow: "open",
 					cellRenderer: p => (
-						<button className="btn-table-row btn-mediaFields btn-mediaFields-photos">
+						<button className="table-row-btn btn-mediaFields btn-mediaFields-photos">
 							Photos
 						</button>
 					),
@@ -1758,7 +1769,7 @@ export const useColumnDefs = props => {
 					width: 130,
 					columnGroupShow: "open",
 					cellRenderer: p => (
-						<button className="btn-table-row btn-mediaFields btn-mediaFields-videos">
+						<button className="table-row-btn btn-mediaFields btn-mediaFields-videos">
 							Videos
 						</button>
 					),
@@ -1769,7 +1780,7 @@ export const useColumnDefs = props => {
 					width: 130,
 					columnGroupShow: "open",
 					cellRenderer: p => (
-						<button className="btn-table-row btn-mediaFields btn-mediaFields-voice">
+						<button className="table-row-btn btn-mediaFields btn-mediaFields-voice">
 							Voice
 						</button>
 					),
@@ -1917,35 +1928,30 @@ export const useColumnDefs = props => {
 		// 	},
 		// },
 		{
-			field: "metaData.trnType",
-			headerName: "Trn Type",
-			width: 130,
-		},
-		{
 			field: "metaData.trnState",
 			headerName: "Trn State",
 			width: 150,
 			// cellRenderer: memo(TrnState),
 		},
-		{
-			field: "metaData.trnHistory",
-			headerName: "Trn History",
-			width: 130,
-			cellRenderer: memo(TrnHistory),
-		},
-		{
-			field: "metaData.trnAprrove",
-			headerName: "Approve?",
-			width: 130,
-			cellRenderer: memo(TrnApprove),
-		},
+		// {
+		// 	field: "metaData.trnHistory",
+		// 	headerName: "Trn History",
+		// 	width: 130,
+		// 	cellRenderer: memo(TrnHistory),
+		// },
+		// {
+		// 	field: "metaData.trnAprrove",
+		// 	headerName: "Approve?",
+		// 	width: 130,
+		// 	cellRenderer: memo(TrnApprove),
+		// },
 
 		// trn -  transaction data (different for all trns)
 
 		{
 			field: "astData",
 			headerName: "Asset Checkout/in",
-			width: 230,
+			width: 250,
 			cellRenderer: memo(TrnAstCheckoutFormBtn),
 		},
 
@@ -1953,9 +1959,9 @@ export const useColumnDefs = props => {
 
 		{
 			field: "astData",
-			headerName: "Trn Data",
+			headerName: "Trn Type",
 			width: 170,
-			cellRenderer: memo(TrnDataFormBtn)
+			cellRenderer: memo(TrnDataFormBtn),
 		},
 
 		// erfs
@@ -1968,7 +1974,7 @@ export const useColumnDefs = props => {
 					headerName: "Erf No",
 					width: 130,
 					cellRenderer: params => {
-						return <button>{params.value}</button>;
+						return <button className="table-row-btn" >{params.value}</button>;
 					},
 				},
 			],

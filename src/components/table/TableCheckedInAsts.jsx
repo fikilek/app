@@ -54,8 +54,12 @@ const TableCheckedInAsts = (props) => {
 
 		// hide column
 
-		if ((tt === "installation" && ts === "submited") || tt === "commissioning") {
-			columnApi.setColumnVisible("Chck Out", false)
+		if (
+			(tt === "installation" && ts === "submited") ||
+			tt === "commissioning" ||
+			tt === "audit"
+		) {
+			columnApi.setColumnVisible("Chck Out", false);
 		}
 	}
 

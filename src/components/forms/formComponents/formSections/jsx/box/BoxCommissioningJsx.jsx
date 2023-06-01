@@ -17,7 +17,7 @@ const BoxCommissioningJsx = props => {
 			<div className="ast">
 				<div className="row-1 ast-row read-only-row">
 					<div className="data">
-						<p className="data-header">PO / Stores Data</p>
+						<p className="data-header">Asset Data</p>
 						<p>
 							Box No - <span>{ast?.astData.astNo}</span>
 						</p>
@@ -101,7 +101,7 @@ const BoxCommissioningJsx = props => {
 						control="select"
 						type="text"
 						label="installation data verfied"
-						name={`astData[${astCat}][${astCatIndex}].trnData.boxCommissioning.installationDataVerified`}
+						name={`astData[${astCat}][${astCatIndex}].trnData.installationDataVerified`}
 						placeholder="Installation Data Verified"
 						options={formSelectOptions.yesNoOptions}
 					/>

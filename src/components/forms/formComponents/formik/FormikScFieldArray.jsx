@@ -21,7 +21,7 @@ const FormikScFieldArray = props => {
 								<p>Erf No</p>
 								<p></p>
 							</div>
-							{form.values.astData[astCat][astCatIndex].trnData.boxInstallation.scns.map((scn, index) => {
+							{form.values.astData[astCat][astCatIndex].trnData.scns.map((scn, index) => {
 								// console.log(`scn`, scn);
 								return (
 									<div className="sc" key={index}>
@@ -47,8 +47,7 @@ const FormikScFieldArray = props => {
 											{
 												<button
 													disabled={
-														form.values.astData[astCat][astCatIndex].trnData.boxInstallation
-															.scns.length > 1
+														form.values.astData[astCat][astCatIndex].trnData.scns.length > 1
 															? false
 															: true
 													}

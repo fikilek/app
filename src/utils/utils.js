@@ -129,11 +129,19 @@ export const capitalize = string => {
 // ******************************************************
 
 export const formSelectOptions = {
+	poletypeOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "wood", value: "wood" },
+		{ key: "metal", value: "metal" },
+		{ key: "pvc", value: "pvc" },
+		{ key: "other", value: "other" },
+	],
 
 	goodBadOptions: [
 		{ key: "choose", value: "choose" },
 		{ key: "good", value: "good" },
 		{ key: "bad", value: "bad" },
+		{ key: "average", value: "average" },
 	],
 
 	cbPoleOtions: [
@@ -183,6 +191,8 @@ export const formSelectOptions = {
 		{ key: "poleBottom", value: "poleBottom" },
 		{ key: "poleTop", value: "poleTop" },
 		{ key: "standAlone", value: "standAlone" },
+		{ key: "building wall", value: "building wall" },
+		{ key: "boundary wall", value: "boundary wall" },
 		{ key: "other", value: "other" },
 	],
 

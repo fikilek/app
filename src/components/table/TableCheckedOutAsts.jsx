@@ -6,8 +6,6 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
-import { useCallback } from "react";
-// import PoTooltip from "./PoTooltip";
 
 const TableCheckedOutAsts = ({ rowData, columnDefs, setSelectedRows }) => {
 	// console.log(`rowData`, rowData);
@@ -21,18 +19,16 @@ const TableCheckedOutAsts = ({ rowData, columnDefs, setSelectedRows }) => {
 			filter: true,
 			resizable: true,
 			floatingFilter: true,
-			// tooltipComponent: PoTooltip,
 		}),
 		[]
 	);
 
 	const onSelectionChanged = event => {
-		// console.log(`selected rows`, event.api.getSelectedRows());
 		setSelectedRows && setSelectedRows(event.api.getSelectedRows());
 	};
 
 	return (
-		<div style={{ height: "calc(100% - 25px)" }} className="ag-theme-alpine">
+		<div style={{ height: "calc(100% - 25px)" }} className="ag-theme-alpine" >
 			<AgGridReact
 				ref={gridRef} // Ref for accessing Grid's API
 				rowData={rowData} // Row Data for Rows

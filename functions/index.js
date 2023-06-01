@@ -13,6 +13,14 @@ const { getFirestore, Timestamp } = require("firebase-admin/firestore");
 admin.initializeApp();
 const db = getFirestore();
 
+const getTotalRecordsInCollection = async (col, astCat) => {
+	const collectionRef = admin.firestore().collection(col);
+	const query = collectionRef.where("astData.astCartegory", "==", astCat);
+	const snapshot = await query.count().get();
+	const collectionCount = snapshot.data().count;
+	return collectionCount;
+};
+
 exports.createSpl = functions.firestore
 	.document("suppliers/{userId}")
 	.onCreate(async (snap, context) => {
@@ -271,7 +279,11 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// change.after.ref.set({"metaData.trnState": "submited"},{ merge: true })
 			// TODO: investigate wht the ref.set method is not working?
 			const trnDocRef = db.collection("trns").doc(trnId);
-			trnDocRef.update({ "metaData.trnState": "submited" });
+			trnDocRef.update({
+				"metaData.trnState": "submited",
+				"metaData.updatedAtDatetime": Timestamp.now(),
+				"metaData.updatedByUser": "admin",
+			});
 
 			// 3. Update all asts that have been 'checked out' and installed to "field" state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
 			const astIdsArray = getAstIdsInTrn(change.after.data());
@@ -299,36 +311,55 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 				astIdsArray.forEach(ast => {
 					// console.log(`ast`, ast);
 
-					// get reference to the ast to update te state
-					const astDocRef = db.collection("asts").doc(ast.astId);
+					const isDone = ast.trnObject.trnData.confirmations.confirmTrn;
+					console.log(`isDone`, isDone);
 
-					// update the ast state
-					astDocRef.update({ "astData.astState": "field" });
+					if (isDone === "done") {
+						// get reference to the ast to update te state
+						const astDocRef = db.collection("asts").doc(ast.astId);
 
-					// create a new comssiosioning trn
+						// update the ast state
+						astDocRef.update({
+							"astData.astState": "field",
+							"metaData.updatedAtDatetime": Timestamp.now(),
+							"metaData.updatedByUser": "admin",
+						});
 
-					// build new commissioning object
-					const newComObj = {
-						id: ast.astId,
-						astData: ast.trnObject.astData,
-						[`${ast.astCat}Installation`]: ast.trnObject.trnData,
-						trnData: trnComObj.getTrnComSection(ast.astCat),
-					};
-					console.log(`newComObj`, newComObj);
+						// create a new comssiosioning trn
 
-					if (!newTrnCom.astData) {
-						newTrnCom.astData = {};
+						// build new commissioning object
+						const newComObj = {
+							id: ast.astId,
+							astData: ast.trnObject.astData,
+							[`${ast.astCat}Installation`]: ast.trnObject.trnData,
+							trnData: trnComObj.getTrnComSection(ast.astCat),
+						};
+						console.log(`newComObj`, newComObj);
+
+						if (!newTrnCom.astData) {
+							newTrnCom.astData = {};
+						}
+
+						// console.log(`2 - newTrnCom`, newTrnCom);
+
+						if (!newTrnCom.astData[ast.astCat]) {
+							newTrnCom.astData[ast.astCat] = [];
+						}
+						// console.log(`3 - newTrnCom`, newTrnCom);
+
+						newTrnCom["astData"][ast.astCat][ast.astIndex] = newComObj;
+						// console.log(`4 - newTrnCom`, newTrnCom);
+					} else {
+						// get reference to the ast to update te state
+						const astDocRef = db.collection("asts").doc(ast.astId);
+
+						// update the ast state
+						astDocRef.update({
+							"astData.astState": "stores",
+							"metaData.updatedAtDatetime": Timestamp.now(),
+							"metaData.updatedByUser": "admin",
+						});
 					}
-
-					// console.log(`2 - newTrnCom`, newTrnCom);
-
-					if (!newTrnCom.astData[ast.astCat]) {
-						newTrnCom.astData[ast.astCat] = [];
-					}
-					// console.log(`3 - newTrnCom`, newTrnCom);
-
-					newTrnCom["astData"][ast.astCat][ast.astIndex] = newComObj;
-					// console.log(`4 - newTrnCom`, newTrnCom);
 				});
 
 			// add the newTrnCommissioning document to trns
@@ -365,6 +396,8 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			const trnDocRef = db.collection("trns").doc(trnId);
 			const updatedDoc = trnDocRef.update({
 				"metaData.trnState": "submited",
+				"metaData.updatedAtDatetime": Timestamp.now(),
+				"metaData.updatedByUser": "admin",
 			});
 			// console.log(`updatedDoc`, updatedDoc);
 
@@ -381,7 +414,11 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					const astDocRef = db.collection("asts").doc(ast.astId);
 
 					// update the ast state
-					astDocRef.update({ "astData.astState": "service" });
+					astDocRef.update({
+						"astData.astState": "service",
+						"metaData.updatedAtDatetime": Timestamp.now(),
+						"metaData.updatedByUser": "admin",
+					});
 				});
 		}
 
@@ -405,6 +442,8 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			const trnDocRef = db.collection("trns").doc(trnId);
 			const updatedDoc = trnDocRef.update({
 				"metaData.trnState": "submited",
+				"metaData.updatedAtDatetime": Timestamp.now(),
+				"metaData.updatedByUser": "admin",
 			});
 			// console.log(`updatedDoc`, updatedDoc);
 
@@ -413,43 +452,73 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			console.log(`astIdsArray`, astIdsArray);
 
 			// iterate through astIdsArray, create new asts and update each to a 'field' state.
+
 			astIdsArray &&
 				astIdsArray.forEach(ast => {
+					/* 
+						ast = {
+							astId: trnObject.id,
+							astCat: astCat,
+							astIndex: astCatIndex,
+							trnObject,
+						};
+					*/
 					console.log(`ast`, ast);
+					console.log(`ast.trnObject`, ast.trnObject);
+					console.log(`ast.trnObject.trnData`, ast.trnObject.trnData);
+					console.log(
+						`ast.trnObject.trnData.confirmations`,
+						ast.trnObject.trnData.confirmations
+					);
+					console.log(
+						`ast.trnObject.trnData.confirmations.confirmTrn`,
+						ast.trnObject.trnData.confirmations.confirmTrn
+					);
 
-					// get the ast from ast
-					const { astData } = ast.trnObject;
-					console.log(`astData`, astData);
+					// extract conformations.confirm. This detemines if the ast participated or not in the transaction. If the confirm is 'not done', no new ast must be created.
+					const isDone = ast.trnObject.trnData.confirmations.confirmTrn;
+					console.log(`isDone`, isDone);
 
-					// create a new trn commissioning object
-					const newAst = {
-						metaData: {
-							// createdAtDatetime: db.Timestamp.fromDate(new Date()),
-							createdAtDatetime: Timestamp.now(),
-							createdByUser: "admin",
-							updatedAtDatetime: Timestamp.now(),
-							updatedByUser: "admin",
-							createdThrough: {
-								creator: "audit",
-								creatorNo: trn.metaData.trnNo,
-								id: trn.id,
-							},
-							trnCount: 0,
-						},
-						astData,
-					};
-					console.log(`newAst`, newAst);
-
-					// add the new ast to the asts collection
-					const astsRef = db.collection("asts");
-					astsRef
-						.add(newAst)
-						.then(docRef => {
-							console.log("Document added with ID: ", docRef.id);
-						})
-						.catch(error => {
-							console.error("Error adding document: ", error.msg);
+					if (isDone === "done") {
+						// get the total count of the exisitng astCat documents. THis is the nused to dermine astNo where astCat is not 'meter'
+						getTotalRecordsInCollection("asts", ast.astCat).then(astCount => {
+							console.log(`${ast.astCat}: ${astCount} - in "asts" `);
 						});
+
+						// get the ast from ast
+						const { astData } = ast.trnObject;
+						console.log(`astData`, astData);
+
+						// create a new trn commissioning object
+						const newAst = {
+							metaData: {
+								// createdAtDatetime: db.Timestamp.fromDate(new Date()),
+								createdAtDatetime: Timestamp.now(),
+								createdByUser: "admin",
+								updatedAtDatetime: Timestamp.now(),
+								updatedByUser: "admin",
+								createdThrough: {
+									creator: "audit",
+									creatorNo: trn.metaData.trnNo,
+									id: trn.id,
+								},
+								trnCount: 0,
+							},
+							astData,
+						};
+						console.log(`newAst`, newAst);
+
+						// add the new ast to the asts collection
+						const astsRef = db.collection("asts");
+						astsRef
+							.add(newAst)
+							.then(docRef => {
+								console.log("Document added with ID: ", docRef.id);
+							})
+							.catch(error => {
+								console.error("Error adding document: ", error.msg);
+							});
+					}
 				});
 		}
 	});

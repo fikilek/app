@@ -20,7 +20,9 @@ const TrnDataFormBtn = (params) => {
   return (
 			// tdfb - trn data form button
 			<div className="tdfb">
-				<button onClick={handleClick}>{data.metaData.trnType}</button>
+				<button onClick={handleClick} className="table-row-btn table-row-btn-trn-data">
+					{data.metaData.trnType}
+				</button>
 			</div>
 		);
 }

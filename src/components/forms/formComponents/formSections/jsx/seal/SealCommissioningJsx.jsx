@@ -16,12 +16,9 @@ const SealCommissioningJsx = props => {
 			<div className="ast">
 				<div className="row-1 ast-row read-only-row">
 					<div className="data">
-						<p className="data-header">PO / Stores Data</p>
+						<p className="data-header">Asset Data</p>
 						<p>
-							Asset No - <span>{ast?.astData.astNo}</span>
-						</p>
-						<p>
-							Seal No - <span>{ast?.astData.seal.no}</span>
+							Seal No - <span>{ast?.astData.astNo}</span>
 						</p>
 						<p>
 							Seal Code - <span>{ast?.astData.seal.code}</span>

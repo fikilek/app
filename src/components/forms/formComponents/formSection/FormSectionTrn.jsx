@@ -62,7 +62,7 @@ const FormSectionTrn = props => {
 		// fsb - form section body
 		// fs-uc - form section updated created
 		<div className={`fs fs-${sectionName} `}>
-			<div className="fsh">
+			<div className={`fsh ${astValidationVerdict === "N/A" ? "grey-out" : ""} `}>
 				<div className="fsh-sub fsh-left">
 					<div className="open-colse-icons">
 						<FormShowHideSection

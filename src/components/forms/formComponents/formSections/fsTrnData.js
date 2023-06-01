@@ -1,7 +1,6 @@
 export const fsTrnData = {
 	meter: {
-		// installationData: {
-		meterInstallation: {
+		installationData: {
 			location: {
 				premises: "", //inside/outside
 				insideBox: "", //yes/no
@@ -11,48 +10,46 @@ export const fsTrnData = {
 				connection: "",
 			},
 			keyPad: {
+				isThereKeyPad: "",
 				serialNo: "",
-				photos: ["Photo 1 url", "Photo 2 url"],
+				kyPadPhotos: ["Photo 1 url", "Photo 2 url"],
 			},
 			astAdr: {
 				adr: "",
 				gps: "",
-			},
-			linkedCb: {
-				isLinkedToCb: "",
-				cbNo: "",
-			},
-			linkedSeal: {
-				isLinkedToSeal: "",
-				sealNo: "",
 			},
 			voltageReading: {
 				phase1: "",
 				phase2: "",
 				phase3: "",
+				voltageReadingPhotos: ["Photo 1 url", "Photo 2 url"],
+			},
+			linkedCb: {
+				isThereCb: "",
+				cbSize: "",
+			},
+			linkedSeal: {
+				isThereSeal: "",
+				sealNo: "",
 			},
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1", "Photo 2"],
 		},
-		// },
 
-		// commissioningData: {
-		meterCommissioning: {
+		commissioningData: {
 			voltageReading: "",
 			meterReading: "",
 			confirmInstallationData: "",
 			comments: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
-		// },
 
-		// auditData: {
-		meterInstallation: {
+		auditData: {
 			location: {
 				premises: "", //inside/outside
 				insideBox: "", //yes/no
@@ -62,24 +59,37 @@ export const fsTrnData = {
 				connection: "",
 			},
 			keyPad: {
+				isThereKeyPad: "",
 				serialNo: "",
-				photos: ["Photo 1 url", "Photo 2 url"],
+				kyPadPhotos: ["Photo 1 url", "Photo 2 url"],
 			},
 			astAdr: {
 				adr: "",
 				gps: "",
 			},
+			voltageReading: {
+				phase1: "",
+				phase2: "",
+				phase3: "",
+				voltageReadingPhotos: ["Photo 1 url", "Photo 2 url"],
+			},
+			linkedCb: {
+				isThereCb: "",
+				cbSize: "",
+			},
+			linkedSeal: {
+				isThereSeal: "",
+				sealNo: "",
+			},
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1", "Photo 2"],
-			// },
 		},
 	},
 
 	cb: {
-		// installationData: {
-		cbInstallation: {
+		installationData: {
 			location: {
 				premises: "", //inside/outside
 				insideBox: "", //yes/no
@@ -94,31 +104,26 @@ export const fsTrnData = {
 				meterNo: "",
 			},
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
-			// },
 		},
 
 		commissioningData: {
-			// sealCommissioning: {
 			cbSizeVerified: "",
 			cbMeterLinkVerified: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
-			// },
 		},
 
 		auditData: {
-			// cbInstallation: {
 			linkedMeterNo: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
-			// },
 		},
 	},
 
@@ -126,7 +131,7 @@ export const fsTrnData = {
 		installationData: {
 			linkedMeterNo: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
@@ -136,7 +141,7 @@ export const fsTrnData = {
 			sealMeterLinkVerified: "",
 			sealLocked: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
@@ -144,15 +149,14 @@ export const fsTrnData = {
 		auditData: {
 			linkedMeterNo: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
 	},
 
 	box: {
-		// installationData: {
-		boxInstallation: {
+		installationData: {
 			location: {
 				exactLocation: "", //['pole top', pole bottom', 'stand alone', 'other']
 				premises: "",
@@ -161,26 +165,26 @@ export const fsTrnData = {
 				adr: "",
 				gps: "",
 			},
+			boxLock: {
+				lockable: "",
+				isLocked: "",
+			},
 			scns: [{ meter: "", cb: "", erfNo: "" }],
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Box Photo 1", "Box Photo 2", "Box Photo 3"],
-			// },
 		},
 
 		commissioningData: {
-			// boxCommissioning: {
 			installationDataVerified: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
-			// },
 		},
 
 		auditData: {
-			// boxInstallation: {
 			location: {
 				exactLocation: "", //['pole top', pole bottom', 'stand alone', 'other']
 				premises: "",
@@ -189,18 +193,20 @@ export const fsTrnData = {
 				adr: "",
 				gps: "",
 			},
+			boxLock: {
+				lockable: "",
+				isLocked: "",
+			},
 			scns: [{ meter: "", cb: "", erfNo: "" }],
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Box Photo 1", "Box Photo 2", "Box Photo 3"],
-			// },
 		},
 	},
 
 	pole: {
-		// installationData: {
-		poleInstallation: {
+		installationData: {
 			location: {
 				premises: "",
 			},
@@ -209,24 +215,20 @@ export const fsTrnData = {
 				gps: "",
 			},
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
-			// },
 		},
 
 		commissioningData: {
-			// poleCommissioning: {
 			installationDataVerified: "",
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
-			// },
 		},
 
 		auditData: {
-			// poleInstallation: {
 			location: {
 				premises: "", //['inside', 'outside']
 			},
@@ -247,10 +249,9 @@ export const fsTrnData = {
 				boxNo: "",
 			},
 			confirmations: {
-				confirmTrn: "",
+				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
-		// },
 	},
 };

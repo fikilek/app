@@ -19,7 +19,7 @@ const SealAuditJsx = props => {
 								control="input"
 								type="text"
 								label="seal no"
-								name={`astData[${astCat}][${astCatIndex}].astData.seal.no`}
+								name={`astData[${astCat}][${astCatIndex}].astData.astNo`}
 								placeholder="Seal No"
 							/>
 							<FormikControl

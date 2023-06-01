@@ -55,18 +55,18 @@ const useCollection = (ml1, ml2, ml3) => {
 		}
 		// assets
 		if (ml1 === "asts") {
-			// if (ml2) {
-			// 	q = query(
-			// 		collection(db, ml1),
-			// 		where("astData.astCartegory", "==", ml2),
-			// 		orderBy("metaData.updatedAtDatetime", "desc")
-			// 	);
-			// } else {
+			if (ml2) {
+				q = query(
+					collection(db, ml1),
+					where("astData.astCartegory", "==", ml2),
+					orderBy("metaData.updatedAtDatetime", "desc")
+				);
+			} else {
 				q = query(
 					collection(db, ml1),
 					orderBy("metaData.updatedAtDatetime", "desc")
 				);
-			// }
+			}
 		}
 		// admin
 		if (ml1 === "admin") {

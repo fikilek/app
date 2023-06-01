@@ -4,63 +4,53 @@ const getTrnComSection = astCat => {
 	switch (astCat) {
 		case "meter":
 			return {
-				meterCommissioning: {
-					voltageReading: "",
-					meterReading: "",
-					confirmInstallationData: "",
-					comments: "",
-					photos: ["Photo 1 url", "Photo 2 url"],
-					confirmations: {
-						confirmTrn: "",
-					},
+				voltageReading: "",
+				meterReading: "",
+				confirmInstallationData: "",
+				comments: "",
+				confirmations: {
+					confirmTrn: "",
 				},
+				photos: ["Photo 1 url", "Photo 2 url"],
 			};
 
 		case "box":
 			return {
-				boxCommissioning: {
-					confirmations: {
-						confirmTrn: "",
-					},
-					installationDataVerified: "",
-					photos: ["Photo 1 url", "Photo 2 url"],
+				installationDataVerified: "",
+				confirmations: {
+					confirmTrn: "",
 				},
+				photos: ["Photo 1 url", "Photo 2 url"],
 			};
 
 		case "cb":
 			return {
-				cbCommissioning: {
-					confirmations: {
-						confirmTrn: "",
-					},
-					cbSizeVerified: "",
-					cbMeterLinkVerified: "",
-					photos: ["Photo 1 url", "Photo 2 url"],
+				cbSizeVerified: "",
+				cbMeterLinkVerified: "",
+				confirmations: {
+					confirmTrn: "",
 				},
+				photos: ["Photo 1 url", "Photo 2 url"],
 			};
 
 		case "seal":
 			return {
-				// sealCommissioning: {
 				sealNoVerified: "",
 				sealMeterLinkVerified: "",
 				sealLocked: "",
-				photos: ["Photo 1 url", "Photo 2 url"],
 				confirmations: {
 					confirmTrn: "",
 				},
-				// },
+				photos: ["Photo 1 url", "Photo 2 url"],
 			};
 
 		case "pole":
 			return {
-				poleCommissioning: {
-					installationDataVerified: "",
-					photos: ["Photo 1 url", "Photo 2 url"],
-					confirmations: {
-						confirmTrn: "",
-					},
+				installationDataVerified: "",
+				confirmations: {
+					confirmTrn: "",
 				},
+				photos: ["Photo 1 url", "Photo 2 url"],
 			};
 
 		default:

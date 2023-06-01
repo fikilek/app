@@ -9,9 +9,11 @@ export const fsAstData = {
 				code: "",
 				phase: "", //['single','three'] // vaidation : required
 				type: "", // ['connventional', 'pre-paid'] // vaidation : required
+				manufacturer: '', //['conlog','landis',et]
 			},
 		},
 	},
+
 	cb: {
 		astData: {
 			astCartegory: "cb",
@@ -33,7 +35,6 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			seal: {
-				no: "", // validation : required
 				code: "",
 				type: "",
 			},
@@ -66,9 +67,9 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			pole: {
-				height: "", // vaidation : required
+				length: "", // validation required
 				code: "",
-				type: "",
+				type: "", // validation required -  ['wood','metal', 'cement' , etc]
 			},
 		},
 	},

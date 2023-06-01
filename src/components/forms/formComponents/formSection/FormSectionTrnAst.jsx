@@ -7,16 +7,9 @@ import { formSelectOptions } from "../../../../utils/utils";
 
 const FormSectionTrnAst = props => {
 	// console.log(`props`, props);
-	const { children, ast, astCatIndex, trn } = props;
+	const { children, ast, astCat,  astCatIndex, trn } = props;
 	// console.log(`ast`, ast);
 	// console.log(`trn`, trn);
-
-	// distructure trnType
-	const { trnType } = trn.metaData;
-	// console.log(`trnType`, trnType)
-
-	const capTrnType = trnType.charAt(0).toUpperCase() + trnType.slice(1);
-	// console.log(`capTrnType`, capTrnType)
 
 	let astValidationVerdict = "";
 	// create ast validation verdict state
@@ -53,16 +46,15 @@ const FormSectionTrnAst = props => {
 	const { astCartegory: sectionName, astNo } = ast?.astData;
 	// console.log(`sectionName`, sectionName);
 
-	const catTypeStr = `${sectionName}${capTrnType}`;
-	// console.log(`catTypeStr`, catTypeStr);
-
 	return (
 		// fs - form section
 		// fsh - form section header
 		// fsb - form section body
 		// fs-uc - form section updated created
 		<div className={`fs fs-${sectionName} `}>
-			<div className="fsh">
+			<div
+				className={`fsh ${astValidationVerdict === "N/A" ? "grey-out" : ""} `}
+			>
 				<div className="fsh-sub fsh-left">
 					<div className="open-colse-icons">
 						<FormShowHideSection
@@ -86,7 +78,7 @@ const FormSectionTrnAst = props => {
 						<button>-</button>
 					</div>
 					<div>
-						<span>Is there a {ast.astData.astCartegory}?: </span>
+						<span>{ast.astData.astCartegory} done?: </span>
 						<FormikSelectConfirmInstallation
 							control="select"
 							type="text"

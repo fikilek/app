@@ -47,7 +47,9 @@ const TrnDataForm = props => {
 	// console.log(`formState`, formState);
 
 	const onSubmit = values => {
-		// console.log(`values`, values)
+		console.log(`values`, values)
+		// console.log(`formState`, formState)
+
 		const newValues = {
 			...values,
 			metaData: {

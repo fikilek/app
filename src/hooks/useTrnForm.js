@@ -10,7 +10,7 @@ import FormSectionTrnScns from "../components/forms/formComponents/formSection/F
 import FormSectionTrnAsts from "../components/forms/formComponents/formSection/FormSectionTrnAst";
 
 const getKey = (path, cat) => {
-	console.log(`path`, path);
+	// console.log(`path`, path);
 	// console.log(`cat`, cat);
 
 	const hasTrnData = path.includes("trnData");
@@ -187,7 +187,7 @@ const trnFormValidationReducer = (state, action) => {
 };
 
 export const useTrnForm = (trn, setTrn) => {
-	console.log(`trn`, trn);
+	// console.log(`trn`, trn);
 	// console.log(`active`, active);
 	const alreadyRun = useRef(false);
 	// console.log(`alreadyRun`, alreadyRun);
@@ -491,7 +491,7 @@ export const useTrnForm = (trn, setTrn) => {
 
 	// this method validates all fields on load of the form and update the validation object via dispatch method
 	const allFieldValidation = () => {
-		console.log(`validationObject`, validationObject);
+		// console.log(`validationObject`, validationObject);
 		// console.log(`allFieldValidation running trn`, trn, );
 		// console.log(`allFieldValidation running validationObject`, validationObject );
 
@@ -546,7 +546,7 @@ export const useTrnForm = (trn, setTrn) => {
 
 							// flatten both trnVData and trnValuesData
 							const flattenedValidationData = flatten(trnVData, { overwrite: true });
-							console.log(`flattenedValidationData`, flattenedValidationData);
+							// console.log(`flattenedValidationData`, flattenedValidationData);
 							const flattenedValuesData = flatten(trnValuesData, { overwrite: true });
 							// console.log(`flattenedValuesData`, flattenedValuesData);
 							const flattenedValuesAstData = flatten(trnValuesAstData, {
@@ -559,11 +559,11 @@ export const useTrnForm = (trn, setTrn) => {
 								...flattenedValuesData,
 								...flattenedValuesAstData,
 							};
-							console.log(`combinedFlattendValues`, combinedFlattendValues);
+							// console.log(`combinedFlattendValues`, combinedFlattendValues);
 
 							// We are now ready to do validation. Loop through the flattened flattenedValuesData object and get value. On the same loop key, get the constraint constraint, validate and update verdict. This is all happening on the flattenedValidationData object
 							for (const key in combinedFlattendValues) {
-								console.log(`key`, key)
+								// console.log(`key`, key)
 
 								// get the value at eavh key
 								// let value = flattenedValuesData[key];
@@ -605,7 +605,7 @@ export const useTrnForm = (trn, setTrn) => {
 										verdict = "PASS`";
 									}
 
-									console.log(`verdict`, verdict)
+									// console.log(`verdict`, verdict)
 									// Update flattenedValidationData
 									flattenedValidationData[`${key}.verdict`] = verdict;
 									// console.log(`flattenedValidationData`, flattenedValidationData);
@@ -641,7 +641,7 @@ export const useTrnForm = (trn, setTrn) => {
 
 	const fieldValidation = (validationPath, value) => {
 		// console.log(`fieldValidation method-------------------------`);
-		console.log(`validationPath`, validationPath);
+		// console.log(`validationPath`, validationPath);
 		// console.log(`value`, value);
 		// console.log( `validationObject`, validationObject);
 
@@ -665,7 +665,7 @@ export const useTrnForm = (trn, setTrn) => {
 		// console.log(`astTrackingInfo`, astTrackingInfo)
 
 		const flattenedTvd = flatten(tvd, { overwrite: true });
-		console.log(`flattenedTvd`, flattenedTvd);
+		// console.log(`flattenedTvd`, flattenedTvd);
 
 		// get index of trnData
 		const indexOfTrnData = validationPath.indexOf("trnData");
@@ -674,7 +674,7 @@ export const useTrnForm = (trn, setTrn) => {
 		// extract the key to locate constraint from validation path
 		// const key = validationPath.slice(indexOfTrnData + 8);
 		const key = getKey(validationPath, cat);
-		console.log(`key`, key);
+		// console.log(`key`, key);
 
 		// modifies key
 		const modifiedKey = `${key}.constraints.0.required`;
@@ -691,7 +691,7 @@ export const useTrnForm = (trn, setTrn) => {
 			// console.log(`value.length`, value.length);
 			// console.log(`value.length === "0"`, value.length === "0");
 			// console.log(`value.length === 0`, value.length === 0);
-			console.log(`value`, value);
+			// console.log(`value`, value);
 			if (
 				vl.length === "0" ||
 				vl.length === 0 ||
@@ -710,7 +710,7 @@ export const useTrnForm = (trn, setTrn) => {
 				verdict = "PASS`";
 			}
 
-			console.log(`vercdict`, verdict);
+			// console.log(`vercdict`, verdict);
 			// Update flattenedValidationData
 			flattenedTvd[`${key}.verdict`] = verdict;
 			// console.log(`flattenedTvd`, flattenedTvd);
