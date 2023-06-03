@@ -52,5 +52,36 @@
 }
 
 .table .table-row-btn:hover {
-  cursor:pointer
+  cursor: pointer
+}
+
+.table .data-emphasis {
+  font-weight: 700;
+  color: rgb(42, 94, 248);
+}
+
+.table .table-header-close-btn {
+  background-color: #dae4fa99;
+  color: rgba(150, 149, 149, 0.539);
+  border: 1px solid lightgray;
+  border-radius: 0.6rem;
+  text-align: center;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+}
+
+.table .table-header-close-btn:hover {
+  cursor: pointer;
+}
+
+.table .table-header1 {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  padding: 1rem;
+  border-radius: 1rem 1rem 0 0 ;
+  border: 1px solid lightgray;
+  align-items: center;
 }

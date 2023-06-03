@@ -97,42 +97,123 @@ const ErfsForm = props => {
 
 						return (
 							<Form>
-								{/* trn form */}
-								<div className="trn-form">
-									{/* erf no and gps */}
+								<div className="ireps-form">
 									<FormSection
 										sectionData={{
-											sectionName: "erf-gps",
+											sectionName: "customer-adr",
 										}}
 										active={active}
 										setActive={setActive}
 									>
-										<div className="erf-gps-wrapper">
-											<FormikControl
-												control="input"
-												type="text"
-												label="erf no"
-												name="erfNo"
-												placeholder="Erf No"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="longitude"
-												name="gps.longitude"
-												placeholder="Gps Longitude"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="latitude"
-												name="gps.latitude"
-												placeholder="Latitude"
-											/>
+										<div className="ast customer-adr-wrapper">
+											<div className="ast-wrapper">
+												<div className="ast-row">
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="erf no"
+															name="erfNo"
+															placeholder="Erf No"
+														/>
+													</div>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="gps latitude"
+															name="gps.latitude"
+															placeholder="Gps lat"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="gps longitude"
+															name="gps.longitude"
+															placeholder="Gps lon"
+														/>
+													</div>
+													<FormikControl
+														control="input"
+														type="text"
+														label="street address"
+														name="address.street"
+														placeholder="Street Address"
+													/>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="suburd / tship"
+															name="address.suburbTownship"
+															placeholder="Suburb / Tship"
+														/>
+														<FormikControl
+															control="select"
+															type="text"
+															label="towm"
+															name="address.town"
+															placeholder="Town"
+															options={formSelectOptions.townOptions}
+														/>
+													</div>
+
+													<div className="half-row-50-50">
+														<FormikControl
+															control="select"
+															type="text"
+															label="ml / metro"
+															name="address.lmMetro"
+															placeholder="municipality"
+															options={formSelectOptions.lmMetroOptions}
+														/>
+														<FormikControl
+															control="select"
+															type="text"
+															label="dm"
+															name="address.dm"
+															placeholder="municipality"
+															options={formSelectOptions.dmOptions}
+														/>
+													</div>
+													<div className="half-row-50-50">
+														{" "}
+														<FormikControl
+															control="input"
+															type="text"
+															label="ward no"
+															name="address.ward"
+															placeholder="Ward No"
+														/>
+														<FormikControl
+															control="select"
+															type="text"
+															label="province"
+															name="address.province"
+															placeholder="province"
+															options={formSelectOptions.provinceOptions}
+														/>
+													</div>
+													<FormikControl
+														control="select"
+														type="text"
+														label="country"
+														name="address.country"
+														placeholder="Country"
+														options={formSelectOptions.countryOptions}
+													/>
+													<FormikControl
+														control="input"
+														type="text"
+														label="system address"
+														name="address.systemAdr"
+														placeholder="system address"
+													/>
+												</div>
+											</div>
 										</div>
 									</FormSection>
 
-									{/* customer */}
 									<FormSection
 										sectionData={{
 											sectionName: "customer",
@@ -140,97 +221,110 @@ const ErfsForm = props => {
 										active={active}
 										setActive={setActive}
 									>
-										<div className="customer-cartegory-type">
-											<FormikControl
-												control="select"
-												type="text"
-												label="custormer cartegory"
-												name="customer.cartegory"
-												placeholder="Custormer Cartegory"
-												options={formSelectOptions.customerCartegoryOptions}
-											/>
-											<FormikControl
-												control="select"
-												type="text"
-												label="custormer type"
-												name="customer.type"
-												placeholder="Custormer Type"
-												options={formSelectOptions.customerTypeOptions}
-											/>
+										<div className="ast">
+											<div className="ast-wrapper">
+												<div className="ast-row">
+													<FormikControl
+														control="select"
+														type="text"
+														label="custormer cartegory"
+														name="customer.cartegory"
+														placeholder="Custormer Cartegory"
+														options={formSelectOptions.customerCartegoryOptions}
+													/>
+													<FormikControl
+														control="select"
+														type="text"
+														label="custormer type"
+														name="customer.type"
+														placeholder="Custormer Type"
+														options={formSelectOptions.customerTypeOptions}
+													/>
+												</div>{" "}
+												<div
+													className={`ast-row  customer-type-warm-body ${
+														formik.values.customer.type === "warm body"
+															? "show-section"
+															: "hide-section"
+													}`}
+												>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="surname"
+															name="customer.warmBody.surname"
+															placeholder="Surname"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="name"
+															name="customer.warmBody.name"
+															placeholder="Name"
+														/>
+													</div>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="id no"
+															name="customer.warmBody.idNo"
+															placeholder="Id No"
+														/>
+														<FormikControl
+															control="select"
+															type="text"
+															label="gender"
+															name="customer.warmBody.gender"
+															placeholder="Gender"
+															options={formSelectOptions.genderOptions}
+														/>
+													</div>
+												</div>
+												<div
+													className={`ast-row customer-type-juristic-person ${
+														formik.values.customer.type === "juristic person"
+															? "show-section"
+															: "hide-section"
+													} `}
+												>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="legal name"
+															name="customer.juristicPerson.name"
+															placeholder="Legal ame"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="trading name"
+															name="customer.juristicPerson.tradingName"
+															placeholder="Trading Name"
+														/>
+													</div>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="CIPC name"
+															name="customer.juristicPerson.registeredName"
+															placeholder="Registered CIPC Nane"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="CIPC no"
+															name="customer.juristicPerson.registeredNo"
+															placeholder="Registered CIPC No"
+														/>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div
-											className={`customer-type-warm-body ${
-												formik.values.customer.type === "warm body"
-													? "show-section"
-													: "hide-section"
-											}`}
-										>
-											<FormikControl
-												control="input"
-												type="text"
-												label="surname"
-												name="customer.warmBody.surname"
-												placeholder="Surname"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="name"
-												name="customer.warmBody.name"
-												placeholder="Name"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="id no"
-												name="customer.warmBody.idNo"
-												placeholder="Id No"
-											/>
-											<FormikControl
-												control="select"
-												type="text"
-												label="gender"
-												name="customer.warmBody.gender"
-												placeholder="Gender"
-												options={formSelectOptions.genderOptions}
-											/>
-										</div>
-										<div
-											className={`customer-type-juristic-person ${
-												formik.values.customer.type === "juristic person"
-													? "show-section"
-													: "hide-section"
-											} `}
-										>
-											<FormikControl
-												control="input"
-												type="text"
-												label="legal name"
-												name="customer.juristicPerson.name"
-												placeholder="Legal ame"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="trading name"
-												name="customer.juristicPerson.tradingName"
-												placeholder="Trading Name"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="registered CIPC name"
-												name="customer.juristicPerson.registeredName"
-												placeholder="Registered CIPC Nane"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="registered CIPC no"
-												name="customer.juristicPerson.registeredNo"
-												placeholder="Registered CIPC No"
-											/>
-										</div>
+
 										<div className="custormer-billing"></div>
 									</FormSection>
 
@@ -242,129 +336,58 @@ const ErfsForm = props => {
 										active={active}
 										setActive={setActive}
 									>
-										<div className="contact-person">
-											<FormikControl
-												control="input"
-												type="text"
-												label="surname"
-												name="customer.contactPerson.surname"
-												placeholder="Surname"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="name"
-												name="customer.contactPerson.name"
-												placeholder="Name"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="land line"
-												name="customer.contactPerson.landLine"
-												placeholder="Land Line"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="WhatsApp"
-												name="customer.contactPerson.whatsApp"
-												placeholder="WhatsApp"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="cell no"
-												name="customer.contactPerson.cellNo"
-												placeholder="Cell No"
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="email adr"
-												name="customer.contactPerson.emailAdr"
-												placeholder="Email Adr"
-											/>
-										</div>
-									</FormSection>
-
-									{/* address */}
-									<FormSection
-										sectionData={{
-											sectionName: "customer-adr",
-										}}
-										active={active}
-										setActive={setActive}
-									>
-										<div className="customer-adr-wrapper">
-											<div className="customer-address">
-												<FormikControl
-													control="input"
-													type="text"
-													label="street address"
-													name="address.street"
-													placeholder="Street Address"
-												/>
-												<FormikControl
-													control="input"
-													type="text"
-													label="suburd / tship"
-													name="address.suburbTownship"
-													placeholder="Suburb / Tship"
-												/>
-											</div>
-											<div className="munic-town-suburb">
-												<FormikControl
-													control="input"
-													type="text"
-													label="towm"
-													name="address.town"
-													placeholder="Town"
-												/>
-												<FormikControl
-													control="input"
-													type="text"
-													label="ward no"
-													name="address.ward"
-													placeholder="Ward No"
-												/>
-												<FormikControl
-													control="input"
-													type="text"
-													label="local municipality / metro"
-													name="address.lmMetro"
-													placeholder="municipality"
-												/>
-												<FormikControl
-													control="input"
-													type="text"
-													label="district municipality"
-													name="address.dm"
-													placeholder="municipality"
-												/>
-											</div>
-											<div className="province-country">
-												<FormikControl
-													control="input"
-													type="text"
-													label="province"
-													name="address.province"
-													placeholder="province"
-												/>
-												<FormikControl
-													control="input"
-													type="text"
-													label="country"
-													name="address.country"
-													placeholder="Country"
-												/>
-												<FormikControl
-													control="input"
-													type="text"
-													label="system address"
-													name="address.systemAdr"
-													placeholder="system address"
-												/>
+										<div className="ast">
+											<div className="ast-wrapper">
+												<div className="contact-person ast-row">
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="surname"
+															name="customer.contactPerson.surname"
+															placeholder="Surname"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="name"
+															name="customer.contactPerson.name"
+															placeholder="Name"
+														/>
+													</div>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="land line"
+															name="customer.contactPerson.landLine"
+															placeholder="Land Line"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="WhatsApp"
+															name="customer.contactPerson.whatsApp"
+															placeholder="WhatsApp"
+														/>
+													</div>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="cell no"
+															name="customer.contactPerson.cellNo"
+															placeholder="Cell No"
+														/>
+														<FormikControl
+															control="input"
+															type="text"
+															label="email adr"
+															name="customer.contactPerson.emailAdr"
+															placeholder="Email Adr"
+														/>
+													</div>
+												</div>
 											</div>
 										</div>
 									</FormSection>
@@ -377,91 +400,44 @@ const ErfsForm = props => {
 										active={active}
 										setActive={setActive}
 									>
-										<div className="billing-wrapper">
-											<FormikControl
-												control="input"
-												type="text"
-												label="tariff"
-												name="billing.tariff"
-												placeholder="Tariff"
-											/>
-											<FormikControl
-												control="select"
-												type="text"
-												label="indigent?"
-												name="billing.indigent"
-												placeholder="Indigent"
-												options={formSelectOptions.yesNoOptions}
-											/>
-											<FormikControl
-												control="input"
-												type="text"
-												label="Accounts"
-												name="billing.accountNo.length"
-												placeholder="Accounts"
-											/>
-											<FormikControl
-												control="select"
-												type="text"
-												label="stand use"
-												name="standUse"
-												placeholder="stand use"
-												options={formSelectOptions.standUseOptions}
-											/>
-										</div>
-									</FormSection>
-
-									{/* metadata */}
-									<FormSection
-										sectionData={{
-											sectionName: "metadata",
-											// astCat: trn.astData.astCartegory,
-											// trnType: trn.metaData.trnType,
-										}}
-										active={active}
-										setActive={setActive}
-									>
-										<div className="metadata-updated-created">
-											{/* updated */}
-											<div className="updated">
-												<FormikControl
-													control="input"
-													type="text"
-													label="updated by user"
-													name="metaData.updatedByUser"
-													readOnly="readOnly"
-													placeholder="updated by user"
-												/>
-
-												<FormikControl
-													control="datetime"
-													label="updated at datetime"
-													name="metaData.updatedAtDatetime"
-													readOnly="readOnly"
-													dateFormat="yyyy MM dd - HH:mm:ss"
-													placeholder="updated at datetime"
-												/>
-											</div>
-
-											{/* create */}
-											<div className="created">
-												<FormikControl
-													control="input"
-													type="text"
-													label="created by user"
-													name="metaData.createdByUser"
-													readOnly="readOnly"
-													placeholder="created by user"
-												/>
-
-												<FormikControl
-													control="datetime"
-													label="created at datetime"
-													name="metaData.createdAtDatetime"
-													readOnly="readOnly"
-													dateFormat="yyyy MM dd - HH:mm:ss"
-													placeholder="dated at datetime"
-												/>
+										<div className="ast">
+											<div className="ast-wrapper">
+												<div className="ast-row billing-wrapper">
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="tariff"
+															name="billing.tariff"
+															placeholder="Tariff"
+														/>
+														<FormikControl
+															control="select"
+															type="text"
+															label="indigent?"
+															name="billing.indigent"
+															placeholder="Indigent"
+															options={formSelectOptions.yesNoOptions}
+														/>
+													</div>
+													<div className="half-row-50-50">
+														<FormikControl
+															control="input"
+															type="text"
+															label="Accounts"
+															name="billing.accountNo.length"
+															placeholder="Accounts"
+														/>
+														<FormikControl
+															control="select"
+															type="text"
+															label="stand use"
+															name="standUse"
+															placeholder="stand use"
+															options={formSelectOptions.standUseOptions}
+														/>
+													</div>
+												</div>
 											</div>
 										</div>
 									</FormSection>

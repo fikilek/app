@@ -7,7 +7,8 @@ const FormHeader1 = props => {
 	return (
 		<div className="form-header">
 			<div className="header-line1">
-				<p>{formName}</p>
+				<p className="form-header-paragraph">
+				{formName}</p>
 				<p>{fn}</p>
 			</div>
 			<button onClick={() => closeModal()}>

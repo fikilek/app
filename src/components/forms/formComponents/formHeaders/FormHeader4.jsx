@@ -7,8 +7,10 @@ const FormHeader4 = props => {
 	return (
 		<div className="form-header">
 			<div className="header-line1">
-				<p>{formName} Form</p>
-				<p>{formNo? `${formName} No: ${formNo}` : ('No Erf Number')}</p>
+				<p className="data-emphasis">{formName} form</p>
+				<p>
+					Erf No: {formNo ? <span className="data-emphasis">{formNo}</span> : ""}
+				</p>
 			</div>
 			<button onClick={() => closeModal()}>
 				<MdClose />

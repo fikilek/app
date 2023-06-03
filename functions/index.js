@@ -489,7 +489,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 						const { astData } = ast.trnObject;
 						console.log(`astData`, astData);
 
-						// create a new trn commissioning object
+						// get erfData from trn
+						const { erfData } = trn;
+
+						// create a new ast object
 						const newAst = {
 							metaData: {
 								// createdAtDatetime: db.Timestamp.fromDate(new Date()),
@@ -502,9 +505,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 									creatorNo: trn.metaData.trnNo,
 									id: trn.id,
 								},
-								trnCount: 0,
+								trnCount: [change.after.data()],
 							},
 							astData,
+							erfData,
 						};
 						console.log(`newAst`, newAst);
 
@@ -521,6 +525,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					}
 				});
 		}
+
 	});
 
 // This cloud finction will fetch ast document for a given id then update it with the new state

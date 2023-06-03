@@ -111,47 +111,6 @@ const AstsForm = ({ formData }) => {
 											getFormSection(ast.astData.astCartegory)}
 									</div>
 
-									{/* updated */}
-									<div className="updated">
-										<FormikControl
-											control="input"
-											type="text"
-											label="updated by user"
-											name="metaData.updatedByUser"
-											readOnly="readOnly"
-											placeholder="updated by user"
-										/>
-
-										<FormikControl
-											control="datetime"
-											label="updated at datetime"
-											name="metaData.updatedAtDatetime"
-											readOnly="readOnly"
-											dateFormat="yyyy MM dd - HH:mm:ss"
-											placeholder="updated at datetime"
-										/>
-									</div>
-
-									{/* create */}
-									<div className="created">
-										<FormikControl
-											control="input"
-											type="text"
-											label="created by user"
-											name="metaData.createdByUser"
-											readOnly="readOnly"
-											placeholder="created by user"
-										/>
-
-										<FormikControl
-											control="datetime"
-											label="created at datetime"
-											name="metaData.createdAtDatetime"
-											readOnly="readOnly"
-											dateFormat="yyyy MM dd - HH:mm:ss"
-											placeholder="dated at datetime"
-										/>
-									</div>
 								</div>
 								<div className="form-btns">
 									<FormBtn isPending={false} btnName="reset" />

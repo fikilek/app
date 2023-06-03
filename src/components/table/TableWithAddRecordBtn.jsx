@@ -12,7 +12,6 @@ const showTableAddRecordBtn = (ml1, ml2, ml3, nfd, fn) => {
 
 // Suppliers is a page component
 const TableWithAddRecordBtn = props => {
-
 	const { ml1, tn, ml3, nfd, fn } = props;
 
 	const {
@@ -51,7 +50,7 @@ const TableWithAddRecordBtn = props => {
 					<select></select>
 				</div> */}
 			</div>
-			<Table rowData={rowData} columnDefs={columnDefs}  />
+			<Table rowData={rowData} columnDefs={columnDefs} />
 			{showTableAddRecordBtn(ml1, tn, ml3, nfd, fn)}
 		</div>
 	);

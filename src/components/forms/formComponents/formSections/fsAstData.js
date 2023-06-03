@@ -2,14 +2,14 @@ export const fsAstData = {
 	meter: {
 		astData: {
 			astCartegory: "meter",
-			astNo: "", // vaidation : required
+			astNo: "", // required
 			astSerialNo: "",
 			astState: "service",
 			meter: {
 				code: "",
-				phase: "", //['single','three'] // vaidation : required
-				type: "", // ['connventional', 'pre-paid'] // vaidation : required
-				manufacturer: '', //['conlog','landis',et]
+				type: "", // required
+				phase: "", // required
+				manufacturer: "",
 			},
 		},
 	},
@@ -21,9 +21,9 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			cb: {
-				size: "", // vaidation : required
 				code: "",
-				type: "", // vaidation : required
+				type: "",
+				size: "", // required
 			},
 		},
 	},
@@ -31,7 +31,7 @@ export const fsAstData = {
 	seal: {
 		astData: {
 			astCartegory: "seal",
-			astNo: "",
+			astNo: "", // required
 			astSerialNo: "",
 			astState: "service",
 			seal: {
@@ -54,12 +54,12 @@ export const fsAstData = {
 					height: "",
 				},
 				code: "",
-				type: "", // vaidation : required
+				type: "", // required
 				color: "",
 			},
 		},
 	},
-	
+
 	pole: {
 		astData: {
 			astCartegory: "pole",
@@ -67,9 +67,9 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			pole: {
-				length: "", // validation required
 				code: "",
-				type: "", // validation required -  ['wood','metal', 'cement' , etc]
+				type: "", // required
+				length: "", //  required
 			},
 		},
 	},

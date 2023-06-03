@@ -68,7 +68,12 @@
   /* margin-left: 2rem; */
 }
 
-.form-container form .fs .fsb .ast .ast-row {
+.form-container form .fs .fsb .ast .ast-wrapper {
+  margin-top: 1.5rem;
+}
+ 
+.form-container form .fs .fsb .ast .ast-row,
+.form-container form .fs .fsb .ast .fsb-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -201,7 +206,7 @@
 }
 
 .form-container form .show-section {
-  visibility: visible;
+  /* visibility: visible; */
   opacity: 100;
 }
 
@@ -457,7 +462,7 @@
 /* form controls */
 
 .form-container form .form-control {
-  height: 6rem;
+  height: 5.5rem;
   position: relative;
 }
 

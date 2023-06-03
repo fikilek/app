@@ -21,27 +21,6 @@ const TableBtnTrnSelect = params => {
 
 	const [newTrn, setNewTrn] = useState(newTrnData);
 
-	// // const [status, setStatus] = useState("");
-	// const [newTrn, setNewTrn] = useState({
-	// 	...newTrnData,
-	// 	metaData: {
-	// 		...newTrnData.metaData,
-	// 		createdAtDatetime: timestamp.fromDate(new Date()),
-	// 		createdByUser: user.displayName,
-	// 		updatedAtDatetime: timestamp.fromDate(new Date()),
-	// 		updatedByUser: user.displayName,
-	// 	},
-	// 	// astData: params.data.astData,
-	// 	astId: params.data.astData.id,
-	// 	// astData: {
-	// 	// 	...newTrnData.astData,
-	// 	// 	id: params.data.astData.id,
-	// 	// 	astCartegory: astCartegory,
-	// 	// 	astNo: astNo,
-	// 	// 	astState: astState,
-	// 	// },
-	// });
-
 	useEffect(() => {
 		// console.log(`uesEffect to set newTRn`);
 		// console.log(`params.data`, params.data);
@@ -101,7 +80,7 @@ const TableBtnTrnSelect = params => {
 
 	return (
 		<>
-			<button onClick={openNewTrn}>NT</button>
+			<button className="table-row-btn" onClick={openNewTrn}>NT</button>
 			<select
 				value={newTrn.metaData.trnType}
 				onChange={handleChange}

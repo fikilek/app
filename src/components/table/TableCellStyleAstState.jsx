@@ -3,7 +3,7 @@ const TableCellStyleAstState = params => {
 	// console.log(`params.value`, params.value);
 	switch (params.value) {
 		case "stores":
-			return { borderLeft: "1rem solid lightgreen" };
+			return { borderLeft: "1rem solid brown" };
 		case "checked out":
 			return { borderLeft: "1rem solid yellow" };
 		case "field":

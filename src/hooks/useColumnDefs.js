@@ -15,6 +15,7 @@ import TrnApprove from "../pages/trns/TrnApprove";
 import TrnAstCheckoutFormBtn from "../components/forms/trnAstCheckoutForm/TrnAstCheckoutFormBtn";
 import TableCellStyleAstState from "../components/table/TableCellStyleAstState";
 import TrnDataFormBtn from "../components/forms/trnForms/trnDataForms/TrnDataFormBtn";
+import TableTnsForAstBtn from "../components/table/tableBtns/TableTnsForAstBtn";
 
 export const useColumnDefs = props => {
 	// console.log(`props`, props);
@@ -1553,19 +1554,25 @@ export const useColumnDefs = props => {
 			filter: "agTextColumnFilter",
 			cellRenderer: params => {
 				const { createdThrough } = params.data.metaData;
-				return <button className="table-row-btn table-row-btn-creator ">{`${createdThrough.creator} : ${createdThrough.creatorNo}`}</button>;
+				return (
+					<button className="table-row-btn table-row-btn-creator ">{`${createdThrough.creator} : ${createdThrough.creatorNo}`}</button>
+				);
 			},
 		},
 		{
 			field: "metaData.trnCount",
 			headerName: "Ast Trn(s)",
 			width: 140,
-			// cellRenderer: memo(TableBtnOpenTrns),
+			cellRenderer: memo(TableTnsForAstBtn), //These are all transactions that happen on an ast
+			// cellRenderer: params => {
+			// 	// console.log(`params.data.metaData.trnCount.length`, params.data.metaData.trnCount.length)
+			// 	return params.data.metaData.trnCount.length || 0;
+			// },
 		},
 		{
 			field: "newTrn",
 			headerName: "New Trn",
-			width: 200,
+			width: 230,
 			cellRenderer: memo(TableBtnTrnSelect),
 			cellRendererParams: {
 				ml2,
@@ -1589,12 +1596,15 @@ export const useColumnDefs = props => {
 					// },
 
 					cellRenderer: params => {
-						// console.log(`params`, params);
-						const str = params.value;
+						// console.log(`params.data.astData.astCartegory`, params.data.astData.astCartegory);
+						const displayValue =
+							params.data.astData.astCartegory === "cb"
+								? params.data.astData.cb.size
+								: params.data.astData.astNo;
 						// console.log(`str`, str);
 						return (
 							<button className="table-row-btn table-row-btn-ast-no btn-serial-no">
-								{str}
+								{displayValue}
 							</button>
 						);
 					},
@@ -1617,6 +1627,78 @@ export const useColumnDefs = props => {
 					headerName: "Ast State",
 					width: 150,
 					cellStyle: TableCellStyleAstState,
+				},
+			],
+		},
+		{
+			headerName: "Erf and GPS",
+			children: [
+				{
+					field: "erfData.erfNo",
+					headerName: "Erf No",
+					width: 150,
+				},
+				{
+					field: "erfData.gps.latitude",
+					// columnGroupShow: "closed",
+					headerName: "Latitude",
+					width: 130,
+				},
+				{
+					field: "erfData.gps.longitude",
+					// columnGroupShow: "closed",
+					headerName: "Longitude",
+					width: 130,
+				},
+			],
+		},
+		{
+			headerName: "Customer Address",
+			children: [
+				{
+					field: "erfData.address.country",
+					headerName: "Country",
+					width: 120,
+					columnGroupShow: "open",
+				},
+				{
+					field: "erfData.address.province",
+					headerName: "Province",
+					width: 120,
+					columnGroupShow: "open",
+				},
+				{
+					field: "erfData.address.dm",
+					headerName: "DM",
+					width: 120,
+					columnGroupShow: "open",
+				},
+				{
+					field: "erfData.address.lmMetro",
+					headerName: "LM or Metro",
+					width: 120,
+					columnGroupShow: "open",
+				},
+				{
+					field: "erfData.address.town",
+					headerName: "Towm",
+					width: 120,
+				},
+				{
+					field: "erfData.address.ward",
+					headerName: "Ward",
+					width: 120,
+					columnGroupShow: "open",
+				},
+				{
+					field: "erfData.address.suburbTownship",
+					headerName: "Suburb/Township",
+					width: 170,
+				},
+				{
+					field: "erfData.address.street",
+					headerName: "Street",
+					width: 170,
 				},
 			],
 		},
@@ -1790,7 +1872,6 @@ export const useColumnDefs = props => {
 	];
 
 	// Transactions form Erfs table fields
-
 	const trnsFromErfsTableFields = [
 		{
 			field: "erfData.erfNo",
@@ -1852,7 +1933,6 @@ export const useColumnDefs = props => {
 	];
 
 	// Transactions form fields
-
 	const trnsTableFields = [
 		{
 			field: "id",
@@ -1964,6 +2044,8 @@ export const useColumnDefs = props => {
 			cellRenderer: memo(TrnDataFormBtn),
 		},
 
+		...mediaFields,
+
 		// erfs
 
 		{
@@ -1974,7 +2056,7 @@ export const useColumnDefs = props => {
 					headerName: "Erf No",
 					width: 130,
 					cellRenderer: params => {
-						return <button className="table-row-btn" >{params.value}</button>;
+						return <button className="table-row-btn">{params.value}</button>;
 					},
 				},
 			],
@@ -2030,6 +2112,30 @@ export const useColumnDefs = props => {
 					width: 130,
 				},
 			],
+		},
+	];
+
+	// Transactions form fields
+	const trnsForAstTableFields = [
+		{
+			field: "metaData.updatedByUser",
+			headerName: "Updated By",
+			width: 130,
+		},
+		// 3
+		{
+			field: "metaData.updatedAtDatetime",
+			columnGroupShow: "open",
+			headerName: "Updated At Datetime",
+			width: 190,
+			cellRenderer: params => {
+				return <p>{moment(params.value.toDate()).format("YYYY-MM-DD HH:mm:ss")}</p>;
+			},
+		},
+		{
+			field: "metaData.trnType",
+			headerName: "Trn Type",
+			width: 170,
 		},
 	];
 
@@ -3341,6 +3447,14 @@ export const useColumnDefs = props => {
 	}
 
 	/*
+	Trns for ast
+	*/
+	if (ml1 === "trnsForAst") {
+		fields = [...trnsForAstTableFields];
+		return { tableFields: fields };
+	}
+
+	/*
 	Erfs
 	*/
 	if (ml1 === "erfs") {
@@ -3669,7 +3783,7 @@ export const useColumnDefs = props => {
 			}
 		}
 	}
-	fields = [...fields, ...mediaFields];
+	fields = [...fields];
 	// console.log(`fields`, fields);
 	return { tableFields: fields };
 };

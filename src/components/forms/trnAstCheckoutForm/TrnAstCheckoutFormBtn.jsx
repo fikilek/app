@@ -18,10 +18,6 @@ const TrnAstCheckoutFormBtn = params => {
 	let trnObject = {};
 	// const NumberOfAsts = Number(meters) + Number(boxes) + Number(cbs) + Number(seals);
 	let numberOfAsts = 0
-
-					console.log(`----------------------------`);
-
-		
 		astCategoriesArray &&
 		astCategoriesArray.forEach(ast => {
 			// console.log(`ast`, ast);
@@ -34,7 +30,7 @@ const TrnAstCheckoutFormBtn = params => {
 					// console.log(`asst`, asst);
 
 					const confirmTrn = asst.trnData.confirmations.confirmTrn;
-					console.log(`confirmTrn`, confirmTrn);
+					// console.log(`confirmTrn`, confirmTrn);
 
 					return !(confirmTrn === "not done" || confirmTrn === "choose");
 					// return null

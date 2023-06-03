@@ -129,6 +129,54 @@ export const capitalize = string => {
 // ******************************************************
 
 export const formSelectOptions = {
+	countryOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "South Africa", value: "South Africa" },
+		{ key: "China", value: "China" },
+		{ key: "Russia", value: "Russia" },
+	],
+
+	provinceOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "Eastern Cape", value: "Eastern Cape" },
+		{ key: "Gauteng", value: "Gauteng" },
+		{ key: "KZN", value: "KZN" },
+		{ key: "Limpompo", value: "Limpompo" },
+		{ key: "North West", value: "North West" },
+		{ key: "Western Cape", value: "Western Cape" },
+		{ key: " Cape", value: " Cape" },
+	],
+
+	dmOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "Chris Hani", value: "Chris Hani" },
+		{ key: "O R Tambo", value: "O R Tambo" },
+		{ key: "Amathole", value: "Amathole" },
+	],
+
+	lmMetroOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "Enock Mgijima", value: "Enock Mgijima" },
+		{ key: "KSD", value: "KSD" },
+		{ key: "eDumbe", value: "eDumbe" },
+		{ key: "eMvoti", value: "eMvoti" },
+		{ key: "Ekurhuleni", value: "Ekurhuleni Metro" },
+		{ key: "CoJ Metro", value: "CoJ Metro" },
+		{ key: "Tshwane Metro", value: "Tshwane Metro" },
+		{ key: "Mnquma", value: "Mnquma" },
+	],
+
+	townOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "Gcuwa", value: "Gcuwa" },
+		{ key: "Mthatha", value: "Mthatha" },
+		{ key: "East London", value: "East London" },
+		{ key: "Queenstown", value: "Queenstown" },
+		{ key: "Tarkastad", value: "Tarkastad" },
+		{ key: "Hofmeyer", value: "Hofmeyer" },
+		{ key: "", value: "" },
+	],
+
 	poletypeOptions: [
 		{ key: "choose", value: "choose" },
 		{ key: "wood", value: "wood" },

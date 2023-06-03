@@ -51,10 +51,10 @@ const trnAstsObjects = {
 
 // Suppliers is a page component
 const TableTrnsFromErfs = props => {
-	console.log(`props`, props);
+	// console.log(`props`, props);
 
 	const { newTrnsArray, trnType } = props.trnsData;
-	console.log(`newTrnsArray`, newTrnsArray);
+	// console.log(`newTrnsArray`, newTrnsArray);
 
 	// if trnType is 'audit', add assets into the trns
 	let newAuditTrnsArray = newTrnsArray;
@@ -82,7 +82,7 @@ const TableTrnsFromErfs = props => {
 		// console.log(`newTrnsArray`, newTrnsArray);
 		newAuditTrnsArray &&
 			newAuditTrnsArray.map(trn => {
-				console.log(`trn`, trn);
+				// console.log(`trn`, trn);
 				return addDocument(trn);
 			});
 		closeModal();

@@ -32,7 +32,7 @@ const getNewTrnsArray = (selectedRows, trnType, user, astCategoriesArray) => {
 	// astCategoriesArray && astCategoriesArray.forEach(astCat => {
 	// 	astData[astCat] = []
 	// })
-	console.log(`astData`, astData)
+	// console.log(`astData`, astData)
 
 	if (selectedRows.lenght === 0) return trns;
 

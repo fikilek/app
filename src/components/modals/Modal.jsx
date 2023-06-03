@@ -24,6 +24,7 @@ import ErfsForm from "../forms/erfsForm/ErfsForm";
 import TableTrnsFromErfs from "../table/TableTrnsFromErfs";
 import TrnAstCheckoutForm from "../forms/trnAstCheckoutForm/TrnAstCheckoutForm";
 import TrnDataForm from "../forms/trnForms/trnDataForms/TrnDataForm";
+import TableTrnsForAst from "../table/TableTnsForAst";
 
 const Modal = () => {
 	const { componentToOpen, setComponentToOpen, modalOpened, setModalOpened } =
@@ -73,13 +74,18 @@ const Modal = () => {
 						{/* trns */}
 						{modalName === "trnForm" && <TrnsForm formData={payload} />}
 						{modalName === "trnDataForm" && <TrnDataForm formData={payload} />}
-						{modalName === "trnAstCheckoutForm" && <TrnAstCheckoutForm data={payload} />}
+						{modalName === "trnAstCheckoutForm" && (
+							<TrnAstCheckoutForm data={payload} />
+						)}
 						{modalName === "tableTrnsFromErfs" && (
 							<TableTrnsFromErfs trnsData={payload} />
 						)}
 
 						{/* asts */}
 						{modalName === "astsForm" && <AstsForm formData={payload} />}
+						{modalName === "tableTrnsForAst" && (
+							<TableTrnsForAst astData={payload} />
+						)}
 
 						{/* sch */}
 						{modalName === "poForm" && <PoForm formData={payload} />}
