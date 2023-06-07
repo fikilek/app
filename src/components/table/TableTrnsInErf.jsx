@@ -7,15 +7,15 @@ import "./Table.css";
 import TableTrns from "./TableTrns";
 
 // This component show all transactions for a particular ast
-const TableTrnsForAst = props => {
+const TableTrnsInErf = props => {
 	// console.log(`props`, props);
 
 	// get trns from props tableData
-	const trnsArray = props.astData.metaData.trnCount;
+	const trnsArray = props.trnsData.trns;
 	// console.log(`trnsArray`, trnsArray)
 
 	// get astNo
-	const astNo = props.astData.astData.astNo
+	const erfNo = props.trnsData.erfNo
 
 	const { closeModal } = useModal();
 
@@ -27,7 +27,7 @@ const TableTrnsForAst = props => {
 			<div className="table-header1">
 				<div className="">
 					<p>
-						Transactions for ast: <span className="data-emphasis">{astNo}</span>
+						Transactions in Erf: <span className="data-emphasis">{erfNo}</span>
 					</p>
 				</div>
 				<button className="table-header-close-btn" onClick={() => closeModal()}>
@@ -38,4 +38,4 @@ const TableTrnsForAst = props => {
 		</div>
 	);
 };
-export default TableTrnsForAst;
+export default TableTrnsInErf;

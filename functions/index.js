@@ -5,21 +5,19 @@ const trnComObj = require("./trnComObj");
 require("firebase-functions/logger/compat");
 
 const functions = require("firebase-functions");
-// The Firebase Admin SDK to access Firestore.
 const admin = require("firebase-admin");
-// const { getAuth } = require("firebase-admin/auth");
 const { getFirestore, Timestamp } = require("firebase-admin/firestore");
-// const { addDoc, collection } = require("firebase/firestore");
+const cloneDeep = require("lodash.clonedeep");
 admin.initializeApp();
 const db = getFirestore();
 
-const getTotalRecordsInCollection = async (col, astCat) => {
-	const collectionRef = admin.firestore().collection(col);
-	const query = collectionRef.where("astData.astCartegory", "==", astCat);
-	const snapshot = await query.count().get();
-	const collectionCount = snapshot.data().count;
-	return collectionCount;
-};
+// const getTotalRecordsInCollection = async (col, astCat) => {
+// 	const collectionRef = admin.firestore().collection(col);
+// 	const query = collectionRef.where("astData.astCartegory", "==", astCat);
+// 	const snapshot = await query.count().get();
+// 	const collectionCount = snapshot.data().count;
+// 	return collectionCount;
+// };
 
 exports.createSpl = functions.firestore
 	.document("suppliers/{userId}")
@@ -210,7 +208,7 @@ exports.updatePoInvPop = functions.https.onCall(async (data, context) => {
 	return updatedDoc;
 });
 
-const getAstIdsInTrn = trn => {
+const getAstsInTrn = trn => {
 	if (!trn) return null;
 	const { astData } = trn;
 	// console.log(`astData`, astData);
@@ -231,17 +229,110 @@ const getAstIdsInTrn = trn => {
 				const trnObject = astData[astCat][astCatIndex];
 				// console.log(`trnObject`, trnObject)
 
-				// create ast tracking info
-				const astTrackingInfo = {
-					astId: trnObject.id,
-					astCat: astCat,
-					astIndex: astCatIndex,
-					trnObject,
-				};
-				astIdsInTrnArray.push(astTrackingInfo);
+				// check if ast is flagged 'done'
+				const isDone = trnObject.trnData.confirmations.confirmTrn;
+				// console.log(`isDone`, isDone);
+
+				// only push the array if its done
+				if (isDone === "done") {
+					// create ast tracking info
+					const astTrackingInfo = {
+						astId: trnObject.id,
+						astCat: astCat,
+						astIndex: astCatIndex,
+						trnObject,
+						astNo: trnObject.astData.astNo,
+						trnNo: trn.metaData.trnNo,
+						trnType: trn.metaData.trnType,
+					};
+					astIdsInTrnArray.push(astTrackingInfo);
+				}
 			});
 	}
 	return astIdsInTrnArray;
+};
+
+const updateAstsInTrn = (trn, newAstsState) => {
+	if (!trn) return null;
+	const { astData } = trn;
+	// console.log(`astData`, astData);
+
+	// clone trn.astData
+	const astDataClone = cloneDeep(trn.astData)
+	console.log(`astDataClone`, astDataClone)
+
+	for (const astCat in astData) {
+		console.log(`astCat`, astCat);
+		const astsArray = astData[astCat];
+		astsArray &&
+			astsArray.forEach((ast, astCatIndex) => {
+				console.log(`ast`, ast)
+				console.log(`astCatIndex`, astCatIndex);
+
+				// extrac ast id info
+				const trnObject = astData[astCat][astCatIndex];
+				console.log(`trnObject`, trnObject);
+
+				// check if ast is flagged 'done'
+				const isDone = trnObject.trnData.confirmations.confirmTrn;
+				console.log(`isDone`, isDone);
+
+				// only push the array if its done
+				if (isDone === "done") {
+					// create ast tracking info
+					console.log(`newAstsState`, newAstsState);
+
+					// extract the trnObject
+					const updatedTrnObject = {
+						...trnObject,
+						astData: {
+							...trnObject.astData,
+							astState: newAstsState,
+						},
+					};
+					console.log(`updatedTrnObject`, updatedTrnObject);
+					astDataClone[astCat][astCatIndex] = updatedTrnObject;
+					console.log(`astDataClone`, astDataClone);
+				}
+			});
+		console.log(`astDataClone`, astDataClone);
+	}
+	return astDataClone;
+};
+
+const updateErf = (trn, astsInTrn) => {
+	// get id of the erf attached to the trn
+	const erfId = trn.erfData.id;
+	// console.log(`erfId`, erfId);
+	// console.log(`trn`, trn);
+	// console.log(`astInTrn`, astsInTrn);
+
+	// use erfId to get reference to the erf document that the ast is attached to
+	const erfDocRef = admin.firestore().collection("erfs").doc(erfId);
+
+	// with ref to the erf doc, now update the erfData.metaData.asts
+	erfDocRef
+		.update({
+			"metaData.updatedAtDatetime": Timestamp.now(),
+			"metaData.updatedByUser": "admin",
+			asts: admin.firestore.FieldValue.arrayUnion(...astsInTrn),
+		})
+		.then(result => {
+			console.log(`result of updatedErfDocWithAstsData `, result);
+			return `result of updatedErfDocWithAstsData: ${result}`;
+		});
+
+	// with ref to the erf doc, now update the erfData.metaData.trns
+	erfDocRef
+		.update({
+			"metaData.updatedAtDatetime": Timestamp.now(),
+			"metaData.updatedByUser": "admin",
+			trns: admin.firestore.FieldValue.arrayUnion(trn),
+		})
+		.then(result => {
+			console.log(`result of updatedErfDocWithTrnData `, result);
+			return `result of updatedErfDocWithTrnData: ${result}`;
+		});
 };
 
 // This cloud function will do the following :
@@ -253,41 +344,54 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 		// console.log(`context`, context)
 
 		// trn data from the chenge parameter
-		const trn = change.after.data();
+		// const trn = change.after.data();
+		const trnAfter = change.after.data();
 		// Retrieve the current, previous states and trnType
-		const currentTrnState = change.after.data().metaData.trnState;
+		const currentTrnState = trnAfter.metaData.trnState;
 		console.log(`currentTrnState`, currentTrnState);
-		const previousTrnState = change.before.data().metaData.trnState;
+		const previousTrnState = trnAfter.metaData.trnState;
 		console.log(`previousTrnState`, previousTrnState);
 		const trnType = change.after.data().metaData.trnType;
 		// console.log(`trnType`, trnType);
+
+		// get erfData from trnAfter
+		const { erfData } = trnAfter;
+
+		// get id of the trn doc
+		const trnId = trnAfter.id;
+
+		// 3. Update all the ttrnAfterrn asts that are on 'field' state. This will be done by iterating though each of the ids (trnAfter.astData[astCat][index].astData.id).
+		const astsInTrn = getAstsInTrn(trnAfter);
+		console.log(`astsInTrn`, astsInTrn);
+		// All asts in astInTrn are confirmations.conformTrn 'done'. Others are filtered out.
 
 		if (
 			// previousTrnState === "draft" &&
 			currentTrnState === "valid" &&
 			trnType === "installation"
 		) {
+			console.log(`trns update happened : ${trnType}`);
 			// TODO: update to include installation trnType as as a condition
-			// trn has transitioned state
-			// 1. Send notifications to all who should receive notificatons on the state transition of trn
+			// trnAfter has transitioned state
+			// 1. Send notifications to all who should receive notificatons on the state transition of trnAfter
+
+			// 2. update all asts in trn to the the field state
+			const updatedAstData = updateAstsInTrn(trnAfter, "field");
+			console.log(`updatedAstData`, updatedAstData);
 
 			// 2. Update trn to the 'submited' state.
-
-			// get id of the trn doc
-			const trnId = change.after.data().id;
-
-			// change.after.ref.set({"metaData.trnState": "submited"},{ merge: true })
-			// TODO: investigate wht the ref.set method is not working?
 			const trnDocRef = db.collection("trns").doc(trnId);
-			trnDocRef.update({
-				"metaData.trnState": "submited",
-				"metaData.updatedAtDatetime": Timestamp.now(),
-				"metaData.updatedByUser": "admin",
-			});
-
-			// 3. Update all asts that have been 'checked out' and installed to "field" state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
-			const astIdsArray = getAstIdsInTrn(change.after.data());
-			// console.log(`astIdsArray`, astIdsArray);
+			trnDocRef
+				.update({
+					"metaData.trnState": "submited",
+					"metaData.updatedAtDatetime": Timestamp.now(),
+					"metaData.updatedByUser": "admin",
+					"astData": updatedAstData,
+				})
+				.then(updatedTrnDoc => {
+					// console.log(`updatedTrnDoc`, updatedTrnDoc);
+					return updatedTrnDoc;
+				});
 
 			// create a new trn commissioning object
 			let newTrnCom = {
@@ -302,39 +406,66 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					trnNo: "",
 					trnState: "draft",
 				},
-				erfData: trn.erfData,
+				// erfData: trnAfter.erfData,
+				erfData,
 			};
 			// console.log(`1 - newTrnCom`, newTrnCom);
 
-			// iterate through astIdsArray, on each ast id, update ast to a 'field' state.
-			astIdsArray &&
-				astIdsArray.forEach(ast => {
+			updateErf(trnAfter, astsInTrn);
+
+			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
+			astsInTrn &&
+				astsInTrn.forEach(ast => {
 					// console.log(`ast`, ast);
 
 					const isDone = ast.trnObject.trnData.confirmations.confirmTrn;
-					console.log(`isDone`, isDone);
+					// console.log(`Installation  -  ast isDone?`, isDone);
 
 					if (isDone === "done") {
 						// get reference to the ast to update te state
 						const astDocRef = db.collection("asts").doc(ast.astId);
 
+						// get existing trn metaData trnCount array
+						let trnCountArray = [];
+						if (trnAfter.metaData.trnCount) {
+							trnCountArray = trnAfter.metaData.trnCount;
+						}
+
 						// update the ast state
-						astDocRef.update({
-							"astData.astState": "field",
-							"metaData.updatedAtDatetime": Timestamp.now(),
-							"metaData.updatedByUser": "admin",
-						});
+						astDocRef
+							.update({
+								"astData.astState": "field",
+								"metaData.updatedAtDatetime": Timestamp.now(),
+								"metaData.updatedByUser": "admin",
+								"metaData.trnCount": [...trnCountArray, trnAfter],
+								// erfData: trnAfter.erfData,
+								erfData,
+							})
+							.then(updatedAstDoc => {
+								console.log(`updatedAstDoc`, updatedAstDoc);
+								return updatedAstDoc;
+							});
 
 						// create a new comssiosioning trn
+
+						// update ast from 'check out' to 'field'.
+						// const updatedAst = {
+						// 	...ast.trnObject.astData,
+						// 	astState: "field",
+						// };
+						// console.log(`updatedAst`, updatedAst);
 
 						// build new commissioning object
 						const newComObj = {
 							id: ast.astId,
-							astData: ast.trnObject.astData,
+							astData: {
+								...ast.trnObject.astData,
+								astState: "field",
+							},
 							[`${ast.astCat}Installation`]: ast.trnObject.trnData,
 							trnData: trnComObj.getTrnComSection(ast.astCat),
 						};
-						console.log(`newComObj`, newComObj);
+						// console.log(`newComObj`, newComObj);
 
 						if (!newTrnCom.astData) {
 							newTrnCom.astData = {};
@@ -354,23 +485,30 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 						const astDocRef = db.collection("asts").doc(ast.astId);
 
 						// update the ast state
-						astDocRef.update({
-							"astData.astState": "stores",
-							"metaData.updatedAtDatetime": Timestamp.now(),
-							"metaData.updatedByUser": "admin",
-						});
+						astDocRef
+							.update({
+								"astData.astState": "stores",
+								"metaData.updatedAtDatetime": Timestamp.now(),
+								"metaData.updatedByUser": "admin",
+							})
+							.then(updatedAstDoc => {
+								// console.log(`updatedAstDoc`, updatedAstDoc);
+								return updatedAstDoc;
+							});
 					}
 				});
 
 			// add the newTrnCommissioning document to trns
-			db
+			return db
 				.collection("trns")
 				.add(newTrnCom)
 				.then(docRef => {
-					console.log("Document written with ID: ", docRef.id);
+					console.log("Document added with ID: ", docRef.id);
+					return `Document added with ID: ${docRef.id}`;
 				})
 				.catch(error => {
 					console.log("Error adding document: ", error.msg);
+					return `Error adding document:  ${error.msg}`;
 				});
 		}
 
@@ -379,47 +517,46 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			currentTrnState === "valid" &&
 			trnType === "commissioning"
 		) {
-			// TODO: update to include installation trnType as as a condition
-			// trn has transitioned state
+			console.log(`trns update happened : ${trnType}`);
 			// 1. Send notifications to all who should receive notificatons on the state transition of trn
 
 			// 2. Update trn to the 'submited' state.
-
-			// get id of the trn doc
-			const trnIdb = change.before.data().id;
-			// console.log(`trnId before`, trnIdb);
-			const trnId = change.after.data().id;
-			// console.log(`trnId after`, trnId);
-
-			// change.after.ref.set({"metaData.trnState": "submited"},{ merge: true })
-			// TODO: investigate wht the ref.set method is not working?
 			const trnDocRef = db.collection("trns").doc(trnId);
-			const updatedDoc = trnDocRef.update({
-				"metaData.trnState": "submited",
-				"metaData.updatedAtDatetime": Timestamp.now(),
-				"metaData.updatedByUser": "admin",
-			});
+			trnDocRef
+				.update({
+					"metaData.trnState": "submited",
+					"metaData.updatedAtDatetime": Timestamp.now(),
+					"metaData.updatedByUser": "admin",
+					astData: updateAstsInTrn(trnAfter, "field"),
+				})
+				.then(updatedTrnDoc => {
+					// console.log(`updated doc ${updatedTrnDoc}`);
+					return updatedTrnDoc;
+				});
 			// console.log(`updatedDoc`, updatedDoc);
 
-			// 3. Update all asts that have been 'checked out' and installed to "field" state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
-			const astIdsArray = getAstIdsInTrn(change.after.data());
-			// console.log(`astIdsArray`, astIdsArray);
-
-			// iterate through astIdsArray, on each ast id, update ast to a 'field' state.
-			astIdsArray &&
-				astIdsArray.forEach(ast => {
+			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
+			return (
+				astsInTrn &&
+				astsInTrn.forEach(ast => {
 					// console.log(`ast`, ast);
 
 					// get reference to the ast to update te state
 					const astDocRef = db.collection("asts").doc(ast.astId);
 
 					// update the ast state
-					astDocRef.update({
-						"astData.astState": "service",
-						"metaData.updatedAtDatetime": Timestamp.now(),
-						"metaData.updatedByUser": "admin",
-					});
-				});
+					astDocRef
+						.update({
+							"astData.astState": "service",
+							"metaData.updatedAtDatetime": Timestamp.now(),
+							"metaData.updatedByUser": "admin",
+						})
+						.then(updatedAstDoc => {
+							console.log(`updatedAstDoc`, updatedAstDoc);
+							return updatedAstDoc;
+						});
+				})
+			);
 		}
 
 		if (
@@ -427,6 +564,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			currentTrnState === "valid" &&
 			trnType === "audit"
 		) {
+			console.log(`trns update happened : ${trnType}`);
 			// TODO: update to include installation trnType as as a condition
 			// trn has transitioned state
 			// 1. Send notifications to all who should receive notificatons on the state transition of trn
@@ -434,27 +572,33 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// 2. Update trn to the 'submited' state.
 
 			// get id of the trn doc
-			const trnId = change.after.data().id;
-			console.log(`trnId`, trnId);
+			// const trnId = change.after.data().id;
+			// console.log(`trnId`, trnId);
 
 			// change.after.ref.set({"metaData.trnState": "submited"},{ merge: true })
 			// TODO: investigate wht the ref.set method is not working?
 			const trnDocRef = db.collection("trns").doc(trnId);
-			const updatedDoc = trnDocRef.update({
-				"metaData.trnState": "submited",
-				"metaData.updatedAtDatetime": Timestamp.now(),
-				"metaData.updatedByUser": "admin",
-			});
+			trnDocRef
+				.update({
+					"metaData.trnState": "submited",
+					"metaData.updatedAtDatetime": Timestamp.now(),
+					"metaData.updatedByUser": "admin",
+				})
+				.then(updatedAstDoc => {
+					console.log(`updatedAstDoc`, updatedAstDoc);
+					return updatedAstDoc;
+				});
 			// console.log(`updatedDoc`, updatedDoc);
 
-			// 3. Update all the trn asts that are on 'field' state. This will be done by iterating though each of the ids (trn.astData[astCat][index].astData.id)
-			const astIdsArray = getAstIdsInTrn(change.after.data());
-			console.log(`astIdsArray`, astIdsArray);
+			// Whenever a new ast is created, two actions must happen:
+			// 1. The erf that the ast belongs to must be updated with the astData. This will be done by inserting astData object into erf metaData.asts array property.
+			// 2. The audit trn object that created the ast must be nserted into metaData.trns property of the erf.
+			updateErf(trnAfter, astsInTrn);
 
-			// iterate through astIdsArray, create new asts and update each to a 'field' state.
+			// iterate through astsInTrn, create new asts and update each to a 'field' state.
 
-			astIdsArray &&
-				astIdsArray.forEach(ast => {
+			astsInTrn &&
+				astsInTrn.forEach(ast => {
 					/* 
 						ast = {
 							astId: trnObject.id,
@@ -463,34 +607,31 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 							trnObject,
 						};
 					*/
-					console.log(`ast`, ast);
-					console.log(`ast.trnObject`, ast.trnObject);
-					console.log(`ast.trnObject.trnData`, ast.trnObject.trnData);
-					console.log(
-						`ast.trnObject.trnData.confirmations`,
-						ast.trnObject.trnData.confirmations
-					);
-					console.log(
-						`ast.trnObject.trnData.confirmations.confirmTrn`,
-						ast.trnObject.trnData.confirmations.confirmTrn
-					);
+					// console.log(`ast`, ast);
+					// console.log(`ast.trnObject`, ast.trnObject);
+					// console.log(`ast.trnObject.trnData`, ast.trnObject.trnData);
+					// console.log(
+					// 	`ast.trnObject.trnData.confirmations`,
+					// 	ast.trnObject.trnData.confirmations
+					// );
+					// console.log(
+					// 	`ast.trnObject.trnData.confirmations.confirmTrn`,
+					// 	ast.trnObject.trnData.confirmations.confirmTrn
+					// );
 
 					// extract conformations.confirm. This detemines if the ast participated or not in the transaction. If the confirm is 'not done', no new ast must be created.
 					const isDone = ast.trnObject.trnData.confirmations.confirmTrn;
-					console.log(`isDone`, isDone);
+					// console.log(`Audit  -  ast isDone?`, isDone);
 
 					if (isDone === "done") {
 						// get the total count of the exisitng astCat documents. THis is the nused to dermine astNo where astCat is not 'meter'
-						getTotalRecordsInCollection("asts", ast.astCat).then(astCount => {
-							console.log(`${ast.astCat}: ${astCount} - in "asts" `);
-						});
+						// getTotalRecordsInCollection("asts", ast.astCat).then(astCount => {
+						// console.log(`${ast.astCat}: ${astCount} - in "asts" `);
+						// });
 
 						// get the ast from ast
 						const { astData } = ast.trnObject;
-						console.log(`astData`, astData);
-
-						// get erfData from trn
-						const { erfData } = trn;
+						// console.log(`astData`, astData);
 
 						// create a new ast object
 						const newAst = {
@@ -502,10 +643,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 								updatedByUser: "admin",
 								createdThrough: {
 									creator: "audit",
-									creatorNo: trn.metaData.trnNo,
-									id: trn.id,
+									creatorNo: trnAfter.metaData.trnNo,
+									id: trnAfter.id,
 								},
-								trnCount: [change.after.data()],
+								trnCount: [trnAfter],
 							},
 							astData,
 							erfData,
@@ -518,32 +659,100 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 							.add(newAst)
 							.then(docRef => {
 								console.log("Document added with ID: ", docRef.id);
+								return `Document added with ID: ${docRef.id}`;
 							})
 							.catch(error => {
 								console.error("Error adding document: ", error.msg);
+								return "Error adding document: ", error.msg;
 							});
 					}
 				});
+
+			// create a service connection (scn)
+
+			// step 0: check if scn already exist. This is done by looiing into scns and asts if the meter in the current installation alrady exist in iREPS. If  it exists, then there is a scn already. If it doesny, there is not scn on that erf, s ogo ahead and create one.
+			// const scnExist = checkIfScnExist(astsInTrn);
+			const scnExist = false;
+
+			if (scnExist) {
+				// update scn
+			} else {
+				// create a NEW service connection
+
+				console.log(`create a NEW SCN: astsInTrn`, astsInTrn);
+				const astsZeTrn = astsInTrn.map(ast => ({
+					...ast.trnObject.astData,
+					id: ast.trnObject.id,
+				}));
+				console.log(`astsZeTrn`, astsZeTrn);
+
+				// extract erfIno
+				// console.log(`trn`, trn);
+				const { address, erfNo, gps } = trnAfter.erfData;
+				// console.log(`address`, address);
+				// console.log(`erfNo`, erfNo);
+				// console.log(`erfNo`, erfNo);
+
+				// step 1: create a NEW scn object
+				const newScn = {
+					metaData: {
+						// createdAtDatetime: db.Timestamp.fromDate(new Date()),
+						createdAtDatetime: Timestamp.now(),
+						createdByUser: "admin",
+						createdByTrn: { trn: { id: trnAfter.id, ...trnAfter.metaData } },
+						updatedAtDatetime: Timestamp.now(),
+						updatedByUser: "admin",
+						updatedByTrn: "",
+					},
+					handOverPoint: "",
+					trnasformerNo: "",
+					feederName: "",
+					ascAsts: astsZeTrn,
+					erfData: { address: address, erfNo: erfNo, gps: gps },
+				};
+				console.log(`newScn`, newScn);
+
+				// step 2: add the new scn to the scns collection
+				const astsRef = db.collection("scns");
+				astsRef
+					.add(newScn)
+					.then(docRef => {
+						console.log(`New scn with dic id [${docRef.id}]  created`);
+						return `New scn with dic id [${docRef.id}]  created`;
+					})
+					.catch(error => {
+						console.error("Error creating new scn: ", error.msg);
+						return "Error creating new scn: ", error.msg;
+					});
+			}
 		}
-
+		if (
+			// previousTrnState === "draft" &&
+			currentTrnState === "valid" &&
+			trnType === "inspection"
+		) {
+			console.log(`trns update happened : ${trnType}`);
+		}
+		if (
+			// previousTrnState === "draft" &&
+			currentTrnState === "valid" &&
+			trnType === "disconnection"
+		) {
+			console.log(`trns update happened : ${trnType}`);
+		}
+		if (
+			// previousTrnState === "draft" &&
+			currentTrnState === "valid" &&
+			trnType === "reconnection"
+		) {
+			console.log(`trns update happened : ${trnType}`);
+		}
+		if (
+			// previousTrnState === "draft" &&
+			currentTrnState === "valid" &&
+			trnType === "vendong"
+		) {
+			console.log(`trns update happened : ${trnType}`);
+		}
+		return "update done succesfully";
 	});
-
-// This cloud finction will fetch ast document for a given id then update it with the new state
-// exports.updateAstState = functions.https.onCall((data, context) => {
-// 	console.log(`data`, data);
-// 	console.log(`context`, context);
-
-// 	// get ast id
-// 	const astId = data.astId;
-// 	console.log(`astId`, astId);
-
-// 	// get new state
-// 	const newState = data.newState;
-
-// 	// update ast state
-// 	const docRef = db.collection("asts").doc(astId);
-// 	const updatedDoc = docRef.update({ "astData.astState": newState });
-// 	console.log(`updatedDoc`, updatedDoc);
-
-// 	return updatedDoc;
-// });

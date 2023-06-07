@@ -187,7 +187,7 @@ const trnFormValidationReducer = (state, action) => {
 };
 
 export const useTrnForm = (trn, setTrn) => {
-	// console.log(`trn`, trn);
+	console.log(`trn`, trn);
 	// console.log(`active`, active);
 	const alreadyRun = useRef(false);
 	// console.log(`alreadyRun`, alreadyRun);

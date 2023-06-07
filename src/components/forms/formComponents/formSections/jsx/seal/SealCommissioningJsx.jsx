@@ -31,7 +31,7 @@ const SealCommissioningJsx = props => {
 							Linked Meter No -{" "}
 							<span>
 								{
-									trn.astData[astCat][astCatIndex].sealInstallation.linkedMeterNo
+									trn.astData[astCat][astCatIndex]?.sealInstallation.linkedMeterNo
 								}
 							</span>
 						</p>

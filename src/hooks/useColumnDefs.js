@@ -16,13 +16,14 @@ import TrnAstCheckoutFormBtn from "../components/forms/trnAstCheckoutForm/TrnAst
 import TableCellStyleAstState from "../components/table/TableCellStyleAstState";
 import TrnDataFormBtn from "../components/forms/trnForms/trnDataForms/TrnDataFormBtn";
 import TableTnsForAstBtn from "../components/table/tableBtns/TableTnsForAstBtn";
+import TableAstsInErfBtn from "../components/table/tableBtns/TableAstsInErfBtn";
+import TableTrnsInErfBtn from "../components/table/tableBtns/TableTrnsInErfBtn";
 
 export const useColumnDefs = props => {
 	// console.log(`props`, props);
 	const { ml1, ml2, ml3 } = props;
 
 	// Erfs
-
 	const erfsTableFields = [
 		{
 			field: "id",
@@ -106,6 +107,23 @@ export const useColumnDefs = props => {
 			headerCheckboxSelection: true,
 			headerCheckboxSelectionFilteredOnly: true,
 			// cellRenderer: memo(ErfBtn),
+		},
+		{
+			field: "asts",
+			headerName: "Ast in Erf",
+			width: "150",
+			// cellRenderer: params => {
+			// 	console.log(`params`, params);
+			// 	return params.data?.asts?.length;
+			// },
+			cellRenderer: memo(TableAstsInErfBtn),
+		},
+		{
+			field: "trns",
+			headerName: "Trns in Erf",
+			width: "150",
+			// cellRenderer: params => params.data?.asts?.length,
+			cellRenderer: memo(TableTrnsInErfBtn),
 		},
 		{
 			headerName: "GPS",
@@ -301,6 +319,65 @@ export const useColumnDefs = props => {
 					width: 120,
 				},
 			],
+		},
+	];
+
+	// asts in erf
+	const astsInErfTableFields = [
+		// TODO: get updated data from the trn that worked on the ast
+		// {
+		// 	field: "metaData.updatedByUser",
+		// 	headerName: "Updated By",
+		// 	width: 130,
+		// 	flex: 1.5,
+		// },
+		// 3
+		// {
+		// 	field: "metaData.updatedAtDatetime",
+		// 	columnGroupShow: "open",
+		// 	headerName: "Updated At Datetime",
+		// 	width: 190,
+		// 	cellRenderer: params => {
+		// 		return (
+		// 			<p>{moment(params.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
+		// 		);
+		// 	},
+		// 	flex: 1.5,
+		// },
+		{
+			field: "astCat",
+			headerName: "Ast Cat",
+			width: 150,
+			flex: 1,
+		},
+		{
+			field: "astNo",
+			headerName: "Ast No",
+			width: 150, 
+			cellRenderer: params => {
+				console.log(`params.data`, params.data)
+				switch (params.data.astCat) {
+					case 'meter': return params.data.astNo;
+					case 'cb' : return params.data.trnObject.astData.cb.size;
+					case 'seal' : return params.data.trnObject.astData.seal.no;
+					case 'box' :return params.data.astNo;
+					case 'pole':return params.data.astNo;
+					default: return null
+				}
+			},
+			flex: 1,
+		},
+		{
+			field: "trnNo",
+			headerName: "Trn No",
+			width: 150,
+			flex: 1,
+		},
+		{
+			field: "trnType",
+			headerName: "Trn Type",
+			width: 150,
+			flex: 1,
 		},
 	];
 
@@ -1405,6 +1482,24 @@ export const useColumnDefs = props => {
 				closeOnApply: true,
 				suppressAndOrCondition: true,
 			},
+			cellRenderer: params => {
+				// console.log(`params.data`, params.data);
+				switch (params.data.astData.astCartegory) {
+					case "meter":
+						return params.data.astData.astNo;
+					case "cb":
+						return params.data.astData.cb.size;
+					case "seal":
+						return params.data.astData.astNo;
+					case "box":
+						return params.data.astData.astNo;
+					case "pole":
+						return params.data.astData.astNo;
+					default:
+						return null;
+				}
+			},
+
 			flex: 1,
 		},
 		{
@@ -1461,7 +1556,7 @@ export const useColumnDefs = props => {
 			headerCheckboxSelectionFilteredOnly: true,
 			flex: 1,
 			cellStyle: params => {
-				// console.log(`params`, params);
+				console.log(`params.data.astData.astState`, params.data.astData.astState);
 				const astState = params.data.astData.astState;
 				// console.log(`astState`, astState);
 				return astState === "field" || astState === "service"
@@ -1552,6 +1647,15 @@ export const useColumnDefs = props => {
 			headerName: "Creator",
 			width: 130,
 			filter: "agTextColumnFilter",
+
+			filterParams: {
+				valueGetter: params => {
+					const { createdThrough } = params.data.metaData;
+					// console.log(`createdThrough`, createdThrough);
+					return `${createdThrough.creator}${createdThrough.creatorNo}`;
+				},
+			},
+
 			cellRenderer: params => {
 				const { createdThrough } = params.data.metaData;
 				return (
@@ -1997,6 +2101,11 @@ export const useColumnDefs = props => {
 				},
 			],
 		},
+		{
+			field: "metaData.trnNo",
+			headerName: "Trn No",
+			width: 150,
+		},
 		// {
 		// 	field: "edit",
 		// 	headerName: "Edit",
@@ -2042,6 +2151,13 @@ export const useColumnDefs = props => {
 			headerName: "Trn Type",
 			width: 170,
 			cellRenderer: memo(TrnDataFormBtn),
+			filterParams: {
+				valueGetter: params => {
+					const { trnType } = params.data.metaData;
+					// console.log(`trnType`, trnType);
+					return trnType;
+				},
+			},
 		},
 
 		...mediaFields,
@@ -2121,6 +2237,7 @@ export const useColumnDefs = props => {
 			field: "metaData.updatedByUser",
 			headerName: "Updated By",
 			width: 130,
+			flex: 1.5,
 		},
 		// 3
 		{
@@ -2129,13 +2246,32 @@ export const useColumnDefs = props => {
 			headerName: "Updated At Datetime",
 			width: 190,
 			cellRenderer: params => {
-				return <p>{moment(params.value.toDate()).format("YYYY-MM-DD HH:mm:ss")}</p>;
+				return (
+					<p>{moment(params.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
+				);
 			},
+			flex: 1.5,
 		},
 		{
 			field: "metaData.trnType",
 			headerName: "Trn Type",
 			width: 170,
+			flex: 1,
+		},
+		{
+			field: "",
+			headerName: "meter",
+			flex: 1,
+		},
+		{
+			field: "",
+			headerName: "cb",
+			flex: 1,
+		},
+		{
+			field: "",
+			headerName: "seal",
+			flex: 1,
 		},
 	];
 
@@ -3451,6 +3587,14 @@ export const useColumnDefs = props => {
 	*/
 	if (ml1 === "trnsForAst") {
 		fields = [...trnsForAstTableFields];
+		return { tableFields: fields };
+	}
+
+	/*
+	asts in erf
+	*/
+	if (ml1 === "astsInErf") {
+		fields = [...astsInErfTableFields];
 		return { tableFields: fields };
 	}
 

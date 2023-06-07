@@ -25,13 +25,14 @@ const TableTrns = ({ rowData, columnDefs }) => {
 	);
 
 	return (
-		<div style={{ height: "60vh", width: '50vw' }} className="ag-theme-alpine">
+		<div style={{ height: "60vh", width: "50vw" }} className="ag-theme-alpine">
 			<AgGridReact
 				ref={gridRef} // Ref for accessing Grid's API
 				rowData={rowData} // Row Data for Rows
 				columnDefs={columnDefs} // Column Defs for Columns
 				defaultColDef={defaultColDef} // Default Column Properties
 				animateRows={true} // Optional - set to 'true' to have rows animate when sorted
+				suppressRowClickSelection={true}
 			/>
 		</div>
 	);

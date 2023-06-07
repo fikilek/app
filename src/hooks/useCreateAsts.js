@@ -83,7 +83,7 @@ export const useCreateAsts = () => {
 					updatedAtDatetime: timestamp.fromDate(new Date()),
 					updatedByUser: user.displayName,
 					createdThrough: { creator: "po", id: poData.id, creatorNo: poData.poNo },
-					trnCount: 0,
+					trnCount: [],
 				},
 				astData: {
 					...newAstFormData.astData,

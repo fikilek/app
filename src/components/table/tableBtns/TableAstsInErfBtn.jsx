@@ -1,10 +1,11 @@
 import React from "react";
 import useModal from "../../../hooks/useModal";
-const TableTrnsForAstBtn = props => {
+
+const TableAstsInErfBtn = props => {
 	// console.log(`props`, props)
 
 	// Extract trnCount from metaData.trnCount
-	const trnCount = props.data.metaData.trnCount?.length || 0;
+	const trnCount = props.data?.asts?.length || 0;
 
 	// Get tenCount newTrns from metaData.trnCount
 	const ast = props.data;
@@ -18,7 +19,7 @@ const TableTrnsForAstBtn = props => {
 		if (trnCount) {
 			e.preventDefault();
 			openModal({
-				modalName: "tableTrnsForAst",
+				modalName: "tableAstsInErf",
 				payload: ast,
 			});
 		}
@@ -31,4 +32,4 @@ const TableTrnsForAstBtn = props => {
 	);
 };
 
-export default TableTrnsForAstBtn;
+export default TableAstsInErfBtn;

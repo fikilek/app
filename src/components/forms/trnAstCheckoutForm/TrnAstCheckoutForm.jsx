@@ -85,13 +85,13 @@ const getTrnData = (ast, trn, getTrnFormJsx) => {
 const getTrnAsts = trn => {
 	// console.log(`trn`, trn);
 
-	// extract the trn state
-	const ts = trn?.metaData.trnState;
-	// console.log(`ts`, ts);
+	// // extract the trn state
+	// const ts = trn?.metaData.trnState;
+	// // console.log(`ts`, ts);
 
-	// extract the trn type
-	const tt = trn?.metaData.trnType;
-	// console.log(`tt`, tt);
+	// // extract the trn type
+	// const tt = trn?.metaData.trnType;
+	// // console.log(`tt`, tt);
 
 	let trnAssets = [];
 	if (trn) {
@@ -102,28 +102,33 @@ const getTrnAsts = trn => {
 				const astCatArray = trn.astData[key];
 				astCatArray &&
 					astCatArray.forEach(ast => {
-						console.log(`ast`, ast);
+						// console.log(`ast`, ast);
 
 						// if confirmations.confirTrn is 'not done', exclude the ast (dont push into the trnAssets)
-						const { confirmTrn } = ast.trnData.confirmations;
-						console.log(`confirmTrn`, confirmTrn);
+						// const { confirmTrn } = ast.trnData.confirmations;
+						// console.log(`confirmTrn`, confirmTrn);
 
-						if (confirmTrn === "done") {
-							if (
-								(tt === "installation" && ts === "submited") ||
-								tt === "commissioning"
-							) {
-								trnAssets.push({
-									...ast,
-									astData: {
-										...ast.astData,
-										astState: "field",
-									},
-								});
-							} else {
-								trnAssets.push(ast);
-							}
-						}
+						// if (tt === "installation") {
+							trnAssets.push(ast);
+						// } 
+
+						
+						// if (confirmTrn === "done") {
+						// 	if (
+						// 		(tt === "installation" && ts === "submited") ||
+						// 		tt === "commissioning"
+						// 	) {
+						// 		trnAssets.push({
+						// 			...ast,
+						// 			astData: {
+						// 				...ast.astData,
+						// 				astState: "field",
+						// 			},
+						// 		});
+						// 	} else {
+						// 		trnAssets.push(ast);
+						// 	}
+						// }
 					});
 			});
 	}
