@@ -270,7 +270,6 @@ export const fsValidationData = {
 					verdict: "",
 				},
 			},
-
 			confirmations: {
 				confirmTrn: {
 					constraints: [{ required: "yes", condition: "" }],
@@ -281,6 +280,7 @@ export const fsValidationData = {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
+
 			// astData
 
 			astCartegory: {
@@ -304,11 +304,11 @@ export const fsValidationData = {
 					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
-				phase: {
+				type: {
 					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
-				type: {
+				phase: {
 					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
@@ -316,6 +316,358 @@ export const fsValidationData = {
 					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
+			},
+		},
+
+		// auditValidationData: {
+		// 	location: {
+		// 		premises: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		insideBox: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		exactLocation: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	serviceConnection: {
+		// 		connection: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	keyPad: {
+		// 		isThereKeyPad: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		serialNo: {
+		// 			constraints: [
+		// 				{
+		// 					required: "condition",
+		// 					condition: {
+		// 						isThereKeyPad: "yes",
+		// 					},
+		// 				},
+		// 			],
+		// 			verdict: "",
+		// 		},
+		// 		kyPadPhotos: {
+		// 			constraints: [
+		// 				{
+		// 					required: "condition",
+		// 					condition: {
+		// 						isThereKeyPad: "yes",
+		// 					},
+		// 				},
+		// 			],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	astAdr: {
+		// 		adr: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		gps: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	voltageReading: {
+		// 		phase1: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		phase2: {
+		// 			constraints: [{ required: "condition", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		phase3: {
+		// 			constraints: [{ required: "condition", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		voltageReadingPhotos: {
+		// 			constraints: [{ required: "no", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	linkedCb: {
+		// 		isThereCb: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		cbSize: {
+		// 			constraints: [
+		// 				{
+		// 					required: "condition",
+		// 					condition: {
+		// 						isThereCb: "yes",
+		// 					},
+		// 				},
+		// 			],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	linkedSeal: {
+		// 		isThereSeal: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		sealNo: {
+		// 			constraints: [
+		// 				{
+		// 					required: "condition",
+		// 					condition: {
+		// 						isThereSeal: "yes",
+		// 					},
+		// 				},
+		// 			],
+		// 			verdict: "",
+		// 		},
+		// 	},
+
+		// 	confirmations: {
+		// 		confirmTrn: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	photos: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+
+		// 	// astData
+
+		// 	astCartegory: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	astNo: {
+		// 		constraints: [{ required: "yes", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	astSerialNo: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	astState: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	meter: {
+		// 		code: {
+		// 			constraints: [{ required: "no", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		phase: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		type: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		manufacturer: {
+		// 			constraints: [{ required: "no", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// },
+
+		inspectionValidationData: {
+			meterPresent: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			meterTempered: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			meterInUse: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+
+			readings: {
+				meterReading: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				voltageReadings: {
+					phase1: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					phase2: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+					phase3: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+				},
+			},
+
+			seal: {
+				sealed: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				sealNo: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+
+			cb: {
+				hasCb: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				size: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+
+			location: {
+				premises: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				insideBox: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				onPole: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+
+			confirmations: {
+				confirmTrn: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+		},
+
+		disconnectionValidationData: {
+			level: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			readings: {
+				voltageReadings: {
+					phase1: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					phase2: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+					phase3: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+				},
+			},
+			seal: {
+				sealed: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				sealNo: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+			},
+			cb: {
+				hasCb: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				size: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+			},
+			confirmations: {
+				confirmTrn: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+		},
+
+		reconnectionValidationData: {
+			level: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			readings: {
+				voltageReadings: {
+					phase1: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					phase2: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+					phase3: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+				},
+			},
+			seal: {
+				sealed: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				sealNo: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+			},
+			cb: {
+				hasCb: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				size: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+			},
+			confirmations: {
+				confirmTrn: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
 			},
 		},
 	},
@@ -390,10 +742,39 @@ export const fsValidationData = {
 		},
 
 		auditValidationData: {
-			// installation data
-			linkedMeterNo: {
-				constraints: [{ required: "yes", condition: "" }],
-				verdict: "",
+			location: {
+				premises: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				insideBox: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				exactLocation: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			astAdr: {
+				adr: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				gps: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			linkedMeter: {
+				isLinkedToMeter: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				meterNo: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
 			},
 			confirmations: {
 				confirmTrn: {
@@ -405,13 +786,15 @@ export const fsValidationData = {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
+
 			// astData
+
 			astCartegory: {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
 			astNo: {
-				constraints: [{ required: "no", condition: "" }],
+				constraints: [{ required: "yes", condition: "" }],
 				verdict: "",
 			},
 			astSerialNo: {
@@ -423,15 +806,85 @@ export const fsValidationData = {
 				verdict: "",
 			},
 			cb: {
-				size: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
 				code: {
 					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
 				type: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+				size: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+			},
+		},
+
+		// auditValidationData: {
+		// 	// installation data
+		// 	linkedMeterNo: {
+		// 		constraints: [{ required: "yes", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	confirmations: {
+		// 		confirmTrn: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// 	photos: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	// astData
+		// 	astCartegory: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	astNo: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	astSerialNo: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	astState: {
+		// 		constraints: [{ required: "no", condition: "" }],
+		// 		verdict: "",
+		// 	},
+		// 	cb: {
+		// 		size: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		code: {
+		// 			constraints: [{ required: "no", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 		type: {
+		// 			constraints: [{ required: "yes", condition: "" }],
+		// 			verdict: "",
+		// 		},
+		// 	},
+		// },
+
+		inspectionValidationData: {
+			cbPresent: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			visibleDamage: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			sameCircuitAsMeter: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			confirmations: {
+				confirmTrn: {
 					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
@@ -452,6 +905,25 @@ export const fsValidationData = {
 				},
 			},
 			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+
+			// astData
+
+			astCartegory: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+			astNo: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			astSerialNo: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+			astState: {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
@@ -483,24 +955,29 @@ export const fsValidationData = {
 		},
 
 		auditValidationData: {
+			linkedMeterNo: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
 			confirmations: {
 				confirmTrn: {
 					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
 			},
-			linkedMeterNo: {
-				constraints: [{ required: "yes", condition: "" }],
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
-			photos: ["Photo 1 url", "Photo 2 url"],
+
 			// astData
+
 			astCartegory: {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
 			astNo: {
-				constraints: [{ required: "no", condition: "" }],
+				constraints: [{ required: "yes", condition: "" }],
 				verdict: "",
 			},
 			astSerialNo: {
@@ -512,10 +989,6 @@ export const fsValidationData = {
 				verdict: "",
 			},
 			seal: {
-				no: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
 				code: {
 					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
@@ -524,6 +997,31 @@ export const fsValidationData = {
 					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
+			},
+		},
+
+		inspectionValidationData: {
+			sealIntactOnMeter: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			sealCut: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			sealRemoved: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			confirmations: {
+				confirmTrn: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
 			},
 		},
 	},
@@ -620,6 +1118,10 @@ export const fsValidationData = {
 					verdict: "",
 				},
 			},
+			scnc: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
 			confirmations: {
 				confirmTrn: {
 					constraints: [{ required: "yes", condition: "" }],
@@ -630,7 +1132,9 @@ export const fsValidationData = {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
+
 			// astData
+
 			astCartegory: {
 				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
@@ -674,6 +1178,61 @@ export const fsValidationData = {
 					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
+			},
+		},
+
+		inspectionValidationData: {
+			location: {
+				exactLocation: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				premises: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			damaged: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			lockable: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			boxLock: {
+				lockable: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				isLocked: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			devicesInBox: {
+				howManyMeters: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+				howManyCbs: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			scns: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+			confirmations: {
+				confirmTrn: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
 			},
 		},
 	},
@@ -732,16 +1291,6 @@ export const fsValidationData = {
 					verdict: "",
 				},
 			},
-			poleCondition: {
-				leaning: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
-				health: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
-			},
 			astAdr: {
 				adr: {
 					constraints: [{ required: "yes", condition: "" }],
@@ -752,26 +1301,36 @@ export const fsValidationData = {
 					verdict: "",
 				},
 			},
-			streetLamp: {
-				hasAttachedLamp: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
-				lampNo: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
-			},
-			box: {
-				hasAttacheBox: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
-				boxNo: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
-				},
-			},
+			// poleCondition: {
+			// 	leaning: {
+			// 		constraints: [{ required: "yes", condition: "" }],
+			// 		verdict: "",
+			// 	},
+			// 	health: {
+			// 		constraints: [{ required: "yes", condition: "" }],
+			// 		verdict: "",
+			// 	},
+			// },
+			// streetLamp: {
+			// 	hasAttachedLamp: {
+			// 		constraints: [{ required: "yes", condition: "" }],
+			// 		verdict: "",
+			// 	},
+			// 	lampNo: {
+			// 		constraints: [{ required: "no", condition: "" }],
+			// 		verdict: "",
+			// 	},
+			// },
+			// box: {
+			// 	hasAttacheBox: {
+			// 		constraints: [{ required: "yes", condition: "" }],
+			// 		verdict: "",
+			// 	},
+			// 	boxNo: {
+			// 		constraints: [{ required: "yes", condition: "" }],
+			// 		verdict: "",
+			// 	},
+			// },
 			confirmations: {
 				confirmTrn: {
 					constraints: [{ required: "yes", condition: "" }],
@@ -782,16 +1341,63 @@ export const fsValidationData = {
 				constraints: [{ required: "yes", condition: "" }],
 				verdict: "",
 			},
+
 			// astData
+
+			astCartegory: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
 			astNo: {
 				constraints: [{ required: "yes", condition: "" }],
 				verdict: "",
 			},
+			astSerialNo: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
+			astState: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
+			},
 			pole: {
+				code: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
 				type: {
 					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
+				length: {
+					constraints: [{ required: "no", condition: "" }],
+					verdict: "",
+				},
+			},
+		},
+
+		inspectionValidationData: {
+			poleLeaning: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			poleIntact: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			poleDamaged: {
+				constraints: [{ required: "yes", condition: "" }],
+				verdict: "",
+			},
+			confirmations: {
+				confirmTrn: {
+					constraints: [{ required: "yes", condition: "" }],
+					verdict: "",
+				},
+			},
+			photos: {
+				constraints: [{ required: "no", condition: "" }],
+				verdict: "",
 			},
 		},
 	},

@@ -3,6 +3,165 @@ import { nanoid } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
 import { timestamp } from "../../firebaseConfig/fbConfig";
 
+const astNextState = {
+	meter: {
+		supplier: { grv: "stores" },
+		stores: {
+			// installation: "checked out",
+			missing: "lost",
+			return: "supplier",
+			sale: "sold",
+			dispose: "retired",
+		},
+		// "checked out": { installation: "field", missing: "lost" },
+		field: {
+			// commissioning: "service",
+			missing: "lost",
+			checkIn: "stores",
+		},
+		service: {
+			missing: "lost",
+			vending: "service",
+			disconnection: "disconnected",
+			inspection: "service",
+			decommissioning: "stores",
+		},
+		disconnected: {
+			reconnection: "service",
+			missing: "stores",
+		},
+		lost: {
+			found: "stores",
+		},
+		retired: {
+			grv: "stores",
+		},
+		sold: {
+			grv: "stores",
+		},
+	},
+	cb: {
+		supplier: { grv: "stores" },
+		stores: {
+			// installation: "checked out",
+			missing: "lost",
+			return: "supplier",
+			sale: "sold",
+			dispose: "retired",
+		},
+		// "checked out": { installation: "field", missing: "lost" },
+		field: {
+			// commissioning: "service",
+			missing: "lost",
+			checkIn: "stores",
+		},
+		service: {
+			missing: "lost",
+			inspection: "service",
+			decommissioning: "stores",
+		},
+		lost: {
+			found: "stores",
+		},
+		retired: {
+			grv: "stores",
+		},
+		sold: {
+			grv: "stores",
+		},
+	},
+	seal: {
+		supplier: { grv: "stores" },
+		stores: {
+			// installation: "checked out",
+			missing: "lost",
+			return: "supplier",
+			sale: "sold",
+			dispose: "retired",
+		},
+		// "checked out": { installation: "field", missing: "lost" },
+		field: {
+			// commissioning: "service",
+			missing: "lost",
+			checkIn: "stores",
+		},
+		service: {
+			missing: "lost",
+			inspection: "service",
+			decommissioning: "stores",
+		},
+		lost: {
+			found: "stores",
+		},
+		retired: {
+			grv: "stores",
+		},
+		sold: {
+			grv: "stores",
+		},
+	},
+	box: {
+		supplier: { grv: "stores" },
+		stores: {
+			// installation: "checked out",
+			missing: "lost",
+			return: "supplier",
+			sale: "sold",
+			dispose: "retired",
+		},
+		// "checked out": { installation: "field", missing: "lost" },
+		field: {
+			// commissioning: "service",
+			missing: "lost",
+			checkIn: "stores",
+		},
+		service: {
+			missing: "lost",
+			inspection: "service",
+			decommissioning: "stores",
+		},
+		lost: {
+			found: "stores",
+		},
+		retired: {
+			grv: "stores",
+		},
+		sold: {
+			grv: "stores",
+		},
+	},
+	pole: {
+		supplier: { grv: "stores" },
+		stores: {
+			// installation: "checked out",
+			missing: "lost",
+			return: "supplier",
+			sale: "sold",
+			dispose: "retired",
+		},
+		// "checked out": { installation: "field", missing: "lost" },
+		field: {
+			commissioning: "service",
+			missing: "lost",
+			checkIn: "stores",
+		},
+		service: {
+			// missing: "lost",
+			inspection: "service",
+			// decommissioning: "stores",
+		},
+		lost: {
+			// found: "stores",
+		},
+		retired: {
+			// grv: "stores",
+		},
+		sold: {
+			// grv: "stores",
+		},
+	},
+};
+
 const astStateNames = [
 	{
 		id: 1,
@@ -301,7 +460,7 @@ const newTrnData = {
 		trnHistory: 0, // how many times transaction has been updated
 		trnType: "", //['installation', 'commissioning', 'vending', 'missing', 'found', 'disconnection', 'reconnection', 'sale', 'decomissioning', "dispose", 'inspection', 'audit']
 		trnNo: "",
-		trnState: 'draft',
+		trnState: "draft",
 	},
 	astData: {
 		id: "",
@@ -406,10 +565,10 @@ const newErfsFormData = {
 		},
 	},
 	billing: {
-		tariff: '',
-		indigent: '',
-		accountNo: [{ AccountNo: 1 }, {AccountNo: 2 }],
-	}
+		tariff: "",
+		indigent: "",
+		accountNo: [{ AccountNo: 1 }, { AccountNo: 2 }],
+	},
 };
 
 const trnNames = [
@@ -738,6 +897,7 @@ const newAstFormData = {
 
 export {
 	astStateNames,
+	astNextState,
 	trnNames,
 	unpData,
 	unpRoles,

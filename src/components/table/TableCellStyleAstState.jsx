@@ -11,6 +11,8 @@ const TableCellStyleAstState = params => {
 		case "service":
 			return { borderLeft: "1rem solid green" };
 		case "lost":
+			return { borderLeft: "1rem solid brickRed" };
+		case "disconnected":
 			return { borderLeft: "1rem solid red" };
 		default:
 			return null;

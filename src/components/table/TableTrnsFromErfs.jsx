@@ -112,4 +112,5 @@ const TableTrnsFromErfs = props => {
 		</div>
 	);
 };
+
 export default TableTrnsFromErfs;

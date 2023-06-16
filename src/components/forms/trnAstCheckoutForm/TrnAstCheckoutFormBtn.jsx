@@ -29,10 +29,11 @@ const TrnAstCheckoutFormBtn = params => {
 				const doneArray = asset.filter(asst => {
 					// console.log(`asst`, asst);
 
-					const confirmTrn = asst.trnData.confirmations.confirmTrn;
+					const confirmTrn = asst?.trnData?.confirmations?.confirmTrn;
 					// console.log(`confirmTrn`, confirmTrn);
 
-					return !(confirmTrn === "not done" || confirmTrn === "choose");
+					return (confirmTrn === "not done" || confirmTrn === "choose") ? false : true;
+					// return true;
 					// return null
 				});
 				// console.log(`doneArray.length`, ast, doneArray.length);

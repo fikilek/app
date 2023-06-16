@@ -187,9 +187,9 @@ const MeterInstallationtJsx = props => {
 						<FormikControl
 							control="input"
 							type="text"
-							label="seal size"
-							name={`astData[${astCat}][${astCatIndex}].trnData.linkedSeal.sealSize`}
-							placeholder="Seal Size"
+							label="seal no"
+							name={`astData[${astCat}][${astCatIndex}].trnData.linkedSeal.sealNo`}
+							placeholder="Seal No"
 						/>
 					</div>
 					{/* TODO: come back to include control for the installation group photos */}

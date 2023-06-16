@@ -10,6 +10,7 @@ import TableCheckedOutAsts from "../../table/TableCheckedOutAsts";
 import TableCheckedInAsts from "../../table/TableCheckedInAsts";
 import { useDocument } from "../../../hooks/useDocument";
 import { useTrnForm } from "../../../hooks/useTrnForm";
+import { useDocumentSync } from "../../../hooks/useDocumentSync";
 
 const getAstIdsInTrn = trn => {
 	if (!trn) return null;
@@ -46,8 +47,8 @@ const getAstIdsInTrn = trn => {
 
 // get trnData for trn
 const getTrnData = (ast, trn, getTrnFormJsx) => {
-	// console.log(`ast`, ast);
-	// console.log(`trn`, trn);
+	console.log(`ast`, ast);
+	console.log(`trn`, trn);
 
 	// get exisintg astData from trn
 	const existingAstData = trn?.astData;
@@ -161,11 +162,11 @@ const TrnAstCheckoutForm = props => {
 
 	// get trnId. THis will be used to get trn via useDocument for the auotomated update
 	const { id: trnId } = data;
-	// console.log(`trnId`, trnId);
+	console.log(`trnId`, trnId);
 
 	// get trn using trnId
 	//TODO: deal with error conditiond
-	const { error: err, document } = useDocument("trns", trnId);
+	const { error: err, document } = useDocumentSync("trns", trnId);
 	// console.log(`err`, err);
 	// console.log(`document`, document);
 

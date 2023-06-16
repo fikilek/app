@@ -48,14 +48,14 @@ export const fsAstData = {
 			astSerialNo: "",
 			astState: "service",
 			box: {
-				code: "",
-				type: "", // required
-				color: "",
 				dimensions: {
 					lenght: "",
 					width: "",
 					height: "",
 				},
+				code: "",
+				type: "", // required
+				color: "",
 			},
 		},
 	},

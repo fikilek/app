@@ -103,7 +103,7 @@ export const getPoStatus = po => {
 	const poReceived = po.poData.poGrv.grvReceiver.grvReceiverUid;
 	const poWitnessed = po.poData.poGrv.grvWitness.grvWitnessUid;
 	if (!poApproved && !poReceived && !poWitnessed) return "created";
-	if (poApproved && !poReceived && !poWitnessed) return "approved";
+	if (poApproved && !poReceived &&  !poWitnessed) return "approved";
 	if (poApproved && poReceived && !poWitnessed) return "received";
 	if (poApproved && poReceived && poWitnessed) return "witnessed";
 	return null;
@@ -129,6 +129,13 @@ export const capitalize = string => {
 // ******************************************************
 
 export const formSelectOptions = {
+	disconnectionLevelOptions: [
+		{ key: "choose", value: "choose" },
+		{ key: "Level 1", value: "Level 1" },
+		{ key: "Level 2", value: "Level 2" },
+		{ key: "Level 3", value: "Level 3" },
+	],
+
 	countryOptions: [
 		{ key: "choose", value: "choose" },
 		{ key: "South Africa", value: "South Africa" },

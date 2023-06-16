@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebaseConfig/fbConfig";
 import { doc, onSnapshot } from "firebase/firestore";
 
-export const useDocument = async (fbCollection, id) => {
+export const useDocumentSync =  (fbCollection, id) => {
 
 	console.log(`fbCollection`,	fbCollection)
 	console.log(`id`, id)

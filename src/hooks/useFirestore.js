@@ -31,7 +31,7 @@ const firestoreReducer = (state, action) => {
 				success: true,
 			};
 		case "UPDATED_DOCUMENT":
-			// console.log(`UPDATED_DOCUMENT`, action.payload);
+			console.log(`UPDATED_DOCUMENT`, action.payload);
 			return {
 				document: action.payload,
 				error: null,
@@ -83,7 +83,7 @@ export const useFirestore = fbCollection => {
 	const deleteDocument = async id => {};
 
 	const updateDocument = async document => {
-		// console.log(`document`, document)
+		console.log(`document`, document)
 		const id = document.id;
 		const newObj = cloneDeep(document);
 		// delete newObj.id;
@@ -123,7 +123,7 @@ export const useFirestore = fbCollection => {
 	};
 
 	const getDocument = async uid => {
-		// console.log(`uid`, uid)
+		console.log(`uid`, uid)
 		const docRef = doc(db, fbCollection, uid);
 		// console.log(`docRef`, docRef);
 		dispatch({ type: "IS_PENDING" });

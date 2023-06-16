@@ -37,19 +37,22 @@ const TrnDataForm = props => {
 	// console.log(`trnState`, trnState);
 
 	// get useFirestore for updating trn
-	const { response, updateDocument } = useFirestore("trns");
+	const { response, updateDocument, addDocument } = useFirestore("trns");
 
 	// close the modal
 	const { closeModal } = useModal();
 
-	const { formState, fieldValidation, formSections } = useTrnForm(trn, setTrn);
+	const { formState, fieldValidation, formSections } = useTrnForm(
+		trn,
+		setTrn
+	);
 	// console.log(`formSections`, formSections);
 	// console.log(`formState`, formState);
 
 	const onSubmit = values => {
-		console.log(`values`, values)
+		// console.log(`values`, values);
 		// console.log(`formState`, formState)
-
+		
 		const newValues = {
 			...values,
 			metaData: {
@@ -57,7 +60,15 @@ const TrnDataForm = props => {
 				trnState: formState.state,
 			},
 		};
-		updateDocument(newValues);
+		// console.log(`newValues`, newValues);
+
+		if (newValues.id) {
+			// console.log(`newValues id : [${newValues?.id}]`);
+			updateDocument(newValues);
+		} else {
+			// console.log(`newValues NO id : [${newValues?.id}]`);
+			addDocument(newValues);
+		}
 	};
 
 	useEffect(() => {

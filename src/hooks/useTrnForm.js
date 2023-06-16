@@ -23,8 +23,7 @@ const getKey = (path, cat) => {
 	const trnDataStr = "trnData";
 
 	if (hasTrnData) {
-
-		const trnDataLength = trnDataStr.length
+		const trnDataLength = trnDataStr.length;
 		// console.log(`trnDataLength`, trnDataStr, trnDataLength);
 
 		// const catLength = cat.length;
@@ -33,9 +32,7 @@ const getKey = (path, cat) => {
 		// const lastPartLength = installationStr.length;
 		// console.log(`lastPartLength`, installationStr, lastPartLength);
 
-		const key = path.slice(
-			firstPartLength + trnDataLength + 2
-		);
+		const key = path.slice(firstPartLength + trnDataLength + 2);
 		// console.log(`key`, key);
 
 		return key;
@@ -263,6 +260,9 @@ export const useTrnForm = (trn, setTrn) => {
 	const getTrnFormJsx = (trnType, astCat, ast) => {
 		const astCatIndex = getAstCatIndex(ast, trn);
 		// console.log(`astCatIndex`, astCatIndex)
+		// console.log(`astCat`, astCat)
+		// console.log(`trnType`, trnType)
+		// console.log(`getTrnFormJsx running`)
 
 		switch (astCat) {
 			case "meter":
@@ -304,6 +304,51 @@ export const useTrnForm = (trn, setTrn) => {
 							trnData: formSects.meter.audit.trnData,
 							trnValidationData: formSects.meter.audit.trnValidationData,
 							jsx: formSects.meter.audit.jsx(ast, trn, astCat, astCatIndex, trnType),
+						};
+
+					case "inspection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.meter.inspection.trnData,
+							trnValidationData: formSects.meter.inspection.trnValidationData,
+							jsx: formSects.meter.inspection.jsx(
+								ast,
+								trn,
+								astCat,
+								astCatIndex,
+								trnType
+							),
+						};
+
+					case "disconnection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.meter.disconnection.trnData,
+							trnValidationData: formSects.meter.disconnection.trnValidationData,
+							jsx: formSects.meter.disconnection.jsx(
+								ast,
+								trn,
+								astCat,
+								astCatIndex,
+								trnType
+							),
+						};
+
+					case "reconnection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.meter.reconnection.trnData,
+							trnValidationData: formSects.meter.disconnection.trnValidationData,
+							jsx: formSects.meter.reconnection.jsx(
+								ast,
+								trn,
+								astCat,
+								astCatIndex,
+								trnType
+							),
 						};
 
 					default:
@@ -351,6 +396,15 @@ export const useTrnForm = (trn, setTrn) => {
 							jsx: formSects.cb.audit.jsx(ast, trn, astCat, astCatIndex, trnType),
 						};
 
+					case "inspection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.cb.inspection.trnData,
+							trnValidationData: formSects.cb.inspection.trnValidationData,
+							jsx: formSects.cb.inspection.jsx(ast, trn, astCat, astCatIndex, trnType),
+						};
+
 					default:
 						return {};
 				}
@@ -374,6 +428,8 @@ export const useTrnForm = (trn, setTrn) => {
 
 					case "commissioning":
 						return {
+							astCat,
+							astCatIndex,
 							trnData: formSects.seal.commissioning.trnData,
 							trnValidationData: formSects.seal.commissioning.trnValidationData,
 							jsx: formSects.seal.commissioning.jsx(
@@ -392,6 +448,21 @@ export const useTrnForm = (trn, setTrn) => {
 							trnData: formSects.seal.audit.trnData,
 							trnValidationData: formSects.seal.audit.trnValidationData,
 							jsx: formSects.seal.audit.jsx(ast, trn, astCat, astCatIndex, trnType),
+						};
+
+					case "inspection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.seal.inspection.trnData,
+							trnValidationData: formSects.seal.inspection.trnValidationData,
+							jsx: formSects.seal.inspection.jsx(
+								ast,
+								trn,
+								astCat,
+								astCatIndex,
+								trnType
+							),
 						};
 
 					default:
@@ -414,6 +485,7 @@ export const useTrnForm = (trn, setTrn) => {
 								trnType
 							),
 						};
+
 					case "commissioning":
 						return {
 							astCat,
@@ -436,6 +508,21 @@ export const useTrnForm = (trn, setTrn) => {
 							trnData: formSects.box.audit.trnData,
 							trnValidationData: formSects.box.audit.trnValidationData,
 							jsx: formSects.box.audit.jsx(ast, trn, astCat, astCatIndex, trnType),
+						};
+
+					case "inspection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.box.inspection.trnData,
+							trnValidationData: formSects.box.inspection.trnValidationData,
+							jsx: formSects.box.inspection.jsx(
+								ast,
+								trn,
+								astCat,
+								astCatIndex,
+								trnType
+							),
 						};
 
 					default:
@@ -461,6 +548,8 @@ export const useTrnForm = (trn, setTrn) => {
 
 					case "commissioning":
 						return {
+							astCat,
+							astCatIndex,
 							trnData: formSects.pole.commissioning.trnData,
 							trnValidationData: formSects.pole.commissioning.trnValidationData,
 							jsx: formSects.pole.commissioning.jsx(
@@ -479,6 +568,21 @@ export const useTrnForm = (trn, setTrn) => {
 							trnData: formSects.pole.audit.trnData,
 							trnValidationData: formSects.pole.audit.trnValidationData,
 							jsx: formSects.pole.audit.jsx(ast, trn, astCat, astCatIndex, trnType),
+						};
+
+					case "inspection":
+						return {
+							astCat,
+							astCatIndex,
+							trnData: formSects.pole.inspection.trnData,
+							trnValidationData: formSects.pole.inspection.trnValidationData,
+							jsx: formSects.pole.inspection.jsx(
+								ast,
+								trn,
+								astCat,
+								astCatIndex,
+								trnType
+							),
 						};
 
 					default:
@@ -537,6 +641,9 @@ export const useTrnForm = (trn, setTrn) => {
 							// console.log(`trnVData`, trnVData);
 
 							// use cat and index to extract values from trn
+							// console.log(`trn`, trn)
+							// console.log(`cat`, cat)
+							// console.log(`index`, index)
 							const trnValuesData = trn.astData[cat][index].trnData;
 							// console.log(`trnValuesData`, trnValuesData);
 

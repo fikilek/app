@@ -61,7 +61,7 @@ const PoleAuditJsx = props => {
 							options={formSelectOptions.astLocationPremisesOptions}
 						/>
 					</div>
-					<div className="half-row-50-50">
+					{/* <div className="half-row-50-50">
 						<FormikControl
 							control="select"
 							type="text"
@@ -78,9 +78,9 @@ const PoleAuditJsx = props => {
 							placeholder="Pole Health"
 							options={formSelectOptions.goodBadOptions}
 						/>
-					</div>
+					</div> */}
 				</div>
-				<div className="row-4 ast-row">
+				{/* <div className="row-4 ast-row">
 					<div className="half-row-50-50">
 						<FormikControl
 							control="select"
@@ -115,7 +115,7 @@ const PoleAuditJsx = props => {
 							placeholder="box no"
 						/>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</FormSectionTrnAst>
 	);

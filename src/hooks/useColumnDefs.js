@@ -110,21 +110,21 @@ export const useColumnDefs = props => {
 		},
 		{
 			field: "asts",
-			headerName: "Ast in Erf",
-			width: "150",
+			headerName: "Asts in Erf",
+			width: 150,
 			// cellRenderer: params => {
 			// 	console.log(`params`, params);
 			// 	return params.data?.asts?.length;
 			// },
 			cellRenderer: memo(TableAstsInErfBtn),
 		},
-		{
-			field: "trns",
-			headerName: "Trns in Erf",
-			width: "150",
-			// cellRenderer: params => params.data?.asts?.length,
-			cellRenderer: memo(TableTrnsInErfBtn),
-		},
+		// {
+		// 	field: "trns",
+		// 	headerName: "Trns in Erf",
+		// 	width: 150,
+		// 	// cellRenderer: params => params.data?.asts?.length,
+		// 	cellRenderer: memo(TableTrnsInErfBtn),
+		// },
 		{
 			headerName: "GPS",
 			children: [
@@ -325,56 +325,61 @@ export const useColumnDefs = props => {
 	// asts in erf
 	const astsInErfTableFields = [
 		// TODO: get updated data from the trn that worked on the ast
-		// {
-		// 	field: "metaData.updatedByUser",
-		// 	headerName: "Updated By",
-		// 	width: 130,
-		// 	flex: 1.5,
-		// },
-		// 3
-		// {
-		// 	field: "metaData.updatedAtDatetime",
-		// 	columnGroupShow: "open",
-		// 	headerName: "Updated At Datetime",
-		// 	width: 190,
-		// 	cellRenderer: params => {
-		// 		return (
-		// 			<p>{moment(params.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
-		// 		);
-		// 	},
-		// 	flex: 1.5,
-		// },
 		{
-			field: "astCat",
+			field: "trnMetaData.updatedByUser",
+			headerName: "Updated By",
+			width: 130,
+			flex: 1.5,
+		},
+		{
+			field: "trnMetaData.updatedAtDatetime",
+			columnGroupShow: "open",
+			headerName: "Updated At Datetime",
+			width: 190,
+			cellRenderer: params => {
+				return (
+					<p>{moment(params.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
+				);
+			},
+			flex: 1.5,
+		},
+		{
+			field: "astData.astCartegory",
 			headerName: "Ast Cat",
 			width: 150,
 			flex: 1,
 		},
 		{
-			field: "astNo",
+			field: "astData.astNo",
 			headerName: "Ast No",
-			width: 150, 
+			width: 150,
 			cellRenderer: params => {
-				console.log(`params.data`, params.data)
-				switch (params.data.astCat) {
-					case 'meter': return params.data.astNo;
-					case 'cb' : return params.data.trnObject.astData.cb.size;
-					case 'seal' : return params.data.trnObject.astData.seal.no;
-					case 'box' :return params.data.astNo;
-					case 'pole':return params.data.astNo;
-					default: return null
+				// console.log(`params.data`, params.data)
+				switch (params.data.astData.astCartegory) {
+					case "meter":
+						return params.data.astData.astNo;
+					case "cb":
+						return params.data.astData.cb.size;
+					case "seal":
+						return params.data.astData.astNo;
+					case "box":
+						return params.data.astData.astNo;
+					case "pole":
+						return params.data.astData.astNo;
+					default:
+						return null;
 				}
 			},
 			flex: 1,
 		},
 		{
-			field: "trnNo",
+			field: "trnMetaData.trnNo",
 			headerName: "Trn No",
 			width: 150,
 			flex: 1,
 		},
 		{
-			field: "trnType",
+			field: "trnMetaData.trnType",
 			headerName: "Trn Type",
 			width: 150,
 			flex: 1,
@@ -1545,6 +1550,24 @@ export const useColumnDefs = props => {
 			field: "astData.astNo",
 			headerName: `Asset No`,
 			width: 130,
+			cellRenderer: params => {
+				// console.log(`params.data`, params.data);
+				switch (params.data.astData.astCartegory) {
+					case "meter":
+						return params.data.astData.astNo;
+					case "cb":
+						return params.data.astData.cb.size;
+					case "seal":
+						return params.data.astData.astNo;
+					case "box":
+						return params.data.astData.astNo;
+					case "pole":
+						return params.data.astData.astNo;
+					default:
+						return null;
+				}
+			},
+
 			flex: 1.5,
 		},
 		{
@@ -1556,7 +1579,7 @@ export const useColumnDefs = props => {
 			headerCheckboxSelectionFilteredOnly: true,
 			flex: 1,
 			cellStyle: params => {
-				console.log(`params.data.astData.astState`, params.data.astData.astState);
+				// console.log(`params.data.astData.astState`, params.data.astData.astState);
 				const astState = params.data.astData.astState;
 				// console.log(`astState`, astState);
 				return astState === "field" || astState === "service"
@@ -1571,8 +1594,8 @@ export const useColumnDefs = props => {
 		{
 			field: "id",
 			headerName: "Ast Id",
-			width: 90,
-			hide: true,
+			width: 220,
+			// hide: true,
 		},
 		{
 			headerName: "Updated",
@@ -2234,43 +2257,29 @@ export const useColumnDefs = props => {
 	// Transactions form fields
 	const trnsForAstTableFields = [
 		{
-			field: "metaData.updatedByUser",
+			field: "trnMetaData.updatedByUser",
 			headerName: "Updated By",
 			width: 130,
-			flex: 1.5,
+			flex: 1,
 		},
 		// 3
 		{
-			field: "metaData.updatedAtDatetime",
+			field: "trnMetaData.updatedAtDatetime",
 			columnGroupShow: "open",
 			headerName: "Updated At Datetime",
 			width: 190,
 			cellRenderer: params => {
+				// console.log(`params.data`, params.data)
 				return (
 					<p>{moment(params.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
 				);
 			},
-			flex: 1.5,
+			flex: 1,
 		},
 		{
-			field: "metaData.trnType",
+			field: "trnMetaData.trnType",
 			headerName: "Trn Type",
 			width: 170,
-			flex: 1,
-		},
-		{
-			field: "",
-			headerName: "meter",
-			flex: 1,
-		},
-		{
-			field: "",
-			headerName: "cb",
-			flex: 1,
-		},
-		{
-			field: "",
-			headerName: "seal",
 			flex: 1,
 		},
 	];
