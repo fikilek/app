@@ -9,13 +9,13 @@ export const dataAsts = [
 		icon: <MdArrowDropDown />,
 		children: [
 			// The children is always a "Ul" element followed by 'li'
-			{
-				to: "/asts/feeder",
-				menu: "Feeders",
-				"menu-level": "2",
-				icon: null,
-				children: null,
-			},
+			// {
+			// 	to: "/asts/feeder",
+			// 	menu: "Feeders",
+			// 	"menu-level": "2",
+			// 	icon: null,
+			// 	children: null,
+			// },
 			{
 				to: "/asts/pole",
 				menu: "Poles",

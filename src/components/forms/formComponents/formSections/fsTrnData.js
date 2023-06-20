@@ -186,7 +186,7 @@ export const fsTrnData = {
 		},
 
 		reconnectionData: {
-			level: "",
+			// level: "",
 			readings: {
 				voltageReadings: {
 					phase1: "",

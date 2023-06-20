@@ -4,12 +4,12 @@ import { doc, onSnapshot } from "firebase/firestore";
 
 export const useDocumentSync =  (fbCollection, id) => {
 
-	console.log(`fbCollection`,	fbCollection)
-	console.log(`id`, id)
+	// console.log(`fbCollection`,	fbCollection)
+	// console.log(`id`, id)
 	
 	const [document, setDocument] = useState(null);
 	const [error, setError] = useState(null);
-	console.log(`document`, document);
+	// console.log(`document`, document);
 
 	useEffect(() => {
 		let unsub = null;

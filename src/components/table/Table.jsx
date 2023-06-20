@@ -6,7 +6,6 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
-import { useCallback } from "react";
 // import PoTooltip from "./PoTooltip";
 
 const Table = ({ rowData, columnDefs, setSelectedRows }) => {
@@ -21,7 +20,6 @@ const Table = ({ rowData, columnDefs, setSelectedRows }) => {
 			filter: true,
 			resizable: true,
 			floatingFilter: true,
-			// tooltipComponent: PoTooltip,
 		}),
 		[]
 	);
@@ -43,6 +41,8 @@ const Table = ({ rowData, columnDefs, setSelectedRows }) => {
 				// enableBrowserTooltips={true}
 				// rowMultiSelectWithClick={true}
 				onSelectionChanged={onSelectionChanged}
+				tooltipShowDelay={0}
+				tooltipHideDelay={90000}
 			></AgGridReact>
 		</div>
 	);

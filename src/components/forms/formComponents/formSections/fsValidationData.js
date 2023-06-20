@@ -619,10 +619,10 @@ export const fsValidationData = {
 		},
 
 		reconnectionValidationData: {
-			level: {
-				constraints: [{ required: "yes", condition: "" }],
-				verdict: "",
-			},
+			// level: {
+			// 	constraints: [{ required: "yes", condition: "" }],
+			// 	verdict: "",
+			// },
 			readings: {
 				voltageReadings: {
 					phase1: {

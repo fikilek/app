@@ -362,19 +362,71 @@ const updateAst = (trnAfter, ast, nextState, astUpdatedObj) => {
 	// get reference to the ast to update
 	const astDocRef = db.collection("asts").doc(ast.astId);
 
-	// update the ast state
-	astDocRef
-		.update({
-			"astData.astState": nextState,
-			"metaData.updatedAtDatetime": Timestamp.now(),
-			"metaData.updatedByUser": "admin",
-			"metaData.trnCount": admin.firestore.FieldValue.arrayUnion(astUpdatedObj),
-			erfData: trnAfter.erfData,
-		})
-		.then(updatedAstDoc => {
-			console.log(`updatedAstDoc`, updatedAstDoc);
-			return updatedAstDoc;
-		});
+	// check if the ast docuement exist
+	astDocRef.get().then(docSnapShot => {
+		if (!docSnapShot.exists) {
+			// ast doc does not exist, throw error
+			console.log("No such document!");
+		} else {
+			// ast doc exist.
+			console.log("Document data:", docSnapShot.data());
+			const astDocData = docSnapShot.data();
+			console.log(`astDocData`, astDocData);
+
+			// get the current astState
+			const { astState, astCartegory } = astDocData.astData;
+			console.log(`astState`, astState);
+			console.log(`astCartegory`, astCartegory);
+			console.log(`nextState`, nextState);
+			console.log(`trnAfter.metaData.trnType`, trnAfter.metaData.trnType);
+
+			if (astCartegory === "meter" && astState === "disconnected" ) {
+				if (trnAfter.metaData.trnType === "reconnection") {
+					astDocRef
+						.update({
+							"astData.astState": "service",
+							"metaData.updatedAtDatetime": Timestamp.now(),
+							"metaData.updatedByUser": "admin",
+							"metaData.trnCount":
+								admin.firestore.FieldValue.arrayUnion(astUpdatedObj),
+							erfData: trnAfter.erfData,
+						})
+						.then(updatedAstDoc => {
+							console.log(`updatedAstDoc`, updatedAstDoc);
+							return updatedAstDoc;
+						});
+				} else {
+					astDocRef
+						.update({
+							"astData.astState": "disconnected",
+							"metaData.updatedAtDatetime": Timestamp.now(),
+							"metaData.updatedByUser": "admin",
+							"metaData.trnCount":
+								admin.firestore.FieldValue.arrayUnion(astUpdatedObj),
+							erfData: trnAfter.erfData,
+						})
+						.then(updatedAstDoc => {
+							console.log(`updatedAstDoc`, updatedAstDoc);
+							return updatedAstDoc;
+						});
+				}
+			} else {
+				// ast is NOT a meter  - update the ast state
+				astDocRef
+					.update({
+						"astData.astState": nextState,
+						"metaData.updatedAtDatetime": Timestamp.now(),
+						"metaData.updatedByUser": "admin",
+						"metaData.trnCount": admin.firestore.FieldValue.arrayUnion(astUpdatedObj),
+						erfData: trnAfter.erfData,
+					})
+					.then(updatedAstDoc => {
+						console.log(`updatedAstDoc`, updatedAstDoc);
+						return updatedAstDoc;
+					});
+			}
+		}
+	});
 };
 
 const createNewAst = (trnAfter, ast, nextState, astUpdatedObj) => {
@@ -442,22 +494,22 @@ const getUpdatingObj = (trnAfter, ast) => {
 // 2. transition the assosciated ast state from 'checked out' state to 'field' state.
 exports.updateTrnAndAstOnTrnValid = functions.firestore
 	.document("trns/{trnsId}")
-	.onUpdate( (change, context) => {
+	.onUpdate((change, context) => {
 		// console.log(`context`, context)
 
 		// trn data from the chenge parameter
 		// const trn = change.after.data();
 		let trnAfter = change.after.data();
-		console.log(`trnAfter 451`, trnAfter)
-		
+		console.log(`trnAfter 451`, trnAfter);
+
 		if (!trnAfter.id) {
 			// insert trn id into trn
 			trnAfter = {
 				...trnAfter,
-				id:change.after.id
-			}
+				id: change.after.id,
+			};
 		}
-		console.log(`trnAfter 460`, trnAfter)
+		console.log(`trnAfter 460`, trnAfter);
 
 		// Retrieve the current, previous states and trnType
 		const currentTrnState = trnAfter.metaData.trnState;
@@ -490,7 +542,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// Step 2. update all asts in the trn document to the the 'field' state as they fall in that state after valid submsion of installation trn
 			// - next trnState is 'submited
 			// - next state of eash ast is 'field'
-			 updateTrnWithNextState(trnAfter, "submited", "field")
+			updateTrnWithNextState(trnAfter, "submited", "field");
 
 			// create a new trn commissioning objectwith erfData from trnAfter
 			const newTrnCom = getNewTrnCommissioning(trnAfter);
@@ -498,7 +550,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 
 			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
 			astsInTrn &&
-				astsInTrn.forEach( ast => {
+				astsInTrn.forEach(ast => {
 					// console.log(`ast`, ast);
 					// For each ast installed do the following:
 					// (1). update the ast itself,
@@ -514,7 +566,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					// update erf
 					updateErf(trnAfter, ast, {
 						...updatingObj,
-						astData: ast.trnObject.astData,
+						astData: {
+							...ast.trnObject.astData,
+							astState: "field",
+						},
 					});
 
 					// update new commissioning object
@@ -570,7 +625,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// Step 2. update all asts in the trn document to the the 'field' state as they fall in that state after valid submsion of installation trn
 			// - next trnState is 'submited
 			// - next state of eash ast is 'service'
-			 updateTrnWithNextState(trnAfter, "submited", "service")
+			updateTrnWithNextState(trnAfter, "submited", "service");
 
 			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
 			return (
@@ -587,7 +642,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					// update erf
 					updateErf(trnAfter, ast, {
 						...updatingObj,
-						astData: ast.trnObject.astData,
+						astData: {
+							...ast.trnObject.astData,
+							astState: "service",
+						},
 					});
 				})
 			);
@@ -606,7 +664,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// Step 2. update all asts in the trn document to the the 'service' state as they fall in that state after valid submsion of audit trn
 			// - next trnState is 'submited
 			// - next state of eash ast is 'service'
-			 updateTrnWithNextState(trnAfter, "submited", "service")
+			updateTrnWithNextState(trnAfter, "submited", "service");
 
 			// Whenever a new ast is created, two actions must happen:
 			// 1. The erf that the ast belongs to must be updated with the astData. This will be done by inserting astData object into erf metaData.asts array property.
@@ -640,7 +698,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// Step 2. update all asts in the trn document to the the 'service' state as they fall in that state after valid submsion of inspection trn
 			// - next trnState is 'submited
 			// - next state of eash ast is 'service'
-			 updateTrnWithNextState(trnAfter, "submited", "service")
+			updateTrnWithNextState(trnAfter, "submited", "service");
 
 			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
 			return (
@@ -675,7 +733,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// Step 2.
 			// - next trnState is 'submited
 			// - next state of each ast in trn is 'disconnected'
-			 updateTrnWithNextState(trnAfter, "submited", "disconnected")
+			updateTrnWithNextState(trnAfter, "submited", "disconnected");
 
 			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
 			return (
@@ -693,7 +751,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					// update erf
 					updateErf(trnAfter, ast, {
 						...updatingObj,
-						astData: ast.trnObject.astData,
+						astData: {
+							...ast.trnObject.astData,
+							astState: "disconnected",
+						},
 					});
 				})
 			);
@@ -710,7 +771,7 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 			// Step 2.
 			// - next trnState is 'submited
 			// - next state of each ast in trn is 'service'
-			 updateTrnWithNextState(trnAfter, "submited", "service")
+			updateTrnWithNextState(trnAfter, "submited", "service");
 
 			// iterate through astsInTrn, on each ast id, update ast to a 'field' state.
 			return (
@@ -728,7 +789,10 @@ exports.updateTrnAndAstOnTrnValid = functions.firestore
 					// update erf
 					updateErf(trnAfter, ast, {
 						...updatingObj,
-						astData: ast.trnObject.astData,
+						astData: {
+							...ast.trnObject.astData,
+							astState: "service",
+						},
 					});
 				})
 			);

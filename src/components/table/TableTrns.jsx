@@ -6,6 +6,7 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 import "react-tippy/dist/tippy.css";
+import TableTrnsForAstsTooltip from "./TableTrnsForAstsTooltip";
 // import PoTooltip from "./PoTooltip";
 
 const TableTrns = ({ rowData, columnDefs }) => {
@@ -20,6 +21,7 @@ const TableTrns = ({ rowData, columnDefs }) => {
 			filter: true,
 			resizable: true,
 			floatingFilter: true,
+			tooltipComponent: TableTrnsForAstsTooltip,
 		}),
 		[]
 	);

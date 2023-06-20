@@ -87,7 +87,7 @@ const getTrnObjectsArray = erf => {
 						delete ast.trnMetaData;
 						delete ast.astData;
 						delete ast.astId;
-						console.log(`ast`, ast);
+						// console.log(`ast`, ast);
 
 						// extract data
 						const astTrnName = Object.entries(ast)[0][0];

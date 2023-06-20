@@ -371,6 +371,8 @@ const ErfsForm = props => {
 															placeholder="WhatsApp"
 														/>
 													</div>
+												</div>
+												<div className="contact-person ast-row">
 													<div className="half-row-50-50">
 														<FormikControl
 															control="input"
@@ -379,6 +381,8 @@ const ErfsForm = props => {
 															name="customer.contactPerson.cellNo"
 															placeholder="Cell No"
 														/>
+													</div>
+													<div>
 														<FormikControl
 															control="input"
 															type="text"
@@ -420,7 +424,7 @@ const ErfsForm = props => {
 															options={formSelectOptions.yesNoOptions}
 														/>
 													</div>
-													<div className="half-row-50-50">
+													<div className="half-row-20-50">
 														<FormikControl
 															control="input"
 															type="text"

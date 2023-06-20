@@ -3,8 +3,7 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "functions": [
-    {
+  "functions": [{
       "source": "functions",
       "codebase": "default",
       "ignore": [
@@ -13,6 +12,19 @@
         "firebase-debug.log",
         "firebase-debug.*.log"
       ]
-    }
-  ]
+    }],
+  "hosting": {
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }

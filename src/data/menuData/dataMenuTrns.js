@@ -10,50 +10,50 @@ export const dataTrns = [
 
 		children: [
 			// The children is always a "Ul" element followed by 'li'
-			{
-				to: "/trns/feeder",
-				menu: "Feeders",
-				"menu-level": "2",
-				icon: null,
-				children: [
-					// The children is always a "Ul" element followed by 'li'
-					{
-						to: "/trns/feeder/installation",
-						menu: "Installations",
-						"menu-level": "3",
-						icon: null,
-						children: null,
-					},
-					{
-						to: "/trns/feeder/commissioning",
-						menu: "commissioning",
-						"menu-level": "3",
-						icon: null,
-						children: null,
-					},
-					{
-						to: "/trns/feeder/decommissioning",
-						menu: "Decomissioning",
-						"menu-level": "3",
-						icon: null,
-						children: null,
-					},
-					{
-						to: "/trns/feeder/return-to-supplier",
-						menu: "Retutn to Suppler",
-						"menu-level": "3",
-						icon: null,
-						children: null,
-					},
-					{
-						to: "/trns/feeder/sale",
-						menu: "Sale",
-						"menu-level": "3",
-						icon: null,
-						children: null,
-					},
-				],
-			},
+			// {
+			// 	to: "/trns/feeder",
+			// 	menu: "Feeders",
+			// 	"menu-level": "2",
+			// 	icon: null,
+			// 	children: [
+			// 		// The children is always a "Ul" element followed by 'li'
+			// 		{
+			// 			to: "/trns/feeder/installation",
+			// 			menu: "Installations",
+			// 			"menu-level": "3",
+			// 			icon: null,
+			// 			children: null,
+			// 		},
+			// 		{
+			// 			to: "/trns/feeder/commissioning",
+			// 			menu: "commissioning",
+			// 			"menu-level": "3",
+			// 			icon: null,
+			// 			children: null,
+			// 		},
+			// 		{
+			// 			to: "/trns/feeder/decommissioning",
+			// 			menu: "Decomissioning",
+			// 			"menu-level": "3",
+			// 			icon: null,
+			// 			children: null,
+			// 		},
+			// 		{
+			// 			to: "/trns/feeder/return-to-supplier",
+			// 			menu: "Retutn to Suppler",
+			// 			"menu-level": "3",
+			// 			icon: null,
+			// 			children: null,
+			// 		},
+			// 		{
+			// 			to: "/trns/feeder/sale",
+			// 			menu: "Sale",
+			// 			"menu-level": "3",
+			// 			icon: null,
+			// 			children: null,
+			// 		},
+			// 	],
+			// },
 			{
 				to: "/trns/pole",
 				menu: "Poles",

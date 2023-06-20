@@ -9,13 +9,13 @@ export const dataDbd = [
 		icon: <MdArrowDropDown />,
 		children: [
 			// The children is always a "Ul" element followed by 'li'
-			{
-				to: "/dbd/feeders",
-				menu: "Feeders",
-				"menu-level": "2",
-				icon: null,
-				children: null,
-			},
+			// {
+			// 	to: "/dbd/feeders",
+			// 	menu: "Feeders",
+			// 	"menu-level": "2",
+			// 	icon: null,
+			// 	children: null,
+			// },
 			{
 				to: "/dbd/poles",
 				menu: "Poles",

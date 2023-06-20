@@ -55,14 +55,14 @@ const MeterReconnectionJsx = props => {
 				</div>
 				<div className="row-2 ast-row">
 					<div className="half-row-50-50">
-						<FormikControl
+						{/* <FormikControl
 							control="select"
 							type="text"
 							label="disconnected level"
 							name={`astData[${astCat}][${astCatIndex}].trnData.level`}
 							placeholder="Disconnected Level"
 							options={formSelectOptions.disconnectionLevelOptions}
-						/>
+						/> */}
 						<FormikControl
 							control="input"
 							type="text"
@@ -70,8 +70,6 @@ const MeterReconnectionJsx = props => {
 							name={`astData[${astCat}][${astCatIndex}].trnData.readings.voltageReadings.phase1`}
 							placeholder="Phase1 Reading"
 						/>
-					</div>
-					<div className="half-row-50-50">
 						<FormikControl
 							control="input"
 							type="text"
@@ -79,6 +77,8 @@ const MeterReconnectionJsx = props => {
 							name={`astData[${astCat}][${astCatIndex}].trnData.readings.voltageReadings.phase2`}
 							placeholder="Phase2 Reading"
 						/>
+					</div>
+					<div className="half-row-50-50">
 						<FormikControl
 							control="input"
 							type="text"

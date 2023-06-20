@@ -18,6 +18,7 @@ import TrnDataFormBtn from "../components/forms/trnForms/trnDataForms/TrnDataFor
 import TableTnsForAstBtn from "../components/table/tableBtns/TableTnsForAstBtn";
 import TableAstsInErfBtn from "../components/table/tableBtns/TableAstsInErfBtn";
 import TableTrnsInErfBtn from "../components/table/tableBtns/TableTrnsInErfBtn";
+import TableTrnsForAstsTooltip from "../components/table/TableTrnsForAstsTooltip";
 
 export const useColumnDefs = props => {
 	// console.log(`props`, props);
@@ -112,6 +113,8 @@ export const useColumnDefs = props => {
 			field: "asts",
 			headerName: "Asts in Erf",
 			width: 150,
+			tooltipField: "asts",
+			tooltipComponent: TableTrnsForAstsTooltip,
 			// cellRenderer: params => {
 			// 	console.log(`params`, params);
 			// 	return params.data?.asts?.length;
@@ -272,25 +275,25 @@ export const useColumnDefs = props => {
 					width: 120,
 				},
 				{
-					field: "customer.juristicPerson.landline",
+					field: "customer.contactPerson.landLine",
 					columnGroupShow: "open",
 					headerName: "Land Line",
 					width: 120,
 				},
 				{
-					field: "customer.juristicPerson.email",
+					field: "customer.contactPerson.emailAdr",
 					columnGroupShow: "open",
 					headerName: "Email Adr",
-					width: 120,
+					width: 150,
 				},
 				{
-					field: "customer.juristicPerson.whatssApp",
+					field: "customer.contactPerson.whatsApp",
 					columnGroupShow: "open",
 					headerName: "WhatssApp No",
 					width: 120,
 				},
 				{
-					field: "customer.juristicPerson.cell",
+					field: "customer.contactPerson.cellNo",
 					// columnGroupShow: "closed",
 					headerName: "Cell No",
 					width: 120,
@@ -329,7 +332,7 @@ export const useColumnDefs = props => {
 			field: "trnMetaData.updatedByUser",
 			headerName: "Updated By",
 			width: 130,
-			flex: 1.5,
+			flex: 1,
 		},
 		{
 			field: "trnMetaData.updatedAtDatetime",
@@ -347,7 +350,7 @@ export const useColumnDefs = props => {
 			field: "astData.astCartegory",
 			headerName: "Ast Cat",
 			width: 150,
-			flex: 1,
+			flex: 0.8,
 		},
 		{
 			field: "astData.astNo",
@@ -375,8 +378,8 @@ export const useColumnDefs = props => {
 		{
 			field: "trnMetaData.trnNo",
 			headerName: "Trn No",
-			width: 150,
-			flex: 1,
+			width: 100,
+			flex: 0.8,
 		},
 		{
 			field: "trnMetaData.trnType",
@@ -1579,7 +1582,7 @@ export const useColumnDefs = props => {
 			headerCheckboxSelectionFilteredOnly: true,
 			flex: 1,
 			cellStyle: params => {
-				// console.log(`params.data.astData.astState`, params.data.astData.astState);
+				console.log(`params.data.astData.astState`, params.data.astData.astState);
 				const astState = params.data.astData.astState;
 				// console.log(`astState`, astState);
 				return astState === "field" || astState === "service"
@@ -1691,10 +1694,6 @@ export const useColumnDefs = props => {
 			headerName: "Ast Trn(s)",
 			width: 140,
 			cellRenderer: memo(TableTnsForAstBtn), //These are all transactions that happen on an ast
-			// cellRenderer: params => {
-			// 	// console.log(`params.data.metaData.trnCount.length`, params.data.metaData.trnCount.length)
-			// 	return params.data.metaData.trnCount.length || 0;
-			// },
 		},
 		{
 			field: "newTrn",
@@ -1758,24 +1757,27 @@ export const useColumnDefs = props => {
 			],
 		},
 		{
-			headerName: "Erf and GPS",
+			headerName: "Erf/Gps",
 			children: [
 				{
 					field: "erfData.erfNo",
 					headerName: "Erf No",
-					width: 150,
+					width: 120,
+					columnGroupShow: "close",
 				},
 				{
 					field: "erfData.gps.latitude",
 					// columnGroupShow: "closed",
 					headerName: "Latitude",
-					width: 130,
+					width: 120,
+					columnGroupShow: "open",
 				},
 				{
 					field: "erfData.gps.longitude",
 					// columnGroupShow: "closed",
 					headerName: "Longitude",
-					width: 130,
+					width: 120,
+					columnGroupShow: "open",
 				},
 			],
 		},
@@ -1828,6 +1830,30 @@ export const useColumnDefs = props => {
 					width: 170,
 				},
 			],
+		},
+	];
+
+	// Assets in Erfs Tooltip Table fields
+	const astsInErfTooltipTableFields = [
+		{
+			field: "",
+			headerName: "#",
+			width: 100,
+		},
+		{
+			field: "id",
+			headerName: "Ast Id",
+			width: 100,
+		},
+		{
+			field: "astData.astCartegory",
+			headerName: "Ast Cat",
+			width: 220,
+		},
+		{
+			field: "astData.astNo",
+			headerName: "Ast No",
+			width: 220,
 		},
 	];
 
@@ -2064,8 +2090,8 @@ export const useColumnDefs = props => {
 		{
 			field: "id",
 			headerName: "Trn Id",
-			width: 90,
-			hide: true,
+			width: 220,
+			// hide: true,
 		},
 		{
 			headerName: "Updated",
@@ -2268,6 +2294,8 @@ export const useColumnDefs = props => {
 			columnGroupShow: "open",
 			headerName: "Updated At Datetime",
 			width: 190,
+			sortable: true,
+			sortingOrder: ["desc"],
 			cellRenderer: params => {
 				// console.log(`params.data`, params.data)
 				return (
@@ -3567,9 +3595,17 @@ export const useColumnDefs = props => {
 	];
 
 	/*
-	Ast checkout / Checkin
+	Asts in Erf tooltip
 	*/
 	let fields = [];
+	if (ml1 === "astsInErfTooltip") {
+		fields = [...astsInErfTooltipTableFields];
+		return { tableFields: fields };
+	}
+
+	/*
+	Ast checkout / Checkin
+	*/
 	if (ml1 === "astCheckout") {
 		fields = [...astCheckoutFields];
 		return { tableFields: fields };

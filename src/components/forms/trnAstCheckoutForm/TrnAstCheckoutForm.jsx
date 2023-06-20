@@ -47,8 +47,8 @@ const getAstIdsInTrn = trn => {
 
 // get trnData for trn
 const getTrnData = (ast, trn, getTrnFormJsx) => {
-	console.log(`ast`, ast);
-	console.log(`trn`, trn);
+	// console.log(`ast`, ast);
+	// console.log(`trn`, trn);
 
 	// get exisintg astData from trn
 	const existingAstData = trn?.astData;
@@ -162,7 +162,7 @@ const TrnAstCheckoutForm = props => {
 
 	// get trnId. THis will be used to get trn via useDocument for the auotomated update
 	const { id: trnId } = data;
-	console.log(`trnId`, trnId);
+	// console.log(`trnId`, trnId);
 
 	// get trn using trnId
 	//TODO: deal with error conditiond

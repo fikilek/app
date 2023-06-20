@@ -28,7 +28,7 @@ export const useAstsForm = (ast) => {
 						/>
 						{/* meter code */}
 						<FormikControl
-							readOnly="readOnly"
+							// readOnly="readOnly"
 							control="input"
 							type="text"
 							label="code"

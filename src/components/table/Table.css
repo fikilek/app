@@ -81,7 +81,20 @@
   display: grid;
   grid-template-columns: 90% 10%;
   padding: 1rem;
-  border-radius: 1rem 1rem 0 0 ;
+  border-radius: 1rem 1rem 0 0;
   border: 1px solid lightgray;
   align-items: center;
+}
+
+.tableTrnsForAstsTooltip {
+  background-color: rgb(255, 255, 255);
+  min-width: 50rem;
+}
+
+.tableTrnsForAstsTooltip table th.ast-no {
+  min-width: 15rem;
+}
+
+.tableTrnsForAstsTooltip th .ast-no {
+  width: 15rem;
 }

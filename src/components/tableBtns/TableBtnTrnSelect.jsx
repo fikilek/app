@@ -13,7 +13,7 @@ const getAstData = erf => {
 
 	// step 1: destructire asts array
 	const { asts } = erf;
-	console.log(`asts`, asts);
+	// console.log(`asts`, asts);
 
 	if (!asts) return null;
 
@@ -27,7 +27,7 @@ const getAstData = erf => {
 
 			// destructure astId
 			const { astId } = ast;
-			console.log(`astId`, astId);
+			// console.log(`astId`, astId);
 
 			// get astCat from ast
 			const astCat = ast.astData.astCartegory;
@@ -68,7 +68,7 @@ const getAstData = erf => {
 						delete ast.trnMetaData;
 						delete ast.astData;
 						delete ast.astId;
-						console.log(`ast`, ast);
+						// console.log(`ast`, ast);
 
 						// extract data
 						const astTrnName = Object.entries(ast)[0][0];
@@ -140,12 +140,12 @@ const TableBtnTrnSelect = params => {
 
 	// console.log(`-------------------------------------`);
 	// console.log(`astNextState`, astNextState);
-	console.log(`astCartegory`, astCartegory);
-	console.log(`astState`, astState);
+	// console.log(`astCartegory`, astCartegory);
+	// console.log(`astState`, astState);
 
 	useEffect(() => {
 		const possibleTrns = astNextState[astCartegory][astState];
-		console.log(`possibleTrns`, possibleTrns);
+		// console.log(`possibleTrns`, possibleTrns);
 		if (possibleTrns) {
 			const possibleTrnsArray = Object.keys(possibleTrns);
 			// console.log(`possibleTrnsArray`, possibleTrnsArray);
@@ -182,11 +182,11 @@ const TableBtnTrnSelect = params => {
 	}, [params, user]);
 
 	const handleChange = e => {
-		console.log(`e.target.value`, e.target.value);
+		// console.log(`e.target.value`, e.target.value);
 
 		// getAstData
 		const astData = getAstData(erf);
-		console.log(`astData`, astData);
+		// console.log(`astData`, astData);
 
 		setNewTrn(prev => {
 			// console.log(`prev`, prev);

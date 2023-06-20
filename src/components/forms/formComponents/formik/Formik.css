@@ -97,6 +97,12 @@
   gap: 1rem;
 }
 
+.form-container form .fs .fsb .ast .ast-row .half-row-20-50 {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  gap: 1rem;
+}
+
 .form-container form .fs .fsb .ast .ast-row .data {
   padding: 0.5rem;
   border: 1px solid;
