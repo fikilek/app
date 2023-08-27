@@ -6,7 +6,8 @@
 /* form variables */
 :root {
 	/* TODO: find the formular ot convert from px to rem. root font-size rem is 62.5% */
-	--auth-form-width: 60rem; /* 10px = 1rem */
+	--auth-form-width: 60rem;
+	/* 10px = 1rem */
 }
 
 /* form header */
@@ -70,11 +71,16 @@
 	width: 600px;
 	grid-template-columns: 1fr;
 	grid-template-areas:
-		"fs-uc" /* form section updated created*/
-		"fs-ipgs" /* form section inv payment grv*/
-		"fs-poi" /* form section purchase order items*/
-		"fs-grv" /* form section goods received*/
-		"form-btns"; /* form section buttons */
+		"fs-uc"
+		/* form section updated created*/
+		"fs-ipgs"
+		/* form section inv payment grv*/
+		"fs-poi"
+		/* form section purchase order items*/
+		"fs-grv"
+		/* form section goods received*/
+		"form-btns";
+	/* form section buttons */
 	gap: 2rem;
 }
 
@@ -229,7 +235,6 @@ END OF form section : po items (poi)
 }
 
 .signin-header,
-/* .signup-header, */
 .fpw-header,
 .po-header {
 	position: relative;
@@ -321,6 +326,10 @@ END OF form section : po items (poi)
 .form-field-password {
 	grid-area: form-field-password;
 	margin: 0;
+}
+
+.form-field-phoneNumber {
+	grid-area: form-field-phoneNumber;
 }
 
 .form-field-surname {
@@ -431,24 +440,11 @@ START of Po form
 	justify-content: space-between;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.fsb-grv-receiver {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsb-grv-receiver {
 	/* grid-area: fsb-grv-receiver; */
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.fsb-grv-receiver
-	.fsr-received {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsb-grv-receiver .fsr-received {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -456,13 +452,7 @@ START of Po form
 	height: 100%;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.fsb-grv-witness {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsb-grv-witness {
 	/* grid-area: fsb-grv-witness; */
 }
 
@@ -478,25 +468,11 @@ START of Po form
 	font-size: 1.2rem;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.form-field
-	input {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .form-field input {
 	font-size: 1.2rem;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.form-field
-	select {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .form-field select {
 	font-size: 1.2rem;
 }
 
@@ -512,14 +488,7 @@ START of Po form
 	justify-content: space-around;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.fsw-btns
-	button {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .fsw-btns button {
 	height: 2.5rem;
 	font-size: 1rem;
 	line-height: 0.5rem;
@@ -531,37 +500,17 @@ START of Po form
 	box-shadow: none;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.cancel-witnessing {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .cancel-witnessing {
 	/* display: flex;
 	justify-content: center;
 	align-items: center; */
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.cancel-witnessing
-	button {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .cancel-witnessing button {
 	width: 10rem;
 }
 
-.ireps-form
-	.po-container
-	.form-body
-	.po-form
-	.fs-grv
-	.fsb-grv
-	.cancel-receiving
-	button {
+.ireps-form .po-container .form-body .po-form .fs-grv .fsb-grv .cancel-receiving button {
 	width: 10rem;
 }
 
@@ -577,12 +526,12 @@ START OF SINGIN FORM
 ****************************************************************/
 
 .signin-container {
-	width: 40rem;
 	background-color: #ecf0f3;
 	border-radius: 2rem;
 	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
 	font-size: 1.5rem;
 	padding: 10px 15px 10px 10px;
+	width: 29rem;
 }
 
 .signin-form {
@@ -629,15 +578,23 @@ END OF SINGIN FORM
 .signin-footer,
 .fpw-footer,
 .po-footer {
-	display: flex;
-	justify-content: space-between;
-	margin: 2rem 0 1rem 0;
+	display: grid;
+	grid-gap: 1rem;
 }
+
+/* .signin-footer-signup,
+.signin-footer-fpw {
+width: 100%;
+} */
 
 .signin-footer a {
 	background-color: #bbdeef;
 	padding: 0.4rem 2rem;
 	border-radius: 2rem;
+	/* width: 100%; */
+	/* width: 100%; */
+	display: block;
+	text-align: center;
 }
 
 @media (max-width: 380px) {
@@ -668,7 +625,18 @@ END OF SINGIN FORM
 /* signup container */
 
 .signup-container {
-	width: 60rem; /* 600px */
+	width: 60rem;
+	/* 600px */
+	background-color: #ecf0f3;
+	border-radius: 2rem;
+	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+	font-size: 1.5rem;
+	padding: 10px 15px 10px 10px;
+}
+
+.auth-form-container {
+	width: 60rem;
+	/* 600px */
 	background-color: #ecf0f3;
 	border-radius: 2rem;
 	box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
@@ -693,11 +661,10 @@ END OF SINGIN FORM
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
 		"form-field-surname form-field-name"
-		"form-field-email form-field-role"
+		"form-field-email form-field-phoneNumber"
 		"form-field-password form-field-confirmPassword"
 		"form-btns form-btns"
 		"auth-error-field auth-error-field";
-
 	display: grid;
 	grid-template-rows: auto;
 	gap: 1rem;
@@ -714,13 +681,14 @@ END OF SINGIN FORM
 
 .signup-container .signup-footer {
 	display: flex;
-	margin: 2rem 0 1rem 0;
+	text-align: center;
 }
 
 .signup-container .signup-footer-signin-link {
 	background-color: #bbdeef;
 	padding: 0.4rem 2rem;
 	border-radius: 2rem;
+	width: 100%;
 }
 
 .signup-container .signup-form .form-btns button.pending {
@@ -738,6 +706,7 @@ END OF SINGIN FORM
 	color: red;
 	font-weight: 500;
 	text-align: center;
+	padding: 1rem;
 }
 
 /* signup madia quiries */
@@ -746,6 +715,7 @@ END OF SINGIN FORM
 	.signup-container {
 		width: 50rem;
 	}
+
 	.signup-container .signup-form {
 		display: grid;
 		grid-template-rows: auto;
@@ -755,20 +725,23 @@ END OF SINGIN FORM
 
 @media screen and (max-width: 550px) {
 	.signup-container {
-		width: 40rem;
+		width: 29rem;
 	}
+
 	.signup-container .signup-form {
 		grid-template-areas:
 			"form-field-surname"
 			"form-field-name"
 			"form-field-email"
-			"form-field-role"
+			"form-field-phoneNumber"
 			"form-field-password"
 			"form-field-confirmPassword"
-			"form-btns";
+			"form-btns"
+			"auth-error-field";
 	}
+
 	.signup-container .signup-form .form-field {
-		width: 37rem;
+		width: 26rem;
 	}
 }
 
@@ -901,9 +874,11 @@ input::placeholder {
 .media-pics {
 	grid-area: media-pics;
 }
+
 .media-videos {
 	grid-area: media-videos;
 }
+
 .media-voice {
 	grid-area: media-voice;
 }
@@ -918,3 +893,7 @@ input::placeholder {
 	border: 2px solid lightgreen;
 	margin: 5px 0;
 }
+
+/* 
+	START AUTH FORM ------------------------------- 
+*/

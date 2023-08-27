@@ -48,7 +48,7 @@ import FormStateContextProvider from "./contexts/FormStateContextProvider";
 
 function App() {
 	return (
-		<div>
+		<>
 			<Provider store={store}>
 				<FormStateContextProvider>
 					<ModalContextProvider>
@@ -60,7 +60,7 @@ function App() {
 											{/* <Header /> */}
 
 											{/* <div className="pages"> */}
-											{/* <div className="app-container"> */}
+											{/* <div className="header-container"> */}
 											<Routes>
 												<Route path="/" element={<Header />}>
 													<Route index element={<Home />} />
@@ -159,7 +159,7 @@ function App() {
 				</FormStateContextProvider>
 			</Provider>
 			<ToastContainer />
-		</div>
+		</>
 	);
 }
 

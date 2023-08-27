@@ -61,7 +61,8 @@ const CbInspectionJsx = props => {
 						</p>
 						<p>
 							CB gps location :
-							<span>{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.gps}</span>
+							<span>{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.gps.lat}</span>{" / "}
+							<span>{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.gps.lng}</span>
 						</p>
 						<p>
 							CB Physical Address :

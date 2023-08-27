@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../forms.css";
+import "./authForm.css";
 import {
 	FaFacebookF,
 	FaGoogle,
@@ -28,6 +29,8 @@ import useAuthContext from "../../../hooks/useAuthContext";
 import FormBtn from "../formComponents/formBtn/FormBtn";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthFormHeader from "./AuthFormHeader";
+import useModal from "../../../hooks/useModal";
 
 export const userObj = {
 	surname: "",
@@ -42,23 +45,16 @@ export const userObj = {
 
 const Signup = () => {
 	const [userCredentials, setUserCredentials] = useState(userObj);
-	const { componentToOpen, setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
+	// const { componentToOpen, setComponentToOpen, setModalOpened } =
+	// 	useContext(ModalContext);
 	const navigate = useNavigate();
 	const { signup, error, isPending, success } = useSignup();
 	const { user } = useAuthContext();
+	const { closeModal, openModal } = useModal();
 
 	useEffect(() => {
 		setUserCredentials(userObj);
 	}, []);
-
-	const handleModalCloseBtn = e => {
-		setModalOpened(false);
-		setComponentToOpen({
-			...componentToOpen,
-			name: "",
-		});
-	};
 
 	const handleSignupSubmit = async e => {
 		e.preventDefault();
@@ -79,17 +75,16 @@ const Signup = () => {
 				progress: undefined,
 				theme: "light",
 			});
-			setModalOpened(false);
+			closeModal()
 			navigate("/unp", { replace: true });
 		}
 	}, [success, error, isPending]);
 
 	const handleSignin = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: "signin",
+		closeModal();
+		openModal({
+			modalName: "signin",
 		});
-		setModalOpened(true);
 	};
 
 	const handleReset = e => {
@@ -105,19 +100,8 @@ const Signup = () => {
 	};
 
 	return (
-		<div className="signup-container">
-			{/* signup header */}
-			<div className="signup-header">
-				<div className="signup-header-title-img">
-					<h1 className="signup-header-title">Sign up</h1>
-					<img src={irepsImage2} alt="ireps signup images" className="signup-img" />
-				</div>
-				<div className="signup-header-close-btn" onClick={handleModalCloseBtn}>
-					<div className="btn-div" id="btn-div">
-						<button>X</button>
-					</div>
-				</div>
-			</div>
+		<div className="auth-form-container">
+			<AuthFormHeader headerTitleName={"Signup"} />
 
 			{/* signup form */}
 			<form className={`signup-form`} onSubmit={handleSignupSubmit}>

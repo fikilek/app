@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./SignedInMenu.css";
 import MenuBlock from "../MenuBlock";
 import { dataBok } from "../../../data/menuData/dataMenuBox";
 import { dataErfs } from "../../../data/menuData/dataMenuErfs";

@@ -46,14 +46,24 @@ const MeterInstallationtJsx = props => {
 						/>
 					</div>
 					<div className="meter-gps">
-						<FormikControl
-							// readOnly={true}
-							control="input"
-							type="text"
-							label="meter gps(lat/lon)"
-							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps`}
-							placeholder="Meter Gps"
-						/>
+						<div className="half-row-50-50">
+							<FormikControl
+								// readOnly={true}
+								control="input"
+								type="text"
+								label="meter gps lat"
+								name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps.lat`}
+								placeholder="Meter Gps"
+							/>
+							<FormikControl
+								// readOnly={true}
+								control="input"
+								type="text"
+								label="meter gps lng"
+								name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps.lng`}
+								placeholder="Meter Gps lng"
+							/>
+						</div>
 					</div>
 				</div>
 				<div className="row-2 ast-row">

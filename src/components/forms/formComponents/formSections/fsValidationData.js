@@ -58,8 +58,14 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					Latitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					Longitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			voltageReading: {
@@ -214,8 +220,14 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					Latitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					Longitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			voltageReading: {
@@ -318,167 +330,6 @@ export const fsValidationData = {
 				},
 			},
 		},
-
-		// auditValidationData: {
-		// 	location: {
-		// 		premises: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		insideBox: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		exactLocation: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	serviceConnection: {
-		// 		connection: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	keyPad: {
-		// 		isThereKeyPad: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		serialNo: {
-		// 			constraints: [
-		// 				{
-		// 					required: "condition",
-		// 					condition: {
-		// 						isThereKeyPad: "yes",
-		// 					},
-		// 				},
-		// 			],
-		// 			verdict: "",
-		// 		},
-		// 		kyPadPhotos: {
-		// 			constraints: [
-		// 				{
-		// 					required: "condition",
-		// 					condition: {
-		// 						isThereKeyPad: "yes",
-		// 					},
-		// 				},
-		// 			],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	astAdr: {
-		// 		adr: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		gps: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	voltageReading: {
-		// 		phase1: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		phase2: {
-		// 			constraints: [{ required: "condition", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		phase3: {
-		// 			constraints: [{ required: "condition", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		voltageReadingPhotos: {
-		// 			constraints: [{ required: "no", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	linkedCb: {
-		// 		isThereCb: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		cbSize: {
-		// 			constraints: [
-		// 				{
-		// 					required: "condition",
-		// 					condition: {
-		// 						isThereCb: "yes",
-		// 					},
-		// 				},
-		// 			],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	linkedSeal: {
-		// 		isThereSeal: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		sealNo: {
-		// 			constraints: [
-		// 				{
-		// 					required: "condition",
-		// 					condition: {
-		// 						isThereSeal: "yes",
-		// 					},
-		// 				},
-		// 			],
-		// 			verdict: "",
-		// 		},
-		// 	},
-
-		// 	confirmations: {
-		// 		confirmTrn: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// 	photos: {
-		// 		constraints: [{ required: "no", condition: "" }],
-		// 		verdict: "",
-		// 	},
-
-		// 	// astData
-
-		// 	astCartegory: {
-		// 		constraints: [{ required: "no", condition: "" }],
-		// 		verdict: "",
-		// 	},
-		// 	astNo: {
-		// 		constraints: [{ required: "yes", condition: "" }],
-		// 		verdict: "",
-		// 	},
-		// 	astSerialNo: {
-		// 		constraints: [{ required: "no", condition: "" }],
-		// 		verdict: "",
-		// 	},
-		// 	astState: {
-		// 		constraints: [{ required: "no", condition: "" }],
-		// 		verdict: "",
-		// 	},
-		// 	meter: {
-		// 		code: {
-		// 			constraints: [{ required: "no", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		phase: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		type: {
-		// 			constraints: [{ required: "yes", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 		manufacturer: {
-		// 			constraints: [{ required: "no", condition: "" }],
-		// 			verdict: "",
-		// 		},
-		// 	},
-		// },
 
 		inspectionValidationData: {
 			meterPresent: {
@@ -619,10 +470,6 @@ export const fsValidationData = {
 		},
 
 		reconnectionValidationData: {
-			// level: {
-			// 	constraints: [{ required: "yes", condition: "" }],
-			// 	verdict: "",
-			// },
 			readings: {
 				voltageReadings: {
 					phase1: {
@@ -694,8 +541,14 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					lat: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+					lng: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			linkedMeter: {
@@ -744,31 +597,37 @@ export const fsValidationData = {
 		auditValidationData: {
 			location: {
 				premises: {
-					constraints: [{ required: "yes", condition: "" }],
+					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
 				insideBox: {
-					constraints: [{ required: "yes", condition: "" }],
+					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
 				exactLocation: {
-					constraints: [{ required: "yes", condition: "" }],
+					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
 			},
 			astAdr: {
 				adr: {
-					constraints: [{ required: "yes", condition: "" }],
+					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					katitude: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
+					longitude: {
+						constraints: [{ required: "no", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			linkedMeter: {
 				isLinkedToMeter: {
-					constraints: [{ required: "yes", condition: "" }],
+					constraints: [{ required: "no", condition: "" }],
 					verdict: "",
 				},
 				meterNo: {
@@ -794,7 +653,7 @@ export const fsValidationData = {
 				verdict: "",
 			},
 			astNo: {
-				constraints: [{ required: "yes", condition: "" }],
+				constraints: [{ required: "no", condition: "" }],
 				verdict: "",
 			},
 			astSerialNo: {
@@ -811,11 +670,11 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				type: {
-					constraints: [{ required: "no", condition: "" }],
+					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
 				size: {
-					constraints: [{ required: "no", condition: "" }],
+					constraints: [{ required: "yes", condition: "" }],
 					verdict: "",
 				},
 			},
@@ -1044,8 +903,14 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					Latitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					Longitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			boxLock: {
@@ -1104,8 +969,14 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					Latitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					Longitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			boxLock: {
@@ -1251,8 +1122,14 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					Latitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					Longitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
 			confirmations: {
@@ -1297,40 +1174,16 @@ export const fsValidationData = {
 					verdict: "",
 				},
 				gps: {
-					constraints: [{ required: "yes", condition: "" }],
-					verdict: "",
+					Latitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
+					Longitude: {
+						constraints: [{ required: "yes", condition: "" }],
+						verdict: "",
+					},
 				},
 			},
-			// poleCondition: {
-			// 	leaning: {
-			// 		constraints: [{ required: "yes", condition: "" }],
-			// 		verdict: "",
-			// 	},
-			// 	health: {
-			// 		constraints: [{ required: "yes", condition: "" }],
-			// 		verdict: "",
-			// 	},
-			// },
-			// streetLamp: {
-			// 	hasAttachedLamp: {
-			// 		constraints: [{ required: "yes", condition: "" }],
-			// 		verdict: "",
-			// 	},
-			// 	lampNo: {
-			// 		constraints: [{ required: "no", condition: "" }],
-			// 		verdict: "",
-			// 	},
-			// },
-			// box: {
-			// 	hasAttacheBox: {
-			// 		constraints: [{ required: "yes", condition: "" }],
-			// 		verdict: "",
-			// 	},
-			// 	boxNo: {
-			// 		constraints: [{ required: "yes", condition: "" }],
-			// 		verdict: "",
-			// 	},
-			// },
 			confirmations: {
 				confirmTrn: {
 					constraints: [{ required: "yes", condition: "" }],

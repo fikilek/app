@@ -29,8 +29,8 @@ export const useColumnDefs = props => {
 		{
 			field: "id",
 			headerName: "System Id",
-			width: 90,
-			hide: true,
+			width: 100,
+			// hide: true,
 		},
 		{
 			headerName: "Created",
@@ -132,16 +132,16 @@ export const useColumnDefs = props => {
 			headerName: "GPS",
 			children: [
 				{
-					field: "gps.latitude",
+					field: "address.gps.latitude",
 					// columnGroupShow: "closed",
 					headerName: "Latitude",
-					width: 130,
+					width: 170,
 				},
 				{
-					field: "gps.longitude",
+					field: "address.gps.longitude",
 					// columnGroupShow: "closed",
 					headerName: "Longitude",
-					width: 130,
+					width: 170,
 				},
 			],
 		},
@@ -341,7 +341,7 @@ export const useColumnDefs = props => {
 			width: 190,
 			cellRenderer: params => {
 				return (
-					<p>{moment(params.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
+					<p>{moment(params?.value?.toDate())?.format("YYYY-MM-DD HH:mm:ss")}</p>
 				);
 			},
 			flex: 1.5,
@@ -1582,7 +1582,7 @@ export const useColumnDefs = props => {
 			headerCheckboxSelectionFilteredOnly: true,
 			flex: 1,
 			cellStyle: params => {
-				console.log(`params.data.astData.astState`, params.data.astData.astState);
+				// console.log(`params.data.astData.astState`, params.data.astData.astState);
 				const astState = params.data.astData.astState;
 				// console.log(`astState`, astState);
 				return astState === "field" || astState === "service"
@@ -1597,7 +1597,7 @@ export const useColumnDefs = props => {
 		{
 			field: "id",
 			headerName: "Ast Id",
-			width: 220,
+			width: 100,
 			// hide: true,
 		},
 		{
@@ -1692,7 +1692,7 @@ export const useColumnDefs = props => {
 		{
 			field: "metaData.trnCount",
 			headerName: "Ast Trn(s)",
-			width: 140,
+			width: 120,
 			cellRenderer: memo(TableTnsForAstBtn), //These are all transactions that happen on an ast
 		},
 		{

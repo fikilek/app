@@ -39,23 +39,37 @@ const CbCommissioningJsx = props => {
 						{/* TODO: make this to be a reusable component */}
 						<p>
 							CB Location - premises:
-							<span>{trn.astData[astCat][astCatIndex].cbInstallation.location.premises}</span>
+							<span>
+								{trn.astData[astCat][astCatIndex].cbInstallation.location.premises}
+							</span>
 						</p>
 						<p>
 							CB Location - insideBox:
-							<span>{trn.astData[astCat][astCatIndex].cbInstallation.location.insideBox}</span>
+							<span>
+								{trn.astData[astCat][astCatIndex].cbInstallation.location.insideBox}
+							</span>
 						</p>
 						<p>
 							CB Location - exactLocation:
-							<span>{trn.astData[astCat][astCatIndex].cbInstallation.location.exactLocation}</span>
+							<span>
+								{trn.astData[astCat][astCatIndex].cbInstallation.location.exactLocation}
+							</span>
 						</p>
 						<p>
 							CB Physical Address :
 							<span>{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.adr}</span>
 						</p>
 						<p>
-							CB gps location :
-							<span>{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.gps}</span>
+							CB gps location lat :
+							<span>
+								{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.gps.lat}
+							</span>
+						</p>
+						<p>
+							CB gps location lng :
+							<span>
+								{trn.astData[astCat][astCatIndex].cbInstallation.astAdr.gps.lng}
+							</span>
 						</p>
 						<p>
 							CB Physical Address :
@@ -64,12 +78,17 @@ const CbCommissioningJsx = props => {
 						<p>
 							CB linked to a meter? :
 							<span>
-								{trn.astData[astCat][astCatIndex].cbInstallation.linkedMeter.isLinkedToMeter}
+								{
+									trn.astData[astCat][astCatIndex].cbInstallation.linkedMeter
+										.isLinkedToMeter
+								}
 							</span>
 						</p>
 						<p>
 							CB meter? :
-							<span>{trn.astData[astCat][astCatIndex].cbInstallation.linkedMeter.meterNo}</span>
+							<span>
+								{trn.astData[astCat][astCatIndex].cbInstallation.linkedMeter.meterNo}
+							</span>
 						</p>
 					</div>
 				</div>

@@ -12,6 +12,7 @@ import FormHeader4 from "../formComponents/formHeaders/FormHeader4";
 import { formSelectOptions } from "../../../utils/utils";
 
 const ErfsForm = props => {
+	console.log(`props`, props);
 	const { formData } = props;
 	const { closeModal } = useModal();
 	// console.log(`formData`, formData);
@@ -120,16 +121,16 @@ const ErfsForm = props => {
 													<div className="half-row-50-50">
 														<FormikControl
 															control="input"
-															type="text"
+															type="number"
 															label="gps latitude"
-															name="gps.latitude"
+															name="address.gps.latitude"
 															placeholder="Gps lat"
 														/>
 														<FormikControl
 															control="input"
-															type="text"
+															type="number"
 															label="gps longitude"
-															name="gps.longitude"
+															name="address.gps.longitude"
 															placeholder="Gps lon"
 														/>
 													</div>

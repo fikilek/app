@@ -70,7 +70,18 @@ const BoxInspectionJsx = props => {
 						<p>
 							Box gps location :
 							<span>
-								{trn.astData[astCat][astCatIndex][`${astCat}Installation`].astAdr.gps}
+								Lat:{" "}
+								{
+									trn.astData[astCat][astCatIndex][`${astCat}Installation`].astAdr.gps
+										.Latitude
+								}
+							</span>
+							<span>
+								Lng:{" "}
+								{
+									trn.astData[astCat][astCatIndex][`${astCat}Installation`].astAdr.gps
+										.Longitude
+								}
 							</span>
 						</p>
 						<div>

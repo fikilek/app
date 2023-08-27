@@ -1,11 +1,11 @@
-import { ErrorMessage, Field } from "formik";
+import { Field } from "formik";
 import './Formik.css'
 import React from "react";
-import TextError from "../formError/TextError";
+// import TextError from "../formError/TextError";
 
 
 const FormikButton = props => {
-	// console.log(`props`, props);
+	console.log(`props`, props);
 	const { label, name, ...rest } = props;
 
 	const handleClick = (e, props) => {

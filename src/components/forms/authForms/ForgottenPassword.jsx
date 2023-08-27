@@ -3,6 +3,8 @@ import "../forms.css";
 import { MdEmail } from "react-icons/md";
 import irepsImage2 from "../../../images/irepsImage1.jpg";
 import { ModalContext } from "../../../contexts/ModalContext";
+import AuthFormHeader from "./AuthFormHeader";
+import useModal from "../../../hooks/useModal";
 
 const ForgottenPassword = () => {
 	const inputRef = useRef();
@@ -10,21 +12,14 @@ const ForgottenPassword = () => {
 	// Fpw is the Forgotten Password section
 	const [emailFpw, setEmailFpw] = useState("");
 
-	// this section sontrols the display of the modal
-	const { componentToOpen, setComponentToOpen, setModalOpened } =
-		useContext(ModalContext);
+	const { openModal, closeModal } = useModal();
 
 	const handleModalCloseBtn = e => {
-		setModalOpened(false);
-		setComponentToOpen("");
+		closeModal();
 	};
 
-	const handleSignupSignin = e => {
-		setComponentToOpen({
-			...componentToOpen,
-			name: e.target.id,
-		});
-		setModalOpened(true);
+	const handleClick = e => {
+		openModal({ modalName: e.target.id });
 	};
 
 	const handleClear = e => {
@@ -45,19 +40,7 @@ const ForgottenPassword = () => {
 
 	return (
 		<div className="fpw-container">
-			{/* fpw header */}
-			<div className="fpw-header">
-				<div className="fpw-header-title-img">
-					<h1 className="fpw-header-title">Forgotten Password</h1>
-					<img src={irepsImage2} alt="ireps fpw images" className="fpw-img" />
-				</div>
-				<div className="fpw-header-close-btn" onClick={handleModalCloseBtn}>
-					<div className="btn-div" id="btn-div">
-						<button>X</button>
-					</div>
-				</div>
-			</div>
-
+			<AuthFormHeader headerTitleName={"Forgoten Password"} />
 			{/* fpw form */}
 			<form className="fpw-form" onSubmit={handleSubmit}>
 				<div className="form-field form-field-email">
@@ -88,7 +71,7 @@ const ForgottenPassword = () => {
 				<div className="fpw-footer-signup">
 					<a
 						href="#"
-						onClick={handleSignupSignin}
+						onClick={handleClick}
 						className="fpw-footer-signup-link"
 						id="signup"
 					>
@@ -98,7 +81,7 @@ const ForgottenPassword = () => {
 				<div className="fpw-footer-remembered-pwd">
 					<a
 						href="#"
-						onClick={handleSignupSignin}
+						onClick={handleClick}
 						className="fpw-footer-remembered-pwd-link"
 						id="signin"
 					>

@@ -11,6 +11,7 @@ header nav .nav-list {
 	justify-content: space-between;
 	width: 100%;
 	visibility: visible;
+	list-style: none;
 }
 
 header nav .nav-list li {
@@ -25,6 +26,7 @@ header nav .nav-list a {
 	text-transform: uppercase;
 	transition: color 650ms;
 	border-radius: 1rem;
+	text-decoration: none;
 }
 
 header nav .nav-list .nav-list-left,
@@ -42,7 +44,7 @@ header nav .nav-list .nav-list-left li {
 	/* width: 8rem; */
 }
 
-header nav .nav-list .nav-list-left > li {
+header nav .nav-list .nav-list-left>li {
 	width: 8rem;
 }
 
@@ -50,7 +52,7 @@ header nav .nav-list .nav-list-right {
 	justify-content: flex-end;
 }
 
-header nav .nav-list .nav-list-right > li {
+header nav .nav-list .nav-list-right>li {
 	/* width: 12rem; */
 }
 
@@ -64,7 +66,7 @@ header nav .nav-list a:hover {
 	background-color: rgb(232, 249, 255);
 }
 
-header nav .nav-list li:hover > .sub-menu {
+header nav .nav-list li:hover>.sub-menu {
 	top: 5rem;
 	opacity: 1;
 	visibility: visible;
@@ -115,7 +117,7 @@ header nav .sub-menu {
 	transition: all 650ms ease;
 }
 
-header nav .nav-list-right li > .sub-menu {
+header nav .nav-list-right li>.sub-menu {
 	right: 0;
 	width: 12rem;
 }
@@ -163,7 +165,7 @@ header nav .sub-menu .sub-menu::before {
 	border-right-color: #eb3007;
 }
 
-header nav .sub-menu li:hover > .sub-menu {
+header nav .sub-menu li:hover>.sub-menu {
 	top: 0;
 	left: 100%;
 }
@@ -177,7 +179,7 @@ header nav .nav-list-left .sub-menu .sub-menu a {
 }
 
 /* ONLY sub-menu sub-menu-right */
-header nav .nav-list-right li > .sub-menu li .sub-menu {
+header nav .nav-list-right li>.sub-menu li .sub-menu {
 	top: 0;
 	left: -34rem;
 	width: 17rem;
@@ -187,11 +189,11 @@ header nav .nav-list-right li > .sub-menu li .sub-menu {
 	display: block;
 }
 
-header nav .nav-list-right li > .sub-menu li:hover .sub-menu {
+header nav .nav-list-right li>.sub-menu li:hover .sub-menu {
 	left: -17rem;
 }
 
-header nav .nav-list-right li > .sub-menu li .sub-menu::before {
+header nav .nav-list-right li>.sub-menu li .sub-menu::before {
 	top: 1rem;
 	left: 17rem;
 	border: 1.2rem solid transparent;
@@ -272,7 +274,7 @@ header nav .nav-list-right li > .sub-menu li .sub-menu::before {
 		width: 18.5rem;
 	}
 
-	header nav .nav-list-right li > ul.sub-menu li ul.sub-menu {
+	header nav .nav-list-right li>ul.sub-menu li ul.sub-menu {
 		top: 0;
 		left: -34rem;
 		width: 18.5rem;
@@ -280,7 +282,7 @@ header nav .nav-list-right li > .sub-menu li .sub-menu::before {
 		border-right: none;
 	}
 
-	header nav .nav-list li:hover > .sub-menu {
+	header nav .nav-list li:hover>.sub-menu {
 		opacity: 1;
 		visibility: visible;
 		max-height: initial;

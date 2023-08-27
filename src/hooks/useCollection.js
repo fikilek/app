@@ -107,7 +107,7 @@ const useCollection = (ml1, ml2, ml3) => {
 				setData(results);
 			},
 			err => {
-				console.log(`firestore err`, err.message);
+				// console.log(`firestore err`, err.message);
 				setIsPending(false);
 				setError(err.message);
 			}

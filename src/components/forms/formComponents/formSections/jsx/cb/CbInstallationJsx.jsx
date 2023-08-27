@@ -4,8 +4,8 @@ import FormikControl from "../../../formik/FormikControl";
 import FormSectionTrn from "../../../formSection/FormSectionTrn";
 
 const CbInstallation = props => {
-  const { ast, trn, astCat, astCatIndex } = props;
-  
+	const { ast, trn, astCat, astCatIndex } = props;
+
 	return (
 		<FormSectionTrn trn={trn} ast={ast} astCat={astCat} astCatIndex={astCatIndex}>
 			<div className="ast">
@@ -71,20 +71,33 @@ const CbInstallation = props => {
 				</div>
 
 				<div className="row-4 ast-row">
-					<FormikControl
-						control="input"
-						type="text"
-						label="exact/nearest cb address"
-						name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.adr`}
-						placeholder="exact/nearest address"
-					/>
-					<FormikControl
-						control="input"
-						type="text"
-						label="box lat/lon"
-						name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps`}
-						placeholder="Exact Gps"
-					/>
+					<div>
+						<FormikControl
+							control="input"
+							type="text"
+							label="exact/nearest cb address"
+							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.adr`}
+							placeholder="exact/nearest address"
+						/>
+					</div>
+					<div className="half-row-50-50">
+						<FormikControl
+							readOnly={"true"}
+							control="input"
+							type="text"
+							label="gps lat"
+							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps.lat`}
+							placeholder="Exact Gps Lat"
+						/>
+						<FormikControl
+							readOnly={"true"}
+							control="input"
+							type="text"
+							label="gps lng"
+							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps.lng`}
+							placeholder="Exact Gps Lng"
+						/>
+					</div>
 				</div>
 			</div>
 		</FormSectionTrn>

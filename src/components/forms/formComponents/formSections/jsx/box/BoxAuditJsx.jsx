@@ -46,12 +46,20 @@ const BoxAuditJsx = props => {
 						{/* TODO: figure out how to display gps */}
 
 						<FormikControl
-							// readOnly={true}
+							readOnly={true}
 							control="input"
 							type="text"
-							label="box lat/lon"
-							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps`}
-							placeholder="Exact Gps"
+							label="box lat"
+							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps.Latitude`}
+							placeholder="Exact Gps Lat"
+						/>
+						<FormikControl
+							readOnly={true}
+							control="input"
+							type="text"
+							label="box lng"
+							name={`astData[${astCat}][${astCatIndex}].trnData.astAdr.gps.Longitude`}
+							placeholder="Exact Gps Lng"
 						/>
 					</div>
 					<div className="row-3 ast-row">

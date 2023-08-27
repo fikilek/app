@@ -10,6 +10,7 @@ import FormBtn from "../formComponents/formBtn/FormBtn";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthContext from "../../../hooks/useAuthContext";
+import AuthFormHeader from "./AuthFormHeader";
 
 const initSigninData = {
 	email: "",
@@ -79,19 +80,7 @@ const Signin = () => {
 
 	return (
 		<div className="signin-container">
-			{/* signin header */}
-			<div className="signin-header">
-				<div className="signin-header-title-img">
-					<h1 className="signin-header-title">Sign in</h1>
-					<img src={irepsImage2} alt="ireps signin images" className="signin-img" />
-				</div>
-				<div className="signin-header-close-btn" onClick={handleModalCloseBtn}>
-					<div className="btn-div" id="btn-div">
-						<button>X</button>
-					</div>
-				</div>
-			</div>
-
+			<AuthFormHeader headerTitleName={"Signin"} />
 			{/* signin form */}
 			<form className={`signin-form`} onSubmit={handleSigninSubmit}>
 				<div className="form-field form-field-email">
@@ -138,13 +127,13 @@ const Signin = () => {
 
 				<div className="form-btns">
 					<button
-						type="button"
+						type="reset"
 						className="form-btn Clear"
 						onClick={e => setUserCredentials(initSigninData)}
 					>
-						Clear
+						Reset
 					</button>
-					<FormBtn isPending={isPending} />
+					<FormBtn isPending={isPending} btnName={'Signup'} />
 				</div>
 			</form>
 

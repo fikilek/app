@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { FaRubleSign } from "react-icons/fa";
-import "./header.css";
+import "./Header.css";
 import { NavLink, Outlet } from "react-router-dom";
 import SignedInMenu from "../../components/navbar/signedIn/SignedInMenu";
 import SignedOutMenu from "../../components/navbar/signedOut/SignedOutMenu";
@@ -18,7 +18,7 @@ const Header = () => {
 	// console.log(`user`, user);
 
 	return (
-		<div className="app-container">
+		<div className="header-container">
 			<header>
 				{/* <div className="container"> */}
 				<nav>

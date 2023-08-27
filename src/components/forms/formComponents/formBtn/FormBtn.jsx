@@ -1,5 +1,4 @@
 import React from "react";
-import { GiTennisBall } from "react-icons/gi";
 import { ClipLoader } from "react-spinners";
 
 const FormBtn = ({ isPending, btnName, disabled }) => {

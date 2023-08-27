@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { nanoid } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
-import { timestamp } from "../../firebaseConfig/fbConfig";
+import { timestamp, db } from "../../firebaseConfig/fbConfig";
 
 const astNextState = {
 	meter: {
@@ -524,10 +524,6 @@ const newErfsFormData = {
 		erfType: "", //['formal', 'informal' ]
 	},
 	erfNo: "",
-	gps: {
-		latitude: "",
-		longitude: "",
-	},
 	standUse: "",
 	address: {
 		systemAdr: "",
@@ -539,6 +535,10 @@ const newErfsFormData = {
 		dm: "",
 		province: "EC",
 		country: "",
+		gps: {
+			latitude: "",
+			longitude: "",
+		},
 	},
 	customer: {
 		cartegory: "", // [owner'', 'occupant']

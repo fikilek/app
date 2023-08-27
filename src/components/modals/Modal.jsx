@@ -37,7 +37,7 @@ const Modal = () => {
 	// console.log(`modalName`, modalName)
 	// console.log(`payload`, payload);
 
-	const handleClick = e => {
+	const modalBeckgroundClick = e => {
 		// console.log(`modal background clicked`, e.target);
 		if (e.target.id === "modal-background") {
 			// console.log(`closing modal`)
@@ -60,7 +60,7 @@ const Modal = () => {
 			<div
 				className="modal-background"
 				id="modal-background"
-				onClick={handleClick}
+				onClick={modalBeckgroundClick}
 			>
 				<div className="modal-payload">
 					<div className="modal-body">

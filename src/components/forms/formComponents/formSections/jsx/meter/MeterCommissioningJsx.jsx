@@ -71,14 +71,10 @@ const MeterCommissioningJsx = props => {
 							</span>
 						</p>
 						<p>
-							Kep Pad Address & Gps :
+							Kep Pad Address:
 							<span>
 								{trn.astData[astCat][astCatIndex].meterInstallation.astAdr.adr}
 							</span>{" "}
-							{"  |  "}
-							<span>
-								{trn.astData[astCat][astCatIndex].meterInstallation.astAdr.gps}
-							</span>
 						</p>
 						<p>
 							Voltage Reading :

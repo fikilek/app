@@ -61,13 +61,13 @@ const getFormState = (astVerdictArray, trn) => {
 	return "valid";
 };
 
-const getGps = (astCat, astCatIndex, trn) => {
-	const lat =
-		trn.astData[astCat][astCatIndex].trnData.boxInstallation.astAdr.gps.lat;
-	const lon =
-		trn.astData[astCat][astCatIndex].trnData.boxInstallation.astAdr.gps.lon;
-	return { lat, lon };
-};
+// const getGps = (astCat, astCatIndex, trn) => {
+// 	const lat =
+// 		trn.astData[astCat][astCatIndex].trnData.boxInstallation.astAdr.gps.lat;
+// 	const lon =
+// 		trn.astData[astCat][astCatIndex].trnData.boxInstallation.astAdr.gps.lon;
+// 	return { lat, lon };
+// };
 
 const updateTrn = (validationPath, value, trn, setTrn) => {
 	// console.log(`validationPath`, validationPath)
@@ -184,7 +184,7 @@ const trnFormValidationReducer = (state, action) => {
 };
 
 export const useTrnForm = (trn, setTrn) => {
-	// console.log(`trn`, trn);
+	console.log(`trn`, trn);
 	// console.log(`active`, active);
 	const alreadyRun = useRef(false);
 	// console.log(`alreadyRun`, alreadyRun);
@@ -197,7 +197,7 @@ export const useTrnForm = (trn, setTrn) => {
 	const [validationObject, dispatch] = useReducer(trnFormValidationReducer, {
 		astData: {},
 	});
-	// console.log(`validationObject`, validationObject);
+	console.log(`validationObject`, validationObject);
 
 	const [formSections, setFormSections] = useState([]);
 	// console.log(`formSections`, formSections);
@@ -747,7 +747,7 @@ export const useTrnForm = (trn, setTrn) => {
 	};
 
 	const fieldValidation = (validationPath, value) => {
-		// console.log(`fieldValidation method-------------------------`);
+		console.log(`fieldValidation method-------------------------`);
 		// console.log(`validationPath`, validationPath);
 		// console.log(`value`, value);
 		// console.log( `validationObject`, validationObject);
@@ -1112,7 +1112,7 @@ export const useTrnForm = (trn, setTrn) => {
 
 	useEffect(() => {
 		// console.log(`useTrnForm mounting1`, validationObject);
-		// console.log(`creating validationObject`);
+		// console.log(`creating validationObject`, validationObject);
 		createValidationObj();
 		return () => {
 			// console.log(`useTrnForm unmounting1`);

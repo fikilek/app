@@ -75,9 +75,9 @@ const MeterInspectionJsx = props => {
 							<span>
 								{trn.astData[astCat][astCatIndex].meterInstallation.astAdr.adr}
 							</span>{" "}
-							{"  |  "}
 							<span>
-								{trn.astData[astCat][astCatIndex].meterInstallation.astAdr.gps}
+								{trn.astData[astCat][astCatIndex].meterInstallation.astAdr.gps.lat}{" / "}
+								{trn.astData[astCat][astCatIndex].meterInstallation.astAdr.gps.lng}
 							</span>
 						</p>
 						<p>

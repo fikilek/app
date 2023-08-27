@@ -1,4 +1,4 @@
-.app-container {
+.header-container {
 	position: fixed;
 	margin: 0 auto;
 	padding: 0 0.5rem;
@@ -63,7 +63,8 @@ header .menu-icons svg {
 	overflow: auto;
 }
 
-.loading-spinner, .test-nav {
+.loading-spinner,
+.test-nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;

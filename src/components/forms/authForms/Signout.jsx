@@ -39,7 +39,7 @@ const Signout = () => {
 	};
 
 	return (
-		<div className="signin-container">
+		<div className="auth-form-container">
 			<div className="signout">
 				<h1>Thanks for using iREPS</h1>
 				<div className="signout-confirm-btns">

@@ -16,7 +16,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			voltageReading: {
 				phase1: "",
@@ -65,7 +68,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			voltageReading: {
 				phase1: "",
@@ -86,44 +92,6 @@ export const fsTrnData = {
 			},
 			photos: ["Photo 1", "Photo 2"],
 		},
-
-		// auditData: {
-		// 	location: {
-		// 		premises: "", //inside/outside
-		// 		insideBox: "", //yes/no
-		// 		exactLocation: "", //['pole top', pole bottom', 'stand alone', 'other']
-		// 	},
-		// 	serviceConnection: {
-		// 		connection: "",
-		// 	},
-		// 	keyPad: {
-		// 		isThereKeyPad: "",
-		// 		serialNo: "",
-		// 		kyPadPhotos: ["Photo 1 url", "Photo 2 url"],
-		// 	},
-		// 	astAdr: {
-		// 		adr: "",
-		// 		gps: "",
-		// 	},
-		// 	voltageReading: {
-		// 		phase1: "",
-		// 		phase2: "",
-		// 		phase3: "",
-		// 		voltageReadingPhotos: ["Photo 1 url", "Photo 2 url"],
-		// 	},
-		// 	linkedCb: {
-		// 		isThereCb: "",
-		// 		cbSize: "",
-		// 	},
-		// 	linkedSeal: {
-		// 		isThereSeal: "",
-		// 		sealNo: "",
-		// 	},
-		// 	confirmations: {
-		// 		confirmTrn: "not done",
-		// 	},
-		// 	photos: ["Photo 1", "Photo 2"],
-		// },
 
 		inspectionData: {
 			meterPresent: "",
@@ -218,7 +186,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			linkedMeter: {
 				isLinkedToMeter: "",
@@ -247,7 +218,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			linkedMeter: {
 				isLinkedToMeter: "",
@@ -258,14 +232,6 @@ export const fsTrnData = {
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
-
-		// auditData: {
-		// 	linkedMeterNo: "",
-		// 	confirmations: {
-		// 		confirmTrn: "not done",
-		// 	},
-		// 	photos: ["Photo 1 url", "Photo 2 url"],
-		// },
 
 		inspectionData: {
 			cbPresent: "",
@@ -323,7 +289,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			boxLock: {
 				lockable: "",
@@ -351,7 +320,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			boxLock: {
 				lockable: "",
@@ -363,26 +335,6 @@ export const fsTrnData = {
 			},
 			photos: ["Box Photo 1", "Box Photo 2", "Box Photo 3"],
 		},
-
-		// auditData: {
-		// 	location: {
-		// 		exactLocation: "", //['pole top', pole bottom', 'stand alone', 'other']
-		// 		premises: "",
-		// 	},
-		// 	astAdr: {
-		// 		adr: "",
-		// 		gps: "",
-		// 	},
-		// 	boxLock: {
-		// 		lockable: "",
-		// 		isLocked: "",
-		// 	},
-		// 	scns: [{ meter: "", cb: "", erfNo: "" }],
-		// 	confirmations: {
-		// 		confirmTrn: "not done",
-		// 	},
-		// 	photos: ["Box Photo 1", "Box Photo 2", "Box Photo 3"],
-		// },
 
 		inspectionData: {
 			location: {
@@ -414,7 +366,10 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			confirmations: {
 				confirmTrn: "choose",
@@ -436,39 +391,16 @@ export const fsTrnData = {
 			},
 			astAdr: {
 				adr: "",
-				gps: "",
+				gps: {
+					lat: "",
+					lng: "",
+				},
 			},
 			confirmations: {
 				confirmTrn: "choose",
 			},
 			photos: ["Photo 1 url", "Photo 2 url"],
 		},
-
-		// auditData: {
-		// 	location: {
-		// 		premises: "", //['inside', 'outside']
-		// 	},
-		// 	poleCondition: {
-		// 		leaning: "",
-		// 		health: "",
-		// 	},
-		// 	astAdr: {
-		// 		adr: "",
-		// 		gps: "",
-		// 	},
-		// 	streetLamp: {
-		// 		hasAttachedLamp: "",
-		// 		lampNo: "",
-		// 	},
-		// 	box: {
-		// 		hasAttacheBox: "",
-		// 		boxNo: "",
-		// 	},
-		// 	confirmations: {
-		// 		confirmTrn: "not done",
-		// 	},
-		// 	photos: ["Photo 1 url", "Photo 2 url"],
-		// },
 
 		inspectionData: {
 			poleLeaning: "",
